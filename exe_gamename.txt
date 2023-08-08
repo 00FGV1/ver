@@ -1,5 +1,6 @@
 DeadIsland-Win64-Shipping.exe
 RobloxStudioBeta.exe
+PAYDAY3-Win64-Shipping.exe
 RobloxPlayerBeta.exe
 WAR.exe
 X-Plane.exe
@@ -12,6 +13,7 @@ Overture.exe
 oolite.exe
 NEOScavenger.exe
 RocketLeague.exe
+Celeste.exe
 Gnomoria.exe
 Audiosurf2.exe
 Application-x64.exe
@@ -77,8 +79,6 @@ Polynomial.exe
 PlanetSide2_x64.exe
 payday2_win32_release.exe
 payday2_win64_release.exe
-payday3_win32_release.exe
-payday3_win64_release.exe
 PAC-MAN.exe
 nuclearthrone.exe
 MKKE.exe
