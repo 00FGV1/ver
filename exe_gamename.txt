@@ -148,6 +148,7 @@ FullMojo.exe
 final_exam.exe
 eurotrucks2.exe
 DungeonSouls.exe
+PaliaClient-Win64-Shipping.exe
 dontstarve_steam.exe
 DiscoDodgeball.exe
 dirt3_game.exe
