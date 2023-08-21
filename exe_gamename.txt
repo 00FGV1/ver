@@ -195,3 +195,5 @@ FactoryGame-Win64-Shipping.exe
 VampireSurvivors.exe
 DSPGAME.exe
 eso64.exe
+ShippingPC-RealmGame.exe
+Realm.exe
