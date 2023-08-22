@@ -56,10 +56,13 @@ SunlessSea.exe
 starwarsbattlefront.exe
 StarDrive.exe
 SpaceChem.exe
+Maine-WinGDK-Shipping.exe
 sots2.exe
 SkullGirls.exe
 SinsofaSolarEmpireRebellion.exe
 ShooterGame.exe
+ShooterGame_BE.exe
+ShooterGameServer.exe
 Shogun2.exe
 shatteredplanet.exe
 sh4.exe
