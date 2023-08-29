@@ -17,9 +17,13 @@ Celeste.exe
 Gnomoria.exe
 Audiosurf2.exe
 Application-x64.exe
+r5apex.exe
+r5apex_dx12.exe
+Waven.exe
 AIWar.exe
 FlagAC4BFSP.exe
 TalesofZestiria.exe
+Starfield.exe
 UE4-Win64-Test.exe
 THUG.exe
 Minecraft.exe
@@ -99,6 +103,7 @@ eu4.exe
 EndlessLegend.exe
 ed6_win.exe
 DXHRDC.exe
+gamelaunchhelper.exe
 DwarfFortress.exe
 DustAET.exe
 DungeonoftheEndless.exe
