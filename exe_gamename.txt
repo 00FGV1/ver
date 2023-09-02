@@ -9,6 +9,8 @@ Tidalis.exe
 SublevelZero.exe
 sspace.exe
 Pandora.exe
+BF2042Trial.exe
+BF2042.exe
 Overture.exe
 oolite.exe
 NEOScavenger.exe
