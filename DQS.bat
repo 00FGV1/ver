@@ -20,6 +20,10 @@ color 7
 cls
 
 SET HTO=102
+SET MDQS=ERR
+SET KDQS=ERR
+SET WPS=ERR
+
 
 if /i "%~1"=="/4" (
 	SET HTO=98
