@@ -122,7 +122,7 @@ IF %WPS%==0x14 SET AF30=%bmagenta%
 
 cls
 echo.
-echo   MouseDataQueueSize      KeyboardDataQueueSize      Win32PrioritySeparation
+echo   MouseDataQueueSize      KeyboardDataQueueSize      Win32PrioritySeparation ³ MDQS=%bmagenta%%MDQS%%defcolor% KDQS=%bmagenta%%KDQS%%defcolor% WPS=%bmagenta%%WPS%%defcolor%
 echo  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
 echo  ³[1] %AF1%10%defcolor%            ³    ³[10] %AF10%10%defcolor%              ³    ³[19] %AF19%2A%defcolor% Hex = Short ³ Fixed    ³ High foreground boost  ³
 echo  ³[2] %AF2%12%defcolor%            ³    ³[11] %AF11%12%defcolor%              ³    ³[20] %AF20%29%defcolor% Hex = Short ³ Fixed    ³ Medium foreground boost³
