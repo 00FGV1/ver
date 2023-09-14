@@ -14,6 +14,8 @@ BF2042.exe
 Overture.exe
 oolite.exe
 NEOScavenger.exe
+Grounded.exe
+SpaceEngineers.exe
 RocketLeague.exe
 Celeste.exe
 Gnomoria.exe
@@ -169,6 +171,7 @@ TOXIKK.exe
 ktane.exe
 FortniteClient-Win64-Shipping.exe
 csgo.exe
+NMS.exe
 Dofus.exe
 ACValhalla.exe
 factorio.exe
