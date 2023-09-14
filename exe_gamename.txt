@@ -222,7 +222,6 @@ kofxiii.exe
 Hero_Siege.exe
 Hammerwatch.exe
 Guac.exe
-DE.exe
 FullMojo.exe
 final_exam.exe
 VALORANT.exe
