@@ -76,7 +76,6 @@ TheyBleedPixelsPC.exe
 Terraria.exe
 MCC-Win64-Shipping.exe
 SuperMeatBoy.exe
-Control.exe
 superhexagon.exe
 SunlessSea.exe
 starwarsbattlefront.exe
