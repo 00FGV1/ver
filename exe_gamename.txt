@@ -10,6 +10,7 @@ SublevelZero.exe
 sspace.exe
 witcher3.exe
 Pandora.exe
+PAYDAY3Client-Win64-Shipping.exe
 BF2042Trial.exe
 BF2042.exe
 Overture.exe
