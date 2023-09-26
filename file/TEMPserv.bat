@@ -196,13 +196,6 @@ if exist "%ProgramData%\Microsoft\Diagnosis\ETLLogs\AutoLogger\AutoLogger-Diagtr
     echo "Main telemetry file does not exist. Good!"
 )
 cls
-echo --- Clear Event Logs in Event Viewer
-wevtutil sl Microsoft-Windows-LiveId/Operational /ca:O:BAG:SYD:(A;;0x1;;;SY)(A;;0x5;;;BA)(A;;0x1;;;LA)
-for /f "tokens=*" %%i in ('wevtutil.exe el') DO (
-    echo Deleting event log: "%%i"
-    wevtutil.exe cl %1 "%%i"
-)
-cls
 echo --- Clean Windows Defender scan history
 del "%ProgramData%\Microsoft\Windows Defender\Scans\History\" /s /f /q
 cls
@@ -281,5 +274,11 @@ del /f /q "%SystemRoot%\Logs\SIH\*"
 cls
 echo --- Windows Update Logs
 del /f /q "%SystemRoot%\Traces\WindowsUpdate\*"
-
+cls
+echo --- Clear Event Logs in Event Viewer
+wevtutil sl Microsoft-Windows-LiveId/Operational /ca:O:BAG:SYD:(A;;0x1;;;SY)(A;;0x5;;;BA)(A;;0x1;;;LA)
+for /f "tokens=*" %%i in ('wevtutil.exe el') DO (
+    echo Deleting event log: "%%i"
+    wevtutil.exe cl %1 "%%i"
+)
 exit /b 0
