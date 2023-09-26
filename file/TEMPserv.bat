@@ -281,4 +281,4 @@ for /f "tokens=*" %%i in ('wevtutil.exe el') DO (
     echo Deleting event log: "%%i"
     wevtutil.exe cl %1 "%%i"
 )
-exit /b 0
+exit
