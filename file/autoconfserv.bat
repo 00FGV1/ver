@@ -28,25 +28,21 @@ if %errorlevel% neq 0 (
 :REVERIF
 cls
 IF EXIST cli.c goto :VERIF1
-ECHO Le fichier "cli.c" est manquant. Le script va le reinstaller.
 curl -g -k -L -# -o "cli.c" "https://raw.githubusercontent.com/00FGV1/ver/main/file/cli.c" >nul 2>&1
 ping -n 2 -w 500 127.0.0.1 >nul
 goto :REVERIF
 :VERIF1
 IF EXIST es.exe goto :VERIF2
-ECHO Le fichier "es.exe" est manquant. Le script va le reinstaller.
 curl -g -k -L -# -o "es.exe" "https://github.com/00FGV1/ver/raw/main/file/es.exe" >nul 2>&1
 ping -n 5 -w 2000 127.0.0.1 >nul
 goto :REVERIF
 :VERIF2
 IF EXIST Everything.exe goto :VERIF4
-ECHO Le fichier "Everything.exe" est manquant. Le script va le reinstaller.
 curl -g -k -L -# -o "Everything.exe" "https://github.com/00FGV1/ver/raw/main/file/Everything.exe" >nul 2>&1
 ping -n 5 -w 2000 127.0.0.1 >nul
 goto :REVERIF
 :VERIF4
 IF EXIST Everything.lng goto :VERIF5
-ECHO Le fichier "Everything.lng" est manquant. Le script va le reinstaller.
 curl -g -k -L -# -o "Everything.lng" "https://github.com/00FGV1/ver/raw/main/file/Everything.lng" >nul 2>&1
 ping -n 2 -w 500 127.0.0.1 >nul
 goto :REVERIF
@@ -89,22 +85,6 @@ IF EXIST exe_gamename.txt DEL exe_gamename.txt
 IF EXIST Everything.ini DEL Everything.ini
 Start "" "Everything.exe" -startup
 cls
-
-echo ------------------------------------------------------------
-echo  Ce script configure automatiquement les executables des
-echo  jeux pris en charge. Le script prend en moyenne %red%5 minutes%white%
-echo  sur les ordinateurs de performances moyennes.
-echo.
-echo  La liste des executables de jeu optimises sera presentee
-echo  ci-dessous au fur et a mesure qu'ils seront detectes.
-echo.
-echo  A la fin du script, cette fenetre se fermera et le fichier
-echo  journal (.log) s'ouvrira pour afficher les resultats.
-echo.
-echo  Consulter la liste des jeux pris en charge :
-echo  %indigo%https://github.com/00FGV1/ver/blob/main/exe_gamename.txt%white%
-echo ------------------------------------------------------------
-
 IF exist "exe_gamename.txt" del "exe_gamename.txt"
 curl -g -k -L -# -o "exe_gamename.txt" "https://raw.githubusercontent.com/00FGV1/ver/main/exe_gamename.txt" >nul 2>&1
 
@@ -125,21 +105,6 @@ set "minutes="
 set "secondes="
 
 cls
-
-echo ------------------------------------------------------------
-echo  Ce script configure automatiquement les executables des
-echo  jeux pris en charge. Le script prend en moyenne %red%5 minutes%white%
-echo  sur les ordinateurs performants.
-echo.
-echo  La liste des executables de jeu optimises sera presentee
-echo  ci-dessous au fur et a mesure qu'ils seront detectes.
-echo.
-echo  A la fin du script, cette fenetre se fermera et le fichier
-echo  journal (.log) s'ouvrira pour afficher les resultats.
-echo.
-echo  Consulter la liste des jeux pris en charge :
-echo  %indigo%https://github.com/00FGV1/ver/blob/main/exe_gamename.txt%white%
-echo ------------------------------------------------------------
 
 for /f "tokens=*" %%i in (%fileList%) do (
     for %%j in (C D E F G H I J K L M N O P Q R S T U V W X Y Z) do (
@@ -174,13 +139,9 @@ set "heure=%TIME:~0,2%"
 set "minutes=%TIME:~3,2%"
 set "secondes=%TIME:~6,2%"
 
-echo.>>result.log
+echo.>>QTS-SERVICE.log
 echo  End : %heure%:%minutes%:%secondes%>>result.log
 
-echo.
-echo ------------------------------------------------------------
-echo  Le script se fermera dans 10 sec et ouvrira le fichier log
-echo ------------------------------------------------------------
 taskkill /IM Everything.exe /F >nul
 ping -n 02 -w 1000 127.0.0.1 >nul
 taskkill /IM Everything.exe /F
