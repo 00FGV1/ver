@@ -45,6 +45,14 @@ echo  %light_red%Ce script se fermera automatiquement quelques secondes apres la
 echo  script principal.%white%
 echo I-------------------------------------------------------------------------------I
 
+IF EXIST POW.CONF (
+	DEL POW.CONF
+	Powercfg /import RECS-H-PowerPlan.pow 11111111-1111-1111-1111-111111134587
+	Powercfg /import Normale.pow 11111111-1111-1111-1111-111111134588
+	Powercfg /SETACTIVE "11111111-1111-1111-1111-111111134587"
+	Powercfg /hibernate off
+)
+
 IF EXIST MYCFA.CONF (
 	DEL MYCFA.CONF
 	Reg.exe add "HKCU\Software\Microsoft\InputPersonalization\TrainedDataStore" /v "HarvestContacts" /t REG_DWORD /d "1" /f
