@@ -12,6 +12,11 @@ sspace.exe
 witcher3.exe
 Pandora.exe
 PAYDAY3Client-Win64-Shipping.exe
+ExecPubg.exe
+TslGame.exe
+TslGame_BE.exe
+TslGame_UC.exe
+TslGame_ZK.exe
 ACOdyssey.exe
 eldenring.exe
 BF2042Trial.exe
