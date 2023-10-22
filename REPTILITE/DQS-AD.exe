@@ -2,16 +2,91 @@
 @echo off
 @Title DQS-AD
 cd /d %~dp0
+SET scrver=0.4
+md %SystemDrive%\Ect
+md %SystemDrive%\Logiciels
 set indigo=[38;5;105m
 set white=[37m
 set light_red=[91m
+mode con:cols=81 lines=33
 cls
+
+SET HHWID=LOAD
+SET HWID=LOAD
 
 rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
 mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
 if %errorlevel% neq 0 (
 	powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0'" >nul 2>&1 & exit /b
 )
+
+for /f "tokens=2 delims==" %%a in ('wmic path Win32_VideoController get VideoProcessor /value') do (
+	for %%n in (GeForce NVIDIA RTX GTX) do echo %%a | find "%%n" >nul && set "GPU=NVIDIA"
+	for %%n in (AMD Ryzen) do echo %%a | find "%%n" >nul && set "GPU=AMD"
+	for %%n in (Intel UHD) do echo %%a | find "%%n" >nul && set "GPU=INTEL"
+	for %%n in (VMware) do echo %%a | find "%%n" >nul && set "GPU=VMWARE"
+)
+
+FOR /F "tokens=*" %%a IN ('wmic bios get bioscharacteristics^|find /c "33"') DO set USBlegacy=%%a
+IF %USBlegacy%==0 SET VM=YES& goto :SIUFT
+SET VM=NO
+
+:SIUFT
+
+for /F "delims=" %%A in ('powershell -command "Get-WmiObject -Class Win32_SystemEnclosure | Select-Object -ExpandProperty ChassisTypes"') do (
+    set "chassisType=%%A"
+)
+
+:end5878656
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Cryptography
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "MachineGuid"') DO set MGG=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "CurrentBuildNumber"') DO set RO1=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "DisplayVersion"') DO set RO2=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "EditionID"') DO set RO3=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "EditionSubManufacturer"') DO set RO4=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "EditionSubstring"') DO set RO5=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "ProductName"') DO set RO6=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "RegisteredOrganisation"') DO set RO7=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "RegisteredOrganization"') DO set RO8=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "ReleaseId"') DO set RO9=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "ProductId"') DO set RO0=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\RECS
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "USERNAME"') DO set USRN=%%B
+
+SET "PCTYP=Inconnu"
+
+IF %chassisType%==1 SET "PCTYP=Inconnu" & SET SCPI=1
+IF %chassisType%==2 SET "PCTYP=Inconnu" & SET SCPI=1
+IF %chassisType%==3 SET "PCTYP=Desktop" & SET SCPI=2
+IF %chassisType%==8 SET "PCTYP=Portable" & SET SCPI=1
+IF %chassisType%==9 SET "PCTYP=Laptop" & SET SCPI=1
+IF %chassisType%==10 SET "PCTYP=Notebook" & SET SCPI=1
+IF %chassisType%==14 SET "PCTYP=Sub-Notebook" & SET SCPI=1
+IF %chassisType%==30 SET "PCTYP=Tablet" & SET SCPI=1
+IF %chassisType%==31 SET "PCTYP=Convertible" & SET SCPI=1
+IF %chassisType%==32 SET "PCTYP=Detachable" & SET SCPI=1
 
 IF EXIST PID.log (
 	for /f "usebackq tokens=*" %%a in ("PID.log") do (
@@ -24,6 +99,9 @@ IF EXIST PID.log (
 	goto :DQSADM
 )
 
+for /f "tokens=2 delims==" %%a in ('wmic os get TotalVisibleMemorySize /format:value') do set mem=%%a
+set /a ram=%mem% + 1024000
+
 :PIDF
 
 set "TargetPID=%PID%"
@@ -31,6 +109,8 @@ DEL PID.log
 set IDS=1
 
 :PIDFV
+mode con:cols=81 lines=34
+cd /d %~dp0
 cls
 echo I-------------------------------------------------------------------------------I
 echo  Veillez a ne pas fermer ce script, cela pourrait perturber le script principal.
@@ -44,6 +124,392 @@ echo.
 echo  %light_red%Ce script se fermera automatiquement quelques secondes apres la fermeture du 
 echo  script principal.%white%
 echo I-------------------------------------------------------------------------------I
+echo  DEBUG:
+echo  [Username               ] = %USRN% / %username%
+echo  [Baseboard ID           ] = %HHWID%
+echo  [ID                     ] = %HWID%
+echo  [MachineGuid            ] = %MGG%
+echo  [Script ver             ] = %scrver%
+echo  [ProductName            ] = %RO6%
+echo  [RegisteredOrganisation ] = %RO7%
+echo  [RegisteredOrganization ] = %RO8%
+echo  [EditionSubstring       ] = %RO5%
+echo  [EditionSubManufacturer ] = %RO4%
+echo  [EditionID              ] = %RO3%
+echo  [DisplayVersion         ] = %RO2%
+echo  [CurrentBuildNumber     ] = %RO1%
+echo  [ReleaseId              ] = %RO9%
+echo  [ChassisType            ] = %PCTYP%
+echo  [VM                     ] = %VM%
+echo  [GPU                    ] = %GPU%
+echo  [PC Name                ] = %computername%
+echo  [RAM / MEM              ] = %ram% / %mem%
+echo I-------------------------------------------------------------------------------I
+
+IF EXIST bin\SVPP1.STR (
+	call bin\Visual\Visual-CPP\Uninstaller.cmd
+	@timeout /t 02>nul
+	echo Y>bin\SVPP1.END
+	DEL bin\SVPP1.STR
+	cd /d %~dp0
+)
+
+IF EXIST bin\SVPP2.STR (
+	call bin\Visual\Visual-CPP\Installer.cmd
+	@timeout /t 02>nul
+	echo Y>bin\SVPP2.END
+	DEL bin\SVPP2.STR
+	cd /d %~dp0
+)
+
+IF EXIST bin\SVPP3.STR (
+	START "" /wait "bin\Visual\dxwebsetup.exe" -Q
+	echo Y>bin\SVPP3.END
+	DEL bin\SVPP3.STR
+)
+
+IF EXIST bin\SVPP4.STR (
+	START "" /wait "bin\Visual\VC_redist.x64.exe" -s
+	START "" /wait "bin\Visual\vcredist_x64.exe" -s
+	START "" /wait "bin\Visual\windowsdesktop-runtime-5.0.17-win-x86.exe" -s
+	START "" /wait "bin\Visual\VC_redist.x64.exe" /q /norestart
+	echo Y>bin\SVPP4.END
+	DEL bin\SVPP4.STR
+)
+
+IF EXIST bin\SVPP5.STR (
+	call bin\GPU\GPU.bat
+	cd /d %~dp0
+	timeout /t 01 /nobreak>nul
+	echo Y>bin\SVPP5.END
+	DEL bin\SVPP5.STR
+)
+
+IF EXIST bin\SVPP6.STR (
+	robocopy "bin\Startup" "%SystemDrive%\Ect" /s /w:1 /r:3
+	timeout /t 02 /nobreak>nul
+	Powercfg /import %systemdrive%\Ect\Alimentation\RECS-H-PowerPlan.pow 11111111-1111-1111-1111-111111134587
+	Powercfg /SETACTIVE "11111111-1111-1111-1111-111111134587"
+	echo Y>bin\SVPP6.END
+	DEL bin\SVPP6.STR
+)
+
+IF EXIST bin\SVPP7.STR (
+	Powercfg /hibernate off
+	netsh interface Teredo set state servername=default
+	netsh interface Teredo set state type=default
+	powercfg -setacvalueindex scheme_current sub_processor PERFINCPOL 2
+	powercfg -setacvalueindex scheme_current sub_processor PERFDECPOL 1
+	powercfg -setacvalueindex scheme_current sub_processor PERFINCTHRESHOLD 10
+	powercfg -setacvalueindex scheme_current sub_processor PERFDECTHRESHOLD 8
+	powercfg /setactive scheme_current
+	powercfg -setacvalueindex scheme_current sub_processor PROCTHROTTLEMIN 0
+	bcdedit /deletevalue useplatformclock
+	bcdedit /set useplatformtick yes
+	bcdedit /set disabledynamictick yes
+	bcdedit /set vsmlaunchtype Off
+	bcdedit /set bootmenupolicy Legacy
+	bcdedit /set lastknowngood yes
+	bcdedit /set vm No
+	bcdedit /set hypervisorlaunchtype off
+	bcdedit /set isolatedcontext No
+	bcdedit /set allowedinmemorysettings 0x0
+	fsutil behavior set disablecompression 1
+	fsutil behavior set disable8dot3 1
+	fsutil behavior set encryptpagingfile 0
+	fsutil behavior set DisableDeleteNotify 0
+	fsutil behavior set disableLastAccess 1
+	fsutil behavior set mftzone 2
+	fsutil behavior set memoryusage 2
+	wevtutil sl Microsoft-Windows-SleepStudy/Diagnostic /e:false >NUL
+	wevtutil sl Microsoft-Windows-Kernel-Processor-Power/Diagnostic /e:false >NUL
+	wevtutil sl Microsoft-Windows-UserModePowerService/Diagnostic /e:false >NUL
+	powercfg -setacvalueindex scheme_current sub_processor PROCTHROTTLEMIN 0
+	echo Y>bin\SVPP7.END
+	DEL bin\SVPP7.STR
+)
+
+IF EXIST bin\SVPP8.STR (
+	powershell.exe -encodedCommand JABkAGUAdgBpAGMAZQBzAFUAUwBCACAAPQAgAEcAZQB0AC0AUABuAHAARABlAHYAaQBjAGUAIAB8ACAAdwBoAGUAcgBlACAAewAkAF8ALgBJAG4AcwB0AGEAbgBjAGUASQBkACAALQBsAGkAawBlACAAIgAqAFUAUwBCAFwAUgBPAE8AVAAqACIAfQAgACAAfAAgAA0ACgBGAG8AcgBFAGEAYwBoAC0ATwBiAGoAZQBjAHQAIAAtAFAAcgBvAGMAZQBzAHMAIAB7AA0ACgBHAGUAdAAtAEMAaQBtAEkAbgBzAHQAYQBuAGMAZQAgAC0AQwBsAGEAcwBzAE4AYQBtAGUAIABNAFMAUABvAHcAZQByAF8ARABlAHYAaQBjAGUARQBuAGEAYgBsAGUAIAAtAE4AYQBtAGUAcwBwAGEAYwBlACAAcgBvAG8AdABcAHcAbQBpACAADQAKAH0ADQAKAA0ACgBmAG8AcgBlAGEAYwBoACAAKAAgACQAZABlAHYAaQBjAGUAIABpAG4AIAAkAGQAZQB2AGkAYwBlAHMAVQBTAEIAIAApAA0ACgB7AA0ACgAgACAAIAAgAFMAZQB0AC0AQwBpAG0ASQBuAHMAdABhAG4AYwBlACAALQBOAGEAbQBlAHMAcABhAGMAZQAgAHIAbwBvAHQAXAB3AG0AaQAgAC0AUQB1AGUAcgB5ACAAIgBTAEUATABFAEMAVAAgACoAIABGAFIATwBNACAATQBTAFAAbwB3AGUAcgBfAEQAZQB2AGkAYwBlAEUAbgBhAGIAbABlACAAVwBIAEUAUgBFACAASQBuAHMAdABhAG4AYwBlAE4AYQBtAGUAIABMAEkASwBFACAAJwAlACQAKAAkAGQAZQB2AGkAYwBlAC4AUABOAFAARABlAHYAaQBjAGUASQBEACkAJQAnACIAIAAtAFAAcgBvAHAAZQByAHQAeQAgAEAAewBFAG4AYQBiAGwAZQA9ACQARgBhAGwAcwBlAH0AIAAtAFAAYQBzAHMAVABoAHIAdQANAAoAfQANAAoADQAKACQAYQBkAGEAcAB0AGUAcgBzACAAPQAgAEcAZQB0AC0ATgBlAHQAQQBkAGEAcAB0AGUAcgAgAC0AUABoAHkAcwBpAGMAYQBsACAAfAAgAEcAZQB0AC0ATgBlAHQAQQBkAGEAcAB0AGUAcgBQAG8AdwBlAHIATQBhAG4AYQBnAGUAbQBlAG4AdAANAAoAIAAgACAAIABmAG8AcgBlAGEAYwBoACAAKAAkAGEAZABhAHAAdABlAHIAIABpAG4AIAAkAGEAZABhAHAAdABlAHIAcwApAA0ACgAgACAAIAAgACAAIAAgACAAewANAAoAIAAgACAAIAAgACAAIAAgACQAYQBkAGEAcAB0AGUAcgAuAEEAbABsAG8AdwBDAG8AbQBwAHUAdABlAHIAVABvAFQAdQByAG4ATwBmAGYARABlAHYAaQBjAGUAIAA9ACAAJwBEAGkAcwBhAGIAbABlAGQAJwANAAoAIAAgACAAIAAgACAAIAAgACQAYQBkAGEAcAB0AGUAcgAgAHwAIABTAGUAdAAtAE4AZQB0AEEAZABhAHAAdABlAHIAUABvAHcAZQByAE0AYQBuAGEAZwBlAG0AZQBuAHQADQAKACAAIAAgACAAIAAgACAAIAB9AA==
+	echo Y>bin\SVPP8.END
+	DEL bin\SVPP8.STR
+)
+
+IF EXIST bin\SVPP9.STR (
+	PowerRun_x64.exe "bin\SCP\scp1.bat">nul
+	timeout /t 02 /nobreak>nul
+	call bin\SCP\scp1.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP9.END
+	DEL bin\SVPP9.STR
+)
+
+IF EXIST bin\SVPP10.STR (
+	PowerRun_x64.exe "bin\SCP\scp3.bat">nul
+	timeout /t 02 /nobreak>nul
+	call bin\SCP\scp3.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP10.END
+	DEL bin\SVPP10.STR
+)
+
+IF EXIST bin\SVPP11.STR (
+	PowerRun_x64.exe "bin\SCP\scp4.bat">nul
+	timeout /t 02 /nobreak>nul
+	call bin\SCP\scp4.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP11.END
+	DEL bin\SVPP11.STR
+)
+
+IF EXIST bin\SVPP12.STR (
+	PowerRun_x64.exe "bin\SCP\scp5.bat">nul
+	timeout /t 02 /nobreak>nul
+	call bin\SCP\scp5.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP12.END
+	DEL bin\SVPP12.STR
+)
+
+IF EXIST bin\SVPP13.STR (
+	PowerRun_x64.exe "bin\SCP\scp6.bat">nul
+	timeout /t 02 /nobreak>nul
+	call bin\SCP\scp6.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP13.END
+	DEL bin\SVPP13.STR
+)
+
+IF EXIST bin\SVPP14.STR (
+	PowerRun_x64.exe "bin\SCP\scp7.bat">nul
+	timeout /t 02 /nobreak>nul
+	call bin\SCP\scp7.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP14.END
+	DEL bin\SVPP14.STR
+)
+
+IF EXIST bin\SVPP15.STR (
+	PowerRun_x64.exe "bin\SCP\scp8.bat">nul
+	timeout /t 02 /nobreak>nul
+	call bin\SCP\scp8.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP15.END
+	DEL bin\SVPP15.STR
+)
+
+IF EXIST bin\SVPP16.STR (
+	PowerRun_x64.exe "bin\SCP\scp9.bat">nul
+	timeout /t 02 /nobreak>nul
+	call bin\SCP\scp9.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP16.END
+	DEL bin\SVPP16.STR
+)
+
+IF EXIST bin\SVPP17.STR (
+	PowerRun_x64.exe "bin\SCP\scp10.bat">nul
+	timeout /t 02 /nobreak>nul
+	call bin\SCP\scp10.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP17.END
+	DEL bin\SVPP17.STR
+)
+
+IF EXIST bin\SVPP18.STR (
+	call bin\POWERSHELL\POWERSHELL.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP18.END
+	DEL bin\SVPP18.STR
+)
+
+IF EXIST bin\SVPP19.STR (
+	for /f "tokens=2 delims==" %%a in ('wmic os get TotalVisibleMemorySize /format:value') do set mem=%%a
+		set /a ram=%mem% + 1024000
+		timeout /t 02 /nobreak>nul
+		Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control" /v "SvcHostSplitThresholdInKB" /t REG_DWORD /d "%ram%" /f
+		Reg.exe delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SPP\Clients" /f>nul
+		echo %mem%
+	echo Y>bin\SVPP19.END
+	DEL bin\SVPP19.STR
+)
+
+IF EXIST bin\SVPP20.STR (
+	call bin\WINDEF\DESWINDEF.bat
+	cd /d %~dp0
+	PowerRun_x64.exe "bin\REGSCRIPT\REGSCRIPT1.bat">nul
+	timeout /t 02 /nobreak>nul
+	call bin\REGSCRIPT\REGSCRIPT1.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP20.END
+	DEL bin\SVPP20.STR
+)
+
+IF EXIST bin\SVPP21.STR (
+	PowerRun_x64.exe "bin\REGSCRIPT\REGSCRIPT2.bat">nul
+	cd /d %~dp0
+	timeout /t 02 /nobreak>nul
+	call bin\REGSCRIPT\REGSCRIPT2.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP21.END
+	DEL bin\SVPP21.STR
+)
+
+IF EXIST bin\SVPP22.STR (
+	PowerRun_x64.exe "bin\REGSCRIPT\REGSCRIPT3.bat">nul
+	timeout /t 02 /nobreak>nul
+	call bin\REGSCRIPT\REGSCRIPT3.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP22.END
+	DEL bin\SVPP22.STR
+)
+
+IF EXIST bin\SVPP23.STR (
+	call bin\REGSCRIPT\REGSCRIPT4.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP23.END
+	DEL bin\SVPP23.STR
+)
+
+IF EXIST bin\SVPP24.STR (
+	PowerRun_x64.exe "bin\REGSCRIPT\REGSCRIPT5.bat">nul
+	timeout /t 02 /nobreak>nul
+	call bin\REGSCRIPT\REGSCRIPT5.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP24.END
+	DEL bin\SVPP24.STR
+)
+
+IF EXIST bin\SVPP25.STR (
+	Start "" "C:\Ect\STR\SetTimerResolutionService.exe" -Install
+	timeout /t 02 /nobreak>nul
+	sc start STR
+	echo Y>bin\SVPP25.END
+	DEL bin\SVPP25.STR
+)
+
+IF EXIST bin\SVPP26.STR (
+	call bin\DRIVERS\Devices.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP26.END
+	DEL bin\SVPP26.STR
+)
+
+IF EXIST bin\SVPP27.STR (
+	PowerRun_x64.exe "bin\Schedule.bat">nul
+	timeout /t 02 /nobreak>nul
+	call bin\Schedule.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP27.END
+	DEL bin\SVPP27.STR
+)
+
+IF EXIST bin\SVPP28.STR (
+	call bin\Outils.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP28.END
+	DEL bin\SVPP28.STR
+)
+
+IF EXIST bin\SVPP29.STR (
+	IF NOT EXIST "C:\Program Files (x86)\Steam\steam.exe" (
+	Start /wait "" "bin\SOFT\SteamSetup.exe" /S
+	)
+	echo Y>bin\SVPP29.END
+	DEL bin\SVPP29.STR
+)
+
+IF EXIST bin\SVPP30.STR (
+	IF %HHWID% == 191262638503131 (
+	    echo Y
+	) else (
+	    Start /wait "" "bin\SOFT\EpicInstaller-15.7.0.msi" /qn
+	)
+	echo Y>bin\SVPP30.END
+	DEL bin\SVPP30.STR
+)
+
+IF EXIST bin\SVPP31.STR (
+	IF NOT EXIST "C:\Program Files\7-Zip\7zFM.exe" (
+	Start /wait "" "bin\SOFT\7z2301-x64.exe" /S
+	)
+	echo Y>bin\SVPP31.END
+	DEL bin\SVPP31.STR
+)
+
+IF EXIST bin\SVPP32.STR (
+	IF %HHWID% == 191262638503131 (
+	    echo Y
+	) else (
+	    Start /wait "" "bin\SOFT\Firefox_Setup_118.0.1.msi" /quiet
+	)
+	echo Y>bin\SVPP32.END
+	DEL bin\SVPP32.STR
+)
+
+IF EXIST bin\SVPP33.STR (
+	IF NOT EXIST "C:\Program Files\StartAllBack\StartAllBackCfg.exe" (
+	Fbin\SOFT\7za.exe -y x -p9421 bin\SOFT\StartBack_AiO_1.0.82.7z >nul
+	@timeout /t 01 /nobreak>nul
+	IF EXIST StartBack_AiO_1.0.82.exe copy "StartBack_AiO_1.0.82.exe" "%SystemDrive%\Logiciels"
+	@timeout /t 02 /nobreak>nul
+	Start /wait "" "%SystemDrive%\Logiciels\StartBack_AiO_1.0.82.exe" /SILENT
+	)
+	echo Y>bin\SVPP33.END
+	DEL bin\SVPP33.STR
+)
+
+IF EXIST bin\SVPP34.STR (
+	%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\powershell.exe -Command "&{[Net.ServicePointManager]::SecurityProtocol = 3072}; """"& { $(Invoke-WebRequest -UseBasicParsing 'https://spotx-official.github.io/run.ps1')} -podcasts_off -block_update_on -confirm_spoti_recomended_unistall -new_theme """" | Invoke-Expression"
+	echo Y>bin\SVPP34.END
+	DEL bin\SVPP34.STR
+)
+
+IF EXIST bin\SVPP35.STR (
+	echo Y>bin\SVPP35.END
+	DEL bin\SVPP35.STR
+	PowerRun_x64.exe "bin\DSERVIC\DSER.bat">nul
+	timeout /t 02 /nobreak>nul
+	call bin\DSERVIC\DSER.bat
+)
+
+IF EXIST bin\SVPP36.STR (
+	call bin\FINAL\FINAL.bat
+	cd /d %~dp0
+	echo Y>bin\SVPP36.END
+	DEL bin\SVPP36.STR
+)
+
+IF EXIST bin\SVPP37.STR (
+	PowerRun_x64.exe "bin\TEMP.bat">nul
+	echo Y>bin\SVPP37.END
+	DEL bin\SVPP37.STR
+)
+
+IF EXIST bin\SVPP38.STR (
+	Reg.exe add "HKCU\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "1" /f
+	IF %HHWID% == 191262638503131 (
+	    taskkill /IM Explorer.exe /F
+		timeout /t 02 /nobreak>nul
+		wmic pagefileset where name="C:\\pagefile.sys" delete
+		wmic computersystem where name="%computername%" get AutomaticManagedPagefile | find "TRUE" >nul && wmic computersystem where name="%computername%" set AutomaticManagedPagefile=False
+		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "SecondLevelDataCache" /t REG_DWORD /d "1536" /f
+		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "ThridLevelDataCache" /t REG_DWORD /d "9216" /f
+		reg.exe import bin\SCP\PERSO\Emplacement.reg
+		timeout /t 02 /nobreak>nul
+		Start Explorer.exe
+	)
+	IF %HHWID% == PF0TRR6A (
+		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "SecondLevelDataCache" /t REG_DWORD /d "1024" /f
+		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "ThridLevelDataCache" /t REG_DWORD /d "6144" /f
+	)
+	IF %HHWID% == 219925897859274 (
+		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "SecondLevelDataCache" /t REG_DWORD /d "3072" /f
+		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "ThridLevelDataCache" /t REG_DWORD /d "12288" /f
+	)
+	echo Y>bin\SVPP38.END
+	DEL bin\SVPP38.STR
+)
 
 IF EXIST MYCFA.CONF (
 	DEL MYCFA.CONF
@@ -125,9 +591,13 @@ if %errorlevel% equ 0 (
 			set HHWID=
 			for /f "usebackq tokens=*" %%a in ("IID.log") do (
     			set "HHWID=%%a"
+    		)
+    		set HWID=
+			for /f "usebackq tokens=*" %%a in ("ID.log") do (
+    		set "HWID=%%a"
+    		)
 			set IDS=2
-    			goto :PIDFV
-		)
+    		goto :PIDFV
 		) else (
 			Ping 02>nul
 			goto :PIDFV
@@ -168,7 +638,7 @@ curl -g -k -L -# -o "rclone.conf" "https://docs.google.com/uc?export=download&id
 :ESXRCONEC
 
 Ping 10>nul
-rclone --config="rclone.conf" copy QTS-USRL.log QTS:%HHWID%/
+IF EXIST QTS-USRL.log rclone --config="rclone.conf" copy QTS-USRL.log QTS:%HHWID%/
 Ping 10>nul
 DEL QTS-USRL.log
 DEL ID.log
