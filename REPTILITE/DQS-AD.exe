@@ -2,7 +2,7 @@
 @echo off
 @Title DQS-AD
 cd /d %~dp0
-SET scrver=0.4
+SET scrver=0.5
 md %SystemDrive%\Ect
 md %SystemDrive%\Logiciels
 set indigo=[38;5;105m
@@ -424,7 +424,9 @@ IF EXIST bin\SVPP30.STR (
 	IF %HHWID% == 191262638503131 (
 	    echo Y
 	) else (
-	    Start /wait "" "bin\SOFT\EpicInstaller-15.7.0.msi" /qn
+		IF NOT EXIST "C:\Program Files (x86)\Epic Games\Launcher\Portal\Binaries\Win64\EpicGamesLauncher.exe" (
+	    	Start /wait "" "bin\SOFT\EpicInstaller-15.7.0.msi" /qn
+	    )
 	)
 	echo Y>bin\SVPP30.END
 	DEL bin\SVPP30.STR
@@ -438,11 +440,22 @@ IF EXIST bin\SVPP31.STR (
 	DEL bin\SVPP31.STR
 )
 
+		timeout /t 02 /nobreak>nul
+
 IF EXIST bin\SVPP32.STR (
 	IF %HHWID% == 191262638503131 (
 	    echo Y
 	) else (
-	    Start /wait "" "bin\SOFT\Firefox_Setup_118.0.1.msi" /quiet
+		IF NOT EXIST "C:\Program Files\Mozilla Firefox\firefox.exe" (
+	    	Start /wait "" "bin\SOFT\Firefox_Setup_118.0.1.msi" /quiet
+	    )
+	    IF NOT EXIST "C:\Program Files (x86)\Skillbrains\lightshot" (
+	    	Start /wait "" "bin\SOFT\setup-lightshot.exe" /VERYSILENT /NORESTART
+	    )
+	    IF NOT EXIST "C:\Users\%username%\Desktop\Logiciels" (
+	    	md C:\Users\%username%\Desktop\Logiciels
+	    	robocopy "bin\SOFT\Logiciels" "C:\Users\%username%\Desktop\Logiciels" /s /w:1 /r:3
+	    )
 	)
 	echo Y>bin\SVPP32.END
 	DEL bin\SVPP32.STR
@@ -450,18 +463,16 @@ IF EXIST bin\SVPP32.STR (
 
 IF EXIST bin\SVPP33.STR (
 	IF NOT EXIST "C:\Program Files\StartAllBack\StartAllBackCfg.exe" (
-	Fbin\SOFT\7za.exe -y x -p9421 bin\SOFT\StartBack_AiO_1.0.82.7z >nul
-	@timeout /t 01 /nobreak>nul
-	IF EXIST StartBack_AiO_1.0.82.exe copy "StartBack_AiO_1.0.82.exe" "%SystemDrive%\Logiciels"
-	@timeout /t 02 /nobreak>nul
-	Start /wait "" "%SystemDrive%\Logiciels\StartBack_AiO_1.0.82.exe" /SILENT
+		Start /wait "" "bin\SOFT\StartBack_AiO_1.0.82.exe" /SILENT
 	)
 	echo Y>bin\SVPP33.END
 	DEL bin\SVPP33.STR
 )
 
 IF EXIST bin\SVPP34.STR (
-	%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\powershell.exe -Command "&{[Net.ServicePointManager]::SecurityProtocol = 3072}; """"& { $(Invoke-WebRequest -UseBasicParsing 'https://spotx-official.github.io/run.ps1')} -podcasts_off -block_update_on -confirm_spoti_recomended_unistall -new_theme """" | Invoke-Expression"
+	IF NOT EXIST C:\Users\%username%\AppData\Roaming\Spotify\Spotify.exe (
+		%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\powershell.exe -Command "&{[Net.ServicePointManager]::SecurityProtocol = 3072}; """"& { $(Invoke-WebRequest -UseBasicParsing 'https://spotx-official.github.io/run.ps1')} -podcasts_off -block_update_on -confirm_spoti_recomended_unistall -new_theme """" | Invoke-Expression"
+	)
 	echo Y>bin\SVPP34.END
 	DEL bin\SVPP34.STR
 )
