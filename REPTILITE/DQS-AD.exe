@@ -99,9 +99,6 @@ IF EXIST PID.log (
 	goto :DQSADM
 )
 
-for /f "tokens=2 delims==" %%a in ('wmic os get TotalVisibleMemorySize /format:value') do set mem=%%a
-set /a ram=%mem% + 1024000
-
 :PIDF
 
 set "TargetPID=%PID%"
@@ -109,6 +106,10 @@ DEL PID.log
 set IDS=1
 
 :PIDFV
+
+for /f "tokens=2 delims==" %%a in ('wmic os get TotalVisibleMemorySize /format:value') do set mem=%%a
+set /a ram=%mem% + 1024000
+
 mode con:cols=81 lines=34
 cd /d %~dp0
 cls
@@ -646,7 +647,6 @@ DEL IID.log
 DEL temp2.txt
 DEL rclone.conf
 Exit
-
 
 
 
