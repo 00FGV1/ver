@@ -1,4 +1,9 @@
-:MINVENF
+:reloo
+SET veropt=ERR
+SET LASTVEROP=0.5
+SET UPA=0
+SET RCCL=%black%
+:MAINW
 @echo off
 @Title START-UP
 chcp 65001  > nul
@@ -21,6 +26,11 @@ set grey=[90m
 set ggrey=[100m
 set orange=[38;5;208m
 set indigo=[38;5;105m
+IF EXIST C:\Ect\RWC\bin\ver.bat (
+	call C:\Ect\RWC\bin\ver.bat
+) else (
+	SET veropt=0
+)
 cd /d %~dp0
 md C:\Ect
 md C:\Ect\RWC
@@ -28,13 +38,13 @@ md C:\Ect\RWC\DQS
 color 7
 cls
 
+IF %veropt% LSS %LASTVEROP% SET RCCL=%gold% & SET UPA=1
 rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
 mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
 if %errorlevel% neq 0 (
 	powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0'" >nul 2>&1 & exit /b
 )
 
-:MAINW
 IF EXIST "C:\Ect\RWC\MAS_AIO.cmd" (SET VLD1R=%green%[✓]%white%) else (SET VLD1R=%red%[X]%white%)
 IF EXIST "C:\Ect\RWC\main.bat" (SET VLD2R=%green%[✓]%white%) else (SET VLD2R=%red%[X]%white%)
 IF EXIST "C:\Ect\RWC\DQS\DQS.bat" (SET VLD3R=%green%[✓]%white%) else (SET VLD3R=%red%[X]%white%)
@@ -46,19 +56,21 @@ echo       %indigo%INSTALL LOCATION%white% : %gold%[C:\Ect\RWC]%white%
 echo    ---------------------------------------------------------
 echo       %indigo%[1]%white% ^| %VLD1R% ^| SCRIPT ACTIVE WINDOWS
 echo    ---------------------------------------------------------
-echo       %indigo%[2]%white% ^| %VLD2R% ^| SCRIPT OPTIMISATION
+echo       %indigo%[2]%white% ^| %VLD2R% ^| SCRIPT OPTIMISATION ^| %indigo%V = %veropt%%white%
 echo    ---------------------------------------------------------
 echo       %indigo%[3]%white% ^| %VLD3R% ^| SCRIPT CONFIG "Win32PrioritySeparation"
 echo    ---------------------------------------------------------
 echo       %indigo%[4]%white% ^| %VLD4R% ^| SCRIPT CONFIG JEUX
 echo    ---------------------------------------------------------
+echo       %indigo%[5]%white% ^| RECHARGER %RCCL%  [6] UPDATE TO V = %LASTVEROP%%white%
+echo    ---------------------------------------------------------
 echo.
 echo.
 echo.
 echo.
 echo.
 echo.
-choice /C:1234 /N /M ">
+choice /C:123456 /N /M ">
 If "%ERRORLEVEL%"=="1" (
 	IF EXIST "C:\Ect\RWC\MAS_AIO.cmd" start cmd /c "C:\Ect\RWC\MAS_AIO.cmd" & goto :MAINW
 	IF NOT EXIST "C:\Ect\RWC\MAS_AIO.cmd" curl -g -k -L -# -o "C:\Ect\RWC\MAS_AIO.cmd" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/MAS_AIO.cmd" & start cmd /c "C:\Ect\RWC\MAS_AIO.cmd" & goto :MAINW
@@ -74,4 +86,17 @@ If "%ERRORLEVEL%"=="3" (
 If "%ERRORLEVEL%"=="4" (
 	IF EXIST "C:\Ect\RWC\autoconf.bat" start cmd /c "C:\Ect\RWC\autoconf.bat" & goto :MAINW
 	IF NOT EXIST "C:\Ect\RWC\autoconf.bat" curl -g -k -L -# -o "C:\Ect\RWC\autoconf.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/file/autoconf.bat" & start cmd /c "C:\Ect\RWC\autoconf.bat" & goto :MAINW
+)
+If "%ERRORLEVEL%"=="5" goto :reloo
+If "%ERRORLEVEL%"=="6" (
+	IF %UPA%==1 (
+	IF EXIST "C:\Ect\RWC\main.bat" DEL "C:\Ect\RWC\main.bat"
+	IF EXIST "C:\Ect\RWC\bin" rmdir /s /q "C:\Ect\RWC\bin"
+	timeout /t 02 /nobreak>nul
+	curl -g -k -L -# -o "C:\Ect\RWC\main.bat" "https://docs.google.com/uc?export=download&id=1iyjsjtR45l0cD-bfoTM_j2rO5sKJpFsb" & start cmd /c "C:\Ect\RWC\main.bat"
+	timeout /t 03 /nobreak>nul
+	goto :reloo
+	) else (
+		goto :reloo
+	)
 )
