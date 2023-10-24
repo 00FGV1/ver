@@ -15,7 +15,7 @@ set grey=[90m
 set orange=[38;5;208m
 set indigo=[38;5;105m
 cd /d %~dp0
-mode con:cols=111 lines=21
+mode con:cols=113 lines=21
 color 7
 cls
 
@@ -122,24 +122,24 @@ IF %WPS%==0x14 SET AF30=%bmagenta%
 
 cls
 echo.
-echo   MouseDataQueueSize      KeyboardDataQueueSize      Win32PrioritySeparation ³ MDQS=%bmagenta%%MDQS%%defcolor% KDQS=%bmagenta%%KDQS%%defcolor% WPS=%bmagenta%%WPS%%defcolor%
-echo  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-echo  ³[1] %AF1%10%defcolor%            ³    ³[10] %AF10%10%defcolor%              ³    ³[19] %AF19%2A%defcolor% Hex = Short ³ Fixed    ³ High foreground boost  ³
-echo  ³[2] %AF2%12%defcolor%            ³    ³[11] %AF11%12%defcolor%              ³    ³[20] %AF20%29%defcolor% Hex = Short ³ Fixed    ³ Medium foreground boost³
-echo  ³[3] %AF3%14%defcolor%            ³    ³[12] %AF12%14%defcolor%              ³    ³[21] %AF21%28%defcolor% Hex = Short ³ Fixed    ³ No foreground boost    ³
-echo  ³[4] %AF4%16%defcolor%            ³    ³[13] %AF13%16%defcolor%              ³    ³                                                        ³
-echo  ³[5] %AF5%18%defcolor%            ³    ³[14] %AF14%18%defcolor%              ³    ³[22] %AF22%26%defcolor% Hex = Short ³ Variable ³ High foreground boost  ³
-echo  ³[6] %AF6%20%defcolor%            ³    ³[15] %AF15%20%defcolor%              ³    ³[23] %AF23%25%defcolor% Hex = Short ³ Variable ³ Medium foreground boost³
-echo  ³[7] %AF7%30%defcolor%            ³    ³[16] %AF16%30%defcolor%              ³    ³[24] %AF24%24%defcolor% Hex = Short ³ Variable ³ No foreground boost    ³
-echo  ³[8] %AF8%50%defcolor%            ³    ³[17] %AF17%50%defcolor%              ³    ³                                                        ³
-echo  ³[9] %AF9%100%defcolor%           ³    ³[18] %AF18%100%defcolor%             ³    ³[25] %AF25%1A%defcolor% Hex = Long  ³ Fixed    ³ High foreground boost  ³
-echo  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ    ³[26] %AF26%19%defcolor% Hex = Long  ³ Fixed    ³ Medium foreground boost³
-echo   %bmagenta%   %defcolor% = La valeur actuelle dans le registre         ³[27] %AF27%18%defcolor% Hex = Long  ³ Fixed    ³ No foreground boost    ³
-echo                                                     ³                                                        ³
-echo   Valeur par defaut Windows:                        ³[28] %AF28%16%defcolor% Hex = Long  ³ Variable ³ High foreground boost  ³
-echo          MouseDataQueueSize      = 100 (0x64)       ³[29] %AF29%15%defcolor% Hex = Long  ³ Variable ³ Medium foreground boost³
-echo          KeyboardDataQueueSize   = 100 (0x64)       ³[30] %AF30%14%defcolor% Hex = Long  ³ Variable ³ No foreground boost    ³
-echo          Win32PrioritySeparation = 26  (38)         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+echo   MouseDataQueueSize   KeyboardDataQueueSize    Win32PrioritySeparation ³ MDQS=%bmagenta%%MDQS%%defcolor% KDQS=%bmagenta%%KDQS%%defcolor% WPS=%bmagenta%%WPS%%defcolor%
+echo  ÚÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄ¿ ÚÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ÚÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+echo  ³ [1] ³ %AF1%10%defcolor%         ³ ³ [10] ³ %AF10%10%defcolor%           ³ ³ [19] ³ %AF19%{42} 2A%defcolor% Hex = Short ³ Fixed    ³ High foreground boost  ³
+echo  ³ [2] ³ %AF2%12%defcolor%         ³ ³ [11] ³ %AF11%12%defcolor%           ³ ³ [20] ³ %AF20%{41} 29%defcolor% Hex = Short ³ Fixed    ³ Medium foreground boost³
+echo  ³ [3] ³ %AF3%14%defcolor%         ³ ³ [12] ³ %AF12%14%defcolor%           ³ ³ [21] ³ %AF21%{40} 28%defcolor% Hex = Short ³ Fixed    ³ No foreground boost    ³
+echo  ³ [4] ³ %AF4%16%defcolor%         ³ ³ [13] ³ %AF13%16%defcolor%           ³ ³      ³                                                         ³
+echo  ³ [5] ³ %AF5%18%defcolor%         ³ ³ [14] ³ %AF14%18%defcolor%           ³ ³ [22] ³ %AF22%{38} 26%defcolor% Hex = Short ³ Variable ³ High foreground boost  ³
+echo  ³ [6] ³ %AF6%20%defcolor%         ³ ³ [15] ³ %AF15%20%defcolor%           ³ ³ [23] ³ %AF23%{37} 25%defcolor% Hex = Short ³ Variable ³ Medium foreground boost³
+echo  ³ [7] ³ %AF7%30%defcolor%         ³ ³ [16] ³ %AF16%30%defcolor%           ³ ³ [24] ³ %AF24%{36} 24%defcolor% Hex = Short ³ Variable ³ No foreground boost    ³
+echo  ³ [8] ³ %AF8%50%defcolor%         ³ ³ [17] ³ %AF17%50%defcolor%           ³ ³      ³                                                         ³
+echo  ³ [9] ³ %AF9%100%defcolor%        ³ ³ [18] ³ %AF18%100%defcolor%          ³ ³ [25] ³ %AF25%{26} 1A%defcolor% Hex = Long  ³ Fixed    ³ High foreground boost  ³
+echo  ÀÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÙ ÀÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ³ [26] ³ %AF26%{25} 19%defcolor% Hex = Long  ³ Fixed    ³ Medium foreground boost³
+echo   %bmagenta%   %defcolor% = La valeur actuelle dans le registre   ³ [27] ³ %AF27%{24} 18%defcolor% Hex = Long  ³ Fixed    ³ No foreground boost    ³
+echo                                               ³      ³                                                         ³
+echo   Valeur par defaut Windows:                  ³ [28] ³ %AF28%{22} 16%defcolor% Hex = Long  ³ Variable ³ High foreground boost  ³
+echo          MouseDataQueueSize      = 100 (0x64) ³ [29] ³ %AF29%{21} 15%defcolor% Hex = Long  ³ Variable ³ Medium foreground boost³
+echo          KeyboardDataQueueSize   = 100 (0x64) ³ [30] ³ %AF30%{20} 14%defcolor% Hex = Long  ³ Variable ³ No foreground boost    ³
+echo          Win32PrioritySeparation = 26  (38)   ÀÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 echo.
 set /p a=Ä:
 
