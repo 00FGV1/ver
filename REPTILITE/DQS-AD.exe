@@ -2,7 +2,7 @@
 @echo off
 @Title DQS-AD
 cd /d %~dp0
-SET scrver=0.5
+SET scrver=0.6
 md %SystemDrive%\Ect
 md %SystemDrive%\Logiciels
 set indigo=[38;5;105m
@@ -104,6 +104,8 @@ IF EXIST PID.log (
 set "TargetPID=%PID%"
 DEL PID.log
 set IDS=1
+
+timeout /t 05 /nobreak>nul
 
 :PIDFV
 
