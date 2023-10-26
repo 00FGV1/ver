@@ -2,7 +2,7 @@
 @echo off
 @Title DQS-AD
 cd /d %~dp0
-SET scrver=0.6
+SET veropt=0.7
 md %SystemDrive%\Ect
 md %SystemDrive%\Logiciels
 set indigo=[38;5;105m
@@ -11,8 +11,11 @@ set light_red=[91m
 mode con:cols=81 lines=33
 cls
 
+echo SET veropt=%veropt%>bin\ves.bat
+
 SET HHWID=LOAD
 SET HWID=LOAD
+SET GPU=ERR
 
 rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
 mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
@@ -99,6 +102,7 @@ IF EXIST PID.log (
 	goto :DQSADM
 )
 
+IF EXIST bin\ver.bat call bin\ver.bat
 :PIDF
 
 set "TargetPID=%PID%"
@@ -111,6 +115,8 @@ timeout /t 05 /nobreak>nul
 
 for /f "tokens=2 delims==" %%a in ('wmic os get TotalVisibleMemorySize /format:value') do set mem=%%a
 set /a ram=%mem% + 1024000
+
+@Title DQS-AD
 
 mode con:cols=81 lines=34
 cd /d %~dp0
@@ -132,7 +138,7 @@ echo  [Username               ] = %USRN% / %username%
 echo  [Baseboard ID           ] = %HHWID%
 echo  [ID                     ] = %HWID%
 echo  [MachineGuid            ] = %MGG%
-echo  [Script ver             ] = %scrver%
+echo  [Script ver             ] = %scrver% / %veropt%
 echo  [ProductName            ] = %RO6%
 echo  [RegisteredOrganisation ] = %RO7%
 echo  [RegisteredOrganization ] = %RO8%
@@ -151,7 +157,8 @@ echo I--------------------------------------------------------------------------
 
 IF EXIST bin\SVPP1.STR (
 	call bin\Visual\Visual-CPP\Uninstaller.cmd
-	@timeout /t 02>nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP1" /t REG_SZ /d "Y" /f >nul
+	timeout /t 02 /nobreak>nul
 	echo Y>bin\SVPP1.END
 	DEL bin\SVPP1.STR
 	cd /d %~dp0
@@ -159,7 +166,8 @@ IF EXIST bin\SVPP1.STR (
 
 IF EXIST bin\SVPP2.STR (
 	call bin\Visual\Visual-CPP\Installer.cmd
-	@timeout /t 02>nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP2" /t REG_SZ /d "Y" /f >nul
+	timeout /t 02 /nobreak>nul
 	echo Y>bin\SVPP2.END
 	DEL bin\SVPP2.STR
 	cd /d %~dp0
@@ -167,6 +175,7 @@ IF EXIST bin\SVPP2.STR (
 
 IF EXIST bin\SVPP3.STR (
 	START "" /wait "bin\Visual\dxwebsetup.exe" -Q
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP3" /t REG_SZ /d "Y" /f >nul
 	echo Y>bin\SVPP3.END
 	DEL bin\SVPP3.STR
 )
@@ -175,14 +184,16 @@ IF EXIST bin\SVPP4.STR (
 	START "" /wait "bin\Visual\VC_redist.x64.exe" -s
 	START "" /wait "bin\Visual\vcredist_x64.exe" -s
 	START "" /wait "bin\Visual\windowsdesktop-runtime-5.0.17-win-x86.exe" -s
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP4" /t REG_SZ /d "Y" /f >nul
 	START "" /wait "bin\Visual\VC_redist.x64.exe" /q /norestart
 	echo Y>bin\SVPP4.END
 	DEL bin\SVPP4.STR
 )
 
 IF EXIST bin\SVPP5.STR (
-	call bin\GPU\GPU.bat
+	IF %VM%==NO call bin\GPU\GPU.bat
 	cd /d %~dp0
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP5" /t REG_SZ /d "Y" /f >nul
 	timeout /t 01 /nobreak>nul
 	echo Y>bin\SVPP5.END
 	DEL bin\SVPP5.STR
@@ -192,6 +203,7 @@ IF EXIST bin\SVPP6.STR (
 	robocopy "bin\Startup" "%SystemDrive%\Ect" /s /w:1 /r:3
 	timeout /t 02 /nobreak>nul
 	Powercfg /import %systemdrive%\Ect\Alimentation\RECS-H-PowerPlan.pow 11111111-1111-1111-1111-111111134587
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP6" /t REG_SZ /d "Y" /f >nul
 	Powercfg /SETACTIVE "11111111-1111-1111-1111-111111134587"
 	echo Y>bin\SVPP6.END
 	DEL bin\SVPP6.STR
@@ -214,6 +226,7 @@ IF EXIST bin\SVPP7.STR (
 	bcdedit /set bootmenupolicy Legacy
 	bcdedit /set lastknowngood yes
 	bcdedit /set vm No
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP7" /t REG_SZ /d "Y" /f >nul
 	bcdedit /set hypervisorlaunchtype off
 	bcdedit /set isolatedcontext No
 	bcdedit /set allowedinmemorysettings 0x0
@@ -234,12 +247,14 @@ IF EXIST bin\SVPP7.STR (
 
 IF EXIST bin\SVPP8.STR (
 	powershell.exe -encodedCommand JABkAGUAdgBpAGMAZQBzAFUAUwBCACAAPQAgAEcAZQB0AC0AUABuAHAARABlAHYAaQBjAGUAIAB8ACAAdwBoAGUAcgBlACAAewAkAF8ALgBJAG4AcwB0AGEAbgBjAGUASQBkACAALQBsAGkAawBlACAAIgAqAFUAUwBCAFwAUgBPAE8AVAAqACIAfQAgACAAfAAgAA0ACgBGAG8AcgBFAGEAYwBoAC0ATwBiAGoAZQBjAHQAIAAtAFAAcgBvAGMAZQBzAHMAIAB7AA0ACgBHAGUAdAAtAEMAaQBtAEkAbgBzAHQAYQBuAGMAZQAgAC0AQwBsAGEAcwBzAE4AYQBtAGUAIABNAFMAUABvAHcAZQByAF8ARABlAHYAaQBjAGUARQBuAGEAYgBsAGUAIAAtAE4AYQBtAGUAcwBwAGEAYwBlACAAcgBvAG8AdABcAHcAbQBpACAADQAKAH0ADQAKAA0ACgBmAG8AcgBlAGEAYwBoACAAKAAgACQAZABlAHYAaQBjAGUAIABpAG4AIAAkAGQAZQB2AGkAYwBlAHMAVQBTAEIAIAApAA0ACgB7AA0ACgAgACAAIAAgAFMAZQB0AC0AQwBpAG0ASQBuAHMAdABhAG4AYwBlACAALQBOAGEAbQBlAHMAcABhAGMAZQAgAHIAbwBvAHQAXAB3AG0AaQAgAC0AUQB1AGUAcgB5ACAAIgBTAEUATABFAEMAVAAgACoAIABGAFIATwBNACAATQBTAFAAbwB3AGUAcgBfAEQAZQB2AGkAYwBlAEUAbgBhAGIAbABlACAAVwBIAEUAUgBFACAASQBuAHMAdABhAG4AYwBlAE4AYQBtAGUAIABMAEkASwBFACAAJwAlACQAKAAkAGQAZQB2AGkAYwBlAC4AUABOAFAARABlAHYAaQBjAGUASQBEACkAJQAnACIAIAAtAFAAcgBvAHAAZQByAHQAeQAgAEAAewBFAG4AYQBiAGwAZQA9ACQARgBhAGwAcwBlAH0AIAAtAFAAYQBzAHMAVABoAHIAdQANAAoAfQANAAoADQAKACQAYQBkAGEAcAB0AGUAcgBzACAAPQAgAEcAZQB0AC0ATgBlAHQAQQBkAGEAcAB0AGUAcgAgAC0AUABoAHkAcwBpAGMAYQBsACAAfAAgAEcAZQB0AC0ATgBlAHQAQQBkAGEAcAB0AGUAcgBQAG8AdwBlAHIATQBhAG4AYQBnAGUAbQBlAG4AdAANAAoAIAAgACAAIABmAG8AcgBlAGEAYwBoACAAKAAkAGEAZABhAHAAdABlAHIAIABpAG4AIAAkAGEAZABhAHAAdABlAHIAcwApAA0ACgAgACAAIAAgACAAIAAgACAAewANAAoAIAAgACAAIAAgACAAIAAgACQAYQBkAGEAcAB0AGUAcgAuAEEAbABsAG8AdwBDAG8AbQBwAHUAdABlAHIAVABvAFQAdQByAG4ATwBmAGYARABlAHYAaQBjAGUAIAA9ACAAJwBEAGkAcwBhAGIAbABlAGQAJwANAAoAIAAgACAAIAAgACAAIAAgACQAYQBkAGEAcAB0AGUAcgAgAHwAIABTAGUAdAAtAE4AZQB0AEEAZABhAHAAdABlAHIAUABvAHcAZQByAE0AYQBuAGEAZwBlAG0AZQBuAHQADQAKACAAIAAgACAAIAAgACAAIAB9AA==
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP8" /t REG_SZ /d "Y" /f >nul
 	echo Y>bin\SVPP8.END
 	DEL bin\SVPP8.STR
 )
 
 IF EXIST bin\SVPP9.STR (
 	PowerRun_x64.exe "bin\SCP\scp1.bat">nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP9" /t REG_SZ /d "Y" /f >nul
 	timeout /t 02 /nobreak>nul
 	call bin\SCP\scp1.bat
 	cd /d %~dp0
@@ -249,6 +264,7 @@ IF EXIST bin\SVPP9.STR (
 
 IF EXIST bin\SVPP10.STR (
 	PowerRun_x64.exe "bin\SCP\scp3.bat">nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP10" /t REG_SZ /d "Y" /f >nul
 	timeout /t 02 /nobreak>nul
 	call bin\SCP\scp3.bat
 	cd /d %~dp0
@@ -258,6 +274,7 @@ IF EXIST bin\SVPP10.STR (
 
 IF EXIST bin\SVPP11.STR (
 	PowerRun_x64.exe "bin\SCP\scp4.bat">nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP11" /t REG_SZ /d "Y" /f >nul
 	timeout /t 02 /nobreak>nul
 	call bin\SCP\scp4.bat
 	cd /d %~dp0
@@ -267,6 +284,7 @@ IF EXIST bin\SVPP11.STR (
 
 IF EXIST bin\SVPP12.STR (
 	PowerRun_x64.exe "bin\SCP\scp5.bat">nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP12" /t REG_SZ /d "Y" /f >nul
 	timeout /t 02 /nobreak>nul
 	call bin\SCP\scp5.bat
 	cd /d %~dp0
@@ -276,6 +294,7 @@ IF EXIST bin\SVPP12.STR (
 
 IF EXIST bin\SVPP13.STR (
 	PowerRun_x64.exe "bin\SCP\scp6.bat">nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP13" /t REG_SZ /d "Y" /f >nul
 	timeout /t 02 /nobreak>nul
 	call bin\SCP\scp6.bat
 	cd /d %~dp0
@@ -285,6 +304,7 @@ IF EXIST bin\SVPP13.STR (
 
 IF EXIST bin\SVPP14.STR (
 	PowerRun_x64.exe "bin\SCP\scp7.bat">nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP14" /t REG_SZ /d "Y" /f >nul
 	timeout /t 02 /nobreak>nul
 	call bin\SCP\scp7.bat
 	cd /d %~dp0
@@ -294,6 +314,7 @@ IF EXIST bin\SVPP14.STR (
 
 IF EXIST bin\SVPP15.STR (
 	PowerRun_x64.exe "bin\SCP\scp8.bat">nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP15" /t REG_SZ /d "Y" /f >nul
 	timeout /t 02 /nobreak>nul
 	call bin\SCP\scp8.bat
 	cd /d %~dp0
@@ -303,6 +324,7 @@ IF EXIST bin\SVPP15.STR (
 
 IF EXIST bin\SVPP16.STR (
 	PowerRun_x64.exe "bin\SCP\scp9.bat">nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP16" /t REG_SZ /d "Y" /f >nul
 	timeout /t 02 /nobreak>nul
 	call bin\SCP\scp9.bat
 	cd /d %~dp0
@@ -312,6 +334,7 @@ IF EXIST bin\SVPP16.STR (
 
 IF EXIST bin\SVPP17.STR (
 	PowerRun_x64.exe "bin\SCP\scp10.bat">nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP17" /t REG_SZ /d "Y" /f >nul
 	timeout /t 02 /nobreak>nul
 	call bin\SCP\scp10.bat
 	cd /d %~dp0
@@ -321,6 +344,7 @@ IF EXIST bin\SVPP17.STR (
 
 IF EXIST bin\SVPP18.STR (
 	call bin\POWERSHELL\POWERSHELL.bat
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP18" /t REG_SZ /d "Y" /f >nul
 	cd /d %~dp0
 	echo Y>bin\SVPP18.END
 	DEL bin\SVPP18.STR
@@ -331,6 +355,7 @@ IF EXIST bin\SVPP19.STR (
 		set /a ram=%mem% + 1024000
 		timeout /t 02 /nobreak>nul
 		Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control" /v "SvcHostSplitThresholdInKB" /t REG_DWORD /d "%ram%" /f
+		Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP19" /t REG_SZ /d "Y" /f >nul
 		Reg.exe delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SPP\Clients" /f>nul
 		echo %mem%
 	echo Y>bin\SVPP19.END
@@ -341,6 +366,7 @@ IF EXIST bin\SVPP20.STR (
 	call bin\WINDEF\DESWINDEF.bat
 	cd /d %~dp0
 	PowerRun_x64.exe "bin\REGSCRIPT\REGSCRIPT1.bat">nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP20" /t REG_SZ /d "Y" /f >nul
 	timeout /t 02 /nobreak>nul
 	call bin\REGSCRIPT\REGSCRIPT1.bat
 	cd /d %~dp0
@@ -350,6 +376,7 @@ IF EXIST bin\SVPP20.STR (
 
 IF EXIST bin\SVPP21.STR (
 	PowerRun_x64.exe "bin\REGSCRIPT\REGSCRIPT2.bat">nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP21" /t REG_SZ /d "Y" /f >nul
 	cd /d %~dp0
 	timeout /t 02 /nobreak>nul
 	call bin\REGSCRIPT\REGSCRIPT2.bat
@@ -360,6 +387,7 @@ IF EXIST bin\SVPP21.STR (
 
 IF EXIST bin\SVPP22.STR (
 	PowerRun_x64.exe "bin\REGSCRIPT\REGSCRIPT3.bat">nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP22" /t REG_SZ /d "Y" /f >nul
 	timeout /t 02 /nobreak>nul
 	call bin\REGSCRIPT\REGSCRIPT3.bat
 	cd /d %~dp0
@@ -369,6 +397,7 @@ IF EXIST bin\SVPP22.STR (
 
 IF EXIST bin\SVPP23.STR (
 	call bin\REGSCRIPT\REGSCRIPT4.bat
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP23" /t REG_SZ /d "Y" /f >nul
 	cd /d %~dp0
 	echo Y>bin\SVPP23.END
 	DEL bin\SVPP23.STR
@@ -376,6 +405,7 @@ IF EXIST bin\SVPP23.STR (
 
 IF EXIST bin\SVPP24.STR (
 	PowerRun_x64.exe "bin\REGSCRIPT\REGSCRIPT5.bat">nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP24" /t REG_SZ /d "Y" /f >nul
 	timeout /t 02 /nobreak>nul
 	call bin\REGSCRIPT\REGSCRIPT5.bat
 	cd /d %~dp0
@@ -385,6 +415,7 @@ IF EXIST bin\SVPP24.STR (
 
 IF EXIST bin\SVPP25.STR (
 	Start "" "C:\Ect\STR\SetTimerResolutionService.exe" -Install
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP25" /t REG_SZ /d "Y" /f >nul
 	timeout /t 02 /nobreak>nul
 	sc start STR
 	echo Y>bin\SVPP25.END
@@ -393,6 +424,7 @@ IF EXIST bin\SVPP25.STR (
 
 IF EXIST bin\SVPP26.STR (
 	call bin\DRIVERS\Devices.bat
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP26" /t REG_SZ /d "Y" /f >nul
 	cd /d %~dp0
 	echo Y>bin\SVPP26.END
 	DEL bin\SVPP26.STR
@@ -401,6 +433,7 @@ IF EXIST bin\SVPP26.STR (
 IF EXIST bin\SVPP27.STR (
 	PowerRun_x64.exe "bin\Schedule.bat">nul
 	timeout /t 02 /nobreak>nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP27" /t REG_SZ /d "Y" /f >nul
 	call bin\Schedule.bat
 	cd /d %~dp0
 	echo Y>bin\SVPP27.END
@@ -409,6 +442,7 @@ IF EXIST bin\SVPP27.STR (
 
 IF EXIST bin\SVPP28.STR (
 	call bin\Outils.bat
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP28" /t REG_SZ /d "Y" /f >nul
 	cd /d %~dp0
 	echo Y>bin\SVPP28.END
 	DEL bin\SVPP28.STR
@@ -418,14 +452,17 @@ IF EXIST bin\SVPP29.STR (
 	IF NOT EXIST "C:\Program Files (x86)\Steam\steam.exe" (
 	Start /wait "" "bin\SOFT\SteamSetup.exe" /S
 	)
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP29" /t REG_SZ /d "Y" /f >nul
 	echo Y>bin\SVPP29.END
 	DEL bin\SVPP29.STR
 )
 
 IF EXIST bin\SVPP30.STR (
 	IF %HHWID% == 191262638503131 (
+		Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP30" /t REG_SZ /d "Y" /f >nul
 	    echo Y
 	) else (
+		Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP30" /t REG_SZ /d "Y" /f >nul
 		IF NOT EXIST "C:\Program Files (x86)\Epic Games\Launcher\Portal\Binaries\Win64\EpicGamesLauncher.exe" (
 	    	Start /wait "" "bin\SOFT\EpicInstaller-15.7.0.msi" /qn
 	    )
@@ -438,6 +475,7 @@ IF EXIST bin\SVPP31.STR (
 	IF NOT EXIST "C:\Program Files\7-Zip\7zFM.exe" (
 	Start /wait "" "bin\SOFT\7z2301-x64.exe" /S
 	)
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP31" /t REG_SZ /d "Y" /f >nul
 	echo Y>bin\SVPP31.END
 	DEL bin\SVPP31.STR
 )
@@ -446,8 +484,10 @@ IF EXIST bin\SVPP31.STR (
 
 IF EXIST bin\SVPP32.STR (
 	IF %HHWID% == 191262638503131 (
+		Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP32" /t REG_SZ /d "Y" /f >nul
 	    echo Y
 	) else (
+		Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP32" /t REG_SZ /d "Y" /f >nul
 		IF NOT EXIST "C:\Program Files\Mozilla Firefox\firefox.exe" (
 	    	Start /wait "" "bin\SOFT\Firefox_Setup_118.0.1.msi" /quiet
 	    )
@@ -467,6 +507,7 @@ IF EXIST bin\SVPP33.STR (
 	IF NOT EXIST "C:\Program Files\StartAllBack\StartAllBackCfg.exe" (
 		Start /wait "" "bin\SOFT\StartBack_AiO_1.0.82.exe" /SILENT
 	)
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP33" /t REG_SZ /d "Y" /f >nul
 	echo Y>bin\SVPP33.END
 	DEL bin\SVPP33.STR
 )
@@ -475,6 +516,7 @@ IF EXIST bin\SVPP34.STR (
 	IF NOT EXIST C:\Users\%username%\AppData\Roaming\Spotify\Spotify.exe (
 		%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\powershell.exe -Command "&{[Net.ServicePointManager]::SecurityProtocol = 3072}; """"& { $(Invoke-WebRequest -UseBasicParsing 'https://spotx-official.github.io/run.ps1')} -podcasts_off -block_update_on -confirm_spoti_recomended_unistall -new_theme """" | Invoke-Expression"
 	)
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP34" /t REG_SZ /d "Y" /f >nul
 	echo Y>bin\SVPP34.END
 	DEL bin\SVPP34.STR
 )
@@ -482,6 +524,7 @@ IF EXIST bin\SVPP34.STR (
 IF EXIST bin\SVPP35.STR (
 	echo Y>bin\SVPP35.END
 	DEL bin\SVPP35.STR
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP35" /t REG_SZ /d "Y" /f >nul
 	PowerRun_x64.exe "bin\DSERVIC\DSER.bat">nul
 	timeout /t 02 /nobreak>nul
 	call bin\DSERVIC\DSER.bat
@@ -489,6 +532,7 @@ IF EXIST bin\SVPP35.STR (
 
 IF EXIST bin\SVPP36.STR (
 	call bin\FINAL\FINAL.bat
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP36" /t REG_SZ /d "Y" /f >nul
 	cd /d %~dp0
 	echo Y>bin\SVPP36.END
 	DEL bin\SVPP36.STR
@@ -496,12 +540,12 @@ IF EXIST bin\SVPP36.STR (
 
 IF EXIST bin\SVPP37.STR (
 	PowerRun_x64.exe "bin\TEMP.bat">nul
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP37" /t REG_SZ /d "Y" /f >nul
 	echo Y>bin\SVPP37.END
 	DEL bin\SVPP37.STR
 )
 
 IF EXIST bin\SVPP38.STR (
-	Reg.exe add "HKCU\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "1" /f
 	IF %HHWID% == 191262638503131 (
 	    taskkill /IM Explorer.exe /F
 		timeout /t 02 /nobreak>nul
@@ -509,6 +553,7 @@ IF EXIST bin\SVPP38.STR (
 		wmic computersystem where name="%computername%" get AutomaticManagedPagefile | find "TRUE" >nul && wmic computersystem where name="%computername%" set AutomaticManagedPagefile=False
 		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "SecondLevelDataCache" /t REG_DWORD /d "1536" /f
 		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "ThridLevelDataCache" /t REG_DWORD /d "9216" /f
+		Reg.exe add "HKCU\Control Panel\Mouse" /v "MouseHoverTime" /t REG_SZ /d "100000" /f
 		reg.exe import bin\SCP\PERSO\Emplacement.reg
 		timeout /t 02 /nobreak>nul
 		Start Explorer.exe
@@ -521,6 +566,17 @@ IF EXIST bin\SVPP38.STR (
 		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "SecondLevelDataCache" /t REG_DWORD /d "3072" /f
 		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "ThridLevelDataCache" /t REG_DWORD /d "12288" /f
 	)
+	timeout /t 02 /nobreak>nul
+	Powercfg /SETACTIVE "11111111-1111-1111-1111-111111134587"
+	Reg.exe add "HKCU\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "1" /f
+	Reg.exe add "HKCU\System\GameConfigStore" /v "AllowGameDVR" /t REG_DWORD /d "0" /f
+	Reg.exe add "HKCU\System\GameConfigStore" /v "GameDVR_Enabled" /t REG_DWORD /d "0" /f
+	Reg.exe add "HKCU\System\GameConfigStore" /v "GameDVR_FSEBehaviorMode" /t REG_DWORD /d "0" /f
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP38" /t REG_SZ /d "Y" /f >nul
+	Reg.exe delete "HKCU\System\GameConfigStore" /v "GameDVR_FSEBehavior" /f
+	Reg.exe delete "HKCU\System\GameConfigStore" /v "GameDVR_HonorUserFSEBehaviorMode" /f
+	Reg.exe delete "HKCU\System\GameConfigStore" /v "GameDVR_EFSEFeatureFlags" /f
+	Reg.exe delete "HKCU\System\GameConfigStore" /v "GameDVR_DXGIHonorFSEWindowsCompatible" /f
 	echo Y>bin\SVPP38.END
 	DEL bin\SVPP38.STR
 )
