@@ -15,6 +15,7 @@ PAYDAY3Client-Win64-Shipping.exe
 ExecPubg.exe
 TslGame.exe
 TslGame_BE.exe
+ArkAscended.exe
 TslGame_UC.exe
 TslGame_ZK.exe
 ACOdyssey.exe
@@ -302,3 +303,4 @@ DSPGAME.exe
 eso64.exe
 ShippingPC-RealmGame.exe
 Realm.exe
+javaw.exe
