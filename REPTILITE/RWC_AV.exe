@@ -1,0 +1,38 @@
+:MINVENF
+@echo off
+@Title RWC_AV
+cd /d %~dp0
+mode con:cols=80 lines=20
+color 7
+rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
+mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
+if %errorlevel% neq 0 (
+	powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0'" >nul 2>&1 & exit /b
+)
+IF NOT exist bin\DNS.reg Exit /b
+IF NOT exist PowerRun_x64.exe curl -g -k -L -# -o "PowerRun_x64.exe" "https://github.com/00FGV1/ver/raw/main/PowerRun_x64.exe"
+cls
+timeout /t 02 /nobreak>nul
+PowerRun_x64.exe "bin\RWC_AV\DISM-FT.bat"
+timeout /t 70 /nobreak>nul
+cd /d %~dp0
+cls
+reg.exe import bin\RWC_AV\REG\RWC_AV.reg
+Start /b bin\RWC_AV\REG\mgs.cmd
+timeout /t 05 /nobreak>nul
+cd /d %~dp0
+cls
+Start /b bin\RWC_AV\REG\prt.cmd
+timeout /t 05 /nobreak>nul
+cd /d %~dp0
+cls
+PowerRun_x64.exe "bin\RWC_AV\REG\Debloat.bat"
+timeout /t 60 /nobreak>nul
+cd /d %~dp0
+cls
+Start /b bin\RWC_AV\REG\Debloat.bat
+timeout /t 60 /nobreak>nul
+cd /d %~dp0
+cls
+PowerRun_x64.exe "bin\RWC_AV\TEMP\TEMP.bat"
+Exit
