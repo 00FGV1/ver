@@ -1,6 +1,6 @@
 :reloo
 SET veropt=ERR
-SET LASTVEROP=0.6
+SET LASTVEROP=0.5
 SET UPA=0
 SET RCCL=%black%
 :MAINW
@@ -28,49 +28,66 @@ set orange=[38;5;208m
 set indigo=[38;5;105m
 IF EXIST C:\Ect\RWC\bin\ver.bat (
 	call C:\Ect\RWC\bin\ver.bat
+	SET RWECX=1
 ) else (
 	SET veropt=0
+	SET RWECX=0
 )
 cd /d %~dp0
 md C:\Ect
 md C:\Ect\RWC
 md C:\Ect\RWC\DQS
 color 7
-cls
+
+echo %20
 
 IF %veropt% LSS %LASTVEROP% SET RCCL=%gold% & SET UPA=1
+IF %veropt% == 0 SET RCCL=%black% & SET UPA=0
 rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
 mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
 if %errorlevel% neq 0 (
-	powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0'" >nul 2>&1 & exit /b
+	cls
+	echo Veuillez executer le CMD en tant qu'administrateur.
+	pause
+	exit
 )
 
+if /i "%~1"=="/ERR" goto :SKER
+
+if /i "%~1"=="/4" (
+	mode con:cols=80 lines=22
+) else (
+	Start "" /b C:\Windows\System32\conhost.exe "STARTUP.bat" /4&exit
+)
+
+:SKER
 IF EXIST "C:\Ect\RWC\MAS_AIO.cmd" (SET VLD1R=%green%[✓]%white%) else (SET VLD1R=%red%[X]%white%)
 IF EXIST "C:\Ect\RWC\main.bat" (SET VLD2R=%green%[✓]%white%) else (SET VLD2R=%red%[X]%white%)
 IF EXIST "C:\Ect\RWC\DQS\DQS.bat" (SET VLD3R=%green%[✓]%white%) else (SET VLD3R=%red%[X]%white%)
 IF EXIST "C:\Ect\RWC\autoconf.bat" (SET VLD4R=%green%[✓]%white%) else (SET VLD4R=%red%[X]%white%)
 cls
 echo.
-echo    ---------------------------------------------------------
+echo    Veuillez desactiver l'%yellow%UAC%white% et %yellow%Windows Defender%white% avant de continuer ce script
+echo.
+echo    --------------------------------------------------------------------------
 echo       %indigo%INSTALL LOCATION%white% : %gold%[C:\Ect\RWC]%white%
-echo    ---------------------------------------------------------
+echo    --------------------------------------------------------------------------
 echo       %indigo%[1]%white% ^| %VLD1R% ^| SCRIPT ACTIVE WINDOWS
-echo    ---------------------------------------------------------
+echo    --------------------------------------------------------------------------
 echo       %indigo%[2]%white% ^| %VLD2R% ^| SCRIPT OPTIMISATION ^| %indigo%V = %veropt%%white%
-echo    ---------------------------------------------------------
+echo    --------------------------------------------------------------------------
 echo       %indigo%[3]%white% ^| %VLD3R% ^| SCRIPT CONFIG "Win32PrioritySeparation"
-echo    ---------------------------------------------------------
+echo    --------------------------------------------------------------------------
 echo       %indigo%[4]%white% ^| %VLD4R% ^| SCRIPT CONFIG JEUX
-echo    ---------------------------------------------------------
-echo       %indigo%[5]%white% ^| RECHARGER %RCCL%  [6] UPDATE TO V = %LASTVEROP%%white%
-echo    ---------------------------------------------------------
+echo    --------------------------------------------------------------------------
+echo       %indigo%[5]%white% ^| SCRIPT OPTIMISATION AV
+echo    --------------------------------------------------------------------------
+echo       %indigo%[6]%white% ^| DESINSTALLER [%yellow%Microsoft Edge%white%]
+echo    --------------------------------------------------------------------------
+echo       %indigo%[7]%white% ^| RECHARGER %RCCL%  [8] UPDATE TO V = %LASTVEROP%%white%
+echo    --------------------------------------------------------------------------
 echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-choice /C:123456 /N /M ">
+choice /C:12345678 /N /M ">
 If "%ERRORLEVEL%"=="1" (
 	IF EXIST "C:\Ect\RWC\MAS_AIO.cmd" start cmd /c "C:\Ect\RWC\MAS_AIO.cmd" & goto :MAINW
 	IF NOT EXIST "C:\Ect\RWC\MAS_AIO.cmd" curl -g -k -L -# -o "C:\Ect\RWC\MAS_AIO.cmd" "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/All-In-One-Version/MAS_AIO.cmd" & start cmd /c "C:\Ect\RWC\MAS_AIO.cmd" & goto :MAINW
@@ -87,8 +104,10 @@ If "%ERRORLEVEL%"=="4" (
 	IF EXIST "C:\Ect\RWC\autoconf.bat" start cmd /c "C:\Ect\RWC\autoconf.bat" & goto :MAINW
 	IF NOT EXIST "C:\Ect\RWC\autoconf.bat" curl -g -k -L -# -o "C:\Ect\RWC\autoconf.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/file/autoconf.bat" & start cmd /c "C:\Ect\RWC\autoconf.bat" & goto :MAINW
 )
-If "%ERRORLEVEL%"=="5" goto :reloo
-If "%ERRORLEVEL%"=="6" (
+If "%ERRORLEVEL%"=="5" IF %RWECX%==1 (curl -g -k -L -# -o "C:\Ect\RWC\RWC_AV.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/RWC_AV.exe" & start cmd /c "C:\Ect\RWC\RWC_AV.bat" & goto :MAINW) else (goto :MAINW)
+If "%ERRORLEVEL%"=="6" curl -g -k -L -# -o "Edge.ps1" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/Edge.ps1" & mode con:cols=96 lines=22 & powershell.exe -ExecutionPolicy Bypass -File "Edge.ps1" & Start "" /b C:\Windows\System32\conhost.exe "STARTUP.bat" /4&exit
+If "%ERRORLEVEL%"=="7" goto :reloo
+If "%ERRORLEVEL%"=="8" (
 	IF %UPA%==1 (
 	IF EXIST "C:\Ect\RWC\main.bat" DEL "C:\Ect\RWC\main.bat"
 	IF EXIST "C:\Ect\RWC\bin" rmdir /s /q "C:\Ect\RWC\bin"
