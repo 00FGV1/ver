@@ -153,6 +153,13 @@ timeout /t 05 /nobreak>nul
 
 :PIDFV
 
+IF %HHWID%==LOAD (
+	for /f "usebackq tokens=*" %%a in ("HWID.txt") do (
+    	set "HHWID=%%a"
+	)
+	goto :PIDFV
+)
+
 for /f "tokens=2 delims==" %%a in ('wmic os get TotalVisibleMemorySize /format:value') do set mem=%%a
 set /a ram=%mem% + 1024000
 
