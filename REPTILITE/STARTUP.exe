@@ -1,6 +1,6 @@
 :reloo
 SET veropt=ERR
-SET LASTVEROP=0.5
+SET LASTVEROP=0.8
 SET UPA=0
 SET RCCL=%black%
 :MAINW
