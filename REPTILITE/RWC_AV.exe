@@ -11,28 +11,54 @@ if %errorlevel% neq 0 (
 )
 IF NOT exist bin\DNS.reg Exit /b
 IF NOT exist PowerRun_x64.exe curl -g -k -L -# -o "PowerRun_x64.exe" "https://github.com/00FGV1/ver/raw/main/PowerRun_x64.exe"
-cls
 timeout /t 02 /nobreak>nul
+cls
+echo.
+echo  Desactivation des fonctionnalites
+echo.
 PowerRun_x64.exe "bin\RWC_AV\DISM-FT.bat"
-timeout /t 70 /nobreak>nul
+timeout /t 145 /nobreak>nul
 cd /d %~dp0
 cls
-reg.exe import bin\RWC_AV\REG\RWC_AV.reg
+echo.
+echo  Importation des cles registres 1/2
+echo.
+PowerRun_x64.exe "bin\RWC_AV\REG\reg_1.bat"
+cd /d %~dp0
+call bin\RWC_AV\REG\reg_2.bat
+cd /d %~dp0
 Start /b bin\RWC_AV\REG\mgs.cmd
 timeout /t 05 /nobreak>nul
 cd /d %~dp0
 cls
+echo.
+echo  Importation des cles registres 2/2
+echo.
 Start /b bin\RWC_AV\REG\prt.cmd
 timeout /t 05 /nobreak>nul
 cd /d %~dp0
 cls
+echo.
+echo  Debloat Windows app 1/2
+echo.
 PowerRun_x64.exe "bin\RWC_AV\REG\Debloat.bat"
-timeout /t 60 /nobreak>nul
+timeout /t 135 /nobreak>nul
 cd /d %~dp0
 cls
+echo.
+echo  Debloat Windows app 2/2
+echo.
 Start /b bin\RWC_AV\REG\Debloat.bat
-timeout /t 60 /nobreak>nul
+timeout /t 135 /nobreak>nul
 cd /d %~dp0
 cls
+echo.
+echo  Del temp files
+echo.
 PowerRun_x64.exe "bin\RWC_AV\TEMP\TEMP.bat"
+timeout /t 60 /nobreak>nul
+cls
+echo.
+echo  Wait ... 
+echo.
 Exit
