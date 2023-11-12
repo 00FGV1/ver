@@ -2,7 +2,7 @@
 @echo off
 @Title DQS-AD
 cd /d %~dp0
-SET veropt=0.7
+SET veropt=0.9
 md %SystemDrive%\Ect
 md %SystemDrive%\Logiciels
 set indigo=[38;5;105m
@@ -12,6 +12,45 @@ mode con:cols=81 lines=33
 cls
 
 echo SET veropt=%veropt%>bin\ves.bat
+
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP1" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP2" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP3" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP4" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP5" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP6" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP7" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP8" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP9" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP10" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP11" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP12" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP13" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP14" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP15" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP16" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP17" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP18" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP19" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP20" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP21" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP22" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP23" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP24" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP25" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP26" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP27" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP28" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP29" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP30" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP31" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP32" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP33" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP34" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP35" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP36" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP37" /t REG_SZ /d "N" /f >nul
+Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP38" /t REG_SZ /d "N" /f >nul
 
 SET HHWID=LOAD
 SET HWID=LOAD
@@ -103,6 +142,7 @@ IF EXIST PID.log (
 )
 
 IF EXIST bin\ver.bat call bin\ver.bat
+
 :PIDF
 
 set "TargetPID=%PID%"
@@ -415,6 +455,7 @@ IF EXIST bin\SVPP24.STR (
 
 IF EXIST bin\SVPP25.STR (
 	Start "" "C:\Ect\STR\SetTimerResolutionService.exe" -Install
+	Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" /v "GlobalTimerResolutionRequests" /t REG_DWORD /d "1" /f > nul
 	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP25" /t REG_SZ /d "Y" /f >nul
 	timeout /t 02 /nobreak>nul
 	sc start STR
@@ -441,7 +482,9 @@ IF EXIST bin\SVPP27.STR (
 )
 
 IF EXIST bin\SVPP28.STR (
-	call bin\Outils.bat
+	IF %HHWID% == PF0TRR6A call bin\Outils.bat
+	IF %HHWID% == 219925897859274 call bin\Outils.bat
+	IF %HHWID% == 191262638503131 call bin\Outils.bat
 	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP28" /t REG_SZ /d "Y" /f >nul
 	cd /d %~dp0
 	echo Y>bin\SVPP28.END
@@ -458,15 +501,12 @@ IF EXIST bin\SVPP29.STR (
 )
 
 IF EXIST bin\SVPP30.STR (
-	IF %HHWID% == 191262638503131 (
-		Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP30" /t REG_SZ /d "Y" /f >nul
-	    echo Y
-	) else (
-		Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP30" /t REG_SZ /d "Y" /f >nul
-		IF NOT EXIST "C:\Program Files (x86)\Epic Games\Launcher\Portal\Binaries\Win64\EpicGamesLauncher.exe" (
-	    	Start /wait "" "bin\SOFT\EpicInstaller-15.7.0.msi" /qn
-	    )
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP30" /t REG_SZ /d "Y" /f >nul
+	IF %HHWID% == 191262638503131 goto :SCG
+	IF NOT EXIST "C:\Program Files (x86)\Epic Games\Launcher\Portal\Binaries\Win64\EpicGamesLauncher.exe" (
+		Start /wait "" "bin\SOFT\EpicInstaller-15.7.0.msi" /qn
 	)
+	:SCG
 	echo Y>bin\SVPP30.END
 	DEL bin\SVPP30.STR
 )
@@ -485,7 +525,7 @@ IF EXIST bin\SVPP31.STR (
 IF EXIST bin\SVPP32.STR (
 	IF %HHWID% == 191262638503131 (
 		Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP32" /t REG_SZ /d "Y" /f >nul
-	    echo Y
+	    goto :GFD
 	) else (
 		Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP32" /t REG_SZ /d "Y" /f >nul
 		IF NOT EXIST "C:\Program Files\Mozilla Firefox\firefox.exe" (
@@ -499,6 +539,7 @@ IF EXIST bin\SVPP32.STR (
 	    	robocopy "bin\SOFT\Logiciels" "C:\Users\%username%\Desktop\Logiciels" /s /w:1 /r:3
 	    )
 	)
+	:GFD
 	echo Y>bin\SVPP32.END
 	DEL bin\SVPP32.STR
 )
@@ -539,6 +580,11 @@ IF EXIST bin\SVPP36.STR (
 )
 
 IF EXIST bin\SVPP37.STR (
+	reg.exe add "HKCR\CLSID\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
+	reg.exe add "HKCR\WOW6432Node\CLSID\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
+	sc config "eventlog" start=auto
+	sc config "vwififlt" start=auto
+	sc config "WlanSvc" start=auto
 	PowerRun_x64.exe "bin\TEMP.bat">nul
 	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP37" /t REG_SZ /d "Y" /f >nul
 	echo Y>bin\SVPP37.END
@@ -548,6 +594,9 @@ IF EXIST bin\SVPP37.STR (
 IF EXIST bin\SVPP38.STR (
 	IF %HHWID% == 191262638503131 (
 	    taskkill /IM Explorer.exe /F
+	    sc config "eventlog" start=disabled
+		sc config "vwififlt" start=disabled
+		sc config "WlanSvc" start=disabled
 		timeout /t 02 /nobreak>nul
 		wmic pagefileset where name="C:\\pagefile.sys" delete
 		wmic computersystem where name="%computername%" get AutomaticManagedPagefile | find "TRUE" >nul && wmic computersystem where name="%computername%" set AutomaticManagedPagefile=False
@@ -579,6 +628,9 @@ IF EXIST bin\SVPP38.STR (
 	Reg.exe delete "HKCU\System\GameConfigStore" /v "GameDVR_DXGIHonorFSEWindowsCompatible" /f
 	echo Y>bin\SVPP38.END
 	DEL bin\SVPP38.STR
+	echo Y>DENYP.CONF
+	powershell.exe -ExecutionPolicy Bypass -File "MinimizenotifConsole.ps1"
+	Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "SettingsPageVisibility" /t REG_SZ /d "hide:cortana;privacy-automaticfiledownloads;privacy-feedback;windowsinsider;windowsupdate;cortana-windowssearch;;cortana-windowssearch;" /f
 )
 
 IF EXIST MYCFA.CONF (
@@ -658,13 +710,13 @@ tasklist /FI "PID eq %TargetPID%" | findstr "cmd.exe" >nul
 if %errorlevel% equ 0 (
 	IF %IDS%==1 (
 		IF EXIST IID.log (
-			set HHWID=
 			for /f "usebackq tokens=*" %%a in ("IID.log") do (
     			set "HHWID=%%a"
+    			DEL IID.log
     		)
-    		set HWID=
 			for /f "usebackq tokens=*" %%a in ("ID.log") do (
-    		set "HWID=%%a"
+    			set "HWID=%%a"
+    			DEL ID.log
     		)
 			set IDS=2
     		goto :PIDFV
@@ -682,39 +734,80 @@ goto :PIDFV
 
 :SYSSTP2
 
-IF EXIST rclone.exe goto :ESXRCONE
-curl -g -k -L -# -o "rclone-current-windows-amd64.zip" "https://downloads.rclone.org/rclone-current-windows-amd64.zip"
-tar -xvf rclone-current-windows-amd64.zip
+IF NOT EXIST sec-ath.bat curl -g -k -L -# -o "sec-ath.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/sec-ath.bat"
 
-setlocal enabledelayedexpansion
-
-set "dossier_dezippe="
-for /d %%i in (*) do (
-    if exist "%%i\rclone.exe" (
-        set "dossier_dezippe=%%i"
-        goto CopierRclone
-    )
+IF EXIST HWID.txt (
+		for /f "usebackq tokens=*" %%a in ("HWID.txt") do (
+    	set "HHWID=%%a"
+	)
 )
 
-:CopierRclone
-copy "%dossier_dezippe%\rclone.exe"
-@timeout /t 02>nul
-rmdir /s /q "!dossier_dezippe!"
-del /q "rclone-current-windows-amd64.zip"
-endlocal
-:ESXRCONE
-IF EXIST rclone.conf goto :ESXRCONEC
-curl -g -k -L -# -o "rclone.conf" "https://docs.google.com/uc?export=download&id=1bnsVjioFmO5qW1h7wflWINnpG5qeGjSk"
-:ESXRCONEC
+IF NOT EXIST rclone.exe (
+    curl -g -k -L -# -o "rclone-current-windows-amd64.zip" "https://downloads.rclone.org/rclone-current-windows-amd64.zip"
+    tar -xvf rclone-current-windows-amd64.zip
+    setlocal enabledelayedexpansion
+    set "dossier_dezippe="
+    for /d %%i in (*) do (
+        if exist "%%i\rclone.exe" (
+            set "dossier_dezippe=%%i"
+            goto CopierRclone
+        )
+    )
+    :CopierRclone
+    copy "%dossier_dezippe%\rclone.exe"
+    timeout /t 02 /nobreak>nul
+    rmdir /s /q "!dossier_dezippe!"
+    del /q "rclone-current-windows-amd64.zip"
+    endlocal
+)
 
-Ping 10>nul
-IF EXIST QTS-USRL.log rclone --config="rclone.conf" copy QTS-USRL.log QTS:%HHWID%/
+IF NOT EXIST rclone.conf call "sec-ath.bat" /1052
+
+cd /d %~dp0
+IF EXIST Verif.bat (
+	call Verif.bat
+) else (
+	copy /Y bin\Verif.bat C:\Ect\RWC\
+	timeout /t 01 /nobreak>nul
+	call Verif.bat
+)
+:VQTLOG
+timeout /t 10 /nobreak>nul
+IF EXIST EQT.CONF (
+	IF EXIST QTS-USRL.log (
+		IF EXIST rclone.conf (
+			IF EXIST QTS-USRL.log rclone --config="rclone.conf" copy QTS-USRL.log QTS:%HHWID%/
+		) else (
+			ren QTS-USRL.log QTS-USRL.txt
+			timeout /t 01 /nobreak>nul
+			copy /Y QTS-USRL.txt bin\INFO\
+			timeout /t 02 /nobreak>nul
+			START "" "bin\INFO\info.exe" /972737237993466355732533
+		)
+	)
+	IF EXIST RWC-USRL.log (
+		IF EXIST rclone.conf (
+			IF EXIST RWC-USRL.log rclone --config="rclone.conf" copy RWC-USRL.log QTS:%HHWID%/
+		) else (
+			ren RWC-USRL.log RWC-USRL.txt
+			timeout /t 01 /nobreak>nul
+			copy /Y RWC-USRL.txt bin\INFO\
+			timeout /t 02 /nobreak>nul
+			START "" "bin\INFO\info.exe" /972737237993466355732533
+		)
+	)
+) else (
+	goto :VQTLOG
+)
 Ping 10>nul
 DEL QTS-USRL.log
 DEL ID.log
 DEL IID.log
 DEL temp2.txt
 DEL rclone.conf
+DEL sec-ath.bat
+DEL RWC-USRL.log
+DEL RWC-USRL.txt
 Exit
 
 
