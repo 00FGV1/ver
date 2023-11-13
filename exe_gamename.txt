@@ -11,6 +11,7 @@ SublevelZero.exe
 sspace.exe
 Anno1800.exe
 witcher3.exe
+TS4_x64.exe
 Pandora.exe
 PAYDAY3Client-Win64-Shipping.exe
 ExecPubg.exe
