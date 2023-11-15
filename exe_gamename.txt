@@ -81,7 +81,6 @@ DeusEx.exe
 Trine.exe
 DOOM.exe
 Torchlight2.exe
-Game.exe
 quake3.exe
 StarCraft.exe
 age2_x1.exe
