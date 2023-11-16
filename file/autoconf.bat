@@ -25,6 +25,9 @@ if %errorlevel% neq 0 (
 	ping -n 10 -w 1000 127.0.0.1 >nul
 	Exit /b 1
 )
+Reg.exe delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS" /f
+IF EXIST result.log DEL result.log
+IF EXIST exe_gamename.txt DEL exe_gamename.txt
 :REVERIF
 cls
 IF EXIST cli.c goto :VERIF1
@@ -84,9 +87,6 @@ if "!computed2MD5!"=="!expected2MD5!" (
     goto :REVERIF
 )
 
-Reg.exe delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS" /f
-IF EXIST result.log DEL result.log
-IF EXIST exe_gamename.txt DEL exe_gamename.txt
 IF EXIST Everything.ini DEL Everything.ini
 Start "" "Everything.exe" -startup
 cls
