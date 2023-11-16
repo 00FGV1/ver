@@ -70,6 +70,8 @@ WorldOfGoo.exe
 WL2.exe
 Windward.exe
 Wildstar.exe
+bg3.exe
+bg3_dx11.exe
 WorldOfTanks.exe
 WorldOfTanks_eu.exe
 Waves.exe
