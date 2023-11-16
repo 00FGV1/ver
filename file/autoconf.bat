@@ -105,8 +105,6 @@ echo.
 echo  Consulter la liste des jeux pris en charge :
 echo  %indigo%https://github.com/00FGV1/ver/blob/main/exe_gamename.txt%white%
 echo ============================================================
-pause>nul
-IF exist "exe_gamename.txt" del "exe_gamename.txt"
 curl -g -k -L -# -o "exe_gamename.txt" "https://raw.githubusercontent.com/00FGV1/ver/main/exe_gamename.txt" >nul 2>&1
 
 Reg add "HKCU\Software\Microsoft\GameBar" /v "AllowAutoGameMode" /t REG_DWORD /d "1" /f
