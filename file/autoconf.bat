@@ -84,16 +84,17 @@ if "!computed2MD5!"=="!expected2MD5!" (
     goto :REVERIF
 )
 
+Reg.exe delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS" /f
 IF EXIST result.log DEL result.log
 IF EXIST exe_gamename.txt DEL exe_gamename.txt
 IF EXIST Everything.ini DEL Everything.ini
 Start "" "Everything.exe" -startup
 cls
 
-echo ------------------------------------------------------------
+echo ============================================================
 echo  Ce script configure automatiquement les executables des
 echo  jeux pris en charge. Le script prend en moyenne %red%5 minutes%white%
-echo  sur les ordinateurs de performances moyennes.
+echo  sur les ordinateurs performants.
 echo.
 echo  La liste des executables de jeu optimises sera presentee
 echo  ci-dessous au fur et a mesure qu'ils seront detectes.
@@ -103,8 +104,8 @@ echo  journal (.log) s'ouvrira pour afficher les resultats.
 echo.
 echo  Consulter la liste des jeux pris en charge :
 echo  %indigo%https://github.com/00FGV1/ver/blob/main/exe_gamename.txt%white%
-echo ------------------------------------------------------------
-
+echo ============================================================
+pause>nul
 IF exist "exe_gamename.txt" del "exe_gamename.txt"
 curl -g -k -L -# -o "exe_gamename.txt" "https://raw.githubusercontent.com/00FGV1/ver/main/exe_gamename.txt" >nul 2>&1
 
@@ -126,7 +127,7 @@ set "secondes="
 
 cls
 
-echo ------------------------------------------------------------
+echo ============================================================
 echo  Ce script configure automatiquement les executables des
 echo  jeux pris en charge. Le script prend en moyenne %red%5 minutes%white%
 echo  sur les ordinateurs performants.
@@ -139,7 +140,7 @@ echo  journal (.log) s'ouvrira pour afficher les resultats.
 echo.
 echo  Consulter la liste des jeux pris en charge :
 echo  %indigo%https://github.com/00FGV1/ver/blob/main/exe_gamename.txt%white%
-echo ------------------------------------------------------------
+echo ============================================================
 
 for /f "tokens=*" %%i in (%fileList%) do (
     for %%j in (C D E F G H I J K L M N O P Q R S T U V W X Y Z) do (
