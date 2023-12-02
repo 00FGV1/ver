@@ -9,11 +9,14 @@ ACOdyssey_plus.exe
 Tidalis.exe
 SublevelZero.exe
 sspace.exe
+DyingLightGame.exe
 Anno1800.exe
 witcher3.exe
 TS4_x64.exe
 Pandora.exe
+ReadyOrNot-Win64-Shipping.exe
 PAYDAY3Client-Win64-Shipping.exe
+DyingLightGame_x64_rwdi.exe
 ExecPubg.exe
 TslGame.exe
 forhonor.exe
