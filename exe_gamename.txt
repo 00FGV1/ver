@@ -24,6 +24,7 @@ TslGame_BE.exe
 ArkAscended.exe
 TslGame_UC.exe
 TslGame_ZK.exe
+DaysGone.exe
 ArkAscended.exe
 ACOdyssey.exe
 eldenring.exe
