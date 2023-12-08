@@ -1,6 +1,6 @@
 :reloo
 SET veropt=ERR
-SET LASTVEROP=0.8
+SET LASTVEROP=0.5
 SET UPA=0
 SET RCCL=%black%
 :MAINW
@@ -84,10 +84,12 @@ echo       %indigo%[5]%white% ^| SCRIPT OPTIMISATION AV
 echo    --------------------------------------------------------------------------
 echo       %indigo%[6]%white% ^| DESINSTALLER [%yellow%Microsoft Edge%white%]
 echo    --------------------------------------------------------------------------
-echo       %indigo%[7]%white% ^| RECHARGER %RCCL%  [8] UPDATE TO V = %LASTVEROP%%white%
+echo       %indigo%[7]%white% ^| INSTALL S-W [%yellow%start-userinit-script%white%]
+echo    --------------------------------------------------------------------------
+echo       %indigo%[8]%white% ^| RECHARGER %RCCL%  [9] UPDATE TO V = %LASTVEROP%%white%
 echo    --------------------------------------------------------------------------
 echo.
-choice /C:12345678 /N /M ">
+choice /C:123456789 /N /M ">
 If "%ERRORLEVEL%"=="1" (
 	IF EXIST "C:\Ect\RWC\MAS_AIO.cmd" start cmd /c "C:\Ect\RWC\MAS_AIO.cmd" & goto :MAINW
 	IF NOT EXIST "C:\Ect\RWC\MAS_AIO.cmd" curl -g -k -L -# -o "C:\Ect\RWC\MAS_AIO.cmd" "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/All-In-One-Version/MAS_AIO.cmd" & start cmd /c "C:\Ect\RWC\MAS_AIO.cmd" & goto :MAINW
@@ -106,8 +108,27 @@ If "%ERRORLEVEL%"=="4" (
 )
 If "%ERRORLEVEL%"=="5" IF %RWECX%==1 (curl -g -k -L -# -o "C:\Ect\RWC\RWC_AV.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/RWC_AV.exe" & start cmd /c "C:\Ect\RWC\RWC_AV.bat" & goto :MAINW) else (goto :MAINW)
 If "%ERRORLEVEL%"=="6" curl -g -k -L -# -o "Edge.ps1" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/Edge.ps1" & mode con:cols=96 lines=22 & powershell.exe -ExecutionPolicy Bypass -File "Edge.ps1" & Start "" /b C:\Windows\System32\conhost.exe "STARTUP.bat" /4&exit
-If "%ERRORLEVEL%"=="7" goto :reloo
-If "%ERRORLEVEL%"=="8" (
+If "%ERRORLEVEL%"=="7" (
+	cd /d C:\Ect\
+	IF NOT EXIST C:\Ect md C:\Ect
+	IF EXIST C:\Ect\S-W START "" "C:\Ect\S-W\start-windows.bat" -U
+	@timeout /t 01 /nobreak>nul
+	IF EXIST "C:\Ect\S-W" rmdir /s /q "C:\Ect\S-W"
+	curl -g -k -L -# -o "C:\Ect\S-W.7z" "https://github.com/00FGV1/ver/raw/main/file/S-W.7z"
+	echo.
+	echo  Installation ... 
+	echo.
+	@timeout /t 05 /nobreak>nul
+	IF NOT EXIST C:\Ect\7za.exe curl -g -k -L -# -o "C:\Ect\7za.exe" "https://github.com/00FGV1/ver/raw/main/file/7za.exe"
+	@timeout /t 01 /nobreak>nul
+	START "" "C:\Ect\7za.exe" -y x -p9421 C:\Ect\S-W.7z
+	@timeout /t 03 /nobreak>nul
+	IF EXIST "C:\Ect\S-W\conf-start-windows.cmd" (call C:\Ect\S-W\conf-start-windows.cmd) else (echo ERREUR & @timeout /t 03 /nobreak)
+	DEL C:\Ect\S-W.7z
+	goto :reloo
+)
+If "%ERRORLEVEL%"=="8" goto :reloo
+If "%ERRORLEVEL%"=="9" (
 	IF %UPA%==1 (
 	IF EXIST "C:\Ect\RWC\main.bat" DEL "C:\Ect\RWC\main.bat"
 	IF EXIST "C:\Ect\RWC\bin" rmdir /s /q "C:\Ect\RWC\bin"
