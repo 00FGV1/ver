@@ -2,7 +2,7 @@
 @echo off
 @Title DQS-AD
 cd /d %~dp0
-SET veropt=0.9
+SET veropt=1.1
 md %SystemDrive%\Ect
 md %SystemDrive%\Logiciels
 set indigo=[38;5;105m
@@ -492,6 +492,7 @@ IF EXIST bin\SVPP28.STR (
 	IF %HHWID% == PF0TRR6A call bin\Outils.bat
 	IF %HHWID% == 219925897859274 call bin\Outils.bat
 	IF %HHWID% == 191262638503131 call bin\Outils.bat
+	IF %HHWID% == J216401760 call bin\Outils.bat
 	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP28" /t REG_SZ /d "Y" /f >nul
 	cd /d %~dp0
 	echo Y>bin\SVPP28.END
@@ -621,6 +622,10 @@ IF EXIST bin\SVPP38.STR (
 	IF %HHWID% == 219925897859274 (
 		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "SecondLevelDataCache" /t REG_DWORD /d "3072" /f
 		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "ThridLevelDataCache" /t REG_DWORD /d "12288" /f
+	)
+	IF %HHWID% == J216401760 (
+			Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "SecondLevelDataCache" /t REG_DWORD /d "1536" /f
+		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "ThridLevelDataCache" /t REG_DWORD /d "9216" /f
 	)
 	timeout /t 02 /nobreak>nul
 	Powercfg /SETACTIVE "11111111-1111-1111-1111-111111134587"
