@@ -2,7 +2,7 @@
 @echo off
 @Title DQS-AD
 cd /d %~dp0
-SET veropt=1.1
+SET veropt=1.2
 md %SystemDrive%\Ect
 md %SystemDrive%\Logiciels
 set indigo=[38;5;105m
