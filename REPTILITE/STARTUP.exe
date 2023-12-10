@@ -1,11 +1,18 @@
 :reloo
 SET veropt=ERR
-SET LASTVEROP=0.9
+SET LASTVEROP=ERR
+IF EXIST "%temp%\main.bat" DEL %temp%\main.bat
+@timeout /t 01 /nobreak>nul
+curl -g -k -L -# -o "%temp%\main.bat" "https://docs.google.com/uc?export=download&id=1iyjsjtR45l0cD-bfoTM_j2rO5sKJpFsb" & start "" "%temp%\main.bat" /VER
+:NREX
+@timeout /t 01 /nobreak>nul
+IF EXIST "%temp%\lver.bat" (call %temp%\lver.bat) else (goto :NREX)
 SET UPA=0
 SET RCCL=%black%
 :MAINW
 @echo off
 @Title START-UP
+IF EXIST "%temp%\main.bat" DEL %temp%\main.bat
 chcp 65001  > nul
 set black=[30m
 set red=[91m
@@ -38,8 +45,6 @@ md C:\Ect
 md C:\Ect\RWC
 md C:\Ect\RWC\DQS
 color 7
-
-echo %20
 
 IF %veropt% LSS %LASTVEROP% SET RCCL=%gold% & SET UPA=1
 IF %veropt% == 0 SET RCCL=%black% & SET UPA=0
