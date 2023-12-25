@@ -24,10 +24,28 @@ SET HTO=102
 SET MDQS=ERR
 SET KDQS=ERR
 SET WPS=ERR
-
+SET ENDF=0
 
 if /i "%~1"=="/4" (
 	SET HTO=98
+)
+
+if /i "%~1"=="/B" (
+	rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
+	mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
+	if %errorlevel% neq 0 (
+		powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0' /B" >nul 2>&1 & exit /b
+	)
+	goto :BENCH
+)
+
+if /i "%~1"=="/T" (
+	rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
+	mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
+	if %errorlevel% neq 0 (
+		powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0' /T" >nul 2>&1 & exit /b
+	)
+	goto :WIP
 )
 
 IF exist PowerRun_x64.exe (
@@ -189,14 +207,139 @@ if %a%==32 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "W
 if %a%==33 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x36" /f >nul & goto :MMENU
 
 if %a%==X (
-	Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\mouclass\Parameters" /v "MouseDataQueueSize" /t REG_DWORD /d "0xe" /f >nul
-	Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters" /v "KeyboardDataQueueSize" /t REG_DWORD /d "0xe" /f >nul
+	Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\mouclass\Parameters" /v "MouseDataQueueSize" /t REG_DWORD /d "0x10" /f >nul
+	Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters" /v "KeyboardDataQueueSize" /t REG_DWORD /d "0x10" /f >nul
 	Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul
 )
 
 if %a%==x (
-	Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\mouclass\Parameters" /v "MouseDataQueueSize" /t REG_DWORD /d "0xe" /f >nul
-	Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters" /v "KeyboardDataQueueSize" /t REG_DWORD /d "0xe" /f >nul
+	Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\mouclass\Parameters" /v "MouseDataQueueSize" /t REG_DWORD /d "0x10" /f >nul
+	Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters" /v "KeyboardDataQueueSize" /t REG_DWORD /d "0x10" /f >nul
 	Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul
 )
 goto :MMENU
+
+:BENCH
+cd /d %~dp0
+mode con:cols=138 lines=23
+cls
+
+SET CURRENTKEY=HKLM\SYSTEM\ControlSet001\Control\PriorityControl
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "Win32PrioritySeparation"') DO set WPS=%%B >NUL 2>nul
+
+SET VL1=%white%& SET ENDF=1
+SET VL2=%white%& SET ENDF=1
+SET VL3=%white%& SET ENDF=1
+SET VL4=%white%& SET ENDF=1
+SET VL5=%white%& SET ENDF=1
+SET VL6=%white%& SET ENDF=1
+SET VL7=%white%& SET ENDF=1
+SET VL8=%white%& SET ENDF=1
+SET VL9=%white%& SET ENDF=1
+SET VL10=%white%& SET ENDF=1
+SET VL11=%white%& SET ENDF=1
+SET VL12=%white%& SET ENDF=1
+SET VL13=%white%& SET ENDF=1
+SET VL14=%white%& SET ENDF=1
+SET VL15=%white%& SET ENDF=1
+
+IF %WPS%==0x2a SET VL1=%magenta%& SET ENDF=1
+IF %WPS%==0x29 SET VL2=%magenta%& SET ENDF=2
+IF %WPS%==0x28 SET VL3=%magenta%& SET ENDF=3
+IF %WPS%==0x26 SET VL4=%magenta%& SET ENDF=4
+IF %WPS%==0x25 SET VL5=%magenta%& SET ENDF=5
+IF %WPS%==0x24 SET VL6=%magenta%& SET ENDF=6
+IF %WPS%==0x1a SET VL7=%magenta%& SET ENDF=7
+IF %WPS%==0x19 SET VL8=%magenta%& SET ENDF=8
+IF %WPS%==0x18 SET VL9=%magenta%& SET ENDF=9
+IF %WPS%==0x16 SET VL10=%magenta%& SET ENDF=10
+IF %WPS%==0x15 SET VL11=%magenta%& SET ENDF=11
+IF %WPS%==0x14 SET VL12=%magenta%& SET ENDF=12
+IF %WPS%==0x21 SET VL13=%magenta%& SET ENDF=13
+IF %WPS%==0x38 SET VL14=%magenta%& SET ENDF=14
+IF %WPS%==0x36 SET VL15=%magenta%& SET ENDF=15
+
+IF %ENDF%==1 (SET AFFEN=%grey%®ÄÄ®[1]%white%    %gold%[2]%white%¯ÄÄ¯)
+IF %ENDF%==2 (SET AFFEN=%white%®ÄÄ®%gold%[1]%white%    %gold%[2]%white%¯ÄÄ¯)
+IF %ENDF%==3 (SET AFFEN=%white%®ÄÄ®%gold%[1]%white%    %gold%[2]%white%¯ÄÄ¯)
+IF %ENDF%==4 (SET AFFEN=%white%®ÄÄ®%gold%[1]%white%    %gold%[2]%white%¯ÄÄ¯)
+IF %ENDF%==5 (SET AFFEN=%white%®ÄÄ®%gold%[1]%white%    %gold%[2]%white%¯ÄÄ¯)
+IF %ENDF%==6 (SET AFFEN=%white%®ÄÄ®%gold%[1]%white%    %gold%[2]%white%¯ÄÄ¯)
+IF %ENDF%==7 (SET AFFEN=%white%®ÄÄ®%gold%[1]%white%    %gold%[2]%white%¯ÄÄ¯)
+IF %ENDF%==8 (SET AFFEN=%white%®ÄÄ®%gold%[1]%white%    %gold%[2]%white%¯ÄÄ¯)
+IF %ENDF%==9 (SET AFFEN=%white%®ÄÄ®%gold%[1]%white%    %gold%[2]%white%¯ÄÄ¯)
+IF %ENDF%==10 (SET AFFEN=%white%®ÄÄ®%gold%[1]%white%    %gold%[2]%white%¯ÄÄ¯)
+IF %ENDF%==11 (SET AFFEN=%white%®ÄÄ®%gold%[1]%white%    %gold%[2]%white%¯ÄÄ¯)
+IF %ENDF%==12 (SET AFFEN=%white%®ÄÄ®%gold%[1]%white%    %gold%[2]%white%¯ÄÄ¯)
+IF %ENDF%==13 (SET AFFEN=%white%®ÄÄ®%gold%[1]%white%    %gold%[2]%white%¯ÄÄ¯)
+IF %ENDF%==14 (SET AFFEN=%white%®ÄÄ®%gold%[1]%white%    %gold%[2]%white%¯ÄÄ¯)
+IF %ENDF%==15 (SET AFFEN=%white%®ÄÄ®%gold%[1]%grey%    [2]¯ÄÄ¯%white%)
+cls
+echo ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+echo ³                                                                                                                                        ³
+echo ³     %grey%[* Vous pouvez tester differentes valeurs instantanement en jeu.                      ]%white%                                            ³
+echo ³     %grey%[* Win32PrioritySeparation = %WPS%                                                    ]%white%                                            ³
+echo ³                                                                                                                                        ³
+echo ³                                                                                                                                        ³
+echo ³                                                                                                                                        ³
+echo ³                                                                                                                                        ³
+echo ³                                %VL1%2A%white% - %VL2%29%white% - %VL3%28%white% - %VL4%26%white% - %VL5%25%white% - %VL6%24%white% - %VL7%1A%white% - %VL8%19%white% - %VL9%18%white% - %VL10%16%white% - %VL11%15%white% - %VL12%14%white% - %VL13%21%white% - %VL14%38%white% - %VL15%36%white%                                ³
+echo ³                                                                                                                                        ³
+echo ³                                                                                                                                        ³
+echo ³                                                                                                                                        ³
+echo ³                                                                                                                                        ³
+echo ³                                                                                                                                        ³
+echo ³                                                                                                                                        ³
+echo ³                                                                                                                                        ³
+echo ³                                                                                                                                        ³
+echo ³                                                                                                                                        ³
+echo ³                                                                                                                                        ³
+echo ³                                                                                                                                        ³
+echo ³                                                                                                                                        ³
+echo ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ%white%[ %AFFEN% ]%white%ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+choice /C:12 /N /M "-
+If "%ERRORLEVEL%"=="1" (
+	IF %ENDF%==1 goto :BENCH
+	SET /a ENDF=%ENDF%-1
+	IF %WPS%==0x2a goto :BENCH
+	IF %WPS%==0x29 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x2A" /f >nul& goto :BENCH
+	IF %WPS%==0x28 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x29" /f >nul& goto :BENCH
+	IF %WPS%==0x26 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x28" /f >nul& goto :BENCH
+	IF %WPS%==0x25 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul& goto :BENCH
+	IF %WPS%==0x24 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x25" /f >nul& goto :BENCH
+	IF %WPS%==0x1a Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x24" /f >nul& goto :BENCH
+	IF %WPS%==0x19 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x1A" /f >nul& goto :BENCH
+	IF %WPS%==0x18 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x19" /f >nul& goto :BENCH
+	IF %WPS%==0x16 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x18" /f >nul& goto :BENCH
+	IF %WPS%==0x15 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x16" /f >nul& goto :BENCH
+	IF %WPS%==0x14 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x15" /f >nul& goto :BENCH
+	IF %WPS%==0x21 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x14" /f >nul& goto :BENCH
+	IF %WPS%==0x38 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x21" /f >nul& goto :BENCH
+	IF %WPS%==0x36 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x38" /f >nul& goto :BENCH
+	goto :BENCH
+)
+If "%ERRORLEVEL%"=="2" (
+	IF %ENDF%==15 goto :BENCH
+	SET /a ENDF=%ENDF%+1
+	IF %WPS%==0x2a Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x29" /f >nul& goto :BENCH
+	IF %WPS%==0x29 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x28" /f >nul& goto :BENCH
+	IF %WPS%==0x28 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul& goto :BENCH
+	IF %WPS%==0x26 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x25" /f >nul& goto :BENCH
+	IF %WPS%==0x25 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x24" /f >nul& goto :BENCH
+	IF %WPS%==0x24 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x1A" /f >nul& goto :BENCH
+	IF %WPS%==0x1a Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x19" /f >nul& goto :BENCH
+	IF %WPS%==0x19 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x18" /f >nul& goto :BENCH
+	IF %WPS%==0x18 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x16" /f >nul& goto :BENCH
+	IF %WPS%==0x16 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x15" /f >nul& goto :BENCH
+	IF %WPS%==0x15 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x14" /f >nul& goto :BENCH
+	IF %WPS%==0x14 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x21" /f >nul& goto :BENCH
+	IF %WPS%==0x21 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x38" /f >nul& goto :BENCH
+	IF %WPS%==0x38 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x36" /f >nul& goto :BENCH
+	IF %WPS%==0x36 goto :BENCH
+	goto :BENCH
+)
+
+:WIP
+echo WIP
+pause
+Exit
