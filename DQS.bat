@@ -25,6 +25,8 @@ SET MDQS=ERR
 SET KDQS=ERR
 SET WPS=ERR
 SET ENDF=0
+SET CRAM=0
+SET BBCLS=0
 
 if /i "%~1"=="/4" (
 	SET HTO=98
@@ -45,6 +47,16 @@ if /i "%~1"=="/A" (
 	if %errorlevel% neq 0 (
 		powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0' /A" >nul 2>&1 & exit /b
 	)
+	goto :AUTT
+)
+
+if /i "%~1"=="/RAM" (
+	rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
+	mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
+	if %errorlevel% neq 0 (
+		powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0' /A" >nul 2>&1 & exit /b
+	)
+	SET CRAM=1
 	goto :AUTT
 )
 
@@ -341,10 +353,15 @@ If "%ERRORLEVEL%"=="2" (
 
 :AUTT
 setlocal
+SET BBCLS=0
 SET "errorlevel="
 SET "processPath="
 SET "processToMonitor="
 SET PRIORITY=8
+cd /d %~dp0
+mode con:cols=138 lines=23
+color 7
+cls
 cls
 
 set "processToMonitor1=FortniteClient-Win64-Shipping.exe"
@@ -549,6 +566,7 @@ IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\Wi
 IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /CombinedPageList
 IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /ProcessesWorkingSet
 
+:CRAMS
 cls
 echo 旼컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴커
 echo 읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
@@ -560,7 +578,11 @@ echo    Win32PrioritySeparation  = %gold%%WPS%%white%
 echo    Emplacement du jeu       = %gold%%processPath%%white%
 echo    Nom de l'executable      = %gold%%processToMonitor%%white%
 echo    Priorite du jeu          = %gold%%APRIO% "%PRIORITY%"%white%
-echo.
+IF %CRAM%==1 (
+	echo    Boucle                   = %gold%%BBCLS%%white%
+) else (
+	echo.
+)
 echo.
 echo.
 echo.
@@ -572,6 +594,16 @@ echo.
 echo.
 echo 旼컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴횫ppuyez sur une touche lorsque le jeu est ferme.컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
 echo 읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
+
+IF %CRAM%==1 (
+	tasklist | findstr /i "%processToMonitor%" > nul
+	if %errorlevel% equ 0 (
+		@timeout /nobreak /t 1800 > nul
+		SET /a BBCLS=%BBCLS%+1
+		IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyListLowPriority
+		goto :CRAMS
+	)
+)
 Pause>nul
 endlocal
 goto :AUTT
