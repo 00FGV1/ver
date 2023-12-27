@@ -590,17 +590,18 @@ echo 읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
 echo.
 echo.
 echo.
-echo    Jeu en cours d'execution = %gold%%JAN%%white%
-echo    Win32PrioritySeparation  = %gold%%WPS%%white%
-echo    Emplacement du jeu       = %gold%%processPath%%white%
-echo    Nom de l'executable      = %gold%%processToMonitor%%white%
-echo    Priorite du jeu          = %gold%%APRIO% "%PRIORITY%"%white%
+echo    Jeu en cours d'execution      = %gold%%JAN%%white%
+echo    Win32PrioritySeparation       = %gold%%WPS%%white%
+echo    Emplacement du jeu            = %gold%%processPath%%white%
+echo    Nom de l'executable           = %gold%%processToMonitor%%white%
+echo    Priorite du jeu               = %gold%%APRIO% "%PRIORITY%"%white%
 IF %CRAM%==1 (
-	echo    Boucle                   = %gold%%BBCLS%%white%
+	echo    Heures de la derniere boucle  = %gold%%time%%white%
+	echo    Boucle                        = %gold%%BBCLS%%white%
 ) else (
 	echo.
+	echo.
 )
-echo.
 echo.
 echo.
 echo.
