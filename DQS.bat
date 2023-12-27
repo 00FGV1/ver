@@ -56,6 +56,21 @@ if /i "%~1"=="/RAM" (
 	if %errorlevel% neq 0 (
 		powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0' /A" >nul 2>&1 & exit /b
 	)
+	IF NOT EXIST MinimizeConsole.ps1 (
+	    echo # MinimizeConsole.ps1>MinimizeConsole.ps1
+	    echo Start-Process -FilePath "cmd.exe" -ArgumentList "/C start /min DQS.bat /RA2" -WindowStyle Hidden>>MinimizeConsole.ps1
+	    ping -n 2 -w 1000 127.0.0.1 >nul
+	)
+	powershell.exe -ExecutionPolicy Bypass -File "MinimizeConsole.ps1"
+	Exit
+)
+
+if /i "%~1"=="/RA2" (
+	rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
+	mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
+	if %errorlevel% neq 0 (
+		powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0' /A" >nul 2>&1 & exit /b
+	)
 	SET CRAM=1
 	goto :AUTT
 )
@@ -567,6 +582,8 @@ IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\Wi
 IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /ProcessesWorkingSet
 
 :CRAMS
+cd /d %~dp0
+mode con:cols=138 lines=23
 cls
 echo 旼컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴커
 echo 읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
