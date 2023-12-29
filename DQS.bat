@@ -369,6 +369,7 @@ If "%ERRORLEVEL%"=="2" (
 :AUTT
 setlocal
 SET BBCLS=0
+SET "GD="
 SET "errorlevel="
 SET "processPath="
 SET "processToMonitor="
@@ -614,14 +615,18 @@ echo 旼컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴횫ppuyez sur une touche lorsque
 echo 읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
 
 IF %CRAM%==1 (
-	tasklist | findstr /i "%processToMonitor%" > nul
-	if %errorlevel% equ 0 (
-		@timeout /nobreak /t 1800 > nul
-		SET /a BBCLS=%BBCLS%+1
-		IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyListLowPriority
-		goto :CRAMS
-	)
+	tasklist /fi "imagename eq %processToMonitor%" | findstr /i "%processToMonitor%" > nul
+	if %errorlevel% equ 900 goto :GDD
+	goto :AUTT
 )
+
 Pause>nul
 endlocal
 goto :AUTT
+
+:GDD
+@timeout /nobreak /t 03 > nul
+SET /a BBCLS=%BBCLS%+1
+IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyListLowPriority
+SET "errorlevel="
+goto :CRAMS
