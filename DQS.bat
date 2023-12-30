@@ -396,6 +396,7 @@ set "processToMonitor13=DyingLightGame.exe"
 set "processToMonitor14=ReadyOrNot-Win64-Shipping.exe"
 set "processToMonitor15=WorldOfTanks.exe"
 set "processToMonitor16=ReadyOrNot.exe"
+set "processToMonitor17=DSPGAME.exe"
 
 :checkProcess
 tasklist | findstr /i "%processToMonitor1%" > nul
@@ -541,6 +542,15 @@ if %errorlevel% equ 0 (
 		)
     Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul&SET JAN=Ready Or Not&SET processToMonitor=ReadyOrNot-Win64-Shipping.exe&goto :FPR
 )
+
+tasklist | findstr /i "%processToMonitor17%" > nul
+
+if %errorlevel% equ 0 (
+		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor17%'" get executablepath /format:csv ^| find /i "%processToMonitor17%"') do (
+	    set "processPath=%%~a"
+		)
+    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul&SET JAN=Dyson Sphere Program&SET processToMonitor=DSPGAME.exe&goto :FPR
+)
 timeout /nobreak /t 5 > nul
 goto :checkProcess
 
@@ -614,15 +624,20 @@ echo.
 echo 旼컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴횫ppuyez sur une touche lorsque le jeu est ferme.컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
 echo 읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
 
-IF %CRAM%==1 (
-	tasklist /fi "imagename eq %processToMonitor%" | findstr /i "%processToMonitor%" > nul
-	if %errorlevel% equ 0 goto :GDD
+IF %CRAM%==0 (
+	Pause>nul
+	endlocal
 	goto :AUTT
 )
 
-Pause>nul
-endlocal
-goto :AUTT
+tasklist /fi "imagename eq %processToMonitor%" | findstr /i "%processToMonitor%" > nul
+
+if %errorlevel% equ 0 (
+	goto :GDD
+) else (
+	endlocal
+	goto :AUTT
+)
 
 :GDD
 @timeout /nobreak /t 900 > nul
