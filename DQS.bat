@@ -616,7 +616,7 @@ echo 읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
 
 IF %CRAM%==1 (
 	tasklist /fi "imagename eq %processToMonitor%" | findstr /i "%processToMonitor%" > nul
-	if %errorlevel% equ 900 goto :GDD
+	if %errorlevel% equ 0 goto :GDD
 	goto :AUTT
 )
 
@@ -625,7 +625,7 @@ endlocal
 goto :AUTT
 
 :GDD
-@timeout /nobreak /t 03 > nul
+@timeout /nobreak /t 900 > nul
 SET /a BBCLS=%BBCLS%+1
 IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyListLowPriority
 SET "errorlevel="
