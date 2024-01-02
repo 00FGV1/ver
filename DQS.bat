@@ -47,7 +47,7 @@ if /i "%~1"=="/A" (
 	if %errorlevel% neq 0 (
 		powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0' /A" >nul 2>&1 & exit /b
 	)
-	goto :AUTT
+	goto :AUT1
 )
 
 if /i "%~1"=="/RAM" (
@@ -72,7 +72,7 @@ if /i "%~1"=="/RA2" (
 		powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0' /A" >nul 2>&1 & exit /b
 	)
 	SET CRAM=1
-	goto :AUTT
+	goto :AUT1
 )
 
 IF exist PowerRun_x64.exe (
@@ -366,227 +366,197 @@ If "%ERRORLEVEL%"=="2" (
 	goto :BENCH
 )
 
+:AUT1
+IF EXIST "C:\Ect\Alimentation\RECS-H-PowerPlan.pow" Powercfg /import %systemdrive%\Ect\Alimentation\RECS-H-PowerPlan.pow 11111111-1111-1111-1111-111111134587
+IF EXIST "C:\Ect\Alimentation\Normale.pow" Powercfg /import %systemdrive%\Ect\Alimentation\Normale.pow 11111111-1111-1111-1111-888111134588
 :AUTT
-setlocal
-SET BBCLS=0
 SET "GD="
+SET "STTME="
+SET "BBCLS=0"
+SET "PRIORITY=8"
 SET "errorlevel="
 SET "processPath="
 SET "processToMonitor="
-SET PRIORITY=8
 cd /d %~dp0
 mode con:cols=138 lines=23
 color 7
 cls
-cls
 
-set "processToMonitor1=FortniteClient-Win64-Shipping.exe"
-set "processToMonitor2=r5apex.exe"
-set "processToMonitor3=RocketLeague.exe"
-set "processToMonitor4=NMS.exe"
-set "processToMonitor5=VALORANT.exe"
-set "processToMonitor6=RainbowSix.exe"
-set "processToMonitor7=bg3.exe"
-set "processToMonitor8=bg3_dx11.exe"
-set "processToMonitor9=eurotrucks2.exe"
-set "processToMonitor10=Anno1800.exe"
-set "processToMonitor11=DaysGone.exe"
-set "processToMonitor12=dyinglightgame_x64_rwe.exe"
-set "processToMonitor13=DyingLightGame.exe"
-set "processToMonitor14=ReadyOrNot-Win64-Shipping.exe"
-set "processToMonitor15=WorldOfTanks.exe"
-set "processToMonitor16=ReadyOrNot.exe"
-set "processToMonitor17=DSPGAME.exe"
+IF NOT EXIST exe_gamename.txt curl -g -k -L -# -o "exe_gamename.txt" "https://raw.githubusercontent.com/00FGV1/ver/main/exe_gamename.txt"
 
 :checkProcess
-tasklist | findstr /i "%processToMonitor1%" > nul
+Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul
+Powercfg /SETACTIVE "11111111-1111-1111-1111-888111134588"
+bcdedit /set useplatformtick false
+bcdedit /set useplatformclock false
+bcdedit /set disabledynamictick yes
+sc start STR
 
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor1%'" get executablepath /format:csv ^| find /i "%processToMonitor1%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x2A" /f >nul&SET JAN=Fortnite&SET processToMonitor=FortniteClient-Win64-Shipping.exe&goto :FPR
-)
+setlocal enabledelayedexpansion
+set "inputFile=exe_gamename.txt"
+cls
 
-tasklist | findstr /i "%processToMonitor2%" > nul
+IF NOT EXIST exe_gamename.txt echo %red%ERROR "exe_gamename.txt" MISSING%white%&pause&Exit
 
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor2%'" get executablepath /format:csv ^| find /i "%processToMonitor2%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x29" /f >nul&SET JAN=Apex Legends&SET processToMonitor=r5apex.exe&goto :FPR
-)
+echo En attente d'un jeu ...
+for /f %%i in (%inputFile%) do (
+    set "processToMonitor=%%i"
+    for /f "tokens=2 delims=," %%a in ('wmic process where "name='!processToMonitor!'" get executablepath /format:csv ^| find /i "!processToMonitor!"') do (
+        set "processPath=%%~a" 
+		if defined processPath (
+			goto :FPR
+		) > NUL 2>&1
+    ) > NUL 2>&1
+) > NUL 2>&1
 
-tasklist | findstr /i "%processToMonitor3%" > nul
-
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor3%'" get executablepath /format:csv ^| find /i "%processToMonitor3%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x28" /f >nul&SET JAN=Rocket League&SET processToMonitor=RocketLeague.exe&goto :FPR
-)
-
-tasklist | findstr /i "%processToMonitor4%" > nul
-
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor4%'" get executablepath /format:csv ^| find /i "%processToMonitor4%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x18" /f >nul&SET JAN=No Man's Sky&SET processToMonitor=NMS.exe&goto :FPR
-)
-
-tasklist | findstr /i "%processToMonitor5%" > nul
-
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor5%'" get executablepath /format:csv ^| find /i "%processToMonitor5%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x38" /f >nul&SET JAN=Valorant&SET processToMonitor=VALORANT.exe&goto :FPR
-)
-
-tasklist | findstr /i "%processToMonitor6%" > nul
-
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor6%'" get executablepath /format:csv ^| find /i "%processToMonitor6%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x36" /f >nul&SET JAN=RainbowSix&SET processToMonitor=RainbowSix.exe&goto :FPR
-)
-
-tasklist | findstr /i "%processToMonitor7%" > nul
-
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor7%'" get executablepath /format:csv ^| find /i "%processToMonitor7%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul&SET JAN=Baldurs Gate III&SET processToMonitor=bg3.exe&goto :FPR
-)
-
-tasklist | findstr /i "%processToMonitor8%" > nul
-
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor8%'" get executablepath /format:csv ^| find /i "%processToMonitor8%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul&SET JAN=Baldurs Gate III&SET processToMonitor=bg3_dx11.exe&goto :FPR
-)
-
-tasklist | findstr /i "%processToMonitor9%" > nul
-
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor9%'" get executablepath /format:csv ^| find /i "%processToMonitor9%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul&SET JAN=Euro Truck Simulator 2&SET processToMonitor=eurotrucks2.exe&goto :FPR
-)
-
-tasklist | findstr /i "%processToMonitor10%" > nul
-
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor10%'" get executablepath /format:csv ^| find /i "%processToMonitor10%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul&SET JAN=Anno 1800&SET processToMonitor=Anno1800.exe&goto :FPR
-)
-
-tasklist | findstr /i "%processToMonitor11%" > nul
-
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor11%'" get executablepath /format:csv ^| find /i "%processToMonitor11%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul&SET JAN=Days Gone&SET processToMonitor=DaysGone.exe&goto :FPR
-)
-
-tasklist | findstr /i "%processToMonitor12%" > nul
-
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor12%'" get executablepath /format:csv ^| find /i "%processToMonitor12%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul&SET JAN=Dying Light 2&SET processToMonitor=dyinglightgame_x64_rwe.exe&goto :FPR
-)
-
-tasklist | findstr /i "%processToMonitor13%" > nul
-
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor13%'" get executablepath /format:csv ^| find /i "%processToMonitor13%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul&SET JAN=Dying Light&SET processToMonitor=DyingLightGame.exe&goto :FPR
-)
-
-tasklist | findstr /i "%processToMonitor14%" > nul
-
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor14%'" get executablepath /format:csv ^| find /i "%processToMonitor14%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul&SET JAN=Ready Or Not&SET processToMonitor=ReadyOrNot-Win64-Shipping.exe&goto :FPR
-)
-
-tasklist | findstr /i "%processToMonitor15%" > nul
-
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor15%'" get executablepath /format:csv ^| find /i "%processToMonitor15%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul&SET JAN=World Of Tanks&SET processToMonitor=WorldOfTanks.exe&goto :FPR
-)
-
-tasklist | findstr /i "%processToMonitor16%" > nul
-
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor16%'" get executablepath /format:csv ^| find /i "%processToMonitor16%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul&SET JAN=Ready Or Not&SET processToMonitor=ReadyOrNot-Win64-Shipping.exe&goto :FPR
-)
-
-tasklist | findstr /i "%processToMonitor17%" > nul
-
-if %errorlevel% equ 0 (
-		for /f "tokens=2 delims=," %%a in ('wmic process where "name='%processToMonitor17%'" get executablepath /format:csv ^| find /i "%processToMonitor17%"') do (
-	    set "processPath=%%~a"
-		)
-    Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul&SET JAN=Dyson Sphere Program&SET processToMonitor=DSPGAME.exe&goto :FPR
-)
-timeout /nobreak /t 5 > nul
+endlocal
+timeout /nobreak /t 90 > nul
 goto :checkProcess
 
 :FPR
+cls
 
+Powercfg /SETACTIVE "11111111-1111-1111-1111-111111134587"
+IF !processToMonitor!==RainbowSix.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x36" /f >nul
+IF !processToMonitor!==VALORANT.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x38" /f >nul
+IF !processToMonitor!==r5apex.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x29" /f >nul
+IF !processToMonitor!==FortniteClient-Win64-Shipping.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x2A" /f >nul
+IF !processToMonitor!==RainbowSix.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x36" /f >nul
+IF !processToMonitor!==NMS.exe (
+	Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x18" /f >nul
+	bcdedit /deletevalue useplatformclock
+	bcdedit /deletevalue tscsyncpolicy
+	bcdedit /deletevalue disabledynamictick
+	sc stop STR
+)
+
+SET STTME=%time%
 Reg add "HKCU\Software\Microsoft\GameBar" /v "AllowAutoGameMode" /t REG_DWORD /d "1" /f >NUL
 Reg add "HKCU\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "1" /f >NUL
 
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%processToMonitor%" /v "Version" /t REG_SZ /d "1.0" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%processToMonitor%" /v "Application Name" /t REG_SZ /d "%processPath%" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%processToMonitor%" /v "Protocol" /t REG_SZ /d "*" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%processToMonitor%" /v "Local Port" /t REG_SZ /d "*" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%processToMonitor%" /v "Local IP" /t REG_SZ /d "*" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%processToMonitor%" /v "Local IP Prefix Length" /t REG_SZ /d "*" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%processToMonitor%" /v "Remote Port" /t REG_SZ /d "*" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%processToMonitor%" /v "Remote IP" /t REG_SZ /d "*" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%processToMonitor%" /v "Remote IP Prefix Length" /t REG_SZ /d "*" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%processToMonitor%" /v "DSCP Value" /t REG_SZ /d "46" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%processToMonitor%" /v "Throttle Rate" /t REG_SZ /d "-1" /f > NUL 2>&1
-Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "%processPath%" /t REG_SZ /d "~ DISABLEDXMAXIMIZEDWINDOWEDMODE RUNASADMIN HIGHDPIAWARE" /f > NUL 2>&1
-Reg.exe add "HKCU\SOFTWARE\Microsoft\DirectX\UserGpuPreferences" /v "%processPath%" /t REG_SZ /d "GpuPreference=2;" /f > NUL 2>&1
-Reg.exe add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\%processToMonitor%\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "3" /f >nul 2>&1
-wmic process where name="%processToMonitor%" CALL setpriority 128 >NUL
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Version" /t REG_SZ /d "1.0" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Application Name" /t REG_SZ /d "!processPath!" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Protocol" /t REG_SZ /d "*" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Local Port" /t REG_SZ /d "*" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Local IP" /t REG_SZ /d "*" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Local IP Prefix Length" /t REG_SZ /d "*" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Remote Port" /t REG_SZ /d "*" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Remote IP" /t REG_SZ /d "*" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Remote IP Prefix Length" /t REG_SZ /d "*" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "DSCP Value" /t REG_SZ /d "46" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Throttle Rate" /t REG_SZ /d "-1" /f > NUL 2>&1
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "!processPath!" /t REG_SZ /d "~ DISABLEDXMAXIMIZEDWINDOWEDMODE RUNASADMIN HIGHDPIAWARE" /f > NUL 2>&1
+Reg.exe add "HKCU\SOFTWARE\Microsoft\DirectX\UserGpuPreferences" /v "!processPath!" /t REG_SZ /d "GpuPreference=2;" /f > NUL 2>&1
+Reg.exe add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\!processToMonitor!\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "3" /f >nul 2>&1
+wmic process where name="!processToMonitor!" CALL setpriority 128 >NUL
+
+wmic process where name="waterfox.exe" CALL setpriority 64 >NUL
+wmic process where name="firefox.exe" CALL setpriority 64 >NUL
+wmic process where name="chrome.exe" CALL setpriority 64 >NUL
+wmic process where name="opera.exe" CALL setpriority 64 >NUL
+wmic process where name="steam.exe" CALL setpriority 64 >NUL
+wmic process where name="steamwebhelper.exe" CALL setpriority 64 >NUL
+wmic process where name="rare.exe" CALL setpriority 64 >NUL
+wmic process where name="MicrosoftEdgeUpdate.exe" CALL setpriority 64 >NUL
+wmic process where name="Edge.exe" CALL setpriority 64 >NUL
+wmic process where name="EmptyStandbyList.exe" CALL setpriority 64 >NUL
+wmic process where name="ESL.exe" CALL setpriority 64 >NUL
+wmic process where name="EpicGamesLauncher.exe" CALL setpriority 64 >NUL
+wmic process where name="Spotify.exe" CALL setpriority 64 >NUL
+wmic process where name="BakkesMod.exe" CALL setpriority 64 >NUL
+wmic process where name="EpicOnlineServices.exe" CALL setpriority 64 >NUL
+wmic process where name="EpicOnlineServicesHost.exe" CALL setpriority 64 >NUL
+wmic process where name="EpicWebHelper.exe" CALL setpriority 64 >NUL
+wmic process where name="Vlc.exe" CALL setpriority 64 >NUL
+wmic process where name="Update.exe" CALL setpriority 64 >NUL
+wmic process where name="Discord.exe" CALL setpriority 64 >NUL
+wmic process where name="simplewall.exe" CALL setpriority 64 >NUL
+wmic process where name="wallpaper32.exe" CALL setpriority 64 >NUL
+wmic process where name="updater.exe" CALL setpriority 64 >NUL
+wmic process where name="7zFM.exe" CALL setpriority 64 >NUL
+wmic process where name="7z.exe" CALL setpriority 64 >NUL
+wmic process where name="Authy Desktop.exe" CALL setpriority 64 >NUL
+wmic process where name="Optimizer.exe" CALL setpriority 64 >NUL
+wmic process where name="Services.exe" CALL setpriority 64 >NUL
+wmic process where name="RLBotGUIX.exe" CALL setpriority 64 >NUL
+wmic process where name="StartAllBackCfg.exe" CALL setpriority 64 >NUL
+wmic process where name="UpdateCheck.exe" CALL setpriority 64 >NUL
+wmic process where name="streamlink.exe" CALL setpriority 64 >NUL
+wmic process where name="streamlinkw.exe" CALL setpriority 64 >NUL
+wmic process where name="streamlink-twitch-gui.exe" CALL setpriority 64 >NUL
+wmic process where name="Cheat Engine.exe" CALL setpriority 64 >NUL
+wmic process where name="cheatengine-i386.exe" CALL setpriority 64 >NUL
+wmic process where name="cheatengine-x86_64.exe" CALL setpriority 64 >NUL
+wmic process where name="cheatengine-x86_64-SSE4-AVX2.exe" CALL setpriority 64 >NUL
+wmic process where name="TEST.exe" CALL setpriority 64 >NUL
+wmic process where name="StartUP.exe" CALL setpriority 64 >NUL
+wmic process where name="WinMemoryCleaner.exe" CALL setpriority 64 >NUL
+wmic process where name="AdguardPortable.tmp" CALL setpriority 64 >NUL
+wmic process where name="AdguardPortable.exe" CALL setpriority 64 >NUL
+wmic process where name="AdguardSvc.exe" CALL setpriority 64 >NUL
+wmic process where name="AdguardPortable.exe" CALL setpriority 64 >NUL
+wmic process where name="Adguard.BrowserExtensionHost.exe" CALL setpriority 64 >NUL
+wmic process where name="Adguard.exe" CALL setpriority 64 >NUL
+wmic process where name="Adguard.Tools.exe" CALL setpriority 64 >NUL
+wmic process where name="certutil.exe" CALL setpriority 64 >NUL
+wmic process where name="maintenancetool.exe" CALL setpriority 64 >NUL
+wmic process where name="SteelSeriesGG.exe" CALL setpriority 64 >NUL
+wmic process where name="SteelSeriesUpdateService.exe" CALL setpriority 64 >NUL
+wmic process where name="SteelSeriesGGClient.exe" CALL setpriority 64 >NUL
+wmic process where name="SSHZExecutor.exe" CALL setpriority 64 >NUL
+wmic process where name="SSOverlay.exe" CALL setpriority 64 >NUL
+wmic process where name="SteelSeriesEngine.exe" CALL setpriority 64 >NUL
+wmic process where name="win_driver_installer.exe" CALL setpriority 64 >NUL
+wmic process where name="computerhardwareids.exe" CALL setpriority 64 >NUL
+wmic process where name="explorer.exe" CALL setpriority 64 >NUL
+wmic process where name="spoolsv.exe" CALL setpriority 64 >NUL
+wmic process where name="spaceman.exe" CALL setpriority 64 >NUL
+wmic process where name="spaceutil.exe" CALL setpriority 64 >NUL
+wmic process where name="Spectrum.exe" CALL setpriority 64 >NUL
+wmic process where name="sort.exe" CALL setpriority 64 >NUL
+wmic process where name="SpaceAgent.exe" CALL setpriority 64 >NUL
+wmic process where name="slui.exe" CALL setpriority 64 >NUL
+wmic process where name="dwm.exe" CALL setpriority 64 >NUL
+wmic process where name="audiodg.exe" CALL setpriority 64 >NUL
+wmic process where name="Taskmgr.exe" CALL setpriority 64 >NUL
+wmic process where name="ntprint.exe" CALL setpriority 64 >NUL
+wmic process where name="csrss.exe" CALL setpriority 64 >NUL
+wmic process where name="ctfmon.exe" CALL setpriority 64 >NUL
+wmic process where name="svchost.exe" CALL setpriority 64 >NUL
+wmic process where name="WmiPrvSE.exe" CALL setpriority 64 >NUL
+wmic process where name="notepad.exe" CALL setpriority 64 >NUL
+wmic process where name="RuntimeBroker.exe" CALL setpriority 64 >NUL
+wmic process where name="dllhost.exe" CALL setpriority 64 >NUL
+wmic process where name="sppsvc.exe" CALL setpriority 64 >NUL
+wmic process where name="wallpaperservice32_c.exe" CALL setpriority 64 >NUL
+wmic process where name="ui32.exe" CALL setpriority 64 >NUL
+wmic process where name="SetTimerResolutionService.exe" CALL setpriority 64 >NUL
+wmic process where name="vmms.exe" CALL setpriority 64 >NUL
+wmic process where name="lsass.exe" CALL setpriority 64 >NUL
+wmic process where name="Magnify.exe" CALL setpriority 64 >NUL
+wmic process where name="lusrmgr.msc" CALL setpriority 64 >NUL
+wmic process where name="manage-bde.exe" CALL setpriority 64 >NUL
+wmic process where name="winlogon.exe" CALL setpriority 64 >NUL
+wmic process where name="manage-bde.exe" CALL setpriority 64 >NUL
+wmic process where name="winload.exe" CALL setpriority 64 >NUL
+wmic process where name="wininit.exe" CALL setpriority 64 >NUL
+wmic process where name="WindowsUpdateElevatedInstaller.exe" CALL setpriority 64 >NUL
+wmic process where name="smss.exe" CALL setpriority 64 >NUL
+wmic process where name="sihost.exe" CALL setpriority 64 >NUL
+wmic process where name="MicrosoftEdgeUpdate.exe" CALL setpriority 64 >NUL
+wmic process where name="ntoskrnl.exe" CALL setpriority 64 >NUL
+wmic process where name="manage-bde.exe" CALL setpriority 64 >NUL
+wmic process where name="services.exe" CALL setpriority 64 >NUL
+wmic process where name="lghub_updater.exe" CALL setpriority 64 >NUL
+wmic process where name="lghub_uninstaller.exe" CALL setpriority 64 >NUL
+wmic process where name="lghub_agent.exe" CALL setpriority 64 >NUL
+wmic process where name="lghub.exe" CALL setpriority 64 >NUL
+wmic process where name="logi_crashpad_handler.exe" CALL setpriority 64 >NUL
+wmic process where name="lghub_system_tray.exe" CALL setpriority 64 >NUL
+wmic process where name="librewolf.exe" CALL setpriority 64 >NUL
 
 SET CURRENTKEY=HKLM\SYSTEM\ControlSet001\Control\PriorityControl
 FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "Win32PrioritySeparation"') DO set WPS=%%B >NUL 2>nul
-
-set "WMIC_CMD=wmic process where name^="%processToMonitor%" get /format:list ^| findstr Priority"
-for /f "tokens=1* delims==" %%A in ('%WMIC_CMD%') do set PRIORITY=%%B
-
-IF %PRIORITY%==4 SET APRIO=IDLE trying to set HIGH
-IF %PRIORITY%==6 SET APRIO=BELOWNORMAL trying to set HIGH
-IF %PRIORITY%==8 SET APRIO=NORMAL trying to set HIGH
-IF %PRIORITY%==10 SET APRIO=ABOVENORMAL trying to set HIGH
-IF %PRIORITY%==13 SET APRIO=HIGH
-IF %PRIORITY%==24 SET APRIO=REALTIME
 
 IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
 IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /CombinedPageList
@@ -601,11 +571,9 @@ echo 읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
 echo.
 echo.
 echo.
-echo    Jeu en cours d'execution      = %gold%%JAN%%white%
+echo    Jeu en cours d'execution      = %gold%!processToMonitor!%white%
 echo    Win32PrioritySeparation       = %gold%%WPS%%white%
-echo    Emplacement du jeu            = %gold%%processPath%%white%
-echo    Nom de l'executable           = %gold%%processToMonitor%%white%
-echo    Priorite du jeu               = %gold%%APRIO% "%PRIORITY%"%white%
+echo    Emplacement du jeu            = %gold%!processPath!%white%
 IF %CRAM%==1 (
 	echo    Heures de la derniere boucle  = %gold%%time%%white%
 	echo    Boucle                        = %gold%%BBCLS%%white%
@@ -621,7 +589,14 @@ echo.
 echo.
 echo.
 echo.
-echo 旼컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴횫ppuyez sur une touche lorsque le jeu est ferme.컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+echo.
+echo.
+IF %CRAM%==1 (
+	echo 旼컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴커
+) else (
+	echo 旼컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴횫ppuyez sur une touche lorsque le jeu est ferme.컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+)
+
 echo 읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
 
 IF %CRAM%==0 (
@@ -630,11 +605,12 @@ IF %CRAM%==0 (
 	goto :AUTT
 )
 
-tasklist /fi "imagename eq %processToMonitor%" | findstr /i "%processToMonitor%" > nul
+tasklist /fi "imagename eq !processToMonitor!" | findstr /i "!processToMonitor!" > nul
 
 if %errorlevel% equ 0 (
 	goto :GDD
 ) else (
+	echo GAME : !processToMonitor! // START : %STTME% // END : %time%>>C:\Ect\RWC\DQS\DQS.log
 	endlocal
 	goto :AUTT
 )
