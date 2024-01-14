@@ -15,6 +15,7 @@ witcher3.exe
 Albion-Online_BE.exe
 Albion-Online.exe
 TS4_x64.exe
+GTAIV.exe
 Pandora.exe
 ReadyOrNot-Win64-Shipping.exe
 PAYDAY3Client-Win64-Shipping.exe
@@ -298,8 +299,6 @@ RiseofIndustry.exe
 PathOfExile_x64.exe
 Ryujinx.exe
 Cuphead.exe
-yuzu-room.exe
-yuzu-cmd.exe
 yuzu.exe
 FallGuys_client.exe
 CoreKeeper.exe
@@ -314,4 +313,3 @@ DSPGAME.exe
 eso64.exe
 ShippingPC-RealmGame.exe
 Realm.exe
-javaw.exe
