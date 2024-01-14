@@ -404,6 +404,25 @@ Powercfg /SETACTIVE "11111111-1111-1111-1111-888111134588"
 bcdedit /set useplatformtick false
 bcdedit /set useplatformclock false
 bcdedit /set disabledynamictick yes
+sc config WaaSMedicSvc start=auto
+sc config wuauserv start=auto
+sc config msiserver start=auto
+sc config VMUSBArbService start=auto
+sc config VMnetDHCP start=auto
+sc config VMware NAT Service start=auto
+sc config VMAuthdService start=auto
+sc config VmwareAutostartService start=auto
+sc config EventSystem start=auto
+sc config SysMain start=auto
+sc config SENS start=auto
+sc config Eventlog start=auto
+sc config Eventlog-Forwarding start=auto
+sc config eventlog-service start=auto
+sc config BITS start=auto
+sc config PerfProc start=auto
+sc config InstallService start=auto
+sc config Wcmsvc start=auto
+sc config StiSvc start=auto
 sc start STR >nul
 
 setlocal enabledelayedexpansion
@@ -576,6 +595,27 @@ taskkill /f /im vmware-tray.exe >NUL
 taskkill /f /im vmware-usbarbitrator64.exe >NUL
 taskkill /f /im vmnetdhcp.exe >NUL
 
+sc config WaaSMedicSvc start=disabled
+sc config wuauserv start=disabled
+sc config WSearch start=disabled
+sc config msiserver start=disabled
+sc config VMUSBArbService start=disabled
+sc config VMnetDHCP start=disabled
+sc config VMware NAT Service start=disabled
+sc config VMAuthdService start=disabled
+sc config VmwareAutostartService start=disabled
+sc config EventSystem start=disabled
+sc config SysMain start=disabled
+sc config SENS start=disabled
+sc config Eventlog start=disabled
+sc config Eventlog-Forwarding start=disabled
+sc config eventlog-service start=disabled
+sc config BITS start=disabled
+sc config PerfProc start=disabled
+sc config InstallService start=disabled
+sc config Wcmsvc start=disabled
+sc config StiSvc start=disabled
+
 sc stop WaaSMedicSvc >NUL
 sc stop wuauserv >NUL
 sc stop WSearch >NUL
@@ -600,9 +640,9 @@ sc stop StiSvc >NUL
 SET CURRENTKEY=HKLM\SYSTEM\ControlSet001\Control\PriorityControl
 FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "Win32PrioritySeparation"') DO set WPS=%%B >NUL 2>nul
 
-IF EXIST "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" START "" "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" /StandbyList
-IF EXIST "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" START "" "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" /CombinedPageList
-IF EXIST "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" START "" "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" /ProcessesWorkingSet
+IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
+IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /CombinedPageList
+IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /ProcessesWorkingSet
 
 :CRAMS
 cd /d %~dp0
@@ -654,13 +694,16 @@ if %errorlevel% equ 0 (
 ) else (
 	echo GAME : !processToMonitor! // START : %STTME% // END : %time%>>C:\Ect\RWC\DQS\DQS.log
 	endlocal
+	IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
+	IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /CombinedPageList
+	IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /ProcessesWorkingSet
 	goto :AUTT
 )
 
 :GDD
-@timeout /nobreak /t 60 > nul
+@timeout /nobreak /t 600 > nul
 SET /a BBCLS=%BBCLS%+1
-IF EXIST "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" START "" "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" /StandbyListLowPriority
+IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
 SET "errorlevel="
 goto :CRAMS
 
