@@ -278,7 +278,6 @@ InfraSpace.exe
 Mindustry.exe
 oriDE.exe
 Control_DX12.exe
-FactoryGame.exe
 SettlementSurvival.exe
 Gta5.exe
 Dishonored2.exe
