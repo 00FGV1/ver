@@ -569,6 +569,34 @@ wmic process where name="logi_crashpad_handler.exe" CALL setpriority 64 >NUL
 wmic process where name="lghub_system_tray.exe" CALL setpriority 64 >NUL
 wmic process where name="librewolf.exe" CALL setpriority 64 >NUL
 
+taskkill /f /im vmware-authd.exe >NUL
+taskkill /f /im vmnat.exe >NUL
+taskkill /f /im vmware.exe >NUL
+taskkill /f /im vmware-tray.exe >NUL
+taskkill /f /im vmware-usbarbitrator64.exe >NUL
+taskkill /f /im vmnetdhcp.exe >NUL
+
+sc stop WaaSMedicSvc >NUL
+sc stop wuauserv >NUL
+sc stop WSearch >NUL
+sc stop msiserver >NUL
+sc stop VMUSBArbService >NUL
+sc stop VMnetDHCP >NUL
+sc stop VMware NAT Service >NUL
+sc stop VMAuthdService >NUL
+sc stop VmwareAutostartService >NUL
+sc stop EventSystem >NUL
+sc stop SysMain >NUL
+sc stop SENS >NUL
+sc stop Eventlog >NUL
+sc stop Eventlog-Forwarding >NUL
+sc stop eventlog-service >NUL
+sc stop BITS >NUL
+sc stop PerfProc >NUL
+sc stop InstallService >NUL
+sc stop Wcmsvc >NUL
+sc stop StiSvc >NUL
+
 SET CURRENTKEY=HKLM\SYSTEM\ControlSet001\Control\PriorityControl
 FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "Win32PrioritySeparation"') DO set WPS=%%B >NUL 2>nul
 
@@ -630,7 +658,7 @@ if %errorlevel% equ 0 (
 )
 
 :GDD
-@timeout /nobreak /t 900 > nul
+@timeout /nobreak /t 60 > nul
 SET /a BBCLS=%BBCLS%+1
 IF EXIST "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" START "" "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" /StandbyListLowPriority
 SET "errorlevel="
