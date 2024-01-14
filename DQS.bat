@@ -27,9 +27,20 @@ SET WPS=ERR
 SET ENDF=0
 SET CRAM=0
 SET BBCLS=0
+SET SAACT=0
 
 if /i "%~1"=="/4" (
 	SET HTO=98
+)
+
+if /i "%~1"=="/SCAN" (
+	rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
+	mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
+	if %errorlevel% neq 0 (
+		powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0' /SCAN" >nul 2>&1 & exit /b
+	)
+	SET SAACT=0
+	goto :SCAN
 )
 
 if /i "%~1"=="/B" (
@@ -382,7 +393,10 @@ mode con:cols=138 lines=23
 color 7
 cls
 
-IF NOT EXIST exe_gamename.txt curl -g -k -L -# -o "exe_gamename.txt" "https://raw.githubusercontent.com/00FGV1/ver/main/exe_gamename.txt"
+IF NOT EXIST exe_gamename_acv.txt (
+	SET SAACT=1
+	goto :SCAN
+)
 
 :checkProcess
 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul
@@ -390,13 +404,13 @@ Powercfg /SETACTIVE "11111111-1111-1111-1111-888111134588"
 bcdedit /set useplatformtick false
 bcdedit /set useplatformclock false
 bcdedit /set disabledynamictick yes
-sc start STR
+sc start STR >nul
 
 setlocal enabledelayedexpansion
-set "inputFile=exe_gamename.txt"
+set "inputFile=exe_gamename_acv.txt"
 cls
 
-IF NOT EXIST exe_gamename.txt echo %red%ERROR "exe_gamename.txt" MISSING%white%&pause&Exit
+IF NOT EXIST exe_gamename_acv.txt echo %red%ERROR "exe_gamename_acv.txt" MISSING%white%&pause&Exit
 
 echo En attente d'un jeu ...
 for /f %%i in (%inputFile%) do (
@@ -410,7 +424,7 @@ for /f %%i in (%inputFile%) do (
 ) > NUL 2>&1
 
 endlocal
-timeout /nobreak /t 90 > nul
+timeout /nobreak /t 20 > nul
 goto :checkProcess
 
 :FPR
@@ -558,9 +572,9 @@ wmic process where name="librewolf.exe" CALL setpriority 64 >NUL
 SET CURRENTKEY=HKLM\SYSTEM\ControlSet001\Control\PriorityControl
 FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "Win32PrioritySeparation"') DO set WPS=%%B >NUL 2>nul
 
-IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
-IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /CombinedPageList
-IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /ProcessesWorkingSet
+IF EXIST "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" START "" "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" /StandbyList
+IF EXIST "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" START "" "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" /CombinedPageList
+IF EXIST "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" START "" "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" /ProcessesWorkingSet
 
 :CRAMS
 cd /d %~dp0
@@ -618,6 +632,92 @@ if %errorlevel% equ 0 (
 :GDD
 @timeout /nobreak /t 900 > nul
 SET /a BBCLS=%BBCLS%+1
-IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyListLowPriority
+IF EXIST "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" START "" "C:\Ect\RWC\DQS\WinMemoryCleaner.exe" /StandbyListLowPriority
 SET "errorlevel="
 goto :CRAMS
+
+:SCAN
+IF EXIST C:\Ect\RWC\DQS\exe_gamename.txt DEL C:\Ect\RWC\DQS\exe_gamename.txt
+IF EXIST C:\Ect\RWC\DQS\exe_gamename_act.txt DEL C:\Ect\RWC\DQS\exe_gamename_act.txt
+IF EXIST C:\Ect\RWC\DQS\exe_gamename_acv.txt DEL C:\Ect\RWC\DQS\exe_gamename_acv.txt
+:REVERIF
+cls
+IF EXIST cli.c goto :VERIF1
+ECHO Le fichier "cli.c" est manquant. Le script va le reinstaller.
+curl -g -k -L -# -o "cli.c" "https://raw.githubusercontent.com/00FGV1/ver/main/file/cli.c" >nul 2>&1
+ping -n 2 -w 500 127.0.0.1 >nul
+
+:VERIF1
+IF EXIST es.exe goto :VERIF2
+ECHO Le fichier "es.exe" est manquant. Le script va le reinstaller.
+curl -g -k -L -# -o "es.exe" "https://github.com/00FGV1/ver/raw/main/file/es.exe" >nul 2>&1
+ping -n 5 -w 2000 127.0.0.1 >nul
+
+:VERIF2
+IF EXIST Everything.exe goto :VERIF4
+ECHO Le fichier "Everything.exe" est manquant. Le script va le reinstaller.
+curl -g -k -L -# -o "Everything.exe" "https://github.com/00FGV1/ver/raw/main/file/Everything.exe" >nul 2>&1
+ping -n 5 -w 2000 127.0.0.1 >nul
+
+:VERIF4
+IF EXIST Everything.lng goto :VERIF5
+ECHO Le fichier "Everything.lng" est manquant. Le script va le reinstaller.
+curl -g -k -L -# -o "Everything.lng" "https://github.com/00FGV1/ver/raw/main/file/Everything.lng" >nul 2>&1
+ping -n 2 -w 500 127.0.0.1 >nul
+
+:VERIF5
+IF EXIST Everything.ini DEL Everything.ini
+Start "" "Everything.exe" -startup
+Reg add "HKCU\Software\Microsoft\GameBar" /v "AllowAutoGameMode" /t REG_DWORD /d "1" /f
+Reg add "HKCU\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "1" /f
+cls
+
+ping -n 1 www.google.com > nul 2>&1
+if errorlevel 1 (
+	Exit
+) else (
+	curl -g -k -L -# -o "C:\Ect\RWC\DQS\exe_gamename.txt" "https://raw.githubusercontent.com/00FGV1/ver/main/exe_gamename.txt" >nul 2>&1
+)
+
+setlocal enabledelayedexpansion
+set "inputFile=C:\Ect\RWC\DQS\exe_gamename.txt"
+cls
+
+IF NOT EXIST exe_gamename.txt curl -g -k -L -# -o "C:\Ect\RWC\DQS\exe_gamename.txt" "https://raw.githubusercontent.com/00FGV1/ver/main/exe_gamename.txt" >nul 2>&1
+cd /d %~dp0
+@timeout /nobreak /t 02 > nul
+
+echo Analyse en cours ...
+for /f "tokens=*" %%i in (%inputFile%) do (
+    for %%j in (C D E F G H I J K L M N O P Q R S T U V W X Y Z) do (
+        es.exe "%%i" -path "%%j:\" -export-txt "temp_results.txt"
+        for /f "delims=" %%k in ('type "temp_results.txt" ^| findstr /i "\.exe$"') do (
+            echo %%i>>C:\Ect\RWC\DQS\exe_gamename_act.txt
+        )
+        del "temp_results.txt"
+    )
+)
+
+endlocal
+taskkill /IM Everything.exe /F >nul
+setlocal EnableDelayedExpansion
+
+set "inputFile=exe_gamename_act.txt"
+set "outputFile=exe_gamename_acv.txt"
+
+if exist "!outputFile!" del "!outputFile!"
+
+for /f "delims=" %%a in ('type "!inputFile!" ^| sort') do (
+    set "currentLine=%%a"
+    if not "!previousLine!"=="!currentLine!" (
+        echo !currentLine!>>"!outputFile!"
+        set "previousLine=!currentLine!"
+    )
+)
+
+endlocal
+IF EXIST C:\Ect\RWC\DQS\exe_gamename.txt DEL C:\Ect\RWC\DQS\exe_gamename.txt
+IF EXIST C:\Ect\RWC\DQS\exe_gamename_act.txt DEL C:\Ect\RWC\DQS\exe_gamename_act.txt
+cls
+IF %SAACT%==1 goto :AUTT
+Exit
