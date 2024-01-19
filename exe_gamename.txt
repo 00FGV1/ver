@@ -150,7 +150,6 @@ eu4.exe
 EndlessLegend.exe
 ed6_win.exe
 DXHRDC.exe
-gamelaunchhelper.exe
 DwarfFortress.exe
 DustAET.exe
 DungeonoftheEndless.exe
