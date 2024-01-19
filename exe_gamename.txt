@@ -10,6 +10,7 @@ Tidalis.exe
 SublevelZero.exe
 sspace.exe
 DyingLightGame.exe
+Palworld-WinGDK-Shipping.exe
 Anno1800.exe
 witcher3.exe
 Albion-Online_BE.exe
@@ -278,6 +279,7 @@ InfraSpace.exe
 Mindustry.exe
 oriDE.exe
 Control_DX12.exe
+FactoryGame.exe
 SettlementSurvival.exe
 Gta5.exe
 Dishonored2.exe
