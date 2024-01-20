@@ -11,6 +11,7 @@ SublevelZero.exe
 sspace.exe
 DyingLightGame.exe
 Palworld-WinGDK-Shipping.exe
+Palworld-Win64-Shipping.exe
 Anno1800.exe
 witcher3.exe
 Albion-Online_BE.exe
