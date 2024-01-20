@@ -83,6 +83,8 @@ if /i "%~1"=="/RA2" (
 		powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0' /A" >nul 2>&1 & exit /b
 	)
 	SET CRAM=1
+	SET SVSL=0
+	SET ERRBCL=0
 	goto :AUT1
 )
 
@@ -383,8 +385,11 @@ IF EXIST "C:\Ect\Alimentation\Normale.pow" Powercfg /import %systemdrive%\Ect\Al
 :AUTT
 SET "GD="
 SET "STTME="
+SET "ESLB=0"
+SET "ESLT=0"
 SET "BBCLS=0"
 SET "PRIORITY=8"
+SET "ERRBCL=0"
 SET "errorlevel="
 SET "processPath="
 SET "processToMonitor="
@@ -449,6 +454,14 @@ goto :checkProcess
 :FPR
 cls
 
+(
+	echo SET PTMR=!processToMonitor!
+	echo SET PPTH=!processPath!
+)>PRASTT.bat
+
+IF EXIST EETMP.DQS SET ERRBCL=1
+IF NOT EXIST EETMP.DQS echo Y>EETMP.DQS
+
 Powercfg /SETACTIVE "11111111-1111-1111-1111-111111134587"
 IF !processToMonitor!==RainbowSix.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x36" /f >nul
 IF !processToMonitor!==VALORANT.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x38" /f >nul
@@ -467,20 +480,21 @@ SET STTME=%time%
 Reg add "HKCU\Software\Microsoft\GameBar" /v "AllowAutoGameMode" /t REG_DWORD /d "1" /f >NUL
 Reg add "HKCU\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "1" /f >NUL
 
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Version" /t REG_SZ /d "1.0" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Application Name" /t REG_SZ /d "!processPath!" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Protocol" /t REG_SZ /d "*" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Local Port" /t REG_SZ /d "*" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Local IP" /t REG_SZ /d "*" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Local IP Prefix Length" /t REG_SZ /d "*" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Remote Port" /t REG_SZ /d "*" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Remote IP" /t REG_SZ /d "*" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Remote IP Prefix Length" /t REG_SZ /d "*" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "DSCP Value" /t REG_SZ /d "46" /f > NUL 2>&1
-Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\!processToMonitor!" /v "Throttle Rate" /t REG_SZ /d "-1" /f > NUL 2>&1
-Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "!processPath!" /t REG_SZ /d "~ DISABLEDXMAXIMIZEDWINDOWEDMODE RUNASADMIN HIGHDPIAWARE" /f > NUL 2>&1
-Reg.exe add "HKCU\SOFTWARE\Microsoft\DirectX\UserGpuPreferences" /v "!processPath!" /t REG_SZ /d "GpuPreference=2;" /f > NUL 2>&1
-Reg.exe add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\!processToMonitor!\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "3" /f >nul 2>&1
+IF EXIST PRASTT.bat call PRASTT.bat
+
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%PTMR%" /v "Application Name" /t REG_SZ /d "%PPTH%" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%PTMR%" /v "Protocol" /t REG_SZ /d "*" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%PTMR%" /v "Local Port" /t REG_SZ /d "*" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%PTMR%" /v "Local IP" /t REG_SZ /d "*" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%PTMR%" /v "Local IP Prefix Length" /t REG_SZ /d "*" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%PTMR%" /v "Remote Port" /t REG_SZ /d "*" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%PTMR%" /v "Remote IP" /t REG_SZ /d "*" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%PTMR%" /v "Remote IP Prefix Length" /t REG_SZ /d "*" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%PTMR%" /v "DSCP Value" /t REG_SZ /d "46" /f > NUL 2>&1
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\%PTMR%" /v "Throttle Rate" /t REG_SZ /d "-1" /f > NUL 2>&1
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "%PPTH%" /t REG_SZ /d "~ DISABLEDXMAXIMIZEDWINDOWEDMODE RUNASADMIN HIGHDPIAWARE" /f > NUL 2>&1
+Reg.exe add "HKCU\SOFTWARE\Microsoft\DirectX\UserGpuPreferences" /v "%PPTH%" /t REG_SZ /d "GpuPreference=2;" /f > NUL 2>&1
+Reg.exe add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\%PTMR%\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "3" /f >nul 2>&1
 wmic process where name="!processToMonitor!" CALL setpriority 128 >NUL
 
 wmic process where name="waterfox.exe" CALL setpriority 64 >NUL
@@ -587,6 +601,7 @@ wmic process where name="lghub.exe" CALL setpriority 64 >NUL
 wmic process where name="logi_crashpad_handler.exe" CALL setpriority 64 >NUL
 wmic process where name="lghub_system_tray.exe" CALL setpriority 64 >NUL
 wmic process where name="librewolf.exe" CALL setpriority 64 >NUL
+wmic process where name="gamingservices.exe" CALL setpriority 64 >NUL
 
 taskkill /f /im vmware-authd.exe >NUL
 taskkill /f /im vmnat.exe >NUL
@@ -652,21 +667,25 @@ echo 旼컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
 echo 읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
 echo.
 echo.
-echo.
+echo    %grey%Info jeu :%white%
 echo    Jeu en cours d'execution      = %gold%!processToMonitor!%white%
 echo    Win32PrioritySeparation       = %gold%%WPS%%white%
 echo    Emplacement du jeu            = %gold%!processPath!%white%
 IF %CRAM%==1 (
 	echo    Heures de la derniere boucle  = %gold%%time%%white%
 	echo    Boucle                        = %gold%%BBCLS%%white%
+	echo.
+	echo    %grey%Info ESL :%white%
+	echo    Heures de la derniere boucle  = %gold%%ESLT%%white%
+	echo    Boucle                        = %gold%%ESLB%%white%
 ) else (
 	echo.
 	echo.
+	echo.
+	echo.
+	echo.
+	echo.
 )
-echo.
-echo.
-echo.
-echo.
 echo.
 echo.
 echo.
@@ -679,32 +698,45 @@ IF %CRAM%==1 (
 	echo 旼컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴횫ppuyez sur une touche lorsque le jeu est ferme.컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
 )
 
-echo 읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
-
-IF %CRAM%==0 (
-	Pause>nul
-	endlocal
-	goto :AUTT
+IF %ERRBCL%==1 (
+	echo 읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴[%red%ERR BOUCLE%white%]켸
+) else (
+	echo 읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
 )
 
-tasklist /fi "imagename eq !processToMonitor!" | findstr /i "!processToMonitor!" > nul
+IF %ERRBCL%==0 (
+	IF %CRAM%==0 (
+		Pause>nul
+		endlocal
+		goto :AUTT
+	)
+)
+
+tasklist /fi "imagename eq %PTMR%" | findstr /i "%PTMR%" > nul
 
 if %errorlevel% equ 0 (
 	goto :GDD
 ) else (
-	echo GAME : !processToMonitor! // START : %STTME% // END : %time%>>C:\Ect\RWC\DQS\DQS.log
-	endlocal
-	IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
-	IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /CombinedPageList
-	IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /ProcessesWorkingSet
-	goto :AUTT
+	IF %ERRBCL%==0 (
+		echo GAME : %PTMR% // START : %STTME% // END : %time%>>C:\Ect\RWC\DQS\DQS.log
+		endlocal
+		START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
+		START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /CombinedPageList
+		START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /ProcessesWorkingSet
+		goto :AUTT
+	)
 )
 
 :GDD
-@timeout /nobreak /t 600 > nul
+@timeout /nobreak /t 150 > nul
 SET /a BBCLS=%BBCLS%+1
-IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
+IF %SVSL%==11 START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
+IF %SVSL%==11 SET /a ESLB=%ESLB%+1
+IF %SVSL%==11 SET ESLT=%time%
+SET /a SVSL=%SVSL%+1
 SET "errorlevel="
+IF %SVSL%==12 SET SVSL=0
+IF EXIST EETMP.DQS DEL EETMP.DQS
 goto :CRAMS
 
 :SCAN
