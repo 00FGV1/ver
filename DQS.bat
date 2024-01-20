@@ -85,6 +85,7 @@ if /i "%~1"=="/RA2" (
 	SET CRAM=1
 	SET SVSL=0
 	SET ERRBCL=0
+	IF EXIST EETMP.DQS DEL EETMP.DQS
 	goto :AUT1
 )
 
