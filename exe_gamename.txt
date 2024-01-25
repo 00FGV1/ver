@@ -314,3 +314,4 @@ DSPGAME.exe
 eso64.exe
 ShippingPC-RealmGame.exe
 Realm.exe
+enshrouded.exe
