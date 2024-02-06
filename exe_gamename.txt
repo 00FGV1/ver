@@ -315,3 +315,5 @@ eso64.exe
 ShippingPC-RealmGame.exe
 Realm.exe
 enshrouded.exe
+NieRAutomata.exe
+NieR Replicant ver.1.22474487139.exe
