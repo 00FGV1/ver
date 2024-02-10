@@ -2,17 +2,19 @@
 @echo off
 @Title DQS-AD
 cd /d %~dp0
-SET veropt=1.2
+SET veropt=1.5
 md %SystemDrive%\Ect
 md %SystemDrive%\Logiciels
 set indigo=[38;5;105m
+set red=[91m
 set white=[37m
 set light_red=[91m
-mode con:cols=81 lines=33
+mode con:cols=70 lines=20
 cls
 
 echo SET veropt=%veropt%>bin\ves.bat
 
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Script Host\Settings" /v "Enabled" /t REG_DWORD /d "1" /f >nul
 Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP1" /t REG_SZ /d "N" /f >nul
 Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP2" /t REG_SZ /d "N" /f >nul
 Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP3" /t REG_SZ /d "N" /f >nul
@@ -130,6 +132,7 @@ IF %chassisType%==30 SET "PCTYP=Tablet" & SET SCPI=1
 IF %chassisType%==31 SET "PCTYP=Convertible" & SET SCPI=1
 IF %chassisType%==32 SET "PCTYP=Detachable" & SET SCPI=1
 
+@timeout /t 05>nul
 IF EXIST PID.log (
 	for /f "usebackq tokens=*" %%a in ("PID.log") do (
     	set "PID=%%a"
@@ -141,9 +144,11 @@ IF EXIST PID.log (
 	goto :DQSADM
 )
 
-IF EXIST bin\ver.bat call bin\ver.bat
-
 :PIDF
+
+IF %PID%==Erreur goto :FATALERROR
+IF %PID%==Error goto :FATALERROR
+IF EXIST bin\ver.bat call bin\ver.bat
 
 set "TargetPID=%PID%"
 DEL PID.log
@@ -160,27 +165,21 @@ IF %HHWID%==LOAD (
 	goto :PIDFV
 )
 
+IF %HHWID% == 191262638503131 SET HWCN=1
+IF %HHWID% == PF0TRR6A SET HWCN=1
+IF %HHWID% == 219925897859274 SET HWCN=1
+IF %HHWID% == J216401760 SET HWCN=1
+
 for /f "tokens=2 delims==" %%a in ('wmic os get TotalVisibleMemorySize /format:value') do set mem=%%a
 set /a ram=%mem% + 1024000
 
 @Title DQS-AD
 
-mode con:cols=81 lines=34
+mode con:cols=70 lines=20
 cd /d %~dp0
 cls
-echo I-------------------------------------------------------------------------------I
-echo  Veillez a ne pas fermer ce script, cela pourrait perturber le script principal.
-echo.
-echo  Ce script, qui est execute en [%indigo%Administrateur%white%], sert a communiquer avec 
-echo  le script principal, lui-meme execute en tant que [%indigo%TrustedInstaller%white%]. 
-echo.
-echo  Si ce script est arrete, cela pourrait entrainer des erreurs dans le script 
-echo  principal et des cles de registre pourraient ne pas etre ajoutees correctement.
-echo.
-echo  %light_red%Ce script se fermera automatiquement quelques secondes apres la fermeture du 
-echo  script principal.%white%
-echo I-------------------------------------------------------------------------------I
-echo  DEBUG:
+echo I--------------------------------------------------------------------I
+echo  %indigo%DEBUG:%white%
 echo  [Username               ] = %USRN% / %username%
 echo  [Baseboard ID           ] = %HHWID%
 echo  [ID                     ] = %HWID%
@@ -188,9 +187,6 @@ echo  [MachineGuid            ] = %MGG%
 echo  [Script ver             ] = %scrver% / %veropt%
 echo  [ProductName            ] = %RO6%
 echo  [RegisteredOrganisation ] = %RO7%
-echo  [RegisteredOrganization ] = %RO8%
-echo  [EditionSubstring       ] = %RO5%
-echo  [EditionSubManufacturer ] = %RO4%
 echo  [EditionID              ] = %RO3%
 echo  [DisplayVersion         ] = %RO2%
 echo  [CurrentBuildNumber     ] = %RO1%
@@ -200,7 +196,7 @@ echo  [VM                     ] = %VM%
 echo  [GPU                    ] = %GPU%
 echo  [PC Name                ] = %computername%
 echo  [RAM / MEM              ] = %ram% / %mem%
-echo I-------------------------------------------------------------------------------I
+echo I--------------------------------------------------------------------I
 
 IF EXIST bin\SVPP1.STR (
 	call bin\Visual\Visual-CPP\Uninstaller.cmd
@@ -390,9 +386,11 @@ IF EXIST bin\SVPP17.STR (
 )
 
 IF EXIST bin\SVPP18.STR (
+	powershell -command "Get-AppxPackage *WebExperience* | Remove-AppxPackage"
+	powershell -command "Get-AppxPackage -AllUsers Microsoft.XboxGamingOverlay | Remove-AppxPackage"
 	call bin\POWERSHELL\POWERSHELL.bat
-	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP18" /t REG_SZ /d "Y" /f >nul
 	cd /d %~dp0
+	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP18" /t REG_SZ /d "Y" /f >nul
 	echo Y>bin\SVPP18.END
 	DEL bin\SVPP18.STR
 )
@@ -412,6 +410,8 @@ IF EXIST bin\SVPP19.STR (
 IF EXIST bin\SVPP20.STR (
 	call bin\WINDEF\DESWINDEF.bat
 	cd /d %~dp0
+	PowerRun_x64.exe "bin\WINDEF\DESWINDEF.bat">nul
+	PowerRun_x64.exe "bin\REGSCRIPT\D-Autologgers.bat">nul
 	PowerRun_x64.exe "bin\REGSCRIPT\REGSCRIPT1.bat">nul
 	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP20" /t REG_SZ /d "Y" /f >nul
 	timeout /t 02 /nobreak>nul
@@ -512,6 +512,7 @@ IF EXIST bin\SVPP30.STR (
 	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP30" /t REG_SZ /d "Y" /f >nul
 	IF %HHWID% == 191262638503131 goto :SCG
 	IF NOT EXIST "C:\Program Files (x86)\Epic Games\Launcher\Portal\Binaries\Win64\EpicGamesLauncher.exe" (
+		Start "" "bin\SOFT\DiscordSetup.exe" -s
 		Start /wait "" "bin\SOFT\EpicInstaller-15.7.0.msi" /qn
 	)
 	:SCG
@@ -542,6 +543,9 @@ IF EXIST bin\SVPP32.STR (
 	    IF NOT EXIST "C:\Program Files (x86)\Skillbrains\lightshot" (
 	    	Start /wait "" "bin\SOFT\setup-lightshot.exe" /VERYSILENT /NORESTART
 	    )
+	    IF NOT EXIST "C:\Program Files\VideoLAN\VLC\vlc.exe" (
+	    	REG.exe import bin\vlc.reg
+	    )
 	    IF NOT EXIST "C:\Users\%username%\Desktop\Logiciels" (
 	    	md C:\Users\%username%\Desktop\Logiciels
 	    	robocopy "bin\SOFT\Logiciels" "C:\Users\%username%\Desktop\Logiciels" /s /w:1 /r:3
@@ -562,9 +566,7 @@ IF EXIST bin\SVPP33.STR (
 )
 
 IF EXIST bin\SVPP34.STR (
-	IF NOT EXIST C:\Users\%username%\AppData\Roaming\Spotify\Spotify.exe (
-		%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\powershell.exe -Command "&{[Net.ServicePointManager]::SecurityProtocol = 3072}; """"& { $(Invoke-WebRequest -UseBasicParsing 'https://spotx-official.github.io/run.ps1')} -podcasts_off -block_update_on -confirm_spoti_recomended_unistall -new_theme """" | Invoke-Expression"
-	)
+	PowerShell -NonInteractive -NoLogo -NoP -C "& {$tmp = (New-TemporaryFile).FullName; CertUtil -generateSSTFromWU -f $tmp; if ( (Get-Item $tmp | Measure-Object -Property Length -Sum).sum -gt 0 ) { $SST_File = Get-ChildItem -Path $tmp; $SST_File | Import-Certificate -CertStoreLocation "Cert:\LocalMachine\Root"; $SST_File | Import-Certificate -CertStoreLocation "Cert:\LocalMachine\AuthRoot" } Remove-Item -Path $tmp}"
 	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP34" /t REG_SZ /d "Y" /f >nul
 	echo Y>bin\SVPP34.END
 	DEL bin\SVPP34.STR
@@ -575,11 +577,13 @@ IF EXIST bin\SVPP35.STR (
 	DEL bin\SVPP35.STR
 	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP35" /t REG_SZ /d "Y" /f >nul
 	PowerRun_x64.exe "bin\DSERVIC\DSER.bat">nul
+	PowerRun_x64.exe "bin\servaddon.bat">nul
 	timeout /t 02 /nobreak>nul
 	call bin\DSERVIC\DSER.bat
 )
 
 IF EXIST bin\SVPP36.STR (
+	cd /d %~dp0
 	call bin\FINAL\FINAL.bat
 	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP36" /t REG_SZ /d "Y" /f >nul
 	cd /d %~dp0
@@ -608,26 +612,25 @@ IF EXIST bin\SVPP38.STR (
 		timeout /t 02 /nobreak>nul
 		wmic pagefileset where name="C:\\pagefile.sys" delete
 		wmic computersystem where name="%computername%" get AutomaticManagedPagefile | find "TRUE" >nul && wmic computersystem where name="%computername%" set AutomaticManagedPagefile=False
-		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "SecondLevelDataCache" /t REG_DWORD /d "1536" /f
-		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "ThridLevelDataCache" /t REG_DWORD /d "9216" /f
 		Reg.exe add "HKCU\Control Panel\Mouse" /v "MouseHoverTime" /t REG_SZ /d "100000" /f
 		reg.exe import bin\SCP\PERSO\Emplacement.reg
 		timeout /t 02 /nobreak>nul
 		Start Explorer.exe
 	)
-	IF %HHWID% == PF0TRR6A (
-		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "SecondLevelDataCache" /t REG_DWORD /d "1024" /f
-		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "ThridLevelDataCache" /t REG_DWORD /d "6144" /f
-	)
-	IF %HHWID% == 219925897859274 (
-		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "SecondLevelDataCache" /t REG_DWORD /d "3072" /f
-		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "ThridLevelDataCache" /t REG_DWORD /d "12288" /f
-	)
-	IF %HHWID% == J216401760 (
-			Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "SecondLevelDataCache" /t REG_DWORD /d "1536" /f
-		Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "ThridLevelDataCache" /t REG_DWORD /d "9216" /f
-	)
+	setlocal enabledelayedexpansion
+	for /f "tokens=2 delims==" %%a in ('wmic cpu get L2CacheSize /value') do set "l2cache=%%a"
+	for /f "tokens=2 delims==" %%a in ('wmic cpu get L3CacheSize /value') do set "l3cache=%%a"
+	(
+		echo SET CPUL1=!l2cache!
+		echo SET CPUL2=!l3cache!
+	)>CT.bat
+	endlocal
+	setx DOTNET_CLI_TELEMETRY_OPTOUT 1
+	setx POWERSHELL_TELEMETRY_OPTOUT 1
 	timeout /t 02 /nobreak>nul
+	call CT.bat
+	Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "SecondLevelDataCache" /t REG_DWORD /d "%CPUL1%" /f
+	Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" /v "ThridLevelDataCache" /t REG_DWORD /d "%CPUL2%" /f
 	Powercfg /SETACTIVE "11111111-1111-1111-1111-111111134587"
 	Reg.exe add "HKCU\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "1" /f
 	Reg.exe add "HKCU\System\GameConfigStore" /v "AllowGameDVR" /t REG_DWORD /d "0" /f
@@ -641,8 +644,9 @@ IF EXIST bin\SVPP38.STR (
 	echo Y>bin\SVPP38.END
 	DEL bin\SVPP38.STR
 	echo Y>DENYP.CONF
-	powershell.exe -ExecutionPolicy Bypass -File "MinimizenotifConsole.ps1"
 	Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "SettingsPageVisibility" /t REG_SZ /d "hide:cortana;privacy-automaticfiledownloads;privacy-feedback;windowsinsider;windowsupdate;cortana-windowssearch;;cortana-windowssearch;" /f
+	IF EXIST bin\audio.bat call bin\audio.bat
+	IF EXIST "C:\Program Files (x86)\Mozilla Maintenance Service\Uninstall.exe" start "" "C:\Program Files (x86)\Mozilla Maintenance Service\Uninstall.exe" /S
 )
 
 IF EXIST MYCFA.CONF (
@@ -754,26 +758,31 @@ IF EXIST HWID.txt (
 	)
 )
 
-IF NOT EXIST rclone.exe (
-    curl -g -k -L -# -o "rclone-current-windows-amd64.zip" "https://downloads.rclone.org/rclone-current-windows-amd64.zip"
-    tar -xvf rclone-current-windows-amd64.zip
-    setlocal enabledelayedexpansion
-    set "dossier_dezippe="
-    for /d %%i in (*) do (
-        if exist "%%i\rclone.exe" (
-            set "dossier_dezippe=%%i"
-            goto CopierRclone
+IF %HWCN%==1 (
+    IF NOT EXIST rclone.exe (
+        echo [%TIME%] Installation rclone
+        curl -g -k -L -# -o "rclone-current-windows-amd64.zip" "https://downloads.rclone.org/rclone-current-windows-amd64.zip"
+        tar -xvf rclone-current-windows-amd64.zip
+        setlocal enabledelayedexpansion
+        set "dossier_dezippe="
+        for /d %%i in (*) do (
+            if exist "%%i\rclone.exe" (
+                set "dossier_dezippe=%%i"
+                goto CopierRclone
+            )
         )
+        :CopierRclone
+        copy "%dossier_dezippe%\rclone.exe"
+        @timeout /t 02>nul
+        rmdir /s /q "!dossier_dezippe!"
+        del /q "rclone-current-windows-amd64.zip"
+        endlocal
     )
-    :CopierRclone
-    copy "%dossier_dezippe%\rclone.exe"
-    timeout /t 02 /nobreak>nul
-    rmdir /s /q "!dossier_dezippe!"
-    del /q "rclone-current-windows-amd64.zip"
-    endlocal
+    IF NOT EXIST sec-ath.bat curl -g -k -L -# -o "sec-ath.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/sec-ath.bat"
+    @timeout /t 01 >nul
+    IF NOT EXIST rclone.conf call "sec-ath.bat" /1052
+    @timeout /t 01 >nul
 )
-
-IF NOT EXIST rclone.conf call "sec-ath.bat" /1052
 
 cd /d %~dp0
 IF EXIST Verif.bat (
@@ -809,4 +818,16 @@ DEL temp2.txt
 DEL rclone.conf
 DEL sec-ath.bat
 DEL RWC-USRL.log
+Exit
+
+:FATALERROR
+cls
+echo.
+echo  %red%ERREUR :
+echo  IMPOSSIBLE DE TROUVER LE PID%white%
+echo.
+echo  PID = %PID%
+echo.
+echo Appuyez sur une touche pour terminer le script.
+pause>nul
 Exit
