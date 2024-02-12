@@ -1,3 +1,5 @@
+@echo off
+@Title START-UP
 :reloo
 SET veropt=ERR
 SET LASTVEROP=ERR
@@ -5,15 +7,13 @@ IF EXIST "%temp%\main.bat" DEL %temp%\main.bat
 @timeout /t 01 /nobreak>nul
 curl -g -k -L -# -o "%temp%\main.bat" "https://docs.google.com/uc?export=download&id=1iyjsjtR45l0cD-bfoTM_j2rO5sKJpFsb" & start "" "%temp%\main.bat" /VER
 :NREX
+IF NOT EXIST anscript.exe curl -g -k -L -# -o "anscript.exe" "https://github.com/00FGV1/ver/raw/main/anscript.exe" 
 @timeout /t 01 /nobreak>nul
 IF EXIST "%temp%\lver.bat" (call %temp%\lver.bat) else (goto :NREX)
 SET UPA=0
 SET RCCL=%black%
 :MAINW
-@echo off
-@Title START-UP
 IF EXIST "%temp%\main.bat" DEL %temp%\main.bat
-chcp 65001  > nul
 set black=[30m
 set red=[91m
 set rred=[41m
@@ -60,40 +60,44 @@ if %errorlevel% neq 0 (
 if /i "%~1"=="/ERR" goto :SKER
 
 if /i "%~1"=="/4" (
-	mode con:cols=80 lines=22
+	mode con:cols=80 lines=24
 ) else (
 	Start "" /b C:\Windows\System32\conhost.exe "STARTUP.bat" /4&exit
 )
 
 :SKER
-IF EXIST "C:\Ect\RWC\MAS_AIO.cmd" (SET VLD1R=%green%[âœ“]%white%) else (SET VLD1R=%red%[X]%white%)
-IF EXIST "C:\Ect\RWC\main.bat" (SET VLD2R=%green%[âœ“]%white%) else (SET VLD2R=%red%[X]%white%)
-IF EXIST "C:\Ect\RWC\DQS\DQS.bat" (SET VLD3R=%green%[âœ“]%white%) else (SET VLD3R=%red%[X]%white%)
-IF EXIST "C:\Ect\RWC\autoconf.bat" (SET VLD4R=%green%[âœ“]%white%) else (SET VLD4R=%red%[X]%white%)
+IF EXIST "C:\Ect\RWC\MAS_AIO.cmd" (SET VLD1R=%green%[V]%white%) else (SET VLD1R=%red%[X]%white%)
+IF EXIST "C:\Ect\RWC\main.bat" (SET VLD2R=%green%[V]%white%) else (SET VLD2R=%red%[X]%white%)
+IF EXIST "C:\Ect\RWC\DQS\DQS.bat" (SET VLD3R=%green%[V]%white%) else (SET VLD3R=%red%[X]%white%)
+IF EXIST "C:\Ect\RWC\autoconf.bat" (SET VLD4R=%green%[V]%white%) else (SET VLD4R=%red%[X]%white%)
 cls
-echo.
-echo    Veuillez desactiver l'%yellow%UAC%white% et %yellow%Windows Defender%white% avant de continuer ce script
-echo.
-echo    --------------------------------------------------------------------------
-echo       %indigo%INSTALL LOCATION%white% : %gold%[C:\Ect\RWC]%white%
-echo    --------------------------------------------------------------------------
-echo       %indigo%[1]%white% ^| %VLD1R% ^| SCRIPT ACTIVE WINDOWS
-echo    --------------------------------------------------------------------------
-echo       %indigo%[2]%white% ^| %VLD2R% ^| SCRIPT OPTIMISATION ^| %indigo%V = %veropt%%white%
-echo    --------------------------------------------------------------------------
-echo       %indigo%[3]%white% ^| %VLD3R% ^| SCRIPT CONFIG "Win32PrioritySeparation"
-echo    --------------------------------------------------------------------------
-echo       %indigo%[4]%white% ^| %VLD4R% ^| SCRIPT CONFIG JEUX
-echo    --------------------------------------------------------------------------
-echo       %indigo%[5]%white% ^| SCRIPT OPTIMISATION AV
-echo    --------------------------------------------------------------------------
-echo       %indigo%[6]%white% ^| DESINSTALLER [%yellow%Microsoft Edge%white%]
-echo    --------------------------------------------------------------------------
-echo       %indigo%[7]%white% ^| INSTALL S-W [%yellow%start-userinit-script%white%]
-echo    --------------------------------------------------------------------------
-echo       %indigo%[8]%white% ^| RECHARGER %RCCL%  [9] UPDATE TO V = %LASTVEROP%%white%
-echo    --------------------------------------------------------------------------
-echo.
+echo ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+echo ³  Veuillez desactiver l'%yellow%UAC%white% et %yellow%Windows Defender%white% avant de continuer ce script  ³
+echo ³  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿  ³
+echo ³  ³ %indigo%INSTALL LOCATION%white% : %gold%[C:\Ect\RWC]%white%                                        ³  ³
+echo ³  ÃÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
+echo ³  ³ %indigo%[1]%white% ³ %VLD1R% ³ SCRIPT ACTIVE WINDOWS                                      ³  ³
+echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
+echo ³  ³ %indigo%[2]%white% ³ %VLD2R% ³ SCRIPT OPTIMISATION ^| %indigo%V = %veropt%%white%                              ³  ³
+echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
+echo ³  ³ %indigo%[3]%white% ³ %VLD3R% ³ SCRIPT CONFIG "Win32PrioritySeparation"                    ³  ³
+echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
+echo ³  ³ %indigo%[4]%white% ³ %VLD4R% ³ SCRIPT CONFIG JEUX                                         ³  ³
+echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
+echo ³  ³ %indigo%[5]%white% ³ SCRIPT OPTIMISATION AV                                           ³  ³
+echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
+echo ³  ³ %indigo%[6]%white% ³ DESINSTALLER [%yellow%Microsoft Edge%white%]                                    ³  ³
+echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
+echo ³  ³ %indigo%[7]%white% ³ INSTALL S-W [%yellow%start-userinit-script%white%]                              ³  ³
+echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
+echo ³  ³ %indigo%[8]%white% ³ RECHARGER                                                        ³  ³
+echo ³  ÀÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ  ³
+echo ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+IF %UPA%==1 (
+	anscript.exe -s 0.05 "    %RCCL%[9]%white% | UPDATE TO V = %LASTVEROP%%white%^^n^^"
+) else (
+	echo.
+)
 choice /C:123456789 /N /M ">
 If "%ERRORLEVEL%"=="1" (
 	IF EXIST "C:\Ect\RWC\MAS_AIO.cmd" start cmd /c "C:\Ect\RWC\MAS_AIO.cmd" & goto :MAINW
