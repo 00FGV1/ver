@@ -26,6 +26,7 @@ ExecPubg.exe
 TslGame.exe
 forhonor.exe
 TslGame_BE.exe
+SGWContracts2.exe
 ArkAscended.exe
 TslGame_UC.exe
 TslGame_ZK.exe
