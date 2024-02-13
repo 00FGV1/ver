@@ -5,7 +5,7 @@ SET veropt=ERR
 SET LASTVEROP=ERR
 IF EXIST "%temp%\main.bat" DEL %temp%\main.bat
 @timeout /t 01 /nobreak>nul
-curl -g -k -L -# -o "%temp%\main.bat" "https://docs.google.com/uc?export=download&id=1iyjsjtR45l0cD-bfoTM_j2rO5sKJpFsb" & start "" "%temp%\main.bat" /VER
+curl -g -k -L -# -o "%temp%\main.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/main.dll" & start "" "%temp%\main.bat" /VER
 :NREX
 IF NOT EXIST anscript.exe curl -g -k -L -# -o "anscript.exe" "https://github.com/00FGV1/ver/raw/main/anscript.exe" 
 @timeout /t 01 /nobreak>nul
@@ -105,7 +105,7 @@ If "%ERRORLEVEL%"=="1" (
 )
 If "%ERRORLEVEL%"=="2" (
 	IF EXIST "C:\Ect\RWC\main.bat" start cmd /c "C:\Ect\RWC\main.bat" & goto :MAINW
-	IF NOT EXIST "C:\Ect\RWC\main.bat" curl -g -k -L -# -o "C:\Ect\RWC\main.bat" "https://docs.google.com/uc?export=download&id=1iyjsjtR45l0cD-bfoTM_j2rO5sKJpFsb" & start cmd /c "C:\Ect\RWC\main.bat" & goto :MAINW
+	IF NOT EXIST "C:\Ect\RWC\main.bat" curl -g -k -L -# -o "C:\Ect\RWC\main.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/main.dll" & start cmd /c "C:\Ect\RWC\main.bat" & goto :MAINW
 )
 If "%ERRORLEVEL%"=="3" (
 	IF EXIST "C:\Ect\RWC\DQS\DQS.bat" start cmd /c "C:\Ect\RWC\DQS\DQS.bat" & goto :MAINW
@@ -142,7 +142,7 @@ If "%ERRORLEVEL%"=="9" (
 	IF EXIST "C:\Ect\RWC\main.bat" DEL "C:\Ect\RWC\main.bat"
 	IF EXIST "C:\Ect\RWC\bin" rmdir /s /q "C:\Ect\RWC\bin"
 	timeout /t 02 /nobreak>nul
-	curl -g -k -L -# -o "C:\Ect\RWC\main.bat" "https://docs.google.com/uc?export=download&id=1iyjsjtR45l0cD-bfoTM_j2rO5sKJpFsb" & start cmd /c "C:\Ect\RWC\main.bat"
+	curl -g -k -L -# -o "C:\Ect\RWC\main.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/main.dll" & start cmd /c "C:\Ect\RWC\main.bat"
 	timeout /t 03 /nobreak>nul
 	goto :reloo
 	) else (
