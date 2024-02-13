@@ -1,4 +1,6 @@
 @echo off
+IF EXIST "C:\Users\%USERNAME%\AppData\Roaming\Spotify\config.ini" DEL "C:\Users\%USERNAME%\AppData\Roaming\Spotify\config.ini"
+IF EXIST "C:\Users\%USERNAME%\AppData\Roaming\Spotify\dpapi.dll" DEL "C:\Users\%USERNAME%\AppData\Roaming\Spotify\dpapi.dll"
 IF EXIST "%TEMP%\chrome_elf.zip" DEL "%TEMP%\chrome_elf.zip"
 IF EXIST "%TEMP%\SpotifySetup.exe" DEL "%TEMP%\SpotifySetup.exe"
 @timeout /t 01 >nul
