@@ -114,11 +114,12 @@ If "%ERRORLEVEL%"=="4" (
 	IF NOT EXIST "C:\Ect\RWC\autoconf.bat" curl -g -k -L -# -o "C:\Ect\RWC\autoconf.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/file/autoconf.bat" & start cmd /c "C:\Ect\RWC\autoconf.bat" & goto :MAINW
 )
 If "%ERRORLEVEL%"=="5" IF %RWECX%==1 (
-	IF NOT exist bin\DNS.reg goto :reloo
+	IF NOT exist C:\Ect\RWC\bin\DNS.reg goto :reloo
 	cd /d %~dp0
 	IF NOT exist PowerRun_x64.exe curl -g -k -L -# -o "PowerRun_x64.exe" "https://github.com/00FGV1/ver/raw/main/PowerRun_x64.exe"
 	cls
 	echo %indigo%1/3%white%
+	@timeout /t 02>nul
 	PowerRun_x64.exe "C:\Ect\RWC\bin\RWC_AV\DISM-FT.exe"
 	PowerRun_x64.exe "C:\Ect\RWC\bin\RWC_AV\REG\reg_1.bat"
 	PowerRun_x64.exe "C:\Ect\RWC\bin\RWC_AV\REG\Debloat.exe"
