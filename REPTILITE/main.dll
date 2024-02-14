@@ -39,8 +39,8 @@ if /i "%~1"=="/4" (
 	SET HTO=98
 )
 
-SET VSCTAF=%green%V%blue%1%indigo%.%magenta%0%white%
-SET scrver=1.0
+SET VSCTAF=%green%V%blue%1%indigo%.%magenta%1%white%
+SET scrver=1.1
 
 if /i "%~1"=="/VER" (
     echo SET LASTVEROP=%scrver%>%temp%\lver.bat
@@ -51,9 +51,9 @@ echo SET veropt=%scrver%>bin\ver.bat
 
 for /f "tokens=2 delims==" %%i in ('wmic os get BuildNumber /value ^| find "="') do set "build=%%i"
 if %build% gtr 19045 (
-    set "WVAC=%cyan%W%cyan%1%cyan%1%white%"
+    set "WVAC=%cyan%W11%white%"
 ) else (
-    set "WVAC=%blue%W%blue%1%blue%0%white%"
+    set "WVAC=%blue%W10%white%"
 )
 
 cls
@@ -358,6 +358,8 @@ echo   %ggrey% %black%Rep : [%cd%\tmp]%white% %defcolor%
 echo.
 echo   %ggrey% %black%Lnk : https://drive.google.com/file/d/14KepSwMqgt83jI_HabGD6DmFDWGVsHLE/view?usp=sharing%white% %defcolor%
 echo.
+start "" "https://drive.google.com/file/d/14KepSwMqgt83jI_HabGD6DmFDWGVsHLE/view?usp=sharing"
+start "" "%cd%\tmp"
 pause
 cls
 IF NOT EXIST tmp\bin.7z goto :INRBIN

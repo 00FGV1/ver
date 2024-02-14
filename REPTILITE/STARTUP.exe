@@ -26,12 +26,12 @@ set bblue=[44m
 set magenta=[35m
 set bmagenta=[45m
 set cyan=[36m
-set white=[37m
 set defcolor=[49m
 set gold=[38;5;220m
 set grey=[90m
 set ggrey=[100m
 set orange=[38;5;208m
+set white=[37m
 set indigo=[38;5;105m
 IF EXIST C:\Ect\RWC\bin\ver.bat (
 	call C:\Ect\RWC\bin\ver.bat
@@ -41,8 +41,6 @@ IF EXIST C:\Ect\RWC\bin\ver.bat (
 	SET RWECX=0
 )
 cd /d %~dp0
-md C:\Ect
-md C:\Ect\RWC
 md C:\Ect\RWC\DQS
 color 7
 
@@ -115,7 +113,34 @@ If "%ERRORLEVEL%"=="4" (
 	IF EXIST "C:\Ect\RWC\autoconf.bat" start cmd /c "C:\Ect\RWC\autoconf.bat" & goto :MAINW
 	IF NOT EXIST "C:\Ect\RWC\autoconf.bat" curl -g -k -L -# -o "C:\Ect\RWC\autoconf.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/file/autoconf.bat" & start cmd /c "C:\Ect\RWC\autoconf.bat" & goto :MAINW
 )
-If "%ERRORLEVEL%"=="5" IF %RWECX%==1 (curl -g -k -L -# -o "C:\Ect\RWC\RWC_AV.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/RWC_AV.exe" & start cmd /c "C:\Ect\RWC\RWC_AV.bat" & goto :MAINW) else (goto :MAINW)
+If "%ERRORLEVEL%"=="5" IF %RWECX%==1 (
+	IF NOT exist bin\DNS.reg goto :reloo
+	cd /d %~dp0
+	IF NOT exist PowerRun_x64.exe curl -g -k -L -# -o "PowerRun_x64.exe" "https://github.com/00FGV1/ver/raw/main/PowerRun_x64.exe"
+	cls
+	echo %indigo%1/3%white%
+	PowerRun_x64.exe "C:\Ect\RWC\bin\RWC_AV\DISM-FT.exe"
+	PowerRun_x64.exe "C:\Ect\RWC\bin\RWC_AV\REG\reg_1.bat"
+	PowerRun_x64.exe "C:\Ect\RWC\bin\RWC_AV\REG\Debloat.exe"
+	PowerRun_x64.exe "C:\Ect\RWC\bin\HOST\mvps.exe"
+	cd /d %~dp0
+	set white=[37m
+	set indigo=[38;5;105m
+	cls
+	echo %indigo%2/3%white%
+	Start /wait "" "C:\Ect\RWC\bin\RWC_AV\REG\mgs.exe"
+	Start /wait "" "C:\Ect\RWC\bin\RWC_AV\REG\prt.exe"
+	Start /wait "" "C:\Ect\RWC\bin\RWC_AV\REG\Debloat.exe"
+	call C:\Ect\RWC\bin\RWC_AV\REG\reg_2.bat
+	cd /d %~dp0
+	cls
+	echo %indigo%3/3%white%
+	@timeout /t 20>nul
+	PowerRun_x64.exe "bin\RWC_AV\TEMP\TEMP.bat"
+	cls
+	echo %indigo%END%white%
+	goto :reloo
+)
 If "%ERRORLEVEL%"=="6" curl -g -k -L -# -o "Edge.ps1" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/Edge.ps1" & mode con:cols=96 lines=22 & powershell.exe -ExecutionPolicy Bypass -File "Edge.ps1" & Start "" /b C:\Windows\System32\conhost.exe "STARTUP.bat" /4&exit
 If "%ERRORLEVEL%"=="7" (
 	cd /d C:\Ect\

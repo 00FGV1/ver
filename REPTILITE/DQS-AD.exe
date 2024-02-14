@@ -2,7 +2,7 @@
 @echo off
 @Title DQS-AD
 cd /d %~dp0
-SET veropt=1.5
+SET veropt=1.7
 md %SystemDrive%\Ect
 md %SystemDrive%\Logiciels
 set indigo=[38;5;105m
@@ -811,6 +811,17 @@ IF EXIST rclone.conf (
 
 cd /d %~dp0
 Ping 10>nul
+set seed=%time:~9,2%%time:~3,2%%time:~6,2%
+set /A rand=(seed * 21) %% 20 + 1
+IF %rand%==16 SET WLN=16.jpeg & goto :APBAGG
+IF %rand%==17 SET WLN=17.jpeg & goto :APBAGG
+IF %rand%==18 SET WLN=18.jpeg & goto :APBAGG
+SET WLN=%rand%.png
+:APBAGG
+set backgroundImage=C:\Ect\Wallp\%WLN%
+reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "%backgroundImage%" /f
+RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
+IF EXIST "C:\Program Files (x86)\Mozilla Maintenance Service\Uninstall.exe" start "" "C:\Program Files (x86)\Mozilla Maintenance Service\Uninstall.exe" /S
 DEL QTS-USRL.log
 DEL ID.log
 DEL IID.log
