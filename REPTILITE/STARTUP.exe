@@ -137,7 +137,7 @@ If "%ERRORLEVEL%"=="5" IF %RWECX%==1 (
 	cls
 	echo %indigo%3/3%white%
 	@timeout /t 20>nul
-	PowerRun_x64.exe "bin\RWC_AV\TEMP\TEMP.bat"
+	PowerRun_x64.exe "C:\Ect\RWC\bin\RWC_AV\TEMP\TEMP.bat"
 	cls
 	echo %indigo%END%white%
 	goto :reloo
