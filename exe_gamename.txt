@@ -291,6 +291,7 @@ valheim.exe
 ScrapMechanic.exe
 GenshinImpact.exe
 KSP_x64.exe
+KSP2_x64.exe
 CosmicShake.exe
 AnomalyLauncher.exe
 AnomalyDX11.exe
@@ -304,6 +305,7 @@ Cuphead.exe
 yuzu.exe
 FallGuys_client.exe
 CoreKeeper.exe
+bfv.exe
 HogwartsLegacy.exe
 7DaysToDie.exe
 7DaysToDie_EAC.exe
