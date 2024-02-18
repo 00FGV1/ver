@@ -698,7 +698,7 @@ echo   %RCST28%  %RCSTV28%INSTALLATION %yellow%TOOLS%white%
 echo   %RCST29%  %RCSTV29%INSTALLATION %yellow%STEAMS%white%
 echo   %RCST30%  %RCSTV30%INSTALLATION %yellow%EPIC GAMES%white%
 echo   %RCST31%  %RCSTV31%INSTALLATION %yellow%7-ZIP%white%
-echo   %RCST32%  %RCSTV32%INSTALLATION %yellow%FIREFOX%white%/%yellow%LIGHTSHOT%white%/%yellow%VLC%white%
+echo   %RCST32%  %RCSTV32%INSTALLATION %yellow%LIGHTSHOT%white%/%yellow%VLC%white%
 echo   %RCST33%  %RCSTV33%INSTALLATION %yellow%STARTBACK%white%
 echo   %RCST34%  %RCSTV34%MAJ %yellow%"CERTUTIL Certificate"%white%
 echo   %RCST35%  %RCSTV35%DESACTIVATION SERVICES

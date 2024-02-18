@@ -2,9 +2,8 @@
 @echo off
 @Title DQS-AD
 cd /d %~dp0
-SET veropt=1.7
+SET veropt=1.8
 md %SystemDrive%\Ect
-md %SystemDrive%\Logiciels
 set indigo=[38;5;105m
 set red=[91m
 set white=[37m
@@ -57,6 +56,7 @@ Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP38" /t REG_SZ /d "N" /f >nul
 SET HHWID=LOAD
 SET HWID=LOAD
 SET GPU=ERR
+SET VLWD=N
 
 rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
 mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
@@ -166,9 +166,9 @@ IF %HHWID%==LOAD (
 )
 
 IF %HHWID% == 191262638503131 SET HWCN=1
-IF %HHWID% == PF0TRR6A SET HWCN=1
-IF %HHWID% == 219925897859274 SET HWCN=1
-IF %HHWID% == J216401760 SET HWCN=1
+IF %HHWID% == PF0TRR6A SET HWCN=1 & SET VLWD=Y
+IF %HHWID% == 219925897859274 SET HWCN=1 & SET VLWD=Y
+IF %HHWID% == J216401760 SET HWCN=1 & SET VLWD=Y
 
 for /f "tokens=2 delims==" %%a in ('wmic os get TotalVisibleMemorySize /format:value') do set mem=%%a
 set /a ram=%mem% + 1024000
@@ -510,7 +510,7 @@ IF EXIST bin\SVPP29.STR (
 
 IF EXIST bin\SVPP30.STR (
 	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP30" /t REG_SZ /d "Y" /f >nul
-	IF %HHWID% == 191262638503131 goto :SCG
+	IF %VLWD%==N goto :SCG
 	IF NOT EXIST "C:\Program Files (x86)\Epic Games\Launcher\Portal\Binaries\Win64\EpicGamesLauncher.exe" (
 		Start "" "bin\SOFT\DiscordSetup.exe" -s
 		Start /wait "" "bin\SOFT\EpicInstaller-15.7.0.msi" /qn
@@ -532,17 +532,22 @@ IF EXIST bin\SVPP31.STR (
 		timeout /t 02 /nobreak>nul
 
 IF EXIST bin\SVPP32.STR (
-	IF %HHWID% == 191262638503131 (
+	IF %VLWD%==Y (
 		Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP32" /t REG_SZ /d "Y" /f >nul
-	    goto :GFD
-	) else (
-		Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP32" /t REG_SZ /d "Y" /f >nul
-		IF NOT EXIST "C:\Program Files\Mozilla Firefox\firefox.exe" (
-	    	Start /wait "" "bin\SOFT\Firefox_Setup_118.0.1.msi" /quiet
-	    )
 	    IF NOT EXIST "C:\Program Files (x86)\Skillbrains\lightshot" (
 	    	Start /wait "" "bin\SOFT\setup-lightshot.exe" /VERYSILENT /NORESTART
 	    )
+		Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP32" /t REG_SZ /d "Y" /f >nul
+	    IF NOT EXIST "C:\Program Files\VideoLAN\VLC\vlc.exe" (
+	    	REG.exe import bin\vlc.reg
+	    )
+	    IF NOT EXIST "C:\Users\%username%\Desktop\Logiciels" (
+	    	md C:\Users\%username%\Desktop\Logiciels
+	    	robocopy "bin\SOFT\Logiciels" "C:\Users\%username%\Desktop\Logiciels" /s /w:1 /r:3
+	    )
+	    goto :GFD
+	) else (
+		Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP32" /t REG_SZ /d "Y" /f >nul
 	    IF NOT EXIST "C:\Program Files\VideoLAN\VLC\vlc.exe" (
 	    	REG.exe import bin\vlc.reg
 	    )
