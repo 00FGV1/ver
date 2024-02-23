@@ -85,6 +85,7 @@ bg3_dx11.exe
 WorldOfTanks.exe
 WorldOfTanks_eu.exe
 Waves.exe
+tomb123.exe
 v2game.exe
 uplink.exe
 UNDERTALE.exe
@@ -300,6 +301,7 @@ TheForest.exe
 SonsOfTheForest.exe
 RiseofIndustry.exe
 PathOfExile_x64.exe
+PenDriverPro-Win64-Shipping.exe
 Ryujinx.exe
 Cuphead.exe
 yuzu.exe
