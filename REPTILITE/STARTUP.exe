@@ -44,8 +44,9 @@ cd /d %~dp0
 md C:\Ect\RWC\DQS
 color 7
 
+SET "veropta=%veropt%"
 IF %veropt% LSS %LASTVEROP% SET RCCL=%gold% & SET UPA=1
-IF %veropt% == 0 SET RCCL=%black% & SET UPA=0
+IF %veropt% == 0 SET RCCL=%black% & SET UPA=0 & SET "veropta=%veropt%  "
 rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
 mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
 if %errorlevel% neq 0 (
@@ -76,7 +77,7 @@ echo ³  ³ %indigo%INSTALL LOCATION%white% : %gold%[C:\Ect\RWC]%white%           
 echo ³  ÃÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
 echo ³  ³ %indigo%[1]%white% ³ %VLD1R% ³ SCRIPT ACTIVE WINDOWS                                      ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
-echo ³  ³ %indigo%[2]%white% ³ %VLD2R% ³ SCRIPT OPTIMISATION ^| %indigo%V = %veropt%%white%                              ³  ³
+echo ³  ³ %indigo%[2]%white% ³ %VLD2R% ³ SCRIPT OPTIMISATION ^| %indigo%V = %veropta%%white%                              ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
 echo ³  ³ %indigo%[3]%white% ³ %VLD3R% ³ SCRIPT CONFIG "Win32PrioritySeparation"                    ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
@@ -99,7 +100,7 @@ IF %UPA%==1 (
 choice /C:123456789 /N /M ">
 If "%ERRORLEVEL%"=="1" (
 	IF EXIST "C:\Ect\RWC\MAS_AIO.cmd" start cmd /c "C:\Ect\RWC\MAS_AIO.cmd" & goto :MAINW
-	IF NOT EXIST "C:\Ect\RWC\MAS_AIO.cmd" curl -g -k -L -# -o "C:\Ect\RWC\MAS_AIO.cmd" "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/All-In-One-Version/MAS_AIO.cmd" & start cmd /c "C:\Ect\RWC\MAS_AIO.cmd" & goto :MAINW
+	IF NOT EXIST "C:\Ect\RWC\MAS_AIO.cmd" curl -g -k -L -# -o "C:\Ect\RWC\MAS_AIO.cmd" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/MAS_AIO.cmd" & start cmd /c "C:\Ect\RWC\MAS_AIO.cmd" & goto :MAINW
 )
 If "%ERRORLEVEL%"=="2" (
 	IF EXIST "C:\Ect\RWC\main.bat" start cmd /c "C:\Ect\RWC\main.bat" & goto :MAINW
@@ -142,7 +143,7 @@ If "%ERRORLEVEL%"=="5" IF %RWECX%==1 (
 	echo %indigo%END%white%
 	goto :reloo
 )
-If "%ERRORLEVEL%"=="6" curl -g -k -L -# -o "Edge.ps1" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/Edge.ps1" & mode con:cols=96 lines=22 & powershell.exe -ExecutionPolicy Bypass -File "Edge.ps1" & Start "" /b C:\Windows\System32\conhost.exe "STARTUP.bat" /4&exit
+If "%ERRORLEVEL%"=="6" curl -g -k -L -# -o "C:\Ect\RWC\REGUI.exe" "https://github.com/00FGV1/ver/raw/main/REPTILITE/REGUI.exe" & START C:\Ect\RWC\REGUI.exe & goto :reloo
 If "%ERRORLEVEL%"=="7" (
 	cd /d C:\Ect\
 	IF NOT EXIST C:\Ect md C:\Ect
