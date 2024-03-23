@@ -40,7 +40,7 @@ if /i "%~1"=="/4" (
 )
 
 SET VSCTAF=%green%V%blue%1%indigo%.%magenta%1%white%
-SET scrver=1.1
+SET scrver=1.2
 
 if /i "%~1"=="/VER" (
     echo SET LASTVEROP=%scrver%>%temp%\lver.bat
@@ -193,13 +193,14 @@ for /f "skip=1 tokens=*" %%a in ('wmic csproduct get uuid') do (
 set "HWID=!HWID: =!"
 echo !HWID!>ID.log
 
+setlocal enabledelayedexpansion
 for /f "skip=1 tokens=*" %%a in ('wmic baseboard get serialnumber') do (
-    set "HHWID=%%a"
+    set "HWID=%%a"
     goto :end298768
 )
 :end298768
-set "HHWID=!HHWID: =!"
-echo !HHWID!>IID.log
+set "HWID=!HWID: =!"
+echo !HWID!>IID.log
 endlocal
 
 REM ###----------------------------------------------------------------------------------------------------------------------------------###
