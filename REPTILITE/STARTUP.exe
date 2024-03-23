@@ -68,7 +68,7 @@ if /i "%~1"=="/4" (
 IF EXIST "C:\Ect\RWC\MAS_AIO.cmd" (SET VLD1R=%green%[V]%white%) else (SET VLD1R=%red%[X]%white%)
 IF EXIST "C:\Ect\RWC\main.bat" (SET VLD2R=%green%[V]%white%) else (SET VLD2R=%red%[X]%white%)
 IF EXIST "C:\Ect\RWC\DQS\DQS.bat" (SET VLD3R=%green%[V]%white%) else (SET VLD3R=%red%[X]%white%)
-IF EXIST "C:\Ect\RWC\autoconf.bat" (SET VLD4R=%green%[V]%white%) else (SET VLD4R=%red%[X]%white%)
+IF EXIST "C:\Ect\RWC\Spotify.bat" (SET VLD4R=%green%[V]%white%) else (SET VLD4R=%red%[X]%white%)
 cls
 echo ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
 echo ³  Veuillez desactiver l'%yellow%UAC%white% et %yellow%Windows Defender%white% avant de continuer ce script  ³
@@ -81,7 +81,7 @@ echo ³  ³ %indigo%[2]%white% ³ %VLD2R% ³ SCRIPT OPTIMISATION ^| %indigo%V = %ver
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
 echo ³  ³ %indigo%[3]%white% ³ %VLD3R% ³ SCRIPT CONFIG "Win32PrioritySeparation"                    ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
-echo ³  ³ %indigo%[4]%white% ³ %VLD4R% ³ SCRIPT CONFIG JEUX                                         ³  ³
+echo ³  ³ %indigo%[4]%white% ³ %VLD4R% ³ SCRIPT SPOTIFY                                             ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
 echo ³  ³ %indigo%[5]%white% ³ SCRIPT OPTIMISATION AV                                           ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
@@ -111,8 +111,8 @@ If "%ERRORLEVEL%"=="3" (
 	IF NOT EXIST "C:\Ect\RWC\DQS\DQS.bat" curl -g -k -L -# -o "C:\Ect\RWC\DQS\DQS.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/DQS.bat" & start cmd /c "C:\Ect\RWC\DQS\DQS.bat" & goto :MAINW
 )
 If "%ERRORLEVEL%"=="4" (
-	IF EXIST "C:\Ect\RWC\autoconf.bat" start cmd /c "C:\Ect\RWC\autoconf.bat" & goto :MAINW
-	IF NOT EXIST "C:\Ect\RWC\autoconf.bat" curl -g -k -L -# -o "C:\Ect\RWC\autoconf.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/file/autoconf.bat" & start cmd /c "C:\Ect\RWC\autoconf.bat" & goto :MAINW
+	IF EXIST "C:\Ect\RWC\Spotify.bat" start cmd /c "C:\Ect\RWC\Spotify.bat" & goto :MAINW
+	IF NOT EXIST "C:\Ect\RWC\Spotify.bat" curl -g -k -L -# -o "C:\Ect\RWC\Spotify.bat" "https://github.com/00FGV1/ver/raw/main/S/Spotify.bat" & start cmd /c "C:\Ect\RWC\Spotify.bat" & goto :reloo
 )
 If "%ERRORLEVEL%"=="5" IF %RWECX%==1 (
 	IF NOT exist C:\Ect\RWC\bin\DNS.reg goto :reloo
