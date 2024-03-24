@@ -39,7 +39,7 @@ if /i "%~1"=="/4" (
 	SET HTO=98
 )
 
-SET VSCTAF=%green%V%blue%1%indigo%.%magenta%1%white%
+SET VSCTAF=%green%V%blue%1%indigo%.%magenta%2%white%
 SET scrver=1.2
 
 if /i "%~1"=="/VER" (
