@@ -16,6 +16,7 @@ Anno1800.exe
 witcher3.exe
 Albion-Online_BE.exe
 Albion-Online.exe
+HorizonForbiddenWest.exe
 TS4_x64.exe
 GTAIV.exe
 Pandora.exe
@@ -307,6 +308,7 @@ Cuphead.exe
 yuzu.exe
 FallGuys_client.exe
 CoreKeeper.exe
+NWXClient-Win64-Shipping.exe
 bfv.exe
 HogwartsLegacy.exe
 7DaysToDie.exe
