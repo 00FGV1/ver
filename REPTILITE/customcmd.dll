@@ -1,0 +1,10 @@
+@echo off
+SET scrver=00.01
+cls
+
+if /i "%~1"=="/VER" (
+    echo SET CMDVER=%scrver%>%temp%\cmdver.bat
+    Exit
+)
+
+Exit
