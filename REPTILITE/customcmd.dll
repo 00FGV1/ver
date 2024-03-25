@@ -1,5 +1,5 @@
 @echo off
-SET scrver=00.01
+SET scrver=0.1
 cls
 
 if /i "%~1"=="/VER" (
