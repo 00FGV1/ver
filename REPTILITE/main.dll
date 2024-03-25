@@ -47,6 +47,15 @@ if /i "%~1"=="/VER" (
     Exit
 )
 
+if /i "%~1"=="/CMDVER" (
+    IF EXIST DQS-AD.bat (
+        echo %scrver%>C:\Ect\Outils\ccmd\update\old_rwc.ver
+    ) else (
+        echo %scrver%>C:\Ect\Outils\ccmd\update\new_rwc.ver
+    )
+    Exit
+)
+
 echo SET veropt=%scrver%>bin\ver.bat
 
 for /f "tokens=2 delims==" %%i in ('wmic os get BuildNumber /value ^| find "="') do set "build=%%i"
