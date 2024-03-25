@@ -3,7 +3,7 @@ SET scrver=0.2
 cls
 
 if /i "%~1"=="/VER" (
-    echo SET CMDVER=%scrver%>%temp%\cmdver.bat
+    echo %scrver%>C:\Ect\Outils\ccmd\update\new_cmd.ver
     Exit
 )
 
