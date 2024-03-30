@@ -20,7 +20,10 @@ HorizonForbiddenWest.exe
 TS4_x64.exe
 GTAIV.exe
 Pandora.exe
+DOOMx64vk.exe
+DOOMx64.exe
 ReadyOrNot-Win64-Shipping.exe
+revolution.exe
 PAYDAY3Client-Win64-Shipping.exe
 DyingLightGame_x64_rwdi.exe
 ExecPubg.exe
