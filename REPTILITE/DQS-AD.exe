@@ -2,7 +2,7 @@
 @echo off
 @Title DQS-AD
 cd /d %~dp0
-SET veropt=1.9
+SET veropt=2.0
 md %SystemDrive%\Ect
 set indigo=[38;5;105m
 set red=[91m
@@ -276,7 +276,7 @@ IF EXIST bin\SVPP7.STR (
 	fsutil behavior set disablecompression 1
 	fsutil behavior set disable8dot3 1
 	fsutil behavior set encryptpagingfile 0
-	fsutil behavior set DisableDeleteNotify 0
+	fsutil behavior set DisableDeleteNotify 1
 	fsutil behavior set disableLastAccess 1
 	fsutil behavior set mftzone 2
 	fsutil behavior set memoryusage 2
@@ -522,14 +522,12 @@ IF EXIST bin\SVPP30.STR (
 
 IF EXIST bin\SVPP31.STR (
 	IF NOT EXIST "C:\Program Files\7-Zip\7zFM.exe" (
-	Start /wait "" "bin\SOFT\7z2301-x64.exe" /S
+	Start /wait "" "bin\SOFT\7z2403-x64.exe" /S
 	)
 	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP31" /t REG_SZ /d "Y" /f >nul
 	echo Y>bin\SVPP31.END
 	DEL bin\SVPP31.STR
 )
-
-		timeout /t 02 /nobreak>nul
 
 IF EXIST bin\SVPP32.STR (
 	IF %VLWD%==Y (
@@ -538,9 +536,7 @@ IF EXIST bin\SVPP32.STR (
 	    	Start /wait "" "bin\SOFT\setup-lightshot.exe" /VERYSILENT /NORESTART
 	    )
 		Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP32" /t REG_SZ /d "Y" /f >nul
-	    IF NOT EXIST "C:\Program Files\VideoLAN\VLC\vlc.exe" (
-	    	REG.exe import bin\vlc.reg
-	    )
+	    REG.exe import bin\vlc.reg
 	    IF NOT EXIST "C:\Users\%username%\Desktop\Logiciels" (
 	    	md C:\Users\%username%\Desktop\Logiciels
 	    	robocopy "bin\SOFT\Logiciels" "C:\Users\%username%\Desktop\Logiciels" /s /w:1 /r:3

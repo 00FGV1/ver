@@ -39,8 +39,8 @@ if /i "%~1"=="/4" (
 	SET HTO=98
 )
 
-SET VSCTAF=%green%V%blue%1%indigo%.%magenta%2%white%
-SET scrver=1.2
+SET VSCTAF=%green%V%blue%1%indigo%.%magenta%3%white%
+SET scrver=1.3
 
 if /i "%~1"=="/VER" (
     echo SET LASTVEROP=%scrver%>%temp%\lver.bat
