@@ -257,6 +257,7 @@ Guac.exe
 FullMojo.exe
 final_exam.exe
 VALORANT.exe
+VALORANT-Win64-Shipping.exe
 eurotrucks2.exe
 DungeonSouls.exe
 PaliaClient-Win64-Shipping.exe
