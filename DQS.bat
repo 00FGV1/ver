@@ -58,7 +58,7 @@ if /i "%~1"=="/A" (
 	if %errorlevel% neq 0 (
 		powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0' /A" >nul 2>&1 & exit /b
 	)
-	goto :AUT1
+	goto :AUTT
 )
 
 if /i "%~1"=="/RAM" (
@@ -86,7 +86,7 @@ if /i "%~1"=="/RA2" (
 	SET SVSL=0
 	SET ERRBCL=0
 	IF EXIST EETMP.DQS DEL EETMP.DQS
-	goto :AUT1
+	goto :AUTT
 )
 
 IF exist PowerRun_x64.exe (
@@ -199,16 +199,16 @@ echo ³³ %indigo%[6]%white% ³ %AF6%20%defcolor%         ³ ³ %indigo%[15]%white% ³
 echo ³³ %indigo%[7]%white% ³ %AF7%30%defcolor%         ³ ³ %indigo%[16]%white% ³ %AF16%30%defcolor%           ³ ³ %indigo%[25]%white% ³ %AF25%%grey%{26}%white% 1A%defcolor% Hex = Long  ³ Fixed    ³ High foreground boost   ³ %gold%R%white% = %grey%N/a%white%               ³³
 echo ³³ %indigo%[8]%white% ³ %AF8%50%defcolor%         ³ ³ %indigo%[17]%white% ³ %AF17%50%defcolor%           ³ ³ %indigo%[26]%white% ³ %AF26%%grey%{25}%white% 19%defcolor% Hex = Long  ³ Fixed    ³ Medium foreground boost ³ %gold%R%white% = %grey%N/a%white%               ³³
 echo ³³ %indigo%[9]%white% ³ %AF9%100%defcolor%        ³ ³ %indigo%[18]%white% ³ %AF18%100%defcolor%          ³ ³ %indigo%[27]%white% ³ %AF27%%grey%{24}%white% 18%defcolor% Hex = Long  ³ Fixed    ³ No foreground boost     ³ %gold%R%white% = No Man's Sky %magenta%[FIX]%white%³³
-echo ³ÀÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÙ ÀÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ³ %indigo%[28]%white% ³ %AF28%%grey%{22}%white% 16%defcolor% Hex = Long  ³ Variable ³ High foreground boost   ³ %gold%R%white% = %grey%N/a%white%               ³³
+echo ³ÀÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÙ ÀÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ³ %indigo%[28]%white% ³ %AF28%%grey%{22}%white% 16%defcolor% Hex = Long  ³ Variable ³ High foreground boost   ³ %gold%R%white% = %magenta%Calypto Settings%white%  ³³
 echo ³ %bmagenta%    %defcolor% = La valeur actuelle dans le registre  ³ %indigo%[29]%white% ³ %AF29%%grey%{21}%white% 15%defcolor% Hex = Long  ³ Variable ³ Medium foreground boost ³ %gold%R%white% = %grey%N/a%white%               ³³
 echo ³  %gold%R%white%   = Recommande pour le jeu suivant       ³ %indigo%[30]%white% ³ %AF30%%grey%{20}%white% 14%defcolor% Hex = Long  ³ Variable ³ No foreground boost     ³ %gold%R%white% = %grey%N/a%white%               ³³
 echo ³ %grey%{**}%white% = La valeur en decimale                ³ %indigo%[31]%white% ³ %AF31%%grey%{33}%white% 21%defcolor% Hex = %grey%N/a%white%   ³ %grey%N/a%white%      ³ %grey%N/a%white%                     ³ %gold%R%white% = Valorant       %magenta%1/2%white%³³
 echo ³                                             ³ %indigo%[32]%white% ³ %AF32%%grey%{56}%white% 38%defcolor% Hex = %grey%N/a%white%   ³ %grey%N/a%white%      ³ %grey%N/a%white%                     ³ %gold%R%white% = Valorant       %magenta%2/2%white%³³
 echo ³ %grey%Valeur par defaut Windows:%white%                  ³ %indigo%[33]%white% ³ %AF33%%grey%{54}%white% 36%defcolor% Hex = %grey%N/a%white%   ³ %grey%N/a%white%      ³ %grey%N/a%white%                     ³ %gold%R%white% = R6    %magenta%[API Vulkan]%white%³³
 echo ³        %grey%MouseDataQueueSize      = 100 (0x64)%white% ÀÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ³
-echo ³        %grey%KeyboardDataQueueSize   = 100 (0x64)%white%   %grey%[* Aucun redemarrage necessaire pour les valeurs de "Win32PrioritySeparation".        ]%white%  ³
-echo ³        %grey%Win32PrioritySeparation = 26  (38)%white%     %grey%[* Vous pouvez tester differentes valeurs instantanement en jeu.                      ]%white%  ³
-echo ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+echo ³        %grey%KeyboardDataQueueSize   = 100 (0x64)%white%      %grey%[ * Aucun redemarrage necessaire pour les valeurs de "Win32PrioritySeparation". ]%white%     ³
+echo ³        %grey%Win32PrioritySeparation = 26  (38)%white%   ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+echo ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ    %grey%[  MDQS = %MDQS% ³  KDQS = %KDQS% ³  WIN32PS = %WPS% ]%white%
 set /p a=Ä:
 
 if %a%==1 Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\mouclass\Parameters" /v "MouseDataQueueSize" /t REG_DWORD /d "0xa" /f >nul & goto :MMENU
@@ -380,9 +380,6 @@ If "%ERRORLEVEL%"=="2" (
 	goto :BENCH
 )
 
-:AUT1
-IF EXIST "C:\Ect\Alimentation\RECS-H-PowerPlan.pow" Powercfg /import %systemdrive%\Ect\Alimentation\RECS-H-PowerPlan.pow 11111111-1111-1111-1111-111111134587
-IF EXIST "C:\Ect\Alimentation\Normale.pow" Powercfg /import %systemdrive%\Ect\Alimentation\Normale.pow 11111111-1111-1111-1111-888111134588
 :AUTT
 SET "GD="
 SET "STTME="
@@ -406,30 +403,11 @@ IF NOT EXIST exe_gamename_acv.txt (
 
 :checkProcess
 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul
-Powercfg /SETACTIVE "11111111-1111-1111-1111-888111134588"
 bcdedit /set useplatformtick false
 bcdedit /set useplatformclock false
 bcdedit /set disabledynamictick yes
-sc config WaaSMedicSvc start=auto
-sc config wuauserv start=auto
-sc config msiserver start=auto
-sc config VMUSBArbService start=auto
-sc config VMnetDHCP start=auto
-sc config VMware NAT Service start=auto
-sc config VMAuthdService start=auto
-sc config VmwareAutostartService start=auto
-sc config EventSystem start=auto
-sc config SysMain start=auto
-sc config SENS start=auto
-sc config Eventlog start=auto
-sc config Eventlog-Forwarding start=auto
-sc config eventlog-service start=auto
-sc config BITS start=auto
-sc config PerfProc start=auto
-sc config InstallService start=auto
-sc config Wcmsvc start=auto
-sc config StiSvc start=auto
-sc start STR >nul
+powercfg -setacvalueindex scheme_current sub_processor 5d76a2ca-e8c0-402f-a133-2158492d58ad 0
+powercfg -setactive scheme_current
 
 setlocal enabledelayedexpansion
 set "inputFile=exe_gamename_acv.txt"
@@ -463,7 +441,7 @@ cls
 IF EXIST EETMP.DQS SET ERRBCL=1
 IF NOT EXIST EETMP.DQS echo Y>EETMP.DQS
 
-Powercfg /SETACTIVE "11111111-1111-1111-1111-111111134587"
+IF !processToMonitor!==7DaysToDie.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x16" /f >nul
 IF !processToMonitor!==RainbowSix.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x36" /f >nul
 IF !processToMonitor!==VALORANT.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x38" /f >nul
 IF !processToMonitor!==r5apex.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x29" /f >nul
@@ -474,12 +452,14 @@ IF !processToMonitor!==NMS.exe (
 	bcdedit /deletevalue useplatformclock
 	bcdedit /deletevalue tscsyncpolicy
 	bcdedit /deletevalue disabledynamictick
-	sc stop STR
 )
 
 SET STTME=%time%
 Reg add "HKCU\Software\Microsoft\GameBar" /v "AllowAutoGameMode" /t REG_DWORD /d "1" /f >NUL
 Reg add "HKCU\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "1" /f >NUL
+
+powercfg -setacvalueindex scheme_current sub_processor 5d76a2ca-e8c0-402f-a133-2158492d58ad 1
+powercfg -setactive scheme_current
 
 IF EXIST PRASTT.bat call PRASTT.bat
 
@@ -611,27 +591,6 @@ taskkill /f /im vmware-tray.exe >NUL
 taskkill /f /im vmware-usbarbitrator64.exe >NUL
 taskkill /f /im vmnetdhcp.exe >NUL
 
-sc config WaaSMedicSvc start=disabled
-sc config wuauserv start=disabled
-sc config WSearch start=disabled
-sc config msiserver start=disabled
-sc config VMUSBArbService start=disabled
-sc config VMnetDHCP start=disabled
-sc config VMware NAT Service start=disabled
-sc config VMAuthdService start=disabled
-sc config VmwareAutostartService start=disabled
-sc config EventSystem start=disabled
-sc config SysMain start=disabled
-sc config SENS start=disabled
-sc config Eventlog start=disabled
-sc config Eventlog-Forwarding start=disabled
-sc config eventlog-service start=disabled
-sc config BITS start=disabled
-sc config PerfProc start=disabled
-sc config InstallService start=disabled
-sc config Wcmsvc start=disabled
-sc config StiSvc start=disabled
-
 sc stop WaaSMedicSvc >NUL
 sc stop wuauserv >NUL
 sc stop WSearch >NUL
@@ -659,7 +618,8 @@ FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "Win32Prio
 IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
 IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /CombinedPageList
 IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /ProcessesWorkingSet
-
+@timeout /t 02 >nul
+IF EXIST "C:\Ect\Outils\Gms\EmptyStandbyList.exe" START "" /B "C:\Ect\Outils\Gms\EmptyStandbyList.exe"
 :CRAMS
 cd /d %~dp0
 mode con:cols=138 lines=23
@@ -732,16 +692,16 @@ if %errorlevel% equ 0 (
 ) else (
 	echo GAME : %PTMRF% // START : %STTME% // END : %time%>>C:\Ect\RWC\DQS\DQS.log
 	endlocal
-	START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
-	START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /CombinedPageList
-	START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /ProcessesWorkingSet
+	IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
+	IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /CombinedPageList
+	IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /ProcessesWorkingSet
 	goto :AUTT
 )
 
 :GDD
-@timeout /nobreak /t 03 > nul
+@timeout /nobreak /t 90 > nul
 SET /a BBCLS=%BBCLS%+1
-IF %SVSL%==11 START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
+IF %SVSL%==11 IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
 IF %SVSL%==11 SET /a ESLB=%ESLB%+1
 IF %SVSL%==11 SET ESLT=%time%
 SET /a SVSL=%SVSL%+1
