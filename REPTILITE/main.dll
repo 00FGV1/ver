@@ -1,7 +1,6 @@
 :MINVENF
 @echo off
 @Title RWC
-chcp 65001> nul
 set black=[30m
 set red=[91m
 set rred=[41m
@@ -33,14 +32,13 @@ SET ECERR=0
 SET ERRSREC=0
 SET ENDS1=0
 SET SSTATE=0
-SET HWCN=0
 
 if /i "%~1"=="/4" (
 	SET HTO=98
 )
 
-SET VSCTAF=%green%V%blue%1%indigo%.%magenta%3%white%
-SET scrver=1.3
+SET VSCTAF=%green%V%blue%1%indigo%.%magenta%4%white%
+SET scrver=1.4
 
 if /i "%~1"=="/VER" (
     echo SET LASTVEROP=%scrver%>%temp%\lver.bat
@@ -244,11 +242,13 @@ FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "USERNAME"
 
 REM ###----------------------------------------------------------------------------------------------------------------------------------###
 
-IF %HHWID% == 191262638503131 SET HWCN=1 & goto :BNHGHD
-IF %HHWID% == PF0TRR6A SET HWCN=1 & goto :BNHGHD
-IF %HHWID% == 219925897859274 SET HWCN=1 & goto :BNHGHD
-IF %HHWID% == J216401760 SET HWCN=1 & goto :BNHGHD
-IF %VM% == YES goto :BNHGHD
+SET GIUY=0
+IF %HHWID% == 191262638503131 SET GIUY=1 & SET goto :BNHGHD
+IF %HHWID% == PF0TRR6A SET GIUY=1 & SET goto :BNHGHD
+IF %HHWID% == 219925897859274 SET GIUY=1 & SET goto :BNHGHD
+IF %HHWID% == J216401760 SET GIUY=1 & SET goto :BNHGHD
+SET CCKEY=%random%%random%%random%
+echo %CCKEY%| clip
 
 REM ###----------------------------------------------------------------------------------------------------------------------------------###
 
@@ -272,9 +272,9 @@ echo.
 echo.
 echo.
 echo   Veuillez entrer la cle ci-dessous sans espace.
-echo   %ggrey% %black%Cle : 8 2 6 5 3 6 5 9 9 5%white% %defcolor%
-set /p Key=-→
-if %Key%==8265365995 (goto :BNHHWD) else (goto :PSBNK)
+echo   %ggrey% %black%Cle : %CCKEY% %white% %defcolor%
+set /p Key=--
+if %Key%==%CCKEY% (goto :BNHHWD) else (goto :PSBNK)
 
 :BNHHWD
 cls
@@ -295,34 +295,6 @@ echo [%TIME%] Configuration en cours
 
 REM ###----------------------------------------------------------------------------------------------------------------------------------###
 
-IF %HWCN%==1 (
-    IF NOT EXIST rclone.exe (
-        echo [%TIME%] Installation rclone
-        curl -g -k -L -# -o "rclone-current-windows-amd64.zip" "https://downloads.rclone.org/rclone-current-windows-amd64.zip"
-        tar -xvf rclone-current-windows-amd64.zip
-        setlocal enabledelayedexpansion
-        set "dossier_dezippe="
-        for /d %%i in (*) do (
-            if exist "%%i\rclone.exe" (
-                set "dossier_dezippe=%%i"
-                goto CopierRclone
-            )
-        )
-        :CopierRclone
-        copy "%dossier_dezippe%\rclone.exe"
-        @timeout /t 02>nul
-        rmdir /s /q "!dossier_dezippe!"
-        del /q "rclone-current-windows-amd64.zip"
-        endlocal
-    )
-    IF NOT EXIST sec-ath.bat curl -g -k -L -# -o "sec-ath.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/sec-ath.bat"
-    @timeout /t 01 >nul
-    IF NOT EXIST rclone.conf call "sec-ath.bat" /1052
-    @timeout /t 01 >nul
-)
-
-REM ###----------------------------------------------------------------------------------------------------------------------------------###
-
 IF %HHWID% == 191262638503131 (SET BGOUVY=%red%S%orange%T%yellow%A%green%L%blue%I%indigo%N%magenta%E%white%) else (SET BGOUVY=-------)
 IF %HHWID% == PF0TRR6A SET BGOUVY=%red%Z%orange%E%yellow%I%green%Q%blue%O%indigo%O%white%-
 IF %HHWID% == 219925897859274 SET BGOUVY=%red%Z%orange%E%yellow%I%green%Q%blue%O%indigo%O%white%-
@@ -330,54 +302,30 @@ IF %HHWID% == J216401760 SET BGOUVY=%red%Z%orange%E%yellow%I%green%Q%blue%O%indi
 
 REM ###----------------------------------------------------------------------------------------------------------------------------------###
 
+:RFLA
+IF NOT EXIST rconf.bat curl -g -k -L -# -o "rconf.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/rconf.bat"
+@timeout /t 01>nul
+IF NOT EXIST rclone.conf call rconf.bat
+@timeout /t 01>nul
 IF NOT EXIST bin\DNS.reg (
     md tmp
-    IF NOT EXIST rclone.conf goto :INRBIN
+    IF NOT EXIST rclone.conf goto :RFLA
+    cls
+    echo [%TIME%] Installation rclone
+    echo [%TIME%] Telechargement du fichier bin.7z
     rclone --config="rclone.conf" --auto-confirm copy "QTS:DOCS/bin.7z" "tmp" >nul
     @timeout /t 01 >nul
+    cls
+    echo [%TIME%] Installation rclone
+    echo [%TIME%] Telechargement du fichier bin.7z
+    echo [%TIME%] Installation du fichier bin.7z
     7za.exe -y x -p9421 tmp\bin.7z >nul
     @timeout /t 01 >nul
     rmdir /s /q tmp
+    DEL rconf.bat
 )
 
-goto :ENDINRRBIN
-:INRBIN
-mode con:cols=100 lines=25
-cls
-echo.
-echo   Veuillez telecharger le fichier bin.7z vous-même et le placer dans le repertoire suivant :
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo   %ggrey% %black%Rep : [%cd%\tmp]%white% %defcolor%
-echo.
-echo   %ggrey% %black%Lnk : https://drive.google.com/file/d/14KepSwMqgt83jI_HabGD6DmFDWGVsHLE/view?usp=sharing%white% %defcolor%
-echo.
-start "" "https://drive.google.com/file/d/14KepSwMqgt83jI_HabGD6DmFDWGVsHLE/view?usp=sharing"
-start "" "%cd%\tmp"
-pause
-cls
-IF NOT EXIST tmp\bin.7z goto :INRBIN
-7za.exe -y x -p9421 tmp\bin.7z >nul
-@timeout /t 01 >nul
-rmdir /s /q tmp
-cls
-goto :ENDINRRBIN
+IF %GIUY%==0 DEL rclone.conf
 
 REM ###----------------------------------------------------------------------------------------------------------------------------------###
 
@@ -416,13 +364,14 @@ echo.
 echo.
 echo.
 echo.
-choice /C:12 /N /M "-→
+choice /C:12 /N /M "--
 If %ERRORLEVEL%==1 SET ERRSREC=1 & goto :MENUPR
 If %ERRORLEVEL%==2 SET ERRSREC=0 & goto :MENUPR
 
 REM ###----------------------------------------------------------------------------------------------------------------------------------###
 
 :MENUPR
+chcp 65001 > nul
 @Title RWC
 cd /d %~dp0
 mode con:cols=75 lines=44
@@ -440,82 +389,82 @@ IF %ENDS1%==1 start /wait "" "RegistryChangesView.exe" /DataSourceDirection 2 /D
 
 REM ###----------------------------------------------------------------------------------------------------------------------------------###
 
-IF %SSTATE% LSS 1 SET RCLT2=%grey%‑%white%
-IF %SSTATE% LSS 2 SET RCST3=%grey%‑%white%
-IF %SSTATE% LSS 3 SET RCST4=%grey%‑%white%
-IF %SSTATE% LSS 4 SET RCST5=%grey%‑%white%
-IF %SSTATE% LSS 5 SET RCST6=%grey%‑%white%
-IF %SSTATE% LSS 6 SET RCST7=%grey%‑%white%
-IF %SSTATE% LSS 7 SET RCST8=%grey%‑%white%
-IF %SSTATE% LSS 8 SET RCST9=%grey%‑%white%
-IF %SSTATE% LSS 9 SET RCST10=%grey%‑%white%
-IF %SSTATE% LSS 10 SET RCST11=%grey%‑%white%
-IF %SSTATE% LSS 11 SET RCST12=%grey%‑%white%
-IF %SSTATE% LSS 12 SET RCST13=%grey%‑%white%
-IF %SSTATE% LSS 13 SET RCST14=%grey%‑%white%
-IF %SSTATE% LSS 14 SET RCST15=%grey%‑%white%
-IF %SSTATE% LSS 15 SET RCST16=%grey%‑%white%
-IF %SSTATE% LSS 16 SET RCST17=%grey%‑%white%
-IF %SSTATE% LSS 17 SET RCST18=%grey%‑%white%
-IF %SSTATE% LSS 18 SET RCST19=%grey%‑%white%
-IF %SSTATE% LSS 19 SET RCST20=%grey%‑%white%
-IF %SSTATE% LSS 20 SET RCST21=%grey%‑%white%
-IF %SSTATE% LSS 21 SET RCST22=%grey%‑%white%
-IF %SSTATE% LSS 22 SET RCST23=%grey%‑%white%
-IF %SSTATE% LSS 23 SET RCST24=%grey%‑%white%
-IF %SSTATE% LSS 24 SET RCST25=%grey%‑%white%
-IF %SSTATE% LSS 25 SET RCST26=%grey%‑%white%
-IF %SSTATE% LSS 26 SET RCST27=%grey%‑%white%
-IF %SSTATE% LSS 27 SET RCST28=%grey%‑%white%
-IF %SSTATE% LSS 28 SET RCST29=%grey%‑%white%
-IF %SSTATE% LSS 29 SET RCST30=%grey%‑%white%
-IF %SSTATE% LSS 30 SET RCST31=%grey%‑%white%
-IF %SSTATE% LSS 31 SET RCST32=%grey%‑%white%
-IF %SSTATE% LSS 32 SET RCST33=%grey%‑%white%
-IF %SSTATE% LSS 33 SET RCST34=%grey%‑%white%
-IF %SSTATE% LSS 34 SET RCST35=%grey%‑%white%
-IF %SSTATE% LSS 35 SET RCST36=%grey%‑%white%
-IF %SSTATE% LSS 36 SET RCST37=%grey%‑%white%
-IF %SSTATE% LSS 37 SET RCST38=%grey%‑%white%
+IF %SSTATE% LSS 1 SET RCLT2=%grey%X%white%
+IF %SSTATE% LSS 2 SET RCST3=%grey%X%white%
+IF %SSTATE% LSS 3 SET RCST4=%grey%X%white%
+IF %SSTATE% LSS 4 SET RCST5=%grey%X%white%
+IF %SSTATE% LSS 5 SET RCST6=%grey%X%white%
+IF %SSTATE% LSS 6 SET RCST7=%grey%X%white%
+IF %SSTATE% LSS 7 SET RCST8=%grey%X%white%
+IF %SSTATE% LSS 8 SET RCST9=%grey%X%white%
+IF %SSTATE% LSS 9 SET RCST10=%grey%X%white%
+IF %SSTATE% LSS 10 SET RCST11=%grey%X%white%
+IF %SSTATE% LSS 11 SET RCST12=%grey%X%white%
+IF %SSTATE% LSS 12 SET RCST13=%grey%X%white%
+IF %SSTATE% LSS 13 SET RCST14=%grey%X%white%
+IF %SSTATE% LSS 14 SET RCST15=%grey%X%white%
+IF %SSTATE% LSS 15 SET RCST16=%grey%X%white%
+IF %SSTATE% LSS 16 SET RCST17=%grey%X%white%
+IF %SSTATE% LSS 17 SET RCST18=%grey%X%white%
+IF %SSTATE% LSS 18 SET RCST19=%grey%X%white%
+IF %SSTATE% LSS 19 SET RCST20=%grey%X%white%
+IF %SSTATE% LSS 20 SET RCST21=%grey%X%white%
+IF %SSTATE% LSS 21 SET RCST22=%grey%X%white%
+IF %SSTATE% LSS 22 SET RCST23=%grey%X%white%
+IF %SSTATE% LSS 23 SET RCST24=%grey%X%white%
+IF %SSTATE% LSS 24 SET RCST25=%grey%X%white%
+IF %SSTATE% LSS 25 SET RCST26=%grey%X%white%
+IF %SSTATE% LSS 26 SET RCST27=%grey%X%white%
+IF %SSTATE% LSS 27 SET RCST28=%grey%X%white%
+IF %SSTATE% LSS 28 SET RCST29=%grey%X%white%
+IF %SSTATE% LSS 29 SET RCST30=%grey%X%white%
+IF %SSTATE% LSS 30 SET RCST31=%grey%X%white%
+IF %SSTATE% LSS 31 SET RCST32=%grey%X%white%
+IF %SSTATE% LSS 32 SET RCST33=%grey%X%white%
+IF %SSTATE% LSS 33 SET RCST34=%grey%X%white%
+IF %SSTATE% LSS 34 SET RCST35=%grey%X%white%
+IF %SSTATE% LSS 35 SET RCST36=%grey%X%white%
+IF %SSTATE% LSS 36 SET RCST37=%grey%X%white%
+IF %SSTATE% LSS 37 SET RCST38=%grey%X%white%
 
-IF %SSTATE%==0 SET RCLT1=%gold%→%white%
-IF %SSTATE%==1 SET RCLT2=%gold%→%white%
-IF %SSTATE%==2 SET RCST3=%gold%→%white%
-IF %SSTATE%==3 SET RCST4=%gold%→%white%
-IF %SSTATE%==4 SET RCST5=%gold%→%white%
-IF %SSTATE%==5 SET RCST6=%gold%→%white%
-IF %SSTATE%==6 SET RCST7=%gold%→%white%
-IF %SSTATE%==7 SET RCST8=%gold%→%white%
-IF %SSTATE%==8 SET RCST9=%gold%→%white%
-IF %SSTATE%==9 SET RCST10=%gold%→%white%
-IF %SSTATE%==10 SET RCST11=%gold%→%white%
-IF %SSTATE%==11 SET RCST12=%gold%→%white%
-IF %SSTATE%==12 SET RCST13=%gold%→%white%
-IF %SSTATE%==13 SET RCST14=%gold%→%white%
-IF %SSTATE%==14 SET RCST15=%gold%→%white%
-IF %SSTATE%==15 SET RCST16=%gold%→%white%
-IF %SSTATE%==16 SET RCST17=%gold%→%white%
-IF %SSTATE%==17 SET RCST18=%gold%→%white%
-IF %SSTATE%==18 SET RCST19=%gold%→%white%
-IF %SSTATE%==19 SET RCST20=%gold%→%white%
-IF %SSTATE%==20 SET RCST21=%gold%→%white%
-IF %SSTATE%==21 SET RCST22=%gold%→%white%
-IF %SSTATE%==22 SET RCST23=%gold%→%white%
-IF %SSTATE%==23 SET RCST24=%gold%→%white%
-IF %SSTATE%==24 SET RCST25=%gold%→%white%
-IF %SSTATE%==25 SET RCST26=%gold%→%white%
-IF %SSTATE%==26 SET RCST27=%gold%→%white%
-IF %SSTATE%==27 SET RCST28=%gold%→%white%
-IF %SSTATE%==28 SET RCST29=%gold%→%white%
-IF %SSTATE%==29 SET RCST30=%gold%→%white%
-IF %SSTATE%==30 SET RCST31=%gold%→%white%
-IF %SSTATE%==31 SET RCST32=%gold%→%white%
-IF %SSTATE%==32 SET RCST33=%gold%→%white%
-IF %SSTATE%==33 SET RCST34=%gold%→%white%
-IF %SSTATE%==34 SET RCST35=%gold%→%white%
-IF %SSTATE%==35 SET RCST36=%gold%→%white%
-IF %SSTATE%==36 SET RCST37=%gold%→%white%
-IF %SSTATE%==37 SET RCST38=%gold%→%white%
+IF %SSTATE%==0 SET RCLT1=%gold%-%white%
+IF %SSTATE%==1 SET RCLT2=%gold%-%white%
+IF %SSTATE%==2 SET RCST3=%gold%-%white%
+IF %SSTATE%==3 SET RCST4=%gold%-%white%
+IF %SSTATE%==4 SET RCST5=%gold%-%white%
+IF %SSTATE%==5 SET RCST6=%gold%-%white%
+IF %SSTATE%==6 SET RCST7=%gold%-%white%
+IF %SSTATE%==7 SET RCST8=%gold%-%white%
+IF %SSTATE%==8 SET RCST9=%gold%-%white%
+IF %SSTATE%==9 SET RCST10=%gold%-%white%
+IF %SSTATE%==10 SET RCST11=%gold%-%white%
+IF %SSTATE%==11 SET RCST12=%gold%-%white%
+IF %SSTATE%==12 SET RCST13=%gold%-%white%
+IF %SSTATE%==13 SET RCST14=%gold%-%white%
+IF %SSTATE%==14 SET RCST15=%gold%-%white%
+IF %SSTATE%==15 SET RCST16=%gold%-%white%
+IF %SSTATE%==16 SET RCST17=%gold%-%white%
+IF %SSTATE%==17 SET RCST18=%gold%-%white%
+IF %SSTATE%==18 SET RCST19=%gold%-%white%
+IF %SSTATE%==19 SET RCST20=%gold%-%white%
+IF %SSTATE%==20 SET RCST21=%gold%-%white%
+IF %SSTATE%==21 SET RCST22=%gold%-%white%
+IF %SSTATE%==22 SET RCST23=%gold%-%white%
+IF %SSTATE%==23 SET RCST24=%gold%-%white%
+IF %SSTATE%==24 SET RCST25=%gold%-%white%
+IF %SSTATE%==25 SET RCST26=%gold%-%white%
+IF %SSTATE%==26 SET RCST27=%gold%-%white%
+IF %SSTATE%==27 SET RCST28=%gold%-%white%
+IF %SSTATE%==28 SET RCST29=%gold%-%white%
+IF %SSTATE%==29 SET RCST30=%gold%-%white%
+IF %SSTATE%==30 SET RCST31=%gold%-%white%
+IF %SSTATE%==31 SET RCST32=%gold%-%white%
+IF %SSTATE%==32 SET RCST33=%gold%-%white%
+IF %SSTATE%==33 SET RCST34=%gold%-%white%
+IF %SSTATE%==34 SET RCST35=%gold%-%white%
+IF %SSTATE%==35 SET RCST36=%gold%-%white%
+IF %SSTATE%==36 SET RCST37=%gold%-%white%
+IF %SSTATE%==37 SET RCST38=%gold%-%white%
 
 SET RCLTV1=%white%
 SET RCLTV2=%white%
@@ -556,44 +505,44 @@ SET RCSTV36=%white%
 SET RCSTV37=%white%
 SET RCSTV38=%white%
 
-IF %SSTATE% GTR 0 SET RCLT1=%green%✓%white%
-IF %SSTATE% GTR 1 SET RCLT2=%green%✓%white%
-IF %SSTATE% GTR 2 SET RCST3=%green%✓%white%
-IF %SSTATE% GTR 3 SET RCST4=%green%✓%white%
-IF %SSTATE% GTR 4 SET RCST5=%green%✓%white%
-IF %SSTATE% GTR 5 SET RCST6=%green%✓%white%
-IF %SSTATE% GTR 6 SET RCST7=%green%✓%white%
-IF %SSTATE% GTR 7 SET RCST8=%green%✓%white%
-IF %SSTATE% GTR 8 SET RCST9=%green%✓%white%
-IF %SSTATE% GTR 9 SET RCST10=%green%✓%white%
-IF %SSTATE% GTR 10 SET RCST11=%green%✓%white%
-IF %SSTATE% GTR 11 SET RCST12=%green%✓%white%
-IF %SSTATE% GTR 12 SET RCST13=%green%✓%white%
-IF %SSTATE% GTR 13 SET RCST14=%green%✓%white%
-IF %SSTATE% GTR 14 SET RCST15=%green%✓%white%
-IF %SSTATE% GTR 15 SET RCST16=%green%✓%white%
-IF %SSTATE% GTR 16 SET RCST17=%green%✓%white%
-IF %SSTATE% GTR 17 SET RCST18=%green%✓%white%
-IF %SSTATE% GTR 18 SET RCST19=%green%✓%white%
-IF %SSTATE% GTR 19 SET RCST20=%green%✓%white%
-IF %SSTATE% GTR 20 SET RCST21=%green%✓%white%
-IF %SSTATE% GTR 21 SET RCST22=%green%✓%white%
-IF %SSTATE% GTR 22 SET RCST23=%green%✓%white%
-IF %SSTATE% GTR 23 SET RCST24=%green%✓%white%
-IF %SSTATE% GTR 24 SET RCST25=%green%✓%white%
-IF %SSTATE% GTR 25 SET RCST26=%green%✓%white%
-IF %SSTATE% GTR 26 SET RCST27=%green%✓%white%
-IF %SSTATE% GTR 27 SET RCST28=%green%✓%white%
-IF %SSTATE% GTR 28 SET RCST29=%green%✓%white%
-IF %SSTATE% GTR 29 SET RCST30=%green%✓%white%
-IF %SSTATE% GTR 30 SET RCST31=%green%✓%white%
-IF %SSTATE% GTR 31 SET RCST32=%green%✓%white%
-IF %SSTATE% GTR 32 SET RCST33=%green%✓%white%
-IF %SSTATE% GTR 33 SET RCST34=%green%✓%white%
-IF %SSTATE% GTR 34 SET RCST35=%green%✓%white%
-IF %SSTATE% GTR 35 SET RCST36=%green%✓%white%
-IF %SSTATE% GTR 36 SET RCST37=%green%✓%white%
-IF %SSTATE% GTR 37 SET RCST38=%green%✓%white%
+IF %SSTATE% GTR 0 SET RCLT1=%green%-%white%
+IF %SSTATE% GTR 1 SET RCLT2=%green%-%white%
+IF %SSTATE% GTR 2 SET RCST3=%green%-%white%
+IF %SSTATE% GTR 3 SET RCST4=%green%-%white%
+IF %SSTATE% GTR 4 SET RCST5=%green%-%white%
+IF %SSTATE% GTR 5 SET RCST6=%green%-%white%
+IF %SSTATE% GTR 6 SET RCST7=%green%-%white%
+IF %SSTATE% GTR 7 SET RCST8=%green%-%white%
+IF %SSTATE% GTR 8 SET RCST9=%green%-%white%
+IF %SSTATE% GTR 9 SET RCST10=%green%-%white%
+IF %SSTATE% GTR 10 SET RCST11=%green%-%white%
+IF %SSTATE% GTR 11 SET RCST12=%green%-%white%
+IF %SSTATE% GTR 12 SET RCST13=%green%-%white%
+IF %SSTATE% GTR 13 SET RCST14=%green%-%white%
+IF %SSTATE% GTR 14 SET RCST15=%green%-%white%
+IF %SSTATE% GTR 15 SET RCST16=%green%-%white%
+IF %SSTATE% GTR 16 SET RCST17=%green%-%white%
+IF %SSTATE% GTR 17 SET RCST18=%green%-%white%
+IF %SSTATE% GTR 18 SET RCST19=%green%-%white%
+IF %SSTATE% GTR 19 SET RCST20=%green%-%white%
+IF %SSTATE% GTR 20 SET RCST21=%green%-%white%
+IF %SSTATE% GTR 21 SET RCST22=%green%-%white%
+IF %SSTATE% GTR 22 SET RCST23=%green%-%white%
+IF %SSTATE% GTR 23 SET RCST24=%green%-%white%
+IF %SSTATE% GTR 24 SET RCST25=%green%-%white%
+IF %SSTATE% GTR 25 SET RCST26=%green%-%white%
+IF %SSTATE% GTR 26 SET RCST27=%green%-%white%
+IF %SSTATE% GTR 27 SET RCST28=%green%-%white%
+IF %SSTATE% GTR 28 SET RCST29=%green%-%white%
+IF %SSTATE% GTR 29 SET RCST30=%green%-%white%
+IF %SSTATE% GTR 30 SET RCST31=%green%-%white%
+IF %SSTATE% GTR 31 SET RCST32=%green%-%white%
+IF %SSTATE% GTR 32 SET RCST33=%green%-%white%
+IF %SSTATE% GTR 33 SET RCST34=%green%-%white%
+IF %SSTATE% GTR 34 SET RCST35=%green%-%white%
+IF %SSTATE% GTR 35 SET RCST36=%green%-%white%
+IF %SSTATE% GTR 36 SET RCST37=%green%-%white%
+IF %SSTATE% GTR 37 SET RCST38=%green%-%white%
 
 IF %SSTATE% GTR 0 SET RCLTV1=%grey%
 IF %SSTATE% GTR 1 SET RCLTV2=%grey%
@@ -677,44 +626,44 @@ cls
 echo.
 echo -%WVAC%-%VSCTAF%-%BGOUVY%------------------------------------%ENDAFF%-%ICOSTTS%-
 echo.
-echo   %RCLT1%  %RCLTV1%SUPPRESSION  %yellow%Visual-CPP%white%
-echo   %RCLT2%  %RCLTV2%INSTALLATION %yellow%Visual-CPP%white%
-echo   %RCST3%  %RCSTV3%INSTALLATION %yellow%DirectX%white%
-echo   %RCST4%  %RCSTV4%INSTALLATION %yellow%Visual C++%white%
-echo   %RCST5%  %RCSTV5%CONFIGURATION GPU %GPUS%
-echo   %RCST6%  %RCSTV6%IMPORTATION POWERPLAN
-echo   %RCST7%  %RCSTV7%CONFIGURATION POWERPLAN
-echo   %RCST8%  %RCSTV8%DESACTIVATION USB POWERSAVE
-echo   %RCST9%  %RCSTV9%ACTIVATION MODE MSI POUR %yellow%GPU%white%
-echo   %RCST10%  %RCSTV10%ACTIVATION MODE MSI POUR %yellow%USB%white%
-echo   %RCST11%  %RCSTV11%DESACTIVATION CPU POWERSAVE
-echo   %RCST12%  %RCSTV12%CONFIGURATION CPU
-echo   %RCST13%  %RCSTV13%CONFIGURATION INTERNET %yellow%1/2%white%
-echo   %RCST14%  %RCSTV14%CONFIGURATION INTERNET %yellow%2/2%white%
-echo   %RCST15%  %RCSTV15%CONFIGURATION PRIVACY
-echo   %RCST16%  %RCSTV16%CONFIGURATION EDGE
-echo   %RCST17%  %RCSTV17%CREATION PAGEFILE %yellow%8GO%white%
-echo   %RCST18%  %RCSTV18%LANCEMENT POWERSHELL SCRIPT
-echo   %RCST19%  %RCSTV19%CONFIGURATION RAM
-echo   %RCST20%  %RCSTV20%IMPORTATION CLES REGISTRES %yellow%1/5%white%
-echo   %RCST21%  %RCSTV21%IMPORTATION CLES REGISTRES %yellow%2/5%white%
-echo   %RCST22%  %RCSTV22%IMPORTATION CLES REGISTRES %yellow%3/5%white%
-echo   %RCST23%  %RCSTV23%IMPORTATION CLES REGISTRES %yellow%4/5%white%
-echo   %RCST24%  %RCSTV24%IMPORTATION CLES REGISTRES %yellow%5/5%white%
-echo   %RCST25%  %RCSTV25%INSTALLATION SERVICE %yellow%STR%white%
-echo   %RCST26%  %RCSTV26%DESACTIVATION PILOTES INUTILES
-echo   %RCST27%  %RCSTV27%DESACTIVATION SERVICE SCHEDULE
-echo   %RCST28%  %RCSTV28%INSTALLATION %yellow%TOOLS%white%
-echo   %RCST29%  %RCSTV29%INSTALLATION %yellow%STEAMS%white%
-echo   %RCST30%  %RCSTV30%INSTALLATION %yellow%EPIC GAMES%white%
-echo   %RCST31%  %RCSTV31%INSTALLATION %yellow%7-ZIP%white%
-echo   %RCST32%  %RCSTV32%INSTALLATION %yellow%LIGHTSHOT%white%/%yellow%VLC%white%
-echo   %RCST33%  %RCSTV33%INSTALLATION %yellow%STARTBACK%white%
-echo   %RCST34%  %RCSTV34%MAJ %yellow%"CERTUTIL Certificate"%white%
-echo   %RCST35%  %RCSTV35%DESACTIVATION SERVICES
-echo   %RCST36%  %RCSTV36%LANCEMENT SCRIPT FINAL
-echo   %RCST37%  %RCSTV37%SUPPRESSION FICHIERS TEMPORAIRES
-echo   %RCST38%  %RCSTV38%FIN DU SCRIPT
+echo   %RCLT1%  %RCLTV1%Suppression de %yellow%Visual-CPP%white%
+echo   %RCLT2%  %RCLTV2%Installation de %yellow%Visual-CPP%white%
+echo   %RCST3%  %RCSTV3%Installation de %yellow%DirectX%white%
+echo   %RCST4%  %RCSTV4%Installation de %yellow%Visual C++%white%
+echo   %RCST5%  %RCSTV5%Configuration de %GPUS%
+echo   %RCST6%  %RCSTV6%Importation du mode d’alimentation %yellow%RECS%white%
+echo   %RCST7%  %RCSTV7%Configuration des options d’alimentation
+echo   %RCST8%  %RCSTV8%Désactivation du USB PowerSave
+echo   %RCST9%  %RCSTV9%Activation du mode MSI pour %yellow%GPU%white%
+echo   %RCST10%  %RCSTV10%Activation du mode MSI pour %yellow%USB%white%
+echo   %RCST11%  %RCSTV11%Désactivation du CPU PowerSave
+echo   %RCST12%  %RCSTV12%Configuration du CPU
+echo   %RCST13%  %RCSTV13%Configuration d'internet %yellow%1/2%white%
+echo   %RCST14%  %RCSTV14%Configuration d'internet %yellow%2/2%white%
+echo   %RCST15%  %RCSTV15%Lancement de Privacy
+echo   %RCST16%  %RCSTV16%Configuration de Edge
+echo   %RCST17%  %RCSTV17%Configuration de pagefile a %yellow%8Go%white%
+echo   %RCST18%  %RCSTV18%Lancement du script PowerShell
+echo   %RCST19%  %RCSTV19%Configuration de la RAM
+echo   %RCST20%  %RCSTV20%Importation des clés registres %yellow%1/5%white%
+echo   %RCST21%  %RCSTV21%Importation des clés registres %yellow%2/5%white%
+echo   %RCST22%  %RCSTV22%Importation des clés registres %yellow%3/5%white%
+echo   %RCST23%  %RCSTV23%Importation des clés registres %yellow%4/5%white%
+echo   %RCST24%  %RCSTV24%Importation des clés registres %yellow%5/5%white%
+echo   %RCST25%  %RCSTV25%Installation du service %yellow%STR%white%
+echo   %RCST26%  %RCSTV26%Désactivation des pilotes inutiles
+echo   %RCST27%  %RCSTV27%Désactivation du service %yellow%Schedule%white%
+echo   %RCST28%  %RCSTV28%Installation de %yellow%TOOLS%white%
+echo   %RCST29%  %RCSTV29%Installation de %yellow%STEAMS%white%
+echo   %RCST30%  %RCSTV30%Installation de %yellow%EPIC GAMES%white%
+echo   %RCST31%  %RCSTV31%Installation de %yellow%7-ZIP%white%
+echo   %RCST32%  %RCSTV32%Installation de %yellow%LIGHTSHOT%white%/%yellow%VLC%white%
+echo   %RCST33%  %RCSTV33%Installation de %yellow%STARTBACK%white%
+echo   %RCST34%  %RCSTV34%Mise à jour de %yellow%CertUtil Certificate%white%
+echo   %RCST35%  %RCSTV35%Désactivation des services
+echo   %RCST36%  %RCSTV36%Lancement du script final
+echo   %RCST37%  %RCSTV37%Suppression des fichiers temporaires
+echo   %RCST38%  %RCSTV38%Fin du script
 echo.
 echo %SGFFR%
 IF %ENDS1%==1 timeout /t 12 /nobreak>nul & Exit
