@@ -37,8 +37,8 @@ if /i "%~1"=="/4" (
 	SET HTO=98
 )
 
-SET VSCTAF=%green%V%blue%1%indigo%.%magenta%4%white%
-SET scrver=1.4
+SET VSCTAF=%green%V%blue%1%indigo%.%magenta%5%white%
+SET scrver=1.5
 
 if /i "%~1"=="/VER" (
     echo SET LASTVEROP=%scrver%>%temp%\lver.bat
@@ -243,10 +243,10 @@ FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "USERNAME"
 REM ###----------------------------------------------------------------------------------------------------------------------------------###
 
 SET GIUY=0
-IF %HHWID% == 191262638503131 SET GIUY=1 & SET goto :BNHGHD
-IF %HHWID% == PF0TRR6A SET GIUY=1 & SET goto :BNHGHD
-IF %HHWID% == 219925897859274 SET GIUY=1 & SET goto :BNHGHD
-IF %HHWID% == J216401760 SET GIUY=1 & SET goto :BNHGHD
+IF %HHWID% == 191262638503131 SET GIUY=1 & goto :BNHGHD
+IF %HHWID% == PF0TRR6A SET GIUY=1 & goto :BNHGHD
+IF %HHWID% == 219925897859274 SET GIUY=1 & goto :BNHGHD
+IF %HHWID% == J216401760 SET GIUY=1 & goto :BNHGHD
 SET CCKEY=%random%%random%%random%
 echo %CCKEY%| clip
 
