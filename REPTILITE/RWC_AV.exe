@@ -17,16 +17,15 @@ echo.
 echo  Desactivation des fonctionnalites
 echo.
 PowerRun_x64.exe "bin\RWC_AV\DISM-FT.bat"
+timeout /t 145 /nobreak>nul
 cd /d %~dp0
 cls
 echo.
 echo  Importation des cles registres 1/2
 echo.
 PowerRun_x64.exe "bin\RWC_AV\REG\reg_1.bat"
-timeout /t 02 /nobreak>nul
 cd /d %~dp0
 call bin\RWC_AV\REG\reg_2.bat
-timeout /t 02 /nobreak>nul
 cd /d %~dp0
 Start /b bin\RWC_AV\REG\mgs.cmd
 timeout /t 05 /nobreak>nul
@@ -43,30 +42,23 @@ echo.
 echo  Debloat Windows app 1/2
 echo.
 PowerRun_x64.exe "bin\RWC_AV\REG\Debloat.bat"
-timeout /t 130 /nobreak>nul
+timeout /t 135 /nobreak>nul
 cd /d %~dp0
 cls
 echo.
 echo  Debloat Windows app 2/2
 echo.
 Start /b bin\RWC_AV\REG\Debloat.bat
-timeout /t 130 /nobreak>nul
-cd /d %~dp0
-cls
-echo.
-echo  Install HOSTS file ...
-echo.
-PowerRun_x64.exe "bin\HOST\mvps.bat"
-timeout /t 02 /nobreak>nul
+timeout /t 135 /nobreak>nul
 cd /d %~dp0
 cls
 echo.
 echo  Del temp files
 echo.
 PowerRun_x64.exe "bin\RWC_AV\TEMP\TEMP.bat"
-timeout /t 05 /nobreak>nul
+timeout /t 60 /nobreak>nul
 cls
 echo.
-echo  END
+echo  Wait ... 
 echo.
-Exit /b
+Exit
