@@ -328,3 +328,5 @@ Realm.exe
 enshrouded.exe
 NieRAutomata.exe
 NieR Replicant ver.1.22474487139.exe
+Mining-Win64-Shipping.exe
+ManorLords-Win64-Shipping.exe
