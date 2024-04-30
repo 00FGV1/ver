@@ -1,3 +1,5 @@
+cod.exe
+cod22-cod.exe
 DeadIsland-Win64-Shipping.exe
 RobloxStudioBeta.exe
 PAYDAY3-Win64-Shipping.exe
