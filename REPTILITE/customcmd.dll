@@ -1,4 +1,30 @@
 @echo off
+set black=[30m
+set red=[91m
+set rred=[41m
+set green=[32m
+set ggreen=[42m
+set yellow=[33m
+set yyellow=[43m
+set blue=[34m
+set bblue=[44m
+set magenta=[35m
+set bmagenta=[45m
+set cyan=[36m
+set white=[37m
+set defcolor=[49m
+set gold=[38;5;220m
+set grey=[90m
+set ggrey=[100m
+set orange=[38;5;208m
+set indigo=[38;5;105m
+SET LOGSP=C:\Ect\log
+SET NUMRAMDO=%random%
+SET CHKERON=NO
+SET ERRORDHK1=ERR
+SET ERRORDHK2=ERR
+SET ERRORDHK3=ERR
+chcp 65001 > nul
 SET scrver=0.2
 cls
 
@@ -7,4 +33,833 @@ if /i "%~1"=="/VER" (
     Exit
 )
 
-Exit
+IF EXIST C:\Ect\Outils\ccmd\cmd\tmp.bat (
+    call C:\Ect\Outils\ccmd\cmd\tmp.bat
+    DEL C:\Ect\Outils\ccmd\cmd\tmp.bat>nul
+) else (
+    echo  %red%Statut%white% ^| Fichier "tmp location" manquant
+    @timeout /t 01>nul
+)
+cd /d %DIRTMP%
+IF NOT EXIST "C:\Ect\Outils\ccmd\_CP.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\_CP.exe" "https://github.com/00FGV1/ver/raw/main/REPTILITE/_CP.exe" >nul
+:RESTART
+FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "ERRCHK1"') DO set ERRORDHK1=%%B
+FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "ERRCHK2"') DO set ERRORDHK2=%%B
+FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "ERRCHK3"') DO set ERRORDHK3=%%B
+SET DIRLP=0
+@title CMD-%computername%
+cls
+echo.
+echo   %green%%username%%white%@%magenta%%computername%%white%
+echo   [%indigo%%cd%%white%]
+echo.
+echo.
+IF %CHKERON%==NO goto :Input
+
+IF %ERRORDHK1%==0 (
+    echo   Aucune erreur n'a été trouvée dans la première partie.
+) else (
+    echo   %red%%ERRORDHK1%%white% erreurs ont été trouvées dans la première partie.
+)
+IF %ERRORDHK2%==0 (
+    echo   Aucune erreur n'a été trouvée dans la deuxième partie.
+) else (
+    echo   %red%%ERRORDHK2%%white% erreurs ont été trouvées dans la deuxième partie."
+)
+IF %ERRORDHK3%==0 (
+    echo   Aucune erreur n'a été trouvée dans la troisième partie.
+) else (
+    echo   %red%%ERRORDHK3%%white% erreurs ont été trouvées dans la troisième partie.
+)
+ echo.
+
+:Input
+SET CHKERON=NO
+SET CMD=
+echo.
+set /p CMD="%magenta%>%white%"
+
+set "MCMD=%CMD%"
+setlocal enabledelayedexpansion
+set "UPPERCASE=%CMD%"
+for %%A in (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) do set "UPPERCASE=!UPPERCASE:%%A=%%A!"
+echo !UPPERCASE!>%NUMRAMDO%.tmp
+endlocal
+
+set /p CMD=<%NUMRAMDO%.tmp
+DEL %NUMRAMDO%.tmp>nul
+
+echo %CMD% | find "@ECHO" > nul
+if %errorlevel% equ 0 (goto :Input) else (goto :SIUT_1)
+
+:SIUT_1
+IF "%CMD%"=="CLS" (goto :RESTART) else (goto :SIUT_2)
+
+:SIUT_2
+echo %CMD% | find "CD " > nul
+if %errorlevel% equ 0 (
+	IF %DIRLP%==1 goto :SIUT_3
+	SET DIRLP=2
+) else (
+	goto :SIUT_3
+)
+
+:SIUT_3
+IF "%CMD%"=="IP" (goto :SHAIP) else (goto :SIUT_4)
+
+:SIUT_4
+IF "%CMD%"=="STARTUP" (curl -g -k -L -# -o "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\STARTUP.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/STARTUP.exe" & start "" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\STARTUP.bat" & goto :Input) else (goto :SIUT_5)
+
+:SIUT_5
+IF "%CMD%"=="TMP" (
+    del /s /f /q c:\windows\temp\*.*
+    rd /s /q C:\Users\%username%\AppData\LocalLow\AMD\DxCache
+    rd /s /q %localappdata%\AMD
+    del /s /f /q c:\WINDOWS\Prefetch
+    del /s /f /q %temp%\*.*
+    rd /s /q c:\windows\tempor~1
+    rd /s /q c:\windows\temp
+    rd /s /q c:\windows\tmp
+    rd /s /q %username%\AppData\Local\AMD
+    rd /s /q c:\windows\ff*.tmp
+    rd /s /q c:\windows\history
+    rd /s /q c:\windows\cookies
+    rd /s /q c:\windows\recent
+    rd /s /q c:\windows\spool\printers
+    del /F /Q "%USERPROFILE%\Documents\*.tmp"
+    del /F /Q "%USERPROFILE%\My Documents\*.tmp"
+    del /F /S /Q "%USERPROFILE%\*.blf"
+    del /F /Q "%SYSTEMDRIVE%\Ect\Optimizer\*.tmp"
+    del /F /S /Q "%USERPROFILE%\*.regtrans-ms"
+    del /F /S /Q "%USERPROFILE%\AppData\LocalLow\Sun\Java\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\Cache\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\JumpListIconsOld\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\JumpListIcons\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\Local Storage\http*.*"
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\Media Cache\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Internet Explorer\Recovery\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Terminal Server Client\Cache\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\Caches\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\Explorer\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\History\low\*" /AH
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\INetCache\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\Temporary Internet Files\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\WER\ReportArchive\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\WER\ReportQueue\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\WebCache\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Temp\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Roaming\Adobe\Flash Player\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Roaming\Microsoft\Teams\Service Worker\CacheStorage\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\*"
+    del /F /S /Q "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Recent\*"
+    del /F /S /Q "%USERPROFILE%\Application Data\Adobe\Flash Player\*"
+    del /F /S /Q "%USERPROFILE%\Application Data\Macromedia\Flash Player\*"
+    del /F /S /Q "%USERPROFILE%\Application Data\Microsoft\Dr Watson\*"
+    del /F /S /Q "%USERPROFILE%\Application Data\Microsoft\Windows\WER\ReportArchive\*"
+    del /F /S /Q "%USERPROFILE%\Application Data\Microsoft\Windows\WER\ReportQueue\*"
+    del /F /S /Q "%USERPROFILE%\Application Data\Sun\Java\*"
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\ApplicationHistory\*"
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\Cache\*"
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIconsOld\*"
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIcons\*"
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\Local Storage\http*.*"
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\Media Cache\*"
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Microsoft\Dr Watson\*"
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Microsoft\Internet Explorer\Recovery\*"
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Microsoft\Terminal Server Client\Cache\*"
+    del /F /S /Q "%USERPROFILE%\Local Settings\Temp\*"
+    del /F /S /Q "%USERPROFILE%\Local Settings\Temporary Internet Files\*"
+    del /F /S /Q "%USERPROFILE%\Recent\*"
+    for /D %%x in ("%USERPROFILES%\*") do (
+        del /F /Q "%%x\Documents\*.tmp" 2>NUL
+        del /F /Q "%%x\My Documents\*.tmp" 2>NUL
+        del /F /S /Q "%%x\*.blf" 2>NUL
+        del /F /S /Q "%%x\*.regtrans-ms" 2>NUL
+        del /F /S /Q "%%x\AppData\LocalLow\Sun\Java\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Google\Chrome\User Data\Default\Cache\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Google\Chrome\User Data\Default\JumpListIconsOld\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Google\Chrome\User Data\Default\JumpListIcons\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Google\Chrome\User Data\Default\Local Storage\http*.*" 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Google\Chrome\User Data\Default\Media Cache\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Internet Explorer\Recovery\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Terminal Server Client\Cache\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\Caches\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\Explorer\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\History\low\*" /AH 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\INetCache\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\WER\ReportArchive\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\WER\ReportQueue\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\WebCache\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Local\Temp\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Roaming\Adobe\Flash Player\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Roaming\Microsoft\Teams\Service Worker\CacheStorage\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Roaming\Macromedia\Flash Player\*" 2>NUL
+        del /F /S /Q "%%x\AppData\Roaming\Microsoft\Windows\Recent\*" 2>NUL
+        del /F /S /Q "%%x\Application Data\Adobe\Flash Player\*" 2>NUL
+        del /F /S /Q "%%x\Application Data\Macromedia\Flash Player\*" 2>NUL
+        del /F /S /Q "%%x\Application Data\Microsoft\Dr Watson\*" 2>NUL
+        del /F /S /Q "%%x\Application Data\Microsoft\Windows\WER\ReportArchive\*" 2>NUL
+        del /F /S /Q "%%x\Application Data\Microsoft\Windows\WER\ReportQueue\*" 2>NUL
+        del /F /S /Q "%%x\Application Data\Sun\Java\*" 2>NUL
+        del /F /S /Q "%%x\Local Settings\Application Data\ApplicationHistory\*" 2>NUL
+        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\Cache\*" 2>NUL
+        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIconsOld\*" 2>NUL
+        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIcons\*" 2>NUL
+        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\Local Storage\http*.*" 2>NUL
+        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\Media Cache\*" 2>NUL
+        del /F /S /Q "%%x\Local Settings\Application Data\Microsoft\Dr Watson\*" 2>NUL
+        del /F /S /Q "%%x\Local Settings\Application Data\Microsoft\Internet Explorer\Recovery\*" 2>NUL
+        del /F /S /Q "%%x\Local Settings\Application Data\Microsoft\Terminal Server Client\Cache\*" 2>NUL
+        del /F /S /Q "%%x\Local Settings\Temp\*" 2>NUL
+        del /F /S /Q "%%x\Local Settings\Temporary Internet Files\*" 2>NUL
+        del /F /S /Q "%%x\Recent\*" 2>NUL
+    )
+    del /F /S /Q "%WINDIR%\TEMP\*" 2>NUL
+    rmdir /S /Q %SystemDrive%\Temp 2>NUL
+    for %%i in (bat,cmd,txt,log,jpg,jpeg,tmp,temp,bak,backup,exe) do (
+        del /F /Q "%SystemDrive%\*.%%i" 2>NUL
+    )
+    for %%i in (NVIDIA,ATI,AMD,Dell,Intel,HP) do (
+        rmdir /S /Q "%SystemDrive%\%%i" 2>NUL
+    )
+    if exist "%ProgramFiles%\Nvidia Corporation\Installer2" rmdir /s /q "%ProgramFiles%\Nvidia Corporation\Installer2"
+    if exist "%ALLUSERSPROFILE%\NVIDIA Corporation\NetService" del /f /q "%ALLUSERSPROFILE%\NVIDIA Corporation\NetService\*.exe"
+    if exist %SystemDrive%\MSOCache rmdir /S /Q %SystemDrive%\MSOCache
+    if exist %SystemDrive%\i386 rmdir /S /Q %SystemDrive%\i386
+    if exist %SystemDrive%\RECYCLER rmdir /s /q %SystemDrive%\RECYCLER
+    if exist %SystemDrive%\$Recycle.Bin rmdir /s /q %SystemDrive%\$Recycle.Bin
+    Reg.exe del "HKCU\SOFTWARE\Classes\Local Settings\Muicache" /f
+    if exist "%ALLUSERSPROFILE%\Microsoft\Windows\WER\ReportArchive" rmdir /s /q "%ALLUSERSPROFILE%\Microsoft\Windows\WER\ReportArchive"
+    if exist "%ALLUSERSPROFILE%\Microsoft\Windows\WER\ReportQueue" rmdir /s /q "%ALLUSERSPROFILE%\Microsoft\Windows\WER\ReportQueue"
+    if exist "%ALLUSERSPROFILE%\Microsoft\Windows Defender\Scans\History\Results\Quick" rmdir /s /q "%ALLUSERSPROFILE%\Microsoft\Windows Defender\Scans\History\Results\Quick"
+    if exist "%ALLUSERSPROFILE%\Microsoft\Windows Defender\Scans\History\Results\Resource" rmdir /s /q "%ALLUSERSPROFILE%\Microsoft\Windows Defender\Scans\History\Results\Resource"
+    if exist "%ALLUSERSPROFILE%\Microsoft\Search\Data\Temp" rmdir /s /q "%ALLUSERSPROFILE%\Microsoft\Search\Data\Temp"
+    del /F /Q %WINDIR%\*.log 2>NUL
+    del /F /Q %WINDIR%\*.txt 2>NUL
+    del /F /Q %WINDIR%\*.bmp 2>NUL
+    del /F /Q %WINDIR%\*.tmp 2>NUL
+    rmdir /S /Q %WINDIR%\Web\Wallpaper\Dell 2>NUL
+    if exist "%ProgramFiles%\NVIDIA Corporation\Installer" rmdir /s /q "%ProgramFiles%\NVIDIA Corporation\Installer" 2>NUL
+    if exist "%ProgramFiles%\NVIDIA Corporation\Installer2" rmdir /s /q "%ProgramFiles%\NVIDIA Corporation\Installer2" 2>NUL
+    if exist "%ProgramFiles(x86)%\NVIDIA Corporation\Installer" rmdir /s /q "%ProgramFiles(x86)%\NVIDIA Corporation\Installer" 2>NUL
+    if exist "%ProgramFiles(x86)%\NVIDIA Corporation\Installer2" rmdir /s /q "%ProgramFiles(x86)%\NVIDIA Corporation\Installer2" 2>NUL
+    if exist "%ProgramData%\NVIDIA Corporation\Downloader" rmdir /s /q "%ProgramData%\NVIDIA Corporation\Downloader" 2>NUL
+    if exist "%ProgramData%\NVIDIA\Downloader" rmdir /s /q "%ProgramData%\NVIDIA\Downloader" 2>NUL
+    goto :RESTART
+) else (
+    goto :SIUT_6
+)
+
+:SIUT_6
+IF "%CMD%"=="F ON" (netsh advfirewall set allprofiles state on&goto :Input) else (goto :SIUT_7)
+
+:SIUT_7
+IF "%CMD%"=="F OFF" (netsh advfirewall set allprofiles state off&goto :Input) else (goto :SIUT_8)
+
+:SIUT_8
+IF "%CMD%"=="F DEL" (netsh advfirewall firewall delete rule all&goto :Input) else (goto :SIUT_9)
+
+:SIUT_9
+IF "%CMD%"=="ADW" (
+    IF NOT EXIST "C:\Ect\adwcleaner.exe" curl -g -k -L -# -o "C:\Ect\adwcleaner.exe" "https://downloads.malwarebytes.com/file/adwcleaner"
+    @timeout /t 1 >nul
+    start /wait C:\Ect\adwcleaner.exe /eula /clean /noreboot /path "%LOGSP%"
+    @timeout /t 1 >nul
+    start /wait C:\Ect\adwcleaner.exe /uninstall
+    goto :Input
+) else (
+    goto :SIUT_10
+)
+
+:SIUT_10
+IF "%CMD%"=="CHK" (
+    cd /d %~dp0
+    call chk.bat
+    @timeout /t 01>nul
+    SET CHKERON=YES
+    cd /d %DIRTMP%
+    goto :RESTART
+) else (
+    goto :SIUT_11
+)
+
+:SIUT_11
+IF "%CMD%"=="WINKEY" (
+    curl -g -k -L -# -o "%temp%\MAS_AIO.cmd" "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/Separate-Files-Version/Activators/HWID_Activation.cmd"
+    start cmd /c "%temp%\MAS_AIO.cmd"
+    goto :Input
+) else (
+    goto :SIUT_12
+)
+
+:SIUT_12
+IF "%CMD%"=="IPS" (
+    echo.
+    set /p ip="IP%magenta%>%white%"
+    goto :SHAIPS
+) else (
+    goto :SIUT_13
+)
+
+:SIUT_13
+IF "%CMD%"=="A:" (
+    CD /D A:\
+    goto :RESTART
+) else (
+    goto :SIUT_14
+)
+:SIUT_14
+IF "%CMD%"=="B:" (
+    CD /D B:\
+    goto :RESTART
+) else (
+    goto :SIUT_15
+)
+:SIUT_15
+IF "%CMD%"=="C:" (
+    CD /D C:\
+    goto :RESTART
+) else (
+    goto :SIUT_16
+)
+:SIUT_16
+IF "%CMD%"=="D:" (
+    CD /D D:\
+    goto :RESTART
+) else (
+    goto :SIUT_17
+)
+:SIUT_17
+IF "%CMD%"=="E:" (
+    CD /D E:\
+    goto :RESTART
+) else (
+    goto :SIUT_18
+)
+:SIUT_18
+IF "%CMD%"=="F:" (
+    CD /D F:\
+    goto :RESTART
+) else (
+    goto :SIUT_19
+)
+:SIUT_19
+IF "%CMD%"=="G:" (
+    CD /D G:\
+    goto :RESTART
+) else (
+    goto :SIUT_20
+)
+:SIUT_20
+IF "%CMD%"=="H:" (
+    CD /D H:\
+    goto :RESTART
+) else (
+    goto :SIUT_21
+)
+:SIUT_21
+IF "%CMD%"=="I:" (
+    CD /D I:\
+    goto :RESTART
+) else (
+    goto :SIUT_22
+)
+:SIUT_22
+IF "%CMD%"=="J:" (
+    CD /D J:\
+    goto :RESTART
+) else (
+    goto :SIUT_23
+)
+:SIUT_23
+IF "%CMD%"=="K:" (
+    CD /D K:\
+    goto :RESTART
+) else (
+    goto :SIUT_24
+)
+:SIUT_24
+IF "%CMD%"=="L:" (
+    CD /D L:\
+    goto :RESTART
+) else (
+    goto :SIUT_25
+)
+:SIUT_25
+IF "%CMD%"=="M:" (
+    CD /D M:\
+    goto :RESTART
+) else (
+    goto :SIUT_26
+)
+:SIUT_26
+IF "%CMD%"=="N:" (
+    CD /D N:\
+    goto :RESTART
+) else (
+    goto :SIUT_27
+)
+:SIUT_27
+IF "%CMD%"=="O:" (
+    CD /D O:\
+    goto :RESTART
+) else (
+    goto :SIUT_28
+)
+:SIUT_28
+IF "%CMD%"=="P:" (
+    CD /D P:\
+    goto :RESTART
+) else (
+    goto :SIUT_29
+)
+:SIUT_29
+IF "%CMD%"=="Q:" (
+    CD /D Q:\
+    goto :RESTART
+) else (
+    goto :SIUT_30
+)
+:SIUT_30
+IF "%CMD%"=="R:" (
+    CD /D R:\
+    goto :RESTART
+) else (
+    goto :SIUT_31
+)
+:SIUT_31
+IF "%CMD%"=="S:" (
+    CD /D S:\
+    goto :RESTART
+) else (
+    goto :SIUT_32
+)
+:SIUT_32
+IF "%CMD%"=="T:" (
+    CD /D T:\
+    goto :RESTART
+) else (
+    goto :SIUT_33
+)
+:SIUT_33
+IF "%CMD%"=="U:" (
+    CD /D U:\
+    goto :RESTART
+) else (
+    goto :SIUT_34
+)
+:SIUT_34
+IF "%CMD%"=="V:" (
+    CD /D V:\
+    goto :RESTART
+) else (
+    goto :SIUT_35
+)
+:SIUT_35
+IF "%CMD%"=="W:" (
+    CD /D W:\
+    goto :RESTART
+) else (
+    goto :SIUT_36
+)
+:SIUT_36
+IF "%CMD%"=="X:" (
+    CD /D X:\
+    goto :RESTART
+) else (
+    goto :SIUT_37
+)
+:SIUT_37
+IF "%CMD%"=="Y:" (
+    CD /D Y:\
+    goto :RESTART
+) else (
+    goto :SIUT_38
+)
+:SIUT_38
+IF "%CMD%"=="Z:" (
+    CD /D Z:\
+    goto :RESTART
+) else (
+    goto :SIUT_39
+)
+
+:SIUT_39
+    IF "%CMD%"=="LDIR" (
+        setlocal enabledelayedexpansion
+        for %%A in (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) do (
+            if exist %%A:\ (
+                echo Le lecteur %%A: existe.
+            )
+        )
+    endlocal
+    goto :Input
+) else (
+    goto :SIUT_40
+)
+
+:SIUT_40
+IF "%CMD%"=="Z:" (
+    CD /D Z:\
+    goto :RESTART
+) else (
+    goto :SIUT_41
+)
+
+:SIUT_41
+IF "%CMD%"=="AUTOCONF" (
+    cd /d %~dp0
+    call C:\Ect\Outils\ccmd\autoconf.bat
+    @timeout /t 01>nul
+    cd /d %DIRTMP%
+    goto :Input
+) else (
+    goto :SIUT_42
+)
+
+:SIUT_42
+IF "%CMD%"=="AUTOCONF UPDATE" (
+    IF EXIST "C:\Ect\Outils\ccmd\exe_gamename.txt" DEL "C:\Ect\Outils\ccmd\exe_gamename.txt"
+    @timeout /t 01>nul
+    curl -g -k -L -# -o "C:\Ect\Outils\ccmd\exe_gamename.txt" "https://raw.githubusercontent.com/00FGV1/ver/main/exe_gamename.txt" >nul 2>&1
+    echo %green%Mise à jour réussie.%white%
+    goto :Input
+) else (
+    goto :SIUT_43
+)
+
+:SIUT_43
+IF "%CMD%"=="FORTNITE" (
+    IF NOT EXIST "C:\Ect\Outils\ccmd\cli.c" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\cli.c" "https://raw.githubusercontent.com/00FGV1/ver/main/file/cli.c" >nul 2>&1
+    IF NOT EXIST "C:\Ect\Outils\ccmd\es.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\es.exe" "https://github.com/00FGV1/ver/raw/main/file/es.exe" >nul 2>&1
+    IF NOT EXIST "C:\Ect\Outils\ccmd\Everything.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\Everything.exe" "https://github.com/00FGV1/ver/raw/main/file/Everything.exe" >nul 2>&1
+    IF NOT EXIST "C:\Ect\Outils\ccmd\Everything.lng" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\Everything.lng" "https://github.com/00FGV1/ver/raw/main/file/Everything.lng" >nul 2>&1
+    @timeout /t 01>nul
+    Start "" "C:\Ect\Outils\ccmd\Everything.exe" -startup
+    @timeout /t 01>nul
+    set "FORTNITE_LOCATION="
+    for /f "delims=" %%a in ('C:\Ect\Outils\ccmd\es.exe -s "FortniteClient-Win64-Shipping.exe"') do (
+        set "FORTNITE_LOCATION=%%~dpa"
+        goto :FOUFORTNITE
+    )
+    echo %red%Installation de Fortnite non trouvée.%white%
+    taskkill /IM Everything.exe /F >nul
+    goto :Input
+    :FOUFORTNITE
+    SET "FTNLOC=%FORTNITE_LOCATION%FortniteClient-Win64-Shipping.exe"
+    taskkill /IM Everything.exe /F >nul
+    @timeout /t 01>nul
+    Reg.exe add "HKCU\Software\Microsoft\GameBar" /v "AllowAutoGameMode" /t REG_DWORD /d "1" /f > NUL 2>&1
+    Reg.exe add "HKCU\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "1" /f > NUL 2>&1
+    Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\FortniteClient-Win64-Shipping.exe" /v "Version" /t REG_SZ /d "1.0" /f > NUL 2>&1
+    Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\FortniteClient-Win64-Shipping.exe" /v "Application Name" /t REG_SZ /d "%FTNLOC%" /f > NUL 2>&1
+    Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\FortniteClient-Win64-Shipping.exe" /v "Protocol" /t REG_SZ /d "*" /f > NUL 2>&1
+    Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\FortniteClient-Win64-Shipping.exe" /v "Local Port" /t REG_SZ /d "*" /f > NUL 2>&1
+    Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\FortniteClient-Win64-Shipping.exe" /v "Local IP" /t REG_SZ /d "*" /f > NUL 2>&1
+    Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\FortniteClient-Win64-Shipping.exe" /v "Local IP Prefix Length" /t REG_SZ /d "*" /f > NUL 2>&1
+    Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\FortniteClient-Win64-Shipping.exe" /v "Remote Port" /t REG_SZ /d "*" /f > NUL 2>&1
+    Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\FortniteClient-Win64-Shipping.exe" /v "Remote IP" /t REG_SZ /d "*" /f > NUL 2>&1
+    Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\FortniteClient-Win64-Shipping.exe" /v "Remote IP Prefix Length" /t REG_SZ /d "*" /f > NUL 2>&1
+    Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\FortniteClient-Win64-Shipping.exe" /v "DSCP Value" /t REG_SZ /d "46" /f > NUL 2>&1
+    Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS\FortniteClient-Win64-Shipping.exe" /v "Throttle Rate" /t REG_SZ /d "-1" /f > NUL 2>&1
+    Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "%FTNLOC%" /t REG_SZ /d "~ DISABLEDXMAXIMIZEDWINDOWEDMODE RUNASADMIN HIGHDPIAWARE" /f > NUL 2>&1
+    Reg.exe add "HKCU\SOFTWARE\Microsoft\DirectX\UserGpuPreferences" /v "%FTNLOC%" /t REG_SZ /d "GpuPreference=2;" /f > NUL 2>&1
+    Reg.exe add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\FortniteClient-Win64-Shipping.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "3" /f >nul 2>&1
+    echo %green%Installation de Fortnite trouvée.%white% [%FORTNITE_LOCATION%FortniteClient-Win64-Shipping.exe]
+    goto :Input
+) else (
+    goto :SIUT_44
+)
+
+:SIUT_44
+IF "%CMD%"=="FORTNITE CLEAR" (
+    IF EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat" start cmd /c "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat"
+    IF EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" start cmd /c "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat"
+    goto :Input
+) else (
+    goto :SIUT_45
+)
+
+:SIUT_45
+
+:SIUT_98
+IF "%CMD%"=="UPDATE" (goto :UPDATECC) else (goto :SIUT_99)
+
+:SIUT_99
+IF "%CMD%"=="HELP" (
+    echo %cyan%Pour obtenir plus d'informations sur les outils, consultez la référence de
+    echo commande en ligne dans l'aide en ligne.%white%
+    echo.
+    echo %cyan%Pour plus d'informations sur une commande spécifique, entrez HELP
+    echo suivi de la commande.%white% %yellow%[Excepté les commandes personnalisées]%white%
+    echo.
+    echo.
+    echo %yellow%[Commandes personnalisées]%white%
+    echo.
+    echo %yellow%IP%white%               -  Affichez les informations de votre adresse IP.
+    echo %yellow%IPS%white%              -  Recherchez les informations d'une adresse IP.
+    echo %yellow%STARTUP%white%          -  Télécharge et ouvre le script d'optimisation.
+    echo %yellow%TMP%white%              -  Supprimez les fichiers temporaires.
+    echo %yellow%F ON%white%             -  Active le pare-feu Windows.
+    echo %yellow%F OFF%white%            -  Désactive le pare-feu Windows.
+    echo %yellow%F DEL%white%            -  Supprime les règles du pare-feu.
+    echo %yellow%ADW%white%              -  Analyse le PC avec AdwCleaner.
+    echo %yellow%CHK%white%              -  Analyse l'état de l'optimisation.
+    echo %yellow%WINKEY%white%           -  Active Windows avec HWID.
+    echo %yellow%LDIR%white%             -  Affiche tous les lecteurs existants sur le PC.
+    echo %yellow%AUTOCONF%white%         -  Configure tous les jeux détectés sur le PC.
+    echo %yellow%AUTOCONF UPDATE%white%  -  Met à jour le fichier "exe_gamename".
+    echo %yellow%FORTNITE%white%         -  Configure le jeu Fortnite.
+    echo %yellow%FORTNITE CLEAR%white%   -  Supprime les fichiers Fortnite inutiles.
+    echo.
+    echo.
+    echo %cyan%[Commandes Windows par défaut]%white%
+    echo.
+    echo %cyan%ASSOC%white%      -  Affiche ou modifie les applications associées aux extensions de fichiers.
+    echo %cyan%ATTRIB%white%     -  Affiche ou modifie les attributs d'un fichier.
+    echo %cyan%BREAK%white%      -  Active ou désactive le contrôle étendu de CTRL+C.
+    echo %cyan%BCDEDIT%white%    -  Définit les propriétés dans la base de données de démarrage pour le contrôle du chargement d'amorçage.
+    echo %cyan%CACLS%white%      -  Affiche ou modifie les listes de contrôles d'accès aux fichiers.
+    echo %cyan%CALL%white%       -  Appelle un fichier de commandes à partir d'un autre fichier de commandes.
+    echo %cyan%CD%white%         -  Modifie le répertoire ou affiche le répertoire actif.
+    echo %cyan%CHCP%white%       -  Modifie ou affiche le numéro de la page de code active.
+    echo %cyan%CHDIR%white%      -  Modifie le répertoire ou affiche le nom du répertoire actif.
+    echo %cyan%CHKDSK%white%     -  Vérifie un disque et affiche un rapport d'état.
+    echo %cyan%CHKNTFS%white%    -  Affiche ou modifie la vérification du disque au démarrage.
+    echo %cyan%CLS%white%        -  Efface l'écran.
+    echo %cyan%CMD%white%        -  Exécute une nouvelle instance de l'interpréteur de commandes de Windows.
+    echo %cyan%COLOR%white%      -  Modifie les couleurs du premier plan et de l'arrière-plan de la console.
+    echo %cyan%COMP%white%       -  Compare les contenus de deux fichiers ou groupes de fichiers.
+    echo %cyan%COMPACT%white%    -  Modifie ou affiche la compression des fichiers sur une partition NTFS.
+    echo %cyan%CONVERT%white%    -  Convertit des volumes FAT en volumes NTFS.
+    echo %cyan%COPY%white%       -  Copie un ou plusieurs fichiers.
+    echo %cyan%DATE%white%       -  Affiche ou définit la date.
+    echo %cyan%DEL%white%        -  Supprime un ou plusieurs fichiers.
+    echo %cyan%DIR%white%        -  Affiche la liste des fichiers et des sous-répertoires d'un répertoire.
+    echo %cyan%DISKPART%white%   -  Affiche ou configure les propriétés d'une partition de disque.
+    echo %cyan%DOSKEY%white%     -  Modifie les lignes de commande, rappelle des commandes Windows et crée des macros.
+    echo %cyan%ECHO%white%       -  Affiche des messages ou active/désactive l'affichage des commandes.
+    echo %cyan%ENDLOCAL%white%   -  Arrête la localisation des modifications d'environnement dans un fichier de commandes.
+    echo %cyan%ERASE%white%      -  Supprime un ou plusieurs fichiers.
+    echo %cyan%EXIT%white%       -  Quitte l'interpréteur de commandes CMD.EXE.
+    echo %cyan%FC%white%         -  Compare deux fichiers ou groupes de fichiers et affiche les différences.
+    echo %cyan%FIND%white%       -  Recherche une chaîne de caractères dans un ou plusieurs fichiers.
+    echo %cyan%FINDSTR%white%    -  Cherche des chaînes dans les fichiers.
+    echo %cyan%FOR%white%        -  Exécute une commande sur chaque fichier d'un ensemble de fichiers.
+    echo %cyan%FORMAT%white%     -  Formate un disque devant être utilisé avec Windows.
+    echo %cyan%FSUTIL%white%     -  Affiche ou configure les propriétés du système de fichiers.
+    echo %cyan%FTYPE%white%      -  Affiche ou modifie les types de fichiers utilisés dans les associations d'extensions.
+    echo %cyan%GOTO%white%       -  Indique l'exécution d'un fichier de commandes pour une ligne identifiée par une étiquette.
+    echo %cyan%GPRESULT%white%   -  Affiche les informations de stratégie de groupe pour un ordinateur ou un utilisateur.
+    echo %cyan%GRAFTABL%white%   -  Permet à Windows d'afficher un jeu de caractères en mode graphique.
+    echo %cyan%HELP%white%       -  Affiche des informations sur les commandes de Windows.
+    echo %cyan%ICACLS%white%     -  Affiche, modifie, sauvegarde ou restaure les listes de contrôle d'accès pour fichiers/dossiers.
+    echo %cyan%IF%white%         -  Effectue un traitement conditionnel dans un fichier de commandes.
+    echo %cyan%LABEL%white%      -  Crée, modifie ou supprime le nom de volume d'un disque.
+    echo %cyan%MD%white%         -  Crée un répertoire.
+    echo %cyan%MKDIR%white%      -  Crée un répertoire.
+    echo %cyan%MKLINK%white%     -  Crée des liens symboliques et des liens physiques.
+    echo %cyan%MODE%white%       -  Configure un périphérique du système.
+    echo %cyan%MORE%white%       -  Affiche la sortie écran par écran.
+    echo %cyan%MOVE%white%       -  Déplace un ou plusieurs fichiers d'un répertoire à un autre.
+    echo %cyan%OPENFILES%white%  -  Affiche les fichiers partagés ouverts à distance par les utilisateurs.
+    echo %cyan%PATH%white%       -  Affiche ou définit le chemin de recherche des fichiers exécutables.
+    echo %cyan%PAUSE%white%      -  Interrompt l'exécution d'un fichier de commandes et affiche un message.
+    echo %cyan%POPD%white%       -  Restaure la valeur précédente du répertoire actif enregistrée par PUSHD.
+    echo %cyan%PRINT%white%      -  Imprime un fichier texte.
+    echo %cyan%PROMPT%white%     -  Modifie l'invite de commande de Windows.
+    echo %cyan%PUSHD%white%      -  Enregistre le répertoire actif puis le modifie.
+    echo %cyan%RD%white%         -  Supprime un répertoire.
+    echo %cyan%RECOVER%white%    -  Récupère l'information lisible d'un disque défectueux.
+    echo %cyan%REM%white%        -  Insère un commentaire dans un fichier de commandes ou CONFIG.SYS.
+    echo %cyan%REN%white%        -  Renomme un ou plusieurs fichiers.
+    echo %cyan%RENAME%white%     -  Renomme un ou plusieurs fichiers.
+    echo %cyan%REPLACE%white%    -  Remplace des fichiers.
+    echo %cyan%RMDIR%white%      -  Supprime un répertoire.
+    echo %cyan%ROBOCOPY%white%   -  Utilitaire avancé pour copier les fichiers et les arborescences de répertoires.
+    echo %cyan%SET%white%        -  Affiche, définit ou supprime des variables d'environnement Windows.
+    echo %cyan%SETLOCAL%white%   -  Commence la localisation des modifications d'environnement dans un fichier de commandes.
+    echo %cyan%SC%white%         -  Affiche ou configure les services processus en arrière-plan.
+    echo %cyan%SCHTASKS%white%   -  Planifie les commandes et les programmes à exécuter sur l'ordinateur.
+    echo %cyan%SHIFT%white%      -  Modifie la position des paramètres remplaçables dans un fichier de commandes.
+    echo %cyan%SHUTDOWN%white%   -  Permet un arrêt local ou distant correct de l'ordinateur.
+    echo %cyan%SORT%white%       -  Trie les entrées.
+    echo %cyan%START%white%      -  Ouvre une fenêtre séparée pour l'exécution d'un programme ou d'une commande spécifique.
+    echo %cyan%SUBST%white%      -  Associe un chemin d'accès à une lettre de lecteur.
+    echo %cyan%SYSTEMINFO%white% -  Affiche les propriétés et la configuration spécifiques de l'ordinateur.
+    echo %cyan%TASKLIST%white%   -  Affiche toutes les tâches en cours d'exécution, y compris les services.
+    echo %cyan%TASKKILL%white%   -  Termine ou interrompt un processus ou une application en cours d'exécution.
+    echo %cyan%TIME%white%       -  Affiche ou définit l'heure du système.
+    echo %cyan%TITLE%white%      -  Définit le titre de la fenêtre pour une session CMD.EXE.
+    echo %cyan%TREE%white%       -  Affiche le graphisme de la structure de répertoire d'un lecteur ou d'un chemin d'accès.
+    echo %cyan%TYPE%white%       -  Affiche le contenu d'un fichier texte.
+    echo %cyan%VER%white%        -  Affiche la version de Windows.
+    echo %cyan%VERIFY%white%     -  Demande à Windows de vérifier si vos fichiers sont correctement écrits sur le disque.
+    echo %cyan%VOL%white%        -  Affiche le nom et le numéro de série d'un volume de disque.
+    echo %cyan%XCOPY%white%      -  Copie les fichiers et les arborescences de répertoires.
+    echo %cyan%WMIC%white%       -  Affiche les informations WMI dans l'interface de commande interactive.
+    echo.
+    echo %cyan%Vous êtes à la fin de la page "help".%white%
+    goto :Input
+) else (
+    goto :SIUT_100
+)
+
+:SIUT_100
+%MCMD%
+IF %DIRLP%==2 (
+    goto :RESTART
+)
+SET DIRLP=1
+goto :Input
+
+:SHAIP
+cd /d %~dp0
+for /f "tokens=*" %%c in ('"_CP.exe" /P') do set ip=%%c
+
+:SHAIPS
+setlocal ENABLEDELAYEDEXPANSION
+set webclient=webclient
+if exist IP_INFO.log del IP_INFO.log
+if exist "%temp%\%webclient%.vbs" del "%temp%\%webclient%.vbs" /f /q /s >nul
+if exist "%temp%\response.txt" del "%temp%\response.txt" /f /q /s >nul
+
+:iplookup
+echo sUrl = "http://ipinfo.io/%ip%/json" > %temp%\%webclient%.vbs
+
+:localip
+echo set oHTTP = CreateObject("MSXML2.ServerXMLHTTP.6.0") >> %temp%\%webclient%.vbs
+echo oHTTP.open "GET", sUrl,false >> %temp%\%webclient%.vbs
+echo oHTTP.setRequestHeader "Content-Type", "application/x-www-form-urlencoded" >> %temp%\%webclient%.vbs
+echo oHTTP.setRequestHeader "Content-Length", Len(sRequest) >> %temp%\%webclient%.vbs
+echo oHTTP.send sRequest >> %temp%\%webclient%.vbs
+echo HTTPGET = oHTTP.responseText >> %temp%\%webclient%.vbs
+echo strDirectory = "%temp%\response.txt" >> %temp%\%webclient%.vbs
+echo set objFSO = CreateObject("Scripting.FileSystemObject") >> %temp%\%webclient%.vbs
+echo set objFile = objFSO.CreateTextFile(strDirectory) >> %temp%\%webclient%.vbs
+echo objFile.Write(HTTPGET) >> %temp%\%webclient%.vbs
+echo objFile.Close >> %temp%\%webclient%.vbs
+echo Wscript.Quit >> %temp%\%webclient%.vbs
+start %temp%\%webclient%.vbs
+set /a requests=0
+
+:checkresponseexists
+set /a requests=%requests% + 1
+if %requests% gtr 7 goto :failed
+IF EXIST "%temp%\response.txt" (
+goto :response_exist
+) ELSE (
+ping 127.0.0.1 -n 2 -w 1000 >nul
+goto :checkresponseexists
+)
+
+:failed
+taskkill /f /im wscript.exe >nul
+del "%temp%\%webclient%.vbs" /f /q /s >nul
+cd /d %DIRTMP%
+goto :RESTART
+
+:response_exist
+echo.
+for /f "delims=     " %%i in ('findstr /i "," %temp%\response.txt') do (
+    set data=%%i
+    set data=!data:,=!
+    set data=!data:""=Not Listed!
+    set data=!data:"=!
+    set data=!data:ip:=      IP: !
+    set data=!data:hostname:=Hostname: !
+    set data=!data:org:=     ISP: !
+    set data=!data:city:=    City: !
+    set data=!data:region:=   State: !
+    set data=!data:country:= Country: !
+    set data=!data:postal:=  Postal: !
+    set data=!data:loc:=Location: !
+    set data=!data:timezone:=Timezone: !
+    echo !data!
+)
+echo.
+del "%temp%\%webclient%.vbs" /f /q /s >nul
+if '%ip%'=='' goto :failed
+cd /d %DIRTMP%
+goto :Input
+
+:UPDATECC
+IF EXIST "%temp%\customcmd.bat" DEL "%temp%\customcmd.bat"
+IF EXIST "C:\Ect\Outils\ccmd\update\new_cmd.ver" DEL "C:\Ect\Outils\ccmd\update\new_cmd.ver"
+@timeout /t 01>nul
+IF EXIST "C:\Ect\Outils\ccmd\customcmd.bat" (
+    curl -g -k -L -# -o "%temp%\customcmd.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/customcmd.dll" 2>NUL & start /min "" "%temp%\customcmd.bat" /VER
+)
+@timeout /t 01>nul
+IF EXIST "C:\Ect\Outils\ccmd\update\new_cmd.ver" (
+    for /f "usebackq tokens=*" %%a in ("C:\Ect\Outils\ccmd\update\new_cmd.ver") do (
+        set "cmd_new=%%a"
+    )
+)
+@timeout /t 01>nul
+IF %scrver% LSS %cmd_new% (
+    SET VACMD=%red%%scrver%%white%
+    SET NECMD=%green%%cmd_new%%white%
+) else (
+    SET VACMD=%green%%scrver%%white%
+    SET NECMD=%green%%cmd_new%%white%
+)
+
+echo.
+IF %scrver% LSS %cmd_new% (
+    echo  %gold%1%white% - Mettre à jour le script "CMD"
+)
+echo   Version actuelle du script "CMD" = %VACMD%
+echo   Dernière version du script "CMD" = %NECMD%
+echo.
+echo  %gold%2%white% - Revenir au menu principal.
+:UDAINP
+echo.
+SET /p UPDCHOICE="%magenta%>%white%"
+IF %UPDCHOICE%==1 goto :UPCMDU
+
+IF %UPDCHOICE%==2 (
+    goto :Input
+)
+goto :UDAINP
+
+:UPCMDU
+IF %scrver% LSS %cmd_new% (
+    IF EXIST "C:\Ect\Outils\ccmd\update\update.exe" START "" "C:\Ect\Outils\ccmd\update\update.exe"
+    Exit
+) else (
+    goto :Input
+)
+
+:CLSSAVEGAME
+IF EXIST "C:\Users\%username%\AppData\Local\FortniteGame" (SET FORTNITE=YES) else (SET FORTNITE=NO)
+IF EXIST "C:\Users\%username%\AppData\LocalLow\Nokta Games" (SET SUPERMARKET=YES) else (SET SUPERMARKET=NO)
+IF EXIST "C:\Users\%username%\Documents\My Games\Rocket League" (SET ROCKET=YES) else (SET ROCKET=NO)
+IF EXIST "C:\Users\%username%\AppData\Roaming\bakkesmod" (SET KCSROCKET=YES) else (SET KCSROCKET=NO)
+
+IF %FORTNITE%==NO (
+    SET FORTNITEC=%grey%
+) else (
+    SET FORTNITEC=%white%
+)
+
+IF %SUPERMARKET%==NO (
+    SET SUPERMARKETC=%grey%
+) else (
+    SET SUPERMARKETC=%white%
+)
+
+IF %ROCKET%==NO (
+    SET ROCKET=%grey%
+) else (
+    SET ROCKET=%white%
+)
+
+IF %KCSROCKET%==NO (
+    SET KCSROCKET=%grey%
+) else (
+    SET KCSROCKET=%white%
+)
+
+echo Rocket League
