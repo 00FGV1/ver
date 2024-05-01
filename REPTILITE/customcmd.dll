@@ -25,7 +25,7 @@ SET ERRORDHK1=ERR
 SET ERRORDHK2=ERR
 SET ERRORDHK3=ERR
 chcp 65001 > nul
-SET scrver=0.2
+SET scrver=0.3
 cls
 
 if /i "%~1"=="/VER" (
@@ -36,10 +36,22 @@ if /i "%~1"=="/VER" (
 IF EXIST C:\Ect\Outils\ccmd\cmd\tmp.bat (
     call C:\Ect\Outils\ccmd\cmd\tmp.bat
     DEL C:\Ect\Outils\ccmd\cmd\tmp.bat>nul
-) else (
-    echo  %red%Statut%white% ^| Fichier "tmp location" manquant
-    @timeout /t 01>nul
 )
+
+setlocal enabledelayedexpansion
+for /f "skip=1 tokens=*" %%a in ('wmic baseboard get serialnumber') do (
+    set "HWID=%%a"
+    goto :end298768
+)
+:end298768
+set "HWID=!HWID: =!"
+echo !HWID!>IID.log
+endlocal
+set HWID=
+for /f "usebackq tokens=*" %%a in ("IID.log") do (
+    set "HWID=%%a"
+)
+
 cd /d %DIRTMP%
 IF NOT EXIST "C:\Ect\Outils\ccmd\_CP.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\_CP.exe" "https://github.com/00FGV1/ver/raw/main/REPTILITE/_CP.exe" >nul
 :RESTART
@@ -583,6 +595,9 @@ IF "%CMD%"=="FORTNITE CLEAR" (
 
 :SIUT_45
 
+:SIUT_97
+IF "%CMD%"=="SAVE" (goto :CLSSAVEGAME) else (goto :SIUT_98)
+
 :SIUT_98
 IF "%CMD%"=="UPDATE" (goto :UPDATECC) else (goto :SIUT_99)
 
@@ -609,9 +624,11 @@ IF "%CMD%"=="HELP" (
     echo %yellow%WINKEY%white%           -  Active Windows avec HWID.
     echo %yellow%LDIR%white%             -  Affiche tous les lecteurs existants sur le PC.
     echo %yellow%AUTOCONF%white%         -  Configure tous les jeux détectés sur le PC.
-    echo %yellow%AUTOCONF UPDATE%white%  -  Met à jour le fichier "exe_gamename".
+    echo %yellow%AUTOCONF UPDATE%white%  -  Mets à jour le fichier "exe_gamename".
     echo %yellow%FORTNITE%white%         -  Configure le jeu Fortnite.
     echo %yellow%FORTNITE CLEAR%white%   -  Supprime les fichiers Fortnite inutiles.
+    echo %yellow%SAVE%white%             -  Permet d'exporter ou d'importer des sauvegardes depuis Google Drive.
+    echo %yellow%UPDATE%white%           -  Mets à jour le script CMD.
     echo.
     echo.
     echo %cyan%[Commandes Windows par défaut]%white%
@@ -808,12 +825,16 @@ IF %scrver% LSS %cmd_new% (
 
 echo.
 IF %scrver% LSS %cmd_new% (
-    echo  %gold%1%white% - Mettre à jour le script "CMD"
+    echo  %cyan%1%white% - Mettre à jour le script "CMD"
 )
 echo   Version actuelle du script "CMD" = %VACMD%
 echo   Dernière version du script "CMD" = %NECMD%
 echo.
-echo  %gold%2%white% - Revenir au menu principal.
+IF %scrver% LSS %cmd_new% (
+    echo  %cyan%2%white% - Revenir au menu principal.
+) else (
+    goto :Input
+)
 :UDAINP
 echo.
 SET /p UPDCHOICE="%magenta%>%white%"
@@ -836,30 +857,155 @@ IF %scrver% LSS %cmd_new% (
 IF EXIST "C:\Users\%username%\AppData\Local\FortniteGame" (SET FORTNITE=YES) else (SET FORTNITE=NO)
 IF EXIST "C:\Users\%username%\AppData\LocalLow\Nokta Games" (SET SUPERMARKET=YES) else (SET SUPERMARKET=NO)
 IF EXIST "C:\Users\%username%\Documents\My Games\Rocket League" (SET ROCKET=YES) else (SET ROCKET=NO)
+IF %ROCKET%==NO IF EXIST "W:\Windows\Documents\My Games\Rocket League" (SET ROCKET=YES) else (SET ROCKET=NO)
 IF EXIST "C:\Users\%username%\AppData\Roaming\bakkesmod" (SET KCSROCKET=YES) else (SET KCSROCKET=NO)
+IF EXIST "C:\Users\%username%\Documents\Call of Duty" (SET COD=YES) else (SET COD=NO)
+IF %COD%==NO IF EXIST "W:\Windows\Documents\Call of Duty" (SET COD=YES) else (SET COD=NO)
 
 IF %FORTNITE%==NO (
-    SET FORTNITEC=%grey%
+    SET FORTNITEC=%yellow%
 ) else (
-    SET FORTNITEC=%white%
+    SET FORTNITEC=%green%
 )
 
 IF %SUPERMARKET%==NO (
-    SET SUPERMARKETC=%grey%
+    SET SUPERMARKETC=%yellow%
 ) else (
-    SET SUPERMARKETC=%white%
+    SET SUPERMARKETC=%green%
 )
 
 IF %ROCKET%==NO (
-    SET ROCKET=%grey%
+    SET ROCKET=%yellow%
 ) else (
-    SET ROCKET=%white%
+    SET ROCKET=%green%
 )
 
 IF %KCSROCKET%==NO (
-    SET KCSROCKET=%grey%
+    SET KCSROCKET=%yellow%
 ) else (
-    SET KCSROCKET=%white%
+    SET KCSROCKET=%green%
 )
 
-echo Rocket League
+IF %COD%==NO (
+    SET COD=%yellow%
+) else (
+    SET COD=%green%
+)
+
+SET NSAVE=%random%
+cd /d %~dp0
+cls
+echo.
+echo   %green%%username%%white%@%magenta%%computername% %gold%[%HWID%]%white%
+echo   [%indigo%%cd%%white%]
+echo.
+echo.
+echo.
+echo  %ggrey%^| %gold%Noms des jeux%white%             ^| %gold%Exporter la sauvegarde%white% ^| %gold%Importer la sauvegarde%white% ^|%defcolor%
+echo  ^| %ROCKET%Rocket League%white%             ^| %gold%1%white%                      ^| %gold%2%white%                      ^|
+echo  %ggrey%^| %KCSROCKET%BakkesMod%white%                 ^| %gold%3%white%                      ^| %gold%4%white%                      ^|%defcolor%
+echo  ^| %SUPERMARKETC%Supermarket Simulator%white%     ^| %gold%5%white%                      ^| %gold%6%white%                      ^|
+echo  %ggrey%^| %FORTNITEC%Fortnite%white%                  ^| %gold%7%white%                      ^| %gold%8%white%                      ^|%defcolor%
+echo  ^| %COD%Dossier [Call of Duty]%white%    ^| %gold%9%white%                      ^| %gold%10%white%                     ^|
+echo  %ggrey%^| %gold%Exit%white%                      ^| %gold%11%white%                     ^| %gold%12%white%                     ^|%defcolor%
+echo.
+set /p SAVECH="%magenta%>%white%"
+
+IF %SAVECH%==1 (
+    echo  Début de l'exportation
+    IF EXIST "C:\Users\%username%\Documents\My Games\Rocket League" xcopy "C:\Users\%username%\Documents\My Games\Rocket League" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\Rocket League\" /s /e /y>nul
+    rclone --config="rclone.conf" --auto-confirm purge "QTS:%HWID%\SAVE\ROCKETLEAGUE"
+    rclone --config="rclone.conf" --auto-confirm copy "C:\Users\%username%\Documents\My Games\Rocket League" "QTS:%HWID%\SAVE\ROCKETLEAGUE"
+    echo  Fin de l'exportation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==2 (
+    echo  Début de l'importation
+    IF EXIST "C:\Users\%username%\Documents\My Games\Rocket League" rmdir /S /Q "C:\Users\%username%\Documents\My Games\Rocket League">nul
+    @timeout /t 02 >nul
+    IF NOT EXIST "C:\Users\%username%\Documents\My Games\Rocket League" MD "C:\Users\%username%\Documents\My Games\Rocket League"
+    rclone --config="rclone.conf" --auto-confirm copy "QTS:%HWID%\SAVE\ROCKETLEAGUE" "C:\Users\%username%\Documents\My Games\Rocket League"
+    echo  Fin de l'importation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==3 (
+    echo  Début de l'exportation
+    IF EXIST "C:\Users\%username%\AppData\Roaming\bakkesmod" xcopy "C:\Users\%username%\AppData\Roaming\bakkesmod" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\bakkesmod\" /s /e /y>nul
+    rclone --config="rclone.conf" --auto-confirm purge "QTS:%HWID%\SAVE\BAKKESMOD"
+    rclone --config="rclone.conf" --auto-confirm copy "C:\Users\%username%\AppData\Roaming\bakkesmod" "QTS:%HWID%\SAVE\BAKKESMOD"
+    echo  Fin de l'exportation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==4 (
+    echo  Début de l'importation
+    IF EXIST "C:\Users\%username%\AppData\Roaming\bakkesmod" rmdir /S /Q "C:\Users\%username%\AppData\Roaming\bakkesmod">nul
+    @timeout /t 02 >nul
+    IF NOT EXIST "C:\Users\%username%\AppData\Roaming\bakkesmod" MD "C:\Users\%username%\AppData\Roaming\bakkesmod"
+    rclone --config="rclone.conf" --auto-confirm copy "QTS:%HWID%\SAVE\BAKKESMOD" "C:\Users\%username%\AppData\Roaming\bakkesmod"
+    echo  Fin de l'importation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==5 (
+    echo  Début de l'exportation
+    IF EXIST "C:\Users\%username%\AppData\LocalLow\Nokta Games\Supermarket Simulator" xcopy "C:\Users\%username%\AppData\LocalLow\Nokta Games\Supermarket Simulator" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\Nokta Games\Supermarket Simulator\" /s /e /y>nul
+    rclone --config="rclone.conf" --auto-confirm purge "QTS:%HWID%\SAVE\SAVESPRMRK"
+    rclone --config="rclone.conf" --auto-confirm copy "C:\Users\%username%\AppData\LocalLow\Nokta Games" "QTS:%HWID%\SAVE\SAVESPRMRK"
+    echo  Fin de l'exportation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==6 (
+    echo  Début de l'importation
+    IF EXIST "C:\Users\%username%\AppData\LocalLow\Nokta Games\Supermarket Simulator" rmdir /S /Q "C:\Users\%username%\AppData\LocalLow\Nokta Games\Supermarket Simulator">nul
+    @timeout /t 02 >nul
+    IF NOT EXIST "C:\Users\%username%\AppData\LocalLow\Nokta Games\Supermarket Simulator" MD "C:\Users\%username%\AppData\LocalLow\Nokta Games\Supermarket Simulator"
+    rclone --config="rclone.conf" --auto-confirm copy "QTS:%HWID%\SAVE\SAVESPRMRK" "C:\Users\%username%\AppData\LocalLow\Nokta Games\Supermarket Simulator"
+    echo  Fin de l'importation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==7 (
+    echo  Début de l'exportation
+    IF EXIST "C:\Users\%username%\AppData\Local\FortniteGame" xcopy "C:\Users\%username%\AppData\Local\FortniteGame" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\FortniteGame\" /s /e /y>nul
+    rclone --config="rclone.conf" --auto-confirm purge "QTS:%HWID%\SAVE\FORTNITE"
+    rclone --config="rclone.conf" --auto-confirm copy "C:\Users\%username%\AppData\Local\FortniteGame" "QTS:%HWID%\SAVE\FORTNITE"
+    echo  Fin de l'exportation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==8 (
+    echo  Début de l'importation
+    IF EXIST "C:\Users\%username%\AppData\Local\FortniteGame" rmdir /S /Q "C:\Users\%username%\AppData\Local\FortniteGame">nul
+    @timeout /t 02 >nul
+    IF NOT EXIST "C:\Users\%username%\AppData\Local\FortniteGame" MD "C:\Users\%username%\AppData\Local\FortniteGame"
+    rclone --config="rclone.conf" --auto-confirm copy "QTS:%HWID%\SAVE\FORTNITE" "C:\Users\%username%\AppData\Local\FortniteGame"
+    echo  Fin de l'importation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==9 (
+    echo  Début de l'exportation
+    IF EXIST "C:\Users\%username%\Documents\Call of Duty" xcopy "C:\Users\%username%\Documents\Call of Duty" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\Call of Duty\" /s /e /y>nul
+    rclone --config="rclone.conf" --auto-confirm purge "QTS:%HWID%\SAVE\COD"
+    rclone --config="rclone.conf" --auto-confirm copy "C:\Users\%username%\Documents\Call of Duty" "QTS:%HWID%\SAVE\COD"
+    echo  Fin de l'exportation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==10 (
+    echo  Début de l'importation
+    IF EXIST "C:\Users\%username%\Documents\Call of Duty" rmdir /S /Q "C:\Users\%username%\Documents\Call of Duty">nul
+    @timeout /t 02 >nul
+    IF NOT EXIST "C:\Users\%username%\Documents\Call of Duty" MD "C:\Users\%username%\Documents\Call of Duty"
+    rclone --config="rclone.conf" --auto-confirm copy "QTS:%HWID%\SAVE\COD" "C:\Users\%username%\Documents\Call of Duty"
+    echo  Fin de l'importation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==11 goto :Input
+IF %SAVECH%==12 goto :Input
+goto :CLSSAVEGAME
