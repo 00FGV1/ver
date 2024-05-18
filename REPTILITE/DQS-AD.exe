@@ -519,7 +519,7 @@ IF EXIST bin\SVPP28.STR (
 
 IF EXIST bin\SVPP29.STR (
 	IF NOT EXIST "C:\Program Files (x86)\Steam\steam.exe" (
-	Start /wait "" "bin\SOFT\SteamSetup.exe" /S
+	IF EXIST "bin\SOFT\SteamSetup.exe" Start /wait "" "bin\SOFT\SteamSetup.exe" /S
 	)
 	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP29" /t REG_SZ /d "Y" /f >nul
 	echo Y>bin\SVPP29.END
@@ -577,7 +577,7 @@ IF EXIST bin\SVPP32.STR (
 
 IF EXIST bin\SVPP33.STR (
 	IF NOT EXIST "C:\Program Files\StartAllBack\StartAllBackCfg.exe" (
-		Start /wait "" "bin\SOFT\StartBack_AiO.exe" /SILENT
+		IF EXIST "bin\SOFT\StartBack_AiO.exe" Start /wait "" "bin\SOFT\StartBack_AiO.exe" /SILENT
 	)
 	Reg.exe add "HKLM\SOFTWARE\RECS\RWC-TEST" /v "SVPP33" /t REG_SZ /d "Y" /f >nul
 	echo Y>bin\SVPP33.END
