@@ -1,3 +1,4 @@
+GhostOfTsushima.exe
 cod.exe
 cod22-cod.exe
 DeadIsland-Win64-Shipping.exe
