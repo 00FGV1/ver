@@ -1,6 +1,7 @@
 GhostOfTsushima.exe
 cod.exe
 cod22-cod.exe
+BlackOpsColdWar.exe
 DeadIsland-Win64-Shipping.exe
 RobloxStudioBeta.exe
 PAYDAY3-Win64-Shipping.exe
