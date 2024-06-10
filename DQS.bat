@@ -1,10 +1,12 @@
 :MMENU
 @echo off
 @Title DQS
+SET NVER=0.1
 set black=[30m
 set red=[31m
 set green=[32m
 set yellow=[33m
+set yyellow=[43m
 set blue=[34m
 set magenta=[35m
 set bmagenta=[45m
@@ -12,11 +14,12 @@ set cyan=[36m
 set white=[37m
 set defcolor=[49m
 set gold=[38;5;220m
+set ggold=[48;5;220m
 set grey=[90m
 set orange=[38;5;208m
 set indigo=[38;5;105m
 cd /d %~dp0
-mode con:cols=138 lines=23
+mode con:cols=114 lines=23
 color 7
 cls
 
@@ -61,53 +64,10 @@ if /i "%~1"=="/A" (
 	goto :AUTT
 )
 
-if /i "%~1"=="/RAM" (
-	rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
-	mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
-	if %errorlevel% neq 0 (
-		powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0' /A" >nul 2>&1 & exit /b
-	)
-	IF NOT EXIST MinimizeConsole.ps1 (
-	    echo # MinimizeConsole.ps1>MinimizeConsole.ps1
-	    echo Start-Process -FilePath "cmd.exe" -ArgumentList "/C start /min DQS.bat /RA2" -WindowStyle Hidden>>MinimizeConsole.ps1
-	    ping -n 2 -w 1000 127.0.0.1 >nul
-	)
-	powershell.exe -ExecutionPolicy Bypass -File "MinimizeConsole.ps1"
-	Exit
-)
-
-if /i "%~1"=="/RA2" (
-	rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
-	mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
-	if %errorlevel% neq 0 (
-		powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0' /A" >nul 2>&1 & exit /b
-	)
-	SET CRAM=1
-	SET SVSL=0
-	SET ERRBCL=0
-	IF EXIST EETMP.DQS DEL EETMP.DQS
-	goto :AUTT
-)
-
-IF exist PowerRun_x64.exe (
-	IF %HTO%==102 PowerRun_x64.exe "%~0" /4 & exit
-	goto :SMENU
-) else (
-	curl -g -k -L -# -o "PowerRun_x64.exe" "https://github.com/00FGV1/ver/raw/main/PowerRun_x64.exe"
-	Ping 10>nul
-	goto :MMENU
-)
-
-:SMENU
 rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
 mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
 if %errorlevel% neq 0 (
-	powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0'" >nul 2>&1
-	if !errorlevel! equ 0 exit /b
-	echo Ce script ne s'execute pas en mode administrateur, veuillez le lancer en tant qu'administrateur.
-	echo Le script se fermera dans 10 secondes.
-	ping -n 10 -w 1000 127.0.0.1 >nul
-	Exit /b 1
+	powershell -NoProfile -NonInteractive -Command start -verb runas "'%~s0' /SCAN" >nul 2>&1 & exit /b
 )
 
 SET CURRENTKEY=HKLM\SYSTEM\CurrentControlSet\Services\mouclass\Parameters
@@ -187,28 +147,28 @@ IF %WPS%==0x38 SET AF32=%bmagenta%
 IF %WPS%==0x36 SET AF33=%bmagenta%
 
 cls
-echo ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-echo ³ %gold%MouseDataQueueSize%white%   %gold%KeyboardDataQueueSize%white%                                    %gold%Win32PrioritySeparation%white%                                  ³
-echo ³ÚÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄ¿ ÚÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ÚÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿³
-echo ³³ %indigo%[1]%white% ³ %AF1%10%defcolor%         ³ ³ %indigo%[10]%white% ³ %AF10%10%defcolor%           ³ ³ %indigo%[19]%white% ³ %AF19%%grey%{42}%white% 2A%defcolor% Hex = Short ³ Fixed    ³ High foreground boost   ³ %gold%R%white% = osu - Fortnite %magenta%1/2%white%³³
-echo ³³ %indigo%[2]%white% ³ %AF2%12%defcolor%         ³ ³ %indigo%[11]%white% ³ %AF11%12%defcolor%           ³ ³ %indigo%[20]%white% ³ %AF20%%grey%{41}%white% 29%defcolor% Hex = Short ³ Fixed    ³ Medium foreground boost ³ %gold%R%white% = Apex Legends      ³³
-echo ³³ %indigo%[3]%white% ³ %AF3%14%defcolor%         ³ ³ %indigo%[12]%white% ³ %AF12%14%defcolor%           ³ ³ %indigo%[21]%white% ³ %AF21%%grey%{40}%white% 28%defcolor% Hex = Short ³ Fixed    ³ No foreground boost     ³ %gold%R%white% = Rocket League     ³³
-echo ³³ %indigo%[4]%white% ³ %AF4%16%defcolor%         ³ ³ %indigo%[13]%white% ³ %AF13%16%defcolor%           ³ ³ %indigo%[22]%white% ³ %AF22%%grey%{38}%white% 26%defcolor% Hex = Short ³ Variable ³ High foreground boost   ³ %gold%R%white% = CS2 - Fortnite %magenta%2/2%white%³³
-echo ³³ %indigo%[5]%white% ³ %AF5%18%defcolor%         ³ ³ %indigo%[14]%white% ³ %AF14%18%defcolor%           ³ ³ %indigo%[23]%white% ³ %AF23%%grey%{37}%white% 25%defcolor% Hex = Short ³ Variable ³ Medium foreground boost ³ %gold%R%white% = %grey%N/a%white%               ³³
-echo ³³ %indigo%[6]%white% ³ %AF6%20%defcolor%         ³ ³ %indigo%[15]%white% ³ %AF15%20%defcolor%           ³ ³ %indigo%[24]%white% ³ %AF24%%grey%{36}%white% 24%defcolor% Hex = Short ³ Variable ³ No foreground boost     ³ %gold%R%white% = %grey%N/a%white%               ³³
-echo ³³ %indigo%[7]%white% ³ %AF7%30%defcolor%         ³ ³ %indigo%[16]%white% ³ %AF16%30%defcolor%           ³ ³ %indigo%[25]%white% ³ %AF25%%grey%{26}%white% 1A%defcolor% Hex = Long  ³ Fixed    ³ High foreground boost   ³ %gold%R%white% = %grey%N/a%white%               ³³
-echo ³³ %indigo%[8]%white% ³ %AF8%50%defcolor%         ³ ³ %indigo%[17]%white% ³ %AF17%50%defcolor%           ³ ³ %indigo%[26]%white% ³ %AF26%%grey%{25}%white% 19%defcolor% Hex = Long  ³ Fixed    ³ Medium foreground boost ³ %gold%R%white% = %grey%N/a%white%               ³³
-echo ³³ %indigo%[9]%white% ³ %AF9%100%defcolor%        ³ ³ %indigo%[18]%white% ³ %AF18%100%defcolor%          ³ ³ %indigo%[27]%white% ³ %AF27%%grey%{24}%white% 18%defcolor% Hex = Long  ³ Fixed    ³ No foreground boost     ³ %gold%R%white% = No Man's Sky %magenta%[FIX]%white%³³
-echo ³ÀÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÙ ÀÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ³ %indigo%[28]%white% ³ %AF28%%grey%{22}%white% 16%defcolor% Hex = Long  ³ Variable ³ High foreground boost   ³ %gold%R%white% = %magenta%Calypto Settings%white%  ³³
-echo ³ %bmagenta%    %defcolor% = La valeur actuelle dans le registre  ³ %indigo%[29]%white% ³ %AF29%%grey%{21}%white% 15%defcolor% Hex = Long  ³ Variable ³ Medium foreground boost ³ %gold%R%white% = %grey%N/a%white%               ³³
-echo ³  %gold%R%white%   = Recommande pour le jeu suivant       ³ %indigo%[30]%white% ³ %AF30%%grey%{20}%white% 14%defcolor% Hex = Long  ³ Variable ³ No foreground boost     ³ %gold%R%white% = %grey%N/a%white%               ³³
-echo ³ %grey%{**}%white% = La valeur en decimale                ³ %indigo%[31]%white% ³ %AF31%%grey%{33}%white% 21%defcolor% Hex = %grey%N/a%white%   ³ %grey%N/a%white%      ³ %grey%N/a%white%                     ³ %gold%R%white% = Valorant       %magenta%1/2%white%³³
-echo ³                                             ³ %indigo%[32]%white% ³ %AF32%%grey%{56}%white% 38%defcolor% Hex = %grey%N/a%white%   ³ %grey%N/a%white%      ³ %grey%N/a%white%                     ³ %gold%R%white% = Valorant       %magenta%2/2%white%³³
-echo ³ %grey%Valeur par defaut Windows:%white%                  ³ %indigo%[33]%white% ³ %AF33%%grey%{54}%white% 36%defcolor% Hex = %grey%N/a%white%   ³ %grey%N/a%white%      ³ %grey%N/a%white%                     ³ %gold%R%white% = R6    %magenta%[API Vulkan]%white%³³
-echo ³        %grey%MouseDataQueueSize      = 100 (0x64)%white% ÀÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ³
-echo ³        %grey%KeyboardDataQueueSize   = 100 (0x64)%white%      %grey%[ * Aucun redemarrage necessaire pour les valeurs de "Win32PrioritySeparation". ]%white%     ³
-echo ³        %grey%Win32PrioritySeparation = 26  (38)%white%   ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-echo ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ    %grey%[  MDQS = %MDQS% ³  KDQS = %KDQS% ³  WIN32PS = %WPS% ]%white%
+echo ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+echo ³ %gold%MouseDataQueueSize%white%   %gold%KeyboardDataQueueSize%white%                        %gold%Win32PrioritySeparation%white%                      ³
+echo ³ÚÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄ¿ ÚÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ÚÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿³
+echo ³³ %indigo%[1]%white% ³ %AF1%10%defcolor%         ³ ³ %indigo%[10]%white% ³ %AF10%10%defcolor%           ³ ³ %indigo%[19]%white% ³ %AF19%%grey%{42}%white% 2A%defcolor% Hex = Short ³ Fixed    ³ High foreground boost   ³³
+echo ³³ %indigo%[2]%white% ³ %AF2%12%defcolor%         ³ ³ %indigo%[11]%white% ³ %AF11%12%defcolor%           ³ ³ %indigo%[20]%white% ³ %AF20%%grey%{41}%white% 29%defcolor% Hex = Short ³ Fixed    ³ Medium foreground boost ³³
+echo ³³ %indigo%[3]%white% ³ %AF3%14%defcolor%         ³ ³ %indigo%[12]%white% ³ %AF12%14%defcolor%           ³ ³ %indigo%[21]%white% ³ %AF21%%grey%{40}%white% 28%defcolor% Hex = Short ³ Fixed    ³ No foreground boost     ³³
+echo ³³ %indigo%[4]%white% ³ %AF4%16%defcolor%         ³ ³ %indigo%[13]%white% ³ %AF13%16%defcolor%           ³ ³ %indigo%[22]%white% ³ %AF22%%grey%{38}%white% 26%defcolor% Hex = Short ³ Variable ³ High foreground boost   ³³
+echo ³³ %indigo%[5]%white% ³ %AF5%18%defcolor%         ³ ³ %indigo%[14]%white% ³ %AF14%18%defcolor%           ³ ³ %indigo%[23]%white% ³ %AF23%%grey%{37}%white% 25%defcolor% Hex = Short ³ Variable ³ Medium foreground boost ³³
+echo ³³ %indigo%[6]%white% ³ %AF6%20%defcolor%         ³ ³ %indigo%[15]%white% ³ %AF15%20%defcolor%           ³ ³ %indigo%[24]%white% ³ %AF24%%grey%{36}%white% 24%defcolor% Hex = Short ³ Variable ³ No foreground boost     ³³
+echo ³³ %indigo%[7]%white% ³ %AF7%30%defcolor%         ³ ³ %indigo%[16]%white% ³ %AF16%30%defcolor%           ³ ³ %indigo%[25]%white% ³ %AF25%%grey%{26}%white% 1A%defcolor% Hex = Long  ³ Fixed    ³ High foreground boost   ³³
+echo ³³ %indigo%[8]%white% ³ %AF8%50%defcolor%         ³ ³ %indigo%[17]%white% ³ %AF17%50%defcolor%           ³ ³ %indigo%[26]%white% ³ %AF26%%grey%{25}%white% 19%defcolor% Hex = Long  ³ Fixed    ³ Medium foreground boost ³³
+echo ³³ %indigo%[9]%white% ³ %AF9%100%defcolor%        ³ ³ %indigo%[18]%white% ³ %AF18%100%defcolor%          ³ ³ %indigo%[27]%white%ÚÁ¿%AF27%%grey%{24}%white% 18%defcolor% Hex = Long  ³ Fixed    ³ No foreground boost     ³³
+echo ³ÀÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÙ ÀÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ³ %indigo%[28]%white%³%ggold% %defcolor%³%AF28%%grey%{22}%white% 16%defcolor% Hex = Long  ³ Variable ³ High foreground boost   ³³
+echo ³ %bmagenta%    %defcolor% = La valeur actuelle dans le registre  ³ %indigo%[29]%white%ÀÂÙ%AF29%%grey%{21}%white% 15%defcolor% Hex = Long  ³ Variable ³ Medium foreground boost ³³
+echo ³ %ggold%    %defcolor% = Option recommandee en general        ³ %indigo%[30]%white% ³ %AF30%%grey%{20}%white% 14%defcolor% Hex = Long  ³ Variable ³ No foreground boost     ³³
+echo ³ %grey%{**}%white% = La valeur en decimale                ³ %indigo%[31]%white% ³ %AF31%%grey%{33}%white% 21%defcolor% Hex = Short ³ Fixed    ³ Medium foreground boost ³³
+echo ³                                             ³ %indigo%[32]%white% ³ %AF32%%grey%{56}%white% 38%defcolor% Hex = Long  ³ Fixed    ³ High foreground boost   ³³
+echo ³ %grey%Valeur par defaut Windows:%white%                  ³ %indigo%[33]%white% ³ %AF33%%grey%{54}%white% 36%defcolor% Hex = Long  ³ Variable ³ High foreground boost   ³³
+echo ³        %grey%MouseDataQueueSize      = 100 (0x64)%white% ÀÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ³
+echo ³        %grey%KeyboardDataQueueSize   = 100 (0x64)%white% ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+echo ³        %grey%Win32PrioritySeparation = 2   (0x2)%white%  ³ %grey%[ MDQS = %MDQS% ³ KDQS = %KDQS% ³ WIN32PS = %WPS% ³ VER = %NVER% ]%white%
+echo ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 set /p a=Ä:
 
 if %a%==1 Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\mouclass\Parameters" /v "MouseDataQueueSize" /t REG_DWORD /d "0xa" /f >nul & goto :MMENU
@@ -403,11 +363,6 @@ IF NOT EXIST exe_gamename_acv.txt (
 
 :checkProcess
 Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x26" /f >nul
-bcdedit /set useplatformtick false
-bcdedit /set useplatformclock false
-bcdedit /set disabledynamictick yes
-powercfg -setacvalueindex scheme_current sub_processor 5d76a2ca-e8c0-402f-a133-2158492d58ad 0
-powercfg -setactive scheme_current
 
 setlocal enabledelayedexpansion
 set "inputFile=exe_gamename_acv.txt"
@@ -447,19 +402,12 @@ IF !processToMonitor!==VALORANT.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Contr
 IF !processToMonitor!==r5apex.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x29" /f >nul
 IF !processToMonitor!==FortniteClient-Win64-Shipping.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x2A" /f >nul
 IF !processToMonitor!==RainbowSix.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x36" /f >nul
-IF !processToMonitor!==NMS.exe (
-	Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x18" /f >nul
-	bcdedit /deletevalue useplatformclock
-	bcdedit /deletevalue tscsyncpolicy
-	bcdedit /deletevalue disabledynamictick
-)
+IF !processToMonitor!==NMS.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x18" /f >nul
+IF !processToMonitor!==Borderlands3.exe Reg.exe add "HKLM\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "0x16" /f >nul
 
 SET STTME=%time%
-Reg add "HKCU\Software\Microsoft\GameBar" /v "AllowAutoGameMode" /t REG_DWORD /d "1" /f >NUL
-Reg add "HKCU\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "1" /f >NUL
-
-powercfg -setacvalueindex scheme_current sub_processor 5d76a2ca-e8c0-402f-a133-2158492d58ad 1
-powercfg -setactive scheme_current
+Reg.exe add "HKCU\Software\Microsoft\GameBar" /v "AllowAutoGameMode" /t REG_DWORD /d "1" /f >NUL
+Reg.exe add "HKCU\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "1" /f >NUL
 
 IF EXIST PRASTT.bat call PRASTT.bat
 
@@ -584,42 +532,38 @@ wmic process where name="lghub_system_tray.exe" CALL setpriority 64 >NUL
 wmic process where name="librewolf.exe" CALL setpriority 64 >NUL
 wmic process where name="gamingservices.exe" CALL setpriority 64 >NUL
 
-taskkill /f /im vmware-authd.exe >NUL
-taskkill /f /im vmnat.exe >NUL
-taskkill /f /im vmware.exe >NUL
-taskkill /f /im vmware-tray.exe >NUL
-taskkill /f /im vmware-usbarbitrator64.exe >NUL
-taskkill /f /im vmnetdhcp.exe >NUL
+taskkill /f /im vmware-authd.exe >NUL 2>nul
+taskkill /f /im vmnat.exe >NUL 2>nul
+taskkill /f /im vmware.exe >NUL 2>nul
+taskkill /f /im vmware-tray.exe >NUL 2>nul
+taskkill /f /im vmware-usbarbitrator64.exe >NUL 2>nul
+taskkill /f /im vmnetdhcp.exe >NUL 2>nul
 
-sc stop WaaSMedicSvc >NUL
-sc stop wuauserv >NUL
-sc stop WSearch >NUL
-sc stop msiserver >NUL
-sc stop VMUSBArbService >NUL
-sc stop VMnetDHCP >NUL
-sc stop VMware NAT Service >NUL
-sc stop VMAuthdService >NUL
-sc stop VmwareAutostartService >NUL
-sc stop EventSystem >NUL
-sc stop SysMain >NUL
-sc stop SENS >NUL
-sc stop Eventlog >NUL
-sc stop Eventlog-Forwarding >NUL
-sc stop eventlog-service >NUL
-sc stop BITS >NUL
-sc stop PerfProc >NUL
-sc stop InstallService >NUL
-sc stop Wcmsvc >NUL
-sc stop StiSvc >NUL
+sc stop WaaSMedicSvc >NUL 2>nul
+sc stop wuauserv >NUL 2>nul
+sc stop WSearch >NUL 2>nul
+sc stop msiserver >NUL 2>nul
+sc stop VMUSBArbService >NUL 2>nul
+sc stop VMnetDHCP >NUL 2>nul
+sc stop VMware NAT Service >NUL 2>nul
+sc stop VMAuthdService >NUL 2>nul
+sc stop VmwareAutostartService >NUL 2>nul
+sc stop EventSystem >NUL 2>nul
+sc stop SysMain >NUL 2>nul
+sc stop SENS >NUL 2>nul
+sc stop Eventlog >NUL 2>nul
+sc stop Eventlog-Forwarding >NUL 2>nul
+sc stop eventlog-service >NUL 2>nul
+sc stop BITS >NUL 2>nul
+sc stop PerfProc >NUL 2>nul
+sc stop InstallService >NUL 2>nul
+sc stop Wcmsvc >NUL 2>nul
+sc stop StiSvc >NUL 2>nul
 
 SET CURRENTKEY=HKLM\SYSTEM\ControlSet001\Control\PriorityControl
 FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "Win32PrioritySeparation"') DO set WPS=%%B >NUL 2>nul
 
-IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
-IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /CombinedPageList
-IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /ProcessesWorkingSet
-@timeout /t 02 >nul
-IF EXIST "C:\Ect\Outils\Gms\EmptyStandbyList.exe" START "" /B "C:\Ect\Outils\Gms\EmptyStandbyList.exe"
+IF EXIST "C:\Ect\Outils\Gms\EmptyStandbyList.exe" START "" /B /min "C:\Ect\Outils\Gms\EmptyStandbyList.exe"
 :CRAMS
 cd /d %~dp0
 mode con:cols=138 lines=23
@@ -632,21 +576,12 @@ echo    %grey%Info jeu :%white%
 echo    Jeu en cours d'execution      = %gold%!processToMonitor!%white%
 echo    Win32PrioritySeparation       = %gold%%WPS%%white%
 echo    Emplacement du jeu            = %gold%!processPath!%white%
-IF %CRAM%==1 (
-	echo    Heures de la derniere boucle  = %gold%%time%%white%
-	echo    Boucle                        = %gold%%BBCLS%%white%
-	echo.
-	echo    %grey%Info ESL :%white%
-	echo    Heures de la derniere boucle  = %gold%%ESLT%%white%
-	echo    Boucle                        = %gold%%ESLB%%white%
-) else (
-	echo.
-	echo.
-	echo.
-	echo.
-	echo.
-	echo.
-)
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
 echo.
 echo.
 echo.
@@ -667,48 +602,10 @@ IF %CRAM%==1 (
 )
 
 :ERRS
-IF %ERRBCL%==1 (
-	Pause>nul
-	endlocal
-	goto :AUTT
-)
 
-IF %CRAM%==0 (
-	Pause>nul
-	endlocal
-	goto :AUTT
-)
-
-IF %PTMR%==Palworld-Win64-Shipping.exe (
-	SET PTMRF=Palworld.exe
-) else (
-	SET PTMRF=%PTMR%
-)
-
-tasklist /fi "imagename eq %PTMRF%" | findstr /i "%PTMRF%" > nul
-
-if %errorlevel% equ 0 (
-	goto :GDD
-) else (
-	echo GAME : %PTMRF% // START : %STTME% // END : %time%>>C:\Ect\RWC\DQS\DQS.log
-	endlocal
-	IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
-	IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /CombinedPageList
-	IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /ProcessesWorkingSet
-	goto :AUTT
-)
-
-:GDD
-@timeout /nobreak /t 90 > nul
-SET /a BBCLS=%BBCLS%+1
-IF %SVSL%==11 IF EXIST "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" START "" "C:\Ect\Outils\Gms\WinMemoryCleaner.exe" /StandbyList
-IF %SVSL%==11 SET /a ESLB=%ESLB%+1
-IF %SVSL%==11 SET ESLT=%time%
-SET /a SVSL=%SVSL%+1
-SET "errorlevel="
-IF %SVSL%==12 SET SVSL=0
-IF EXIST EETMP.DQS DEL EETMP.DQS
-goto :CRAMS
+Pause>nul
+endlocal
+goto :AUTT
 
 :SCAN
 IF EXIST C:\Ect\RWC\DQS\exe_gamename.txt DEL C:\Ect\RWC\DQS\exe_gamename.txt
