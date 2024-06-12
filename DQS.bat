@@ -1,7 +1,7 @@
 :MMENU
 @echo off
 @Title DQS
-SET NVER=0.1
+SET NVER=0.3
 set black=[30m
 set red=[31m
 set green=[32m
@@ -19,7 +19,7 @@ set grey=[90m
 set orange=[38;5;208m
 set indigo=[38;5;105m
 cd /d %~dp0
-mode con:cols=114 lines=23
+mode con:cols=141 lines=22
 color 7
 cls
 
@@ -147,29 +147,28 @@ IF %WPS%==0x38 SET AF32=%bmagenta%
 IF %WPS%==0x36 SET AF33=%bmagenta%
 
 cls
-echo ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-echo ³ %gold%MouseDataQueueSize%white%   %gold%KeyboardDataQueueSize%white%                        %gold%Win32PrioritySeparation%white%                      ³
-echo ³ÚÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄ¿ ÚÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ÚÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿³
-echo ³³ %indigo%[1]%white% ³ %AF1%10%defcolor%         ³ ³ %indigo%[10]%white% ³ %AF10%10%defcolor%           ³ ³ %indigo%[19]%white% ³ %AF19%%grey%{42}%white% 2A%defcolor% Hex = Short ³ Fixed    ³ High foreground boost   ³³
-echo ³³ %indigo%[2]%white% ³ %AF2%12%defcolor%         ³ ³ %indigo%[11]%white% ³ %AF11%12%defcolor%           ³ ³ %indigo%[20]%white% ³ %AF20%%grey%{41}%white% 29%defcolor% Hex = Short ³ Fixed    ³ Medium foreground boost ³³
-echo ³³ %indigo%[3]%white% ³ %AF3%14%defcolor%         ³ ³ %indigo%[12]%white% ³ %AF12%14%defcolor%           ³ ³ %indigo%[21]%white% ³ %AF21%%grey%{40}%white% 28%defcolor% Hex = Short ³ Fixed    ³ No foreground boost     ³³
-echo ³³ %indigo%[4]%white% ³ %AF4%16%defcolor%         ³ ³ %indigo%[13]%white% ³ %AF13%16%defcolor%           ³ ³ %indigo%[22]%white% ³ %AF22%%grey%{38}%white% 26%defcolor% Hex = Short ³ Variable ³ High foreground boost   ³³
-echo ³³ %indigo%[5]%white% ³ %AF5%18%defcolor%         ³ ³ %indigo%[14]%white% ³ %AF14%18%defcolor%           ³ ³ %indigo%[23]%white% ³ %AF23%%grey%{37}%white% 25%defcolor% Hex = Short ³ Variable ³ Medium foreground boost ³³
-echo ³³ %indigo%[6]%white% ³ %AF6%20%defcolor%         ³ ³ %indigo%[15]%white% ³ %AF15%20%defcolor%           ³ ³ %indigo%[24]%white% ³ %AF24%%grey%{36}%white% 24%defcolor% Hex = Short ³ Variable ³ No foreground boost     ³³
-echo ³³ %indigo%[7]%white% ³ %AF7%30%defcolor%         ³ ³ %indigo%[16]%white% ³ %AF16%30%defcolor%           ³ ³ %indigo%[25]%white% ³ %AF25%%grey%{26}%white% 1A%defcolor% Hex = Long  ³ Fixed    ³ High foreground boost   ³³
-echo ³³ %indigo%[8]%white% ³ %AF8%50%defcolor%         ³ ³ %indigo%[17]%white% ³ %AF17%50%defcolor%           ³ ³ %indigo%[26]%white% ³ %AF26%%grey%{25}%white% 19%defcolor% Hex = Long  ³ Fixed    ³ Medium foreground boost ³³
-echo ³³ %indigo%[9]%white% ³ %AF9%100%defcolor%        ³ ³ %indigo%[18]%white% ³ %AF18%100%defcolor%          ³ ³ %indigo%[27]%white%ÚÁ¿%AF27%%grey%{24}%white% 18%defcolor% Hex = Long  ³ Fixed    ³ No foreground boost     ³³
-echo ³ÀÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÙ ÀÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ³ %indigo%[28]%white%³%ggold% %defcolor%³%AF28%%grey%{22}%white% 16%defcolor% Hex = Long  ³ Variable ³ High foreground boost   ³³
-echo ³ %bmagenta%    %defcolor% = La valeur actuelle dans le registre  ³ %indigo%[29]%white%ÀÂÙ%AF29%%grey%{21}%white% 15%defcolor% Hex = Long  ³ Variable ³ Medium foreground boost ³³
-echo ³ %ggold%    %defcolor% = Option recommandee en general        ³ %indigo%[30]%white% ³ %AF30%%grey%{20}%white% 14%defcolor% Hex = Long  ³ Variable ³ No foreground boost     ³³
-echo ³ %grey%{**}%white% = La valeur en decimale                ³ %indigo%[31]%white% ³ %AF31%%grey%{33}%white% 21%defcolor% Hex = Short ³ Fixed    ³ Medium foreground boost ³³
-echo ³                                             ³ %indigo%[32]%white% ³ %AF32%%grey%{56}%white% 38%defcolor% Hex = Long  ³ Fixed    ³ High foreground boost   ³³
-echo ³ %grey%Valeur par defaut Windows:%white%                  ³ %indigo%[33]%white% ³ %AF33%%grey%{54}%white% 36%defcolor% Hex = Long  ³ Variable ³ High foreground boost   ³³
-echo ³        %grey%MouseDataQueueSize      = 100 (0x64)%white% ÀÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ³
-echo ³        %grey%KeyboardDataQueueSize   = 100 (0x64)%white% ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+echo ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+echo ³ %gold%MouseDataQueueSize%white%   %gold%KeyboardDataQueueSize%white%                                     %gold%Win32PrioritySeparation%white%                                    ³
+echo ³ÚÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄ¿ ÚÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ÚÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿³
+echo ³³ %indigo%[1]%white% ³ %AF1%10%defcolor%         ³ ³ %indigo%[10]%white% ³ %AF10%10%defcolor%           ³ ³ %indigo%[19]%white% ³ %AF19%%grey%{42}%white% 0x%green%2A%white%%defcolor% Hex = Court ³ Fixe     ³ Priorite elevee  de l'executable au premier plan ³³
+echo ³³ %indigo%[2]%white% ³ %AF2%12%defcolor%         ³ ³ %indigo%[11]%white% ³ %AF11%12%defcolor%           ³ ³ %indigo%[20]%white% ³ %AF20%%grey%{41}%white% 0x%green%29%white%%defcolor% Hex = Court ³ Fixe     ³ Priorite moyenne de l'executable au premier plan ³³
+echo ³³ %indigo%[3]%white% ³ %AF3%14%defcolor%         ³ ³ %indigo%[12]%white% ³ %AF12%14%defcolor%           ³ ³ %indigo%[21]%white% ³ %AF21%%grey%{40}%white% 0x%green%28%white%%defcolor% Hex = Court ³ Fixe     ³ Aucune priorite  de l'executable au premier plan ³³
+echo ³³ %indigo%[4]%white%ÚÁ¿%AF4%16%defcolor%         ³ ³ %indigo%[13]%white%ÚÁ¿%AF13%16%defcolor%           ³ ³ %indigo%[22]%white% ³ %AF22%%grey%{38}%white% 0x%green%26%white%%defcolor% Hex = Court ³ Variable ³ Priorite elevee  de l'executable au premier plan ³³
+echo ³³ %indigo%[5]%white%³%ggold% %defcolor%³%AF5%18%defcolor%         ³ ³ %indigo%[14]%white%³%ggold% %defcolor%³%AF14%18%defcolor%           ³ ³ %indigo%[23]%white% ³ %AF23%%grey%{37}%white% 0x%green%25%white%%defcolor% Hex = Short ³ Variable ³ Priorite moyenne de l'executable au premier plan ³³
+echo ³³ %indigo%[6]%white%ÀÂÙ%AF6%20%defcolor%         ³ ³ %indigo%[15]%white%ÀÂÙ%AF15%20%defcolor%           ³ ³ %indigo%[24]%white% ³ %AF24%%grey%{36}%white% 0x%green%24%white%%defcolor% Hex = Court ³ Variable ³ Aucune priorite  de l'executable au premier plan ³³
+echo ³³ %indigo%[7]%white% ³ %AF7%30%defcolor%         ³ ³ %indigo%[16]%white% ³ %AF16%30%defcolor%           ³ ³ %indigo%[25]%white% ³ %AF25%%grey%{26}%white% 0x%green%1A%white%%defcolor% Hex = Long  ³ Fixe     ³ Priorite elevee  de l'executable au premier plan ³³
+echo ³³ %indigo%[8]%white% ³ %AF8%50%defcolor%         ³ ³ %indigo%[17]%white% ³ %AF17%50%defcolor%           ³ ³ %indigo%[26]%white% ³ %AF26%%grey%{25}%white% 0x%green%19%white%%defcolor% Hex = Long  ³ Fixe     ³ Priorite moyenne de l'executable au premier plan ³³
+echo ³³ %indigo%[9]%white% ³ %AF9%100%defcolor%        ³ ³ %indigo%[18]%white% ³ %AF18%100%defcolor%          ³ ³ %indigo%[27]%white%ÚÁ¿%AF27%%grey%{24}%white% 0x%green%18%white%%defcolor% Hex = Long  ³ Fixe     ³ Aucune priorite  de l'executable au premier plan ³³
+echo ³ÀÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÙ ÀÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ³ %indigo%[28]%white%³%ggold% %defcolor%³%AF28%%grey%{22}%white% 0x%green%16%white%%defcolor% Hex = Long  ³ Variable ³ Priorite elevee  de l'executable au premier plan ³³
+echo ³ %bmagenta%    %defcolor% = La valeur actuelle dans le registre  ³ %indigo%[29]%white%ÀÂÙ%AF29%%grey%{21}%white% 0x%green%15%white%%defcolor% Hex = Long  ³ Variable ³ Priorite moyenne de l'executable au premier plan ³³
+echo ³ %ggold%    %defcolor% = Option recommandee en general        ³ %indigo%[30]%white% ³ %AF30%%grey%{20}%white% 0x%green%14%white%%defcolor% Hex = Long  ³ Variable ³ Aucune priorite  de l'executable au premier plan ³³
+echo ³ %grey%{**}%white% = La valeur en decimale                ³ %indigo%[31]%white% ³ %AF31%%grey%{33}%white% 0x%green%21%white%%defcolor% Hex = Court ³ Fixe     ³ Priorite moyenne de l'executable au premier plan ³³
+echo ³                                             ³ %indigo%[32]%white% ³ %AF32%%grey%{56}%white% 0x%green%38%white%%defcolor% Hex = Long  ³ Fixe     ³ Priorite elevee  de l'executable au premier plan ³³
+echo ³ %grey%Valeur par defaut Windows:%white%                  ³ %indigo%[33]%white% ³ %AF33%%grey%{54}%white% 0x%green%36%white%%defcolor% Hex = Long  ³ Variable ³ Priorite elevee  de l'executable au premier plan ³³
+echo ³        %grey%MouseDataQueueSize      = 100 (0x64)%white% ÀÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ³
+echo ³        %grey%KeyboardDataQueueSize   = 100 (0x64)%white% ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 echo ³        %grey%Win32PrioritySeparation = 2   (0x2)%white%  ³ %grey%[ MDQS = %MDQS% ³ KDQS = %KDQS% ³ WIN32PS = %WPS% ³ VER = %NVER% ]%white%
-echo ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-set /p a=Ä:
+set /p a=ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ%green%^>%white%
 
 if %a%==1 Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\mouclass\Parameters" /v "MouseDataQueueSize" /t REG_DWORD /d "0xa" /f >nul & goto :MMENU
 if %a%==2 Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\mouclass\Parameters" /v "MouseDataQueueSize" /t REG_DWORD /d "0xc" /f >nul & goto :MMENU
