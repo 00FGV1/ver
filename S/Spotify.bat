@@ -19,7 +19,7 @@ IF NOT EXIST "C:\Users\%USERNAME%\AppData\Roaming\Spotify\Spotify.exe" (
 )
 
 IF NOT EXIST "%TEMP%\chrome_elf.zip" (
-	curl -g -k -L -# -o "%TEMP%\chrome_elf.zip" "https://github.com/mrpond/BlockTheSpot/releases/download/2023.11.29.98/chrome_elf.zip"
+	curl -g -k -L -# -o "%TEMP%\chrome_elf.zip" "https://github.com/mrpond/BlockTheSpot/releases/download/107/chrome_elf.zip
 	@timeout /t 02 >nul
 )
 
