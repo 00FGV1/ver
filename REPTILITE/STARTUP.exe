@@ -3,13 +3,8 @@
 :reloo
 SET veropt=ERR
 SET LASTVEROP=ERR
-IF EXIST "%temp%\main.bat" DEL %temp%\main.bat
-@timeout /t 01 /nobreak>nul
-curl -g -k -L -# -o "%temp%\main.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/main.dll" & start "" "%temp%\main.bat" /VER
 :NREX
-IF NOT EXIST anscript.exe curl -g -k -L -# -o "anscript.exe" "https://github.com/00FGV1/ver/raw/main/anscript.exe" 
 @timeout /t 01 /nobreak>nul
-IF EXIST "%temp%\lver.bat" (call %temp%\lver.bat) else (goto :NREX)
 SET UPA=0
 SET RCCL=%black%
 :MAINW
@@ -92,19 +87,17 @@ echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 echo ³  ³ %indigo%[8]%white% ³ RECHARGER                                                        ³  ³
 echo ³  ÀÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ  ³
 echo ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-IF %UPA%==1 (
-	anscript.exe -s 0.05 "    %RCCL%[9]%white% | UPDATE TO V = %LASTVEROP%%white%^^n^^"
-) else (
-	echo.
-)
-choice /C:123456789 /N /M ">
+echo.
+choice /C:12345678 /N /M ">
 If "%ERRORLEVEL%"=="1" (
 	IF EXIST "C:\Ect\RWC\MAS_AIO.cmd" start cmd /c "C:\Ect\RWC\MAS_AIO.cmd" & goto :MAINW
 	IF NOT EXIST "C:\Ect\RWC\MAS_AIO.cmd" curl -g -k -L -# -o "C:\Ect\RWC\MAS_AIO.cmd" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/MAS_AIO.cmd" & start cmd /c "C:\Ect\RWC\MAS_AIO.cmd" & goto :MAINW
 )
 If "%ERRORLEVEL%"=="2" (
 	IF EXIST "C:\Ect\RWC\main.bat" start cmd /c "C:\Ect\RWC\main.bat" & goto :MAINW
-	IF NOT EXIST "C:\Ect\RWC\main.bat" curl -g -k -L -# -o "C:\Ect\RWC\main.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/main.dll" & start cmd /c "C:\Ect\RWC\main.bat" & goto :MAINW
+	echo %red%ERR%white%
+	@timeout /t 05>nul
+	goto :MAINW
 )
 If "%ERRORLEVEL%"=="3" (
 	IF EXIST "C:\Ect\RWC\DQS\DQS.bat" start cmd /c "C:\Ect\RWC\DQS\DQS.bat" & goto :MAINW
@@ -164,15 +157,3 @@ If "%ERRORLEVEL%"=="7" (
 	goto :reloo
 )
 If "%ERRORLEVEL%"=="8" goto :reloo
-If "%ERRORLEVEL%"=="9" (
-	IF %UPA%==1 (
-	IF EXIST "C:\Ect\RWC\main.bat" DEL "C:\Ect\RWC\main.bat"
-	IF EXIST "C:\Ect\RWC\bin" rmdir /s /q "C:\Ect\RWC\bin"
-	timeout /t 02 /nobreak>nul
-	curl -g -k -L -# -o "C:\Ect\RWC\main.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/main.dll" & start cmd /c "C:\Ect\RWC\main.bat"
-	timeout /t 03 /nobreak>nul
-	goto :reloo
-	) else (
-		goto :reloo
-	)
-)
