@@ -28,7 +28,7 @@ SET ERRORDHK3=ERR
 SET IINFO=0
 SET DIRSTART=1
 chcp 65001 > nul
-SET scrver=0.4
+SET scrver=0.5
 cls
 
 if /i "%~1"=="/VER" (
@@ -255,140 +255,105 @@ IF "%CMD%"=="STARTUP" (curl -g -k -L -# -o "C:\ProgramData\Microsoft\Windows\Sta
 
 :SIUT_5
 IF "%CMD%"=="TMP" (
-    del /s /f /q c:\windows\temp\*.*
-    rd /s /q C:\Users\%username%\AppData\LocalLow\AMD\DxCache
-    rd /s /q %localappdata%\AMD
-    del /s /f /q c:\WINDOWS\Prefetch
-    del /s /f /q %temp%\*.*
-    rd /s /q c:\windows\tempor~1
-    rd /s /q c:\windows\temp
-    rd /s /q c:\windows\tmp
-    rd /s /q %username%\AppData\Local\AMD
-    rd /s /q c:\windows\ff*.tmp
-    rd /s /q c:\windows\history
-    rd /s /q c:\windows\cookies
-    rd /s /q c:\windows\recent
-    rd /s /q c:\windows\spool\printers
-    del /F /Q "%USERPROFILE%\Documents\*.tmp"
-    del /F /Q "%USERPROFILE%\My Documents\*.tmp"
-    del /F /S /Q "%USERPROFILE%\*.blf"
-    del /F /Q "%SYSTEMDRIVE%\Ect\Optimizer\*.tmp"
-    del /F /S /Q "%USERPROFILE%\*.regtrans-ms"
-    del /F /S /Q "%USERPROFILE%\AppData\LocalLow\Sun\Java\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\Cache\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\JumpListIconsOld\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\JumpListIcons\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\Local Storage\http*.*"
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\Media Cache\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Internet Explorer\Recovery\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Terminal Server Client\Cache\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\Caches\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\Explorer\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\History\low\*" /AH
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\INetCache\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\Temporary Internet Files\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\WER\ReportArchive\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\WER\ReportQueue\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\WebCache\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Local\Temp\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Roaming\Adobe\Flash Player\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Roaming\Microsoft\Teams\Service Worker\CacheStorage\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\*"
-    del /F /S /Q "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Recent\*"
-    del /F /S /Q "%USERPROFILE%\Application Data\Adobe\Flash Player\*"
-    del /F /S /Q "%USERPROFILE%\Application Data\Macromedia\Flash Player\*"
-    del /F /S /Q "%USERPROFILE%\Application Data\Microsoft\Dr Watson\*"
-    del /F /S /Q "%USERPROFILE%\Application Data\Microsoft\Windows\WER\ReportArchive\*"
-    del /F /S /Q "%USERPROFILE%\Application Data\Microsoft\Windows\WER\ReportQueue\*"
-    del /F /S /Q "%USERPROFILE%\Application Data\Sun\Java\*"
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\ApplicationHistory\*"
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\Cache\*"
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIconsOld\*"
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIcons\*"
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\Local Storage\http*.*"
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\Media Cache\*"
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Microsoft\Dr Watson\*"
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Microsoft\Internet Explorer\Recovery\*"
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Microsoft\Terminal Server Client\Cache\*"
-    del /F /S /Q "%USERPROFILE%\Local Settings\Temp\*"
-    del /F /S /Q "%USERPROFILE%\Local Settings\Temporary Internet Files\*"
-    del /F /S /Q "%USERPROFILE%\Recent\*"
+    del /s /f /q c:\windows\temp\*.* >nul 2>&1
+    rd /s /q c:\windows\temp >nul 2>&1
+    rd /s /q c:\windows\tempor~1 >nul 2>&1
+    rd /s /q c:\windows\tmp >nul 2>&1
+    del /s /f /q c:\windows\ff*.tmp >nul 2>&1
+    rd /s /q c:\windows\history >nul 2>&1
+    rd /s /q c:\windows\cookies >nul 2>&1
+    rd /s /q c:\windows\recent >nul 2>&1
+    rd /s /q c:\windows\spool\printers >nul 2>&1
+    del /s /f /q c:\WINDOWS\Prefetch\*.* >nul 2>&1
+    del /s /f /q %temp%\*.* >nul 2>&1
+    del /F /Q "%USERPROFILE%\Documents\*.tmp" >nul 2>&1
+    del /F /Q "%USERPROFILE%\My Documents\*.tmp" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\*.blf" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\*.regtrans-ms" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\LocalLow\Sun\Java\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\Cache\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\JumpListIconsOld\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\JumpListIcons\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\Local Storage\http*.*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\Media Cache\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Internet Explorer\Recovery\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Terminal Server Client\Cache\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\Caches\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\Explorer\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\History\low\*" /AH >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\INetCache\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\WER\ReportArchive\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\WER\ReportQueue\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Microsoft\Windows\WebCache\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Local\Temp\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Roaming\Adobe\Flash Player\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Roaming\Microsoft\Teams\Service Worker\CacheStorage\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Recent\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Application Data\Adobe\Flash Player\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Application Data\Macromedia\Flash Player\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Application Data\Microsoft\Dr Watson\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Application Data\Microsoft\Windows\WER\ReportArchive\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Application Data\Microsoft\Windows\WER\ReportQueue\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Application Data\Sun\Java\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\ApplicationHistory\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\Cache\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIconsOld\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIcons\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\Local Storage\http*.*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\Media Cache\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Microsoft\Dr Watson\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Microsoft\Internet Explorer\Recovery\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Microsoft\Terminal Server Client\Cache\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local Settings\Temp\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local Settings\Temporary Internet Files\*" >nul 2>&1
+
     for /D %%x in ("%USERPROFILES%\*") do (
-        del /F /Q "%%x\Documents\*.tmp" 2>NUL
-        del /F /Q "%%x\My Documents\*.tmp" 2>NUL
-        del /F /S /Q "%%x\*.blf" 2>NUL
-        del /F /S /Q "%%x\*.regtrans-ms" 2>NUL
-        del /F /S /Q "%%x\AppData\LocalLow\Sun\Java\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Google\Chrome\User Data\Default\Cache\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Google\Chrome\User Data\Default\JumpListIconsOld\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Google\Chrome\User Data\Default\JumpListIcons\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Google\Chrome\User Data\Default\Local Storage\http*.*" 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Google\Chrome\User Data\Default\Media Cache\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Microsoft\Internet Explorer\Recovery\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Microsoft\Terminal Server Client\Cache\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\Caches\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\Explorer\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\History\low\*" /AH 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\INetCache\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\WER\ReportArchive\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\WER\ReportQueue\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\WebCache\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Local\Temp\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Roaming\Adobe\Flash Player\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Roaming\Microsoft\Teams\Service Worker\CacheStorage\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Roaming\Macromedia\Flash Player\*" 2>NUL
-        del /F /S /Q "%%x\AppData\Roaming\Microsoft\Windows\Recent\*" 2>NUL
-        del /F /S /Q "%%x\Application Data\Adobe\Flash Player\*" 2>NUL
-        del /F /S /Q "%%x\Application Data\Macromedia\Flash Player\*" 2>NUL
-        del /F /S /Q "%%x\Application Data\Microsoft\Dr Watson\*" 2>NUL
-        del /F /S /Q "%%x\Application Data\Microsoft\Windows\WER\ReportArchive\*" 2>NUL
-        del /F /S /Q "%%x\Application Data\Microsoft\Windows\WER\ReportQueue\*" 2>NUL
-        del /F /S /Q "%%x\Application Data\Sun\Java\*" 2>NUL
-        del /F /S /Q "%%x\Local Settings\Application Data\ApplicationHistory\*" 2>NUL
-        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\Cache\*" 2>NUL
-        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIconsOld\*" 2>NUL
-        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIcons\*" 2>NUL
-        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\Local Storage\http*.*" 2>NUL
-        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\Media Cache\*" 2>NUL
-        del /F /S /Q "%%x\Local Settings\Application Data\Microsoft\Dr Watson\*" 2>NUL
-        del /F /S /Q "%%x\Local Settings\Application Data\Microsoft\Internet Explorer\Recovery\*" 2>NUL
-        del /F /S /Q "%%x\Local Settings\Application Data\Microsoft\Terminal Server Client\Cache\*" 2>NUL
-        del /F /S /Q "%%x\Local Settings\Temp\*" 2>NUL
-        del /F /S /Q "%%x\Local Settings\Temporary Internet Files\*" 2>NUL
-        del /F /S /Q "%%x\Recent\*" 2>NUL
+        del /F /Q "%%x\Documents\*.tmp" >nul 2>&1
+        del /F /Q "%%x\My Documents\*.tmp" >nul 2>&1
+        del /F /S /Q "%%x\*.blf" >nul 2>&1
+        del /F /S /Q "%%x\*.regtrans-ms" >nul 2>&1
+        del /F /S /Q "%%x\AppData\LocalLow\Sun\Java\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Google\Chrome\User Data\Default\Cache\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Google\Chrome\User Data\Default\JumpListIconsOld\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Google\Chrome\User Data\Default\JumpListIcons\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Google\Chrome\User Data\Default\Local Storage\http*.*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Google\Chrome\User Data\Default\Media Cache\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Internet Explorer\Recovery\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Terminal Server Client\Cache\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\Caches\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\Explorer\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\History\low\*" /AH >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\INetCache\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\WER\ReportArchive\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\WER\ReportQueue\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Microsoft\Windows\WebCache\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Local\Temp\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Roaming\Adobe\Flash Player\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Roaming\Microsoft\Teams\Service Worker\CacheStorage\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Roaming\Macromedia\Flash Player\*" >nul 2>&1
+        del /F /S /Q "%%x\AppData\Roaming\Microsoft\Windows\Recent\*" >nul 2>&1
+        del /F /S /Q "%%x\Application Data\Adobe\Flash Player\*" >nul 2>&1
+        del /F /S /Q "%%x\Application Data\Macromedia\Flash Player\*" >nul 2>&1
+        del /F /S /Q "%%x\Application Data\Microsoft\Dr Watson\*" >nul 2>&1
+        del /F /S /Q "%%x\Application Data\Microsoft\Windows\WER\ReportArchive\*" >nul 2>&1
+        del /F /S /Q "%%x\Application Data\Microsoft\Windows\WER\ReportQueue\*" >nul 2>&1
+        del /F /S /Q "%%x\Application Data\Sun\Java\*" >nul 2>&1
+        del /F /S /Q "%%x\Local Settings\Application Data\ApplicationHistory\*" >nul 2>&1
+        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\Cache\*" >nul 2>&1
+        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIconsOld\*" >nul 2>&1
+        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIcons\*" >nul 2>&1
+        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\Local Storage\http*.*" >nul 2>&1
+        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\Media Cache\*" >nul 2>&1
+        del /F /S /Q "%%x\Local Settings\Application Data\Microsoft\Dr Watson\*" >nul 2>&1
+        del /F /S /Q "%%x\Local Settings\Application Data\Microsoft\Internet Explorer\Recovery\*" >nul 2>&1
+        del /F /S /Q "%%x\Local Settings\Application Data\Microsoft\Terminal Server Client\Cache\*" >nul 2>&1
+        del /F /S /Q "%%x\Local Settings\Temp\*" >nul 2>&1
+        del /F /S /Q "%%x\Local Settings\Temporary Internet Files\*" >nul 2>&1
     )
-    del /F /S /Q "%WINDIR%\TEMP\*" 2>NUL
-    rmdir /S /Q %SystemDrive%\Temp 2>NUL
-    for %%i in (bat,cmd,txt,log,jpg,jpeg,tmp,temp,bak,backup,exe) do (
-        del /F /Q "%SystemDrive%\*.%%i" 2>NUL
-    )
-    for %%i in (NVIDIA,ATI,AMD,Dell,Intel,HP) do (
-        rmdir /S /Q "%SystemDrive%\%%i" 2>NUL
-    )
-    if exist "%ProgramFiles%\Nvidia Corporation\Installer2" rmdir /s /q "%ProgramFiles%\Nvidia Corporation\Installer2"
-    if exist "%ALLUSERSPROFILE%\NVIDIA Corporation\NetService" del /f /q "%ALLUSERSPROFILE%\NVIDIA Corporation\NetService\*.exe"
-    if exist %SystemDrive%\MSOCache rmdir /S /Q %SystemDrive%\MSOCache
-    if exist %SystemDrive%\i386 rmdir /S /Q %SystemDrive%\i386
-    if exist %SystemDrive%\RECYCLER rmdir /s /q %SystemDrive%\RECYCLER
-    if exist %SystemDrive%\$Recycle.Bin rmdir /s /q %SystemDrive%\$Recycle.Bin
-    if exist "%ALLUSERSPROFILE%\Microsoft\Windows\WER\ReportArchive" rmdir /s /q "%ALLUSERSPROFILE%\Microsoft\Windows\WER\ReportArchive"
-    if exist "%ALLUSERSPROFILE%\Microsoft\Windows\WER\ReportQueue" rmdir /s /q "%ALLUSERSPROFILE%\Microsoft\Windows\WER\ReportQueue"
-    if exist "%ALLUSERSPROFILE%\Microsoft\Windows Defender\Scans\History\Results\Quick" rmdir /s /q "%ALLUSERSPROFILE%\Microsoft\Windows Defender\Scans\History\Results\Quick"
-    if exist "%ALLUSERSPROFILE%\Microsoft\Windows Defender\Scans\History\Results\Resource" rmdir /s /q "%ALLUSERSPROFILE%\Microsoft\Windows Defender\Scans\History\Results\Resource"
-    if exist "%ALLUSERSPROFILE%\Microsoft\Search\Data\Temp" rmdir /s /q "%ALLUSERSPROFILE%\Microsoft\Search\Data\Temp"
-    del /F /Q %WINDIR%\*.log 2>NUL
-    del /F /Q %WINDIR%\*.txt 2>NUL
-    del /F /Q %WINDIR%\*.bmp 2>NUL
-    del /F /Q %WINDIR%\*.tmp 2>NUL
-    rmdir /S /Q %WINDIR%\Web\Wallpaper\Dell 2>NUL
-    if exist "%ProgramFiles%\NVIDIA Corporation\Installer" rmdir /s /q "%ProgramFiles%\NVIDIA Corporation\Installer" 2>NUL
-    if exist "%ProgramFiles%\NVIDIA Corporation\Installer2" rmdir /s /q "%ProgramFiles%\NVIDIA Corporation\Installer2" 2>NUL
-    if exist "%ProgramFiles(x86)%\NVIDIA Corporation\Installer" rmdir /s /q "%ProgramFiles(x86)%\NVIDIA Corporation\Installer" 2>NUL
-    if exist "%ProgramFiles(x86)%\NVIDIA Corporation\Installer2" rmdir /s /q "%ProgramFiles(x86)%\NVIDIA Corporation\Installer2" 2>NUL
-    if exist "%ProgramData%\NVIDIA Corporation\Downloader" rmdir /s /q "%ProgramData%\NVIDIA Corporation\Downloader" 2>NUL
-    if exist "%ProgramData%\NVIDIA\Downloader" rmdir /s /q "%ProgramData%\NVIDIA\Downloader" 2>NUL
-    start "" "C:\Ect\Outils\ccmd\TEMP\START.exe"
+    start "" "C:\Ect\Outils\ccmd\TEMP\START.exe" >nul 2>&1
     goto :RESTART
 ) else (
     goto :SIUT_6
@@ -795,6 +760,9 @@ IF "%CMD%"=="RESET" (
     IF EXIST "C:\Ect\Outils\ccmd\ERRCHK.bat" DEL "C:\Ect\Outils\ccmd\ERRCHK.bat" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\chk.bat" DEL "C:\Ect\Outils\ccmd\chk.bat" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\mjc.exe" DEL "C:\Ect\Outils\ccmd\mjc.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat" DEL "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" DEL "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\update\update.exe" DEL "C:\Ect\Outils\ccmd\update\update.exe" >nul 2>&1
     @timeout /t 01>nul
     goto :resetscript
 ) else (
@@ -1080,6 +1048,31 @@ goto :UDAINP
 
 :UPCMDU
 IF %scrver% LSS %cmd_new% (
+    IF EXIST "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" DEL "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" DEL "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" DEL "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\_CP.exe" DEL "C:\Ect\Outils\ccmd\_CP.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\7za.exe" DEL "C:\Ect\Outils\ccmd\7za.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\batbox.exe" DEL "C:\Ect\Outils\ccmd\batbox.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\GetInput.exe" DEL "C:\Ect\Outils\ccmd\GetInput.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\tlm.exe" DEL "C:\Ect\Outils\ccmd\tlm.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\autoconf.bat" DEL "C:\Ect\Outils\ccmd\autoconf.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\exe_gamename.txt" DEL "C:\Ect\Outils\ccmd\exe_gamename.txt" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\es.exe" DEL "C:\Ect\Outils\ccmd\es.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\Everything.exe" DEL "C:\Ect\Outils\ccmd\Everything.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\Everything.lng" DEL "C:\Ect\Outils\ccmd\Everything.lng" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\cli.c" DEL "C:\Ect\Outils\ccmd\cli.c" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\bios.exe" DEL "C:\Ect\Outils\ccmd\bios.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\cpu.exe" DEL "C:\Ect\Outils\ccmd\cpu.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\GPrio.bat" DEL "C:\Ect\Outils\ccmd\GPrio.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\gpu.exe" DEL "C:\Ect\Outils\ccmd\gpu.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\motherboard.exe" DEL "C:\Ect\Outils\ccmd\motherboard.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\DownloadBlockTheSpot.ps1" DEL "C:\Ect\Outils\ccmd\DownloadBlockTheSpot.ps1" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ERRCHK.bat" DEL "C:\Ect\Outils\ccmd\ERRCHK.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\chk.bat" DEL "C:\Ect\Outils\ccmd\chk.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\mjc.exe" DEL "C:\Ect\Outils\ccmd\mjc.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat" DEL "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" DEL "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\update\update.exe" START "" "C:\Ect\Outils\ccmd\update\update.exe"
     Exit
 ) else (
