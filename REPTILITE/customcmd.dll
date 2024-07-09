@@ -737,6 +737,8 @@ IF "%CMD%"=="CTLM" (
 
 :SIUT_51
 IF "%CMD%"=="RESET" (
+    taskkill /f /im tlm.exe >nul 2>&1
+    @timeout /t 02>nul
     IF EXIST "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" DEL "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" DEL "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" DEL "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" >nul 2>&1
@@ -1048,6 +1050,8 @@ goto :UDAINP
 
 :UPCMDU
 IF %scrver% LSS %cmd_new% (
+    taskkill /f /im tlm.exe >nul 2>&1
+    @timeout /t 02>nul
     IF EXIST "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" DEL "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" DEL "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" DEL "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" >nul 2>&1
