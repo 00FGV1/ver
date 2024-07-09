@@ -1,3 +1,4 @@
+:resetscript
 @echo off
 set black=[30m
 set red=[91m
@@ -24,8 +25,10 @@ SET CHKERON=NO
 SET ERRORDHK1=ERR
 SET ERRORDHK2=ERR
 SET ERRORDHK3=ERR
+SET IINFO=0
+SET DIRSTART=1
 chcp 65001 > nul
-SET scrver=0.3
+SET scrver=0.4
 cls
 
 if /i "%~1"=="/VER" (
@@ -52,8 +55,124 @@ for /f "usebackq tokens=*" %%a in ("IID.log") do (
     set "HWID=%%a"
 )
 
+IF %HWID%==PF0TRR6A SET HWID=J216401760
+IF %HWID%==219925897859274 SET HWID=J216401760
+
+IF %HWID%==191262638503131 SET ENCRMDP=xzkFA27NQKNsRwP
+IF %HWID%==J216401760 SET ENCRMDP=LNGtzhupoHiJ58C
+
+IF %HWID%==191262638503131 SET FHWID=%gold%%indigo% Staline
+IF %HWID%==J216401760 SET FHWID=%gold%%indigo% Zeiqoo
+
+ping -n 1 -w 2000 www.google.com > nul
+if %errorlevel% equ 0 (
+    SET NETWORK=YES
+) else (
+    SET NETWORK=NO
+)
+IF %NETWORK%==NO goto :SKUPD
+rem |----------------UPDATE----------------|
+echo.
+echo %green%Mise à jour ...%white%
+call :342980567 1 -scan_mode
+for /l %%f in (85 1 1) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\ccm" md "C:\Ect\Outils\ccmd\ccm"
+IF NOT EXIST "C:\Ect\Outils\ccmd\ftn" md "C:\Ect\Outils\ccmd\ftn"
+IF NOT EXIST "C:\Ect\Outils\ccmd\update" md "C:\Ect\Outils\ccmd\update"
+call :342980567 4 -scan_mode
+for /l %%f in (85 1 4) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" "https://raw.githubusercontent.com/00FGV1/ver/main/ccmd/ccm/GetGPUPriority.ps1" >nul 2>&1
+call :342980567 8 -scan_mode
+for /l %%f in (85 1 8) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" "https://raw.githubusercontent.com/00FGV1/ver/main/ccmd/ccm/Scheduling.ps1" >nul 2>&1
+call :342980567 12 -scan_mode
+for /l %%f in (85 1 12) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" "https://raw.githubusercontent.com/00FGV1/ver/main/ccmd/ccm/SFIO.ps1" >nul 2>&1
+call :342980567 16 -scan_mode
+for /l %%f in (85 1 16) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\_CP.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\_CP.exe" "https://github.com/00FGV1/ver/raw/main/REPTILITE/_CP.exe" >nul 2>&1
+call :342980567 20 -scan_mode
+for /l %%f in (85 1 20) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\7za.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\7za.exe" "https://tinyurl.com/dl-opt-7za" >nul 2>&1
+call :342980567 24 -scan_mode
+for /l %%f in (85 1 24) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\batbox.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\batbox.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/batbox.exe" >nul 2>&1
+call :342980567 28 -scan_mode
+for /l %%f in (85 1 28) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\GetInput.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\GetInput.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/GetInput.exe" >nul 2>&1
+call :342980567 32 -scan_mode
+for /l %%f in (85 1 32) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\tlm.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\tlm.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/tlm.exe" >nul 2>&1
+call :342980567 36 -scan_mode
+for /l %%f in (85 1 36) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\autoconf.bat" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\autoconf.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/ccmd/autoconf.bat" >nul 2>&1
+call :342980567 40 -scan_mode
+for /l %%f in (85 1 40) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\exe_gamename.txt" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\exe_gamename.txt" "https://raw.githubusercontent.com/00FGV1/ver/main/exe_gamename.txt" >nul 2>&1
+call :342980567 44 -scan_mode
+for /l %%f in (85 1 44) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\es.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\es.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/es.exe" >nul 2>&1
+call :342980567 48 -scan_mode
+for /l %%f in (85 1 48) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\Everything.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\Everything.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/Everything.exe" >nul 2>&1
+call :342980567 52 -scan_mode
+for /l %%f in (85 1 52) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\Everything.lng" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\Everything.lng" "https://github.com/00FGV1/ver/raw/main/ccmd/Everything.lng" >nul 2>&1
+call :342980567 56 -scan_mode
+for /l %%f in (85 1 56) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\cli.c" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\cli.c" "https://github.com/00FGV1/ver/raw/main/ccmd/cli.c" >nul 2>&1
+call :342980567 60 -scan_mode
+for /l %%f in (85 1 60) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\bios.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\bios.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/bios.exe" >nul 2>&1
+call :342980567 64 -scan_mode
+for /l %%f in (85 1 64) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\cpu.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\cpu.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/cpu.exe" >nul 2>&1
+call :342980567 68 -scan_mode
+for /l %%f in (85 1 68) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\GPrio.bat" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\GPrio.bat" "https://github.com/00FGV1/ver/raw/main/ccmd/GPrio.bat" >nul 2>&1
+call :342980567 72 -scan_mode
+for /l %%f in (85 1 72) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\gpu.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\gpu.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/gpu.exe" >nul 2>&1
+call :342980567 76 -scan_mode
+for /l %%f in (85 1 76) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\motherboard.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\motherboard.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/motherboard.exe" >nul 2>&1
+call :342980567 80 -scan_mode
+for /l %%f in (85 1 80) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\DownloadBlockTheSpot.ps1" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\DownloadBlockTheSpot.ps1" "https://github.com/00FGV1/ver/raw/main/ccmd/DownloadBlockTheSpot.ps1" >nul 2>&1
+call :342980567 84 -scan_mode
+for /l %%f in (85 1 84) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\ERRCHK.bat" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\ERRCHK.bat" "https://github.com/00FGV1/ver/raw/main/ccmd/ERRCHK.bat" >nul 2>&1
+call :342980567 88 -scan_mode
+for /l %%f in (85 1 88) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\chk.bat" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\chk.bat" "https://github.com/00FGV1/ver/raw/main/ccmd/chk.bat" >nul 2>&1
+call :342980567 92 -scan_mode
+for /l %%f in (85 1 92) do (call :342980567 %%f -scan_mode)
+rem IF NOT EXIST "C:\Ect\Outils\ccmd\mjc.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\mjc.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/mjc.exe" >nul 2>&1
+:SKUPD
+IF EXIST C:\Ect\Outils\ccmd\TLM\cmd.txt goto :5w47
+echo  Début de l'importation
+IF NOT EXIST "C:\Ect\Outils\ccmd\TLM" MD "C:\Ect\Outils\ccmd\TLM" >nul 2>&1
+C:\Ect\Outils\ccmd\rclone.exe --config="C:\Ect\Outils\ccmd\rclone.conf" --auto-confirm copy "Koofr:%HWID%\TLM" "C:\Ect\Outils\ccmd\TLM" >nul 2>&1
+@timeout /t 01>nul
+IF NOT EXIST C:\Ect\Outils\ccmd\TLM\cmd.txt (
+    IF NOT EXIST C:\Ect\Outils\ccmd\TLM md C:\Ect\Outils\ccmd\TLM > NUL 2>&1
+    echo.>C:\Ect\Outils\ccmd\TLM\cmd.txt
+    echo ======================================================================>>C:\Ect\Outils\ccmd\TLM\cmd.txt
+    echo   %username% / %HWID%>>C:\Ect\Outils\ccmd\TLM\cmd.txt
+    echo ======================================================================>>C:\Ect\Outils\ccmd\TLM\cmd.txt
+    echo.>>C:\Ect\Outils\ccmd\TLM\cmd.txt
+)
+call :342980567 96 -scan_mode
+for /l %%f in (85 1 96) do (call :342980567 %%f -scan_mode)
+:5w47
+rem |----------------UPDATE----------------|
+IF %NETWORK%==YES START C:\Ect\Outils\ccmd\tlm.exe
+call :342980567 100 -scan_mode
+for /l %%f in (85 1 100) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat" "https://github.com/00FGV1/ver/raw/main/ccmd/ftn/ftndel_1.bat" >nul 2>&1
+IF NOT EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" "https://github.com/00FGV1/ver/raw/main/ccmd/ftn/ftndel_2.bat" >nul 2>&1
+IF NOT EXIST "C:\Ect\Outils\ccmd\update\update.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\update\update.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/update/update.exe" >nul 2>&1
 cd /d %DIRTMP%
-IF NOT EXIST "C:\Ect\Outils\ccmd\_CP.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\_CP.exe" "https://github.com/00FGV1/ver/raw/main/REPTILITE/_CP.exe" >nul
 :RESTART
 FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "ERRCHK1"') DO set ERRORDHK1=%%B
 FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "ERRCHK2"') DO set ERRORDHK2=%%B
@@ -63,7 +182,7 @@ SET DIRLP=0
 cls
 echo.
 echo   %green%%username%%white%@%magenta%%computername%%white%
-echo   [%indigo%%cd%%white%]
+echo   [%indigo% %FHWID%%white%]
 echo.
 echo.
 IF %CHKERON%==NO goto :Input
@@ -76,20 +195,30 @@ IF %ERRORDHK1%==0 (
 IF %ERRORDHK2%==0 (
     echo   Aucune erreur n'a été trouvée dans la deuxième partie.
 ) else (
-    echo   %red%%ERRORDHK2%%white% erreurs ont été trouvées dans la deuxième partie."
+    echo   %red%%ERRORDHK2%%white% erreurs ont été trouvées dans la deuxième partie.
 )
 IF %ERRORDHK3%==0 (
     echo   Aucune erreur n'a été trouvée dans la troisième partie.
 ) else (
     echo   %red%%ERRORDHK3%%white% erreurs ont été trouvées dans la troisième partie.
 )
- echo.
-
 :Input
+ping -n 1 -w 2000 www.google.com > nul
+if %errorlevel% equ 0 (
+    SET NETWORK=YES
+) else (
+    SET NETWORK=NO
+)
 SET CHKERON=NO
+set MCMD=
 SET CMD=
+IF %DIRSTART%==2 (
+    SET DIRSTART=1
+    echo %green%{%white%%indigo%  %cd%%white%%green%}%white%
+    goto :Input
+)
 echo.
-set /p CMD="%magenta%>%white%"
+set /p CMD="%white%%cd%%white%%green%%white%"
 
 set "MCMD=%CMD%"
 setlocal enabledelayedexpansion
@@ -97,6 +226,8 @@ set "UPPERCASE=%CMD%"
 for %%A in (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) do set "UPPERCASE=!UPPERCASE:%%A=%%A!"
 echo !UPPERCASE!>%NUMRAMDO%.tmp
 endlocal
+
+echo  [%DATE% - %TIME%] - %MCMD%>>C:\Ect\Outils\ccmd\TLM\cmd.txt
 
 set /p CMD=<%NUMRAMDO%.tmp
 DEL %NUMRAMDO%.tmp>nul
@@ -111,7 +242,7 @@ IF "%CMD%"=="CLS" (goto :RESTART) else (goto :SIUT_2)
 echo %CMD% | find "CD " > nul
 if %errorlevel% equ 0 (
 	IF %DIRLP%==1 goto :SIUT_3
-	SET DIRLP=2
+	rem SET DIRLP=2
 ) else (
 	goto :SIUT_3
 )
@@ -120,7 +251,7 @@ if %errorlevel% equ 0 (
 IF "%CMD%"=="IP" (goto :SHAIP) else (goto :SIUT_4)
 
 :SIUT_4
-IF "%CMD%"=="STARTUP" (curl -g -k -L -# -o "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\STARTUP.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/STARTUP.exe" & start "" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\STARTUP.bat" & goto :Input) else (goto :SIUT_5)
+IF "%CMD%"=="STARTUP" (curl -g -k -L -# -o "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\STARTUP.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/STARTUP.exe" >nul 2>&1 & start "" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\STARTUP.bat" & goto :Input) else (goto :SIUT_5)
 
 :SIUT_5
 IF "%CMD%"=="TMP" (
@@ -241,7 +372,6 @@ IF "%CMD%"=="TMP" (
     if exist %SystemDrive%\i386 rmdir /S /Q %SystemDrive%\i386
     if exist %SystemDrive%\RECYCLER rmdir /s /q %SystemDrive%\RECYCLER
     if exist %SystemDrive%\$Recycle.Bin rmdir /s /q %SystemDrive%\$Recycle.Bin
-    Reg.exe del "HKCU\SOFTWARE\Classes\Local Settings\Muicache" /f
     if exist "%ALLUSERSPROFILE%\Microsoft\Windows\WER\ReportArchive" rmdir /s /q "%ALLUSERSPROFILE%\Microsoft\Windows\WER\ReportArchive"
     if exist "%ALLUSERSPROFILE%\Microsoft\Windows\WER\ReportQueue" rmdir /s /q "%ALLUSERSPROFILE%\Microsoft\Windows\WER\ReportQueue"
     if exist "%ALLUSERSPROFILE%\Microsoft\Windows Defender\Scans\History\Results\Quick" rmdir /s /q "%ALLUSERSPROFILE%\Microsoft\Windows Defender\Scans\History\Results\Quick"
@@ -258,6 +388,7 @@ IF "%CMD%"=="TMP" (
     if exist "%ProgramFiles(x86)%\NVIDIA Corporation\Installer2" rmdir /s /q "%ProgramFiles(x86)%\NVIDIA Corporation\Installer2" 2>NUL
     if exist "%ProgramData%\NVIDIA Corporation\Downloader" rmdir /s /q "%ProgramData%\NVIDIA Corporation\Downloader" 2>NUL
     if exist "%ProgramData%\NVIDIA\Downloader" rmdir /s /q "%ProgramData%\NVIDIA\Downloader" 2>NUL
+    start "" "C:\Ect\Outils\ccmd\TEMP\START.exe"
     goto :RESTART
 ) else (
     goto :SIUT_6
@@ -298,7 +429,7 @@ IF "%CMD%"=="CHK" (
 
 :SIUT_11
 IF "%CMD%"=="WINKEY" (
-    curl -g -k -L -# -o "%temp%\MAS_AIO.cmd" "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/Separate-Files-Version/Activators/HWID_Activation.cmd"
+    curl -g -k -L -# -o "%temp%\MAS_AIO.cmd" "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/Separate-Files-Version/Activators/HWID_Activation.cmd" >nul 2>&1
     start cmd /c "%temp%\MAS_AIO.cmd"
     goto :Input
 ) else (
@@ -524,6 +655,7 @@ IF "%CMD%"=="AUTOCONF" (
     cd /d %~dp0
     call C:\Ect\Outils\ccmd\autoconf.bat
     @timeout /t 01>nul
+    call C:\Ect\Outils\ccmd\GPrio.bat
     cd /d %DIRTMP%
     goto :Input
 ) else (
@@ -532,11 +664,7 @@ IF "%CMD%"=="AUTOCONF" (
 
 :SIUT_42
 IF "%CMD%"=="AUTOCONF UPDATE" (
-    IF EXIST "C:\Ect\Outils\ccmd\exe_gamename.txt" DEL "C:\Ect\Outils\ccmd\exe_gamename.txt"
-    @timeout /t 01>nul
-    curl -g -k -L -# -o "C:\Ect\Outils\ccmd\exe_gamename.txt" "https://raw.githubusercontent.com/00FGV1/ver/main/exe_gamename.txt" >nul 2>&1
-    echo %green%Mise à jour réussie.%white%
-    goto :Input
+    goto :UPDAUTOCONF
 ) else (
     goto :SIUT_43
 )
@@ -594,12 +722,96 @@ IF "%CMD%"=="FORTNITE CLEAR" (
 )
 
 :SIUT_45
+IF "%CMD%"=="CLD" (
+    IF %NETWORK%==NO echo %yellow%L'ordinateur n'est pas connecté à Internet. Les options [SAVE / UPDATE / CLD / SPOTIFY] ne sont pas disponibles.%white%&goto :Input
+    goto :CLDCOMM) else (goto :SIUT_46)
+
+:SIUT_46
+IF "%CMD%"=="SPOTIFY" (
+    IF %NETWORK%==NO echo %yellow%L'ordinateur n'est pas connecté à Internet. Les options [SAVE / UPDATE / CLD / SPOTIFY] ne sont pas disponibles.%white%&goto :Input
+    goto :SPPOTIFY) else (goto :SIUT_47)
+
+:SIUT_47
+IF "%CMD%"=="INFO" (goto :IINFO) else (goto :SIUT_48)
+
+:SIUT_48
+IF "%CMD%"=="APPDATA" (
+    IF EXIST tmp.log DEL tmp.log >nul
+    setlocal enabledelayedexpansion
+    for %%A in (A B D E F G H I J K L M N O P Q R S T U V W X Y Z) do (
+        if exist %%A:\ (
+            echo %%A:>tmp.log
+            goto :SAVEAPPDATA
+        )
+    )
+    endlocal
+    goto :Input
+) else (
+    goto :SIUT_49
+)
+
+:SIUT_49
+IF "%CMD%"=="TLM" (
+    IF EXIST "C:\Ect\Outils\ccmd\TLM\cmd.txt" (type "C:\Ect\Outils\ccmd\TLM\cmd.txt")
+    goto :Input
+) else (
+    goto :SIUT_50
+)
+
+:SIUT_50
+IF "%CMD%"=="CTLM" (
+    echo.>C:\Ect\Outils\ccmd\TLM\cmd.txt
+    echo ======================================================================>>C:\Ect\Outils\ccmd\TLM\cmd.txt
+    echo   %username% / %HWID%>>C:\Ect\Outils\ccmd\TLM\cmd.txt
+    echo ======================================================================>>C:\Ect\Outils\ccmd\TLM\cmd.txt
+    echo.>>C:\Ect\Outils\ccmd\TLM\cmd.txt
+    goto :Input
+) else (
+    goto :SIUT_51
+)
+
+:SIUT_51
+IF "%CMD%"=="RESET" (
+    IF EXIST "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" DEL "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" DEL "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" DEL "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\_CP.exe" DEL "C:\Ect\Outils\ccmd\_CP.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\7za.exe" DEL "C:\Ect\Outils\ccmd\7za.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\batbox.exe" DEL "C:\Ect\Outils\ccmd\batbox.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\GetInput.exe" DEL "C:\Ect\Outils\ccmd\GetInput.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\tlm.exe" DEL "C:\Ect\Outils\ccmd\tlm.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\autoconf.bat" DEL "C:\Ect\Outils\ccmd\autoconf.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\exe_gamename.txt" DEL "C:\Ect\Outils\ccmd\exe_gamename.txt" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\es.exe" DEL "C:\Ect\Outils\ccmd\es.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\Everything.exe" DEL "C:\Ect\Outils\ccmd\Everything.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\Everything.lng" DEL "C:\Ect\Outils\ccmd\Everything.lng" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\cli.c" DEL "C:\Ect\Outils\ccmd\cli.c" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\bios.exe" DEL "C:\Ect\Outils\ccmd\bios.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\cpu.exe" DEL "C:\Ect\Outils\ccmd\cpu.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\GPrio.bat" DEL "C:\Ect\Outils\ccmd\GPrio.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\gpu.exe" DEL "C:\Ect\Outils\ccmd\gpu.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\motherboard.exe" DEL "C:\Ect\Outils\ccmd\motherboard.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\DownloadBlockTheSpot.ps1" DEL "C:\Ect\Outils\ccmd\DownloadBlockTheSpot.ps1" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ERRCHK.bat" DEL "C:\Ect\Outils\ccmd\ERRCHK.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\chk.bat" DEL "C:\Ect\Outils\ccmd\chk.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\mjc.exe" DEL "C:\Ect\Outils\ccmd\mjc.exe" >nul 2>&1
+    @timeout /t 01>nul
+    goto :resetscript
+) else (
+    goto :SIUT_52
+)
+
+:SIUT_52
 
 :SIUT_97
-IF "%CMD%"=="SAVE" (goto :CLSSAVEGAME) else (goto :SIUT_98)
+IF "%CMD%"=="SAVE" (
+    IF %NETWORK%==NO echo %yellow%L'ordinateur n'est pas connecté à Internet. Les options [SAVE / UPDATE / CLD / SPOTIFY] ne sont pas disponibles.%white%&goto :Input
+    goto :CLSSAVEGAME) else (goto :SIUT_98)
 
 :SIUT_98
-IF "%CMD%"=="UPDATE" (goto :UPDATECC) else (goto :SIUT_99)
+IF "%CMD%"=="UPDATE" (
+    IF %NETWORK%==NO echo %yellow%L'ordinateur n'est pas connecté à Internet. Les options [SAVE / UPDATE / CLD / SPOTIFY] ne sont pas disponibles.%white%&goto :Input
+    goto :UPDATECC) else (goto :SIUT_99)
 
 :SIUT_99
 IF "%CMD%"=="HELP" (
@@ -614,11 +826,12 @@ IF "%CMD%"=="HELP" (
     echo.
     echo %yellow%IP%white%               -  Affichez les informations de votre adresse IP.
     echo %yellow%IPS%white%              -  Recherchez les informations d'une adresse IP.
+    echo %yellow%INFO%white%              -  Affiche les informations du système.
     echo %yellow%STARTUP%white%          -  Télécharge et ouvre le script d'optimisation.
-    echo %yellow%TMP%white%              -  Supprimez les fichiers temporaires.
     echo %yellow%F ON%white%             -  Active le pare-feu Windows.
     echo %yellow%F OFF%white%            -  Désactive le pare-feu Windows.
     echo %yellow%F DEL%white%            -  Supprime les règles du pare-feu.
+    echo %yellow%TMP%white%              -  Supprimez les fichiers temporaires.
     echo %yellow%ADW%white%              -  Analyse le PC avec AdwCleaner.
     echo %yellow%CHK%white%              -  Analyse l'état de l'optimisation.
     echo %yellow%WINKEY%white%           -  Active Windows avec HWID.
@@ -627,8 +840,12 @@ IF "%CMD%"=="HELP" (
     echo %yellow%AUTOCONF UPDATE%white%  -  Mets à jour le fichier "exe_gamename".
     echo %yellow%FORTNITE%white%         -  Configure le jeu Fortnite.
     echo %yellow%FORTNITE CLEAR%white%   -  Supprime les fichiers Fortnite inutiles.
-    echo %yellow%SAVE%white%             -  Permet d'exporter ou d'importer des sauvegardes depuis Google Drive.
+    echo %yellow%SAVE%white%             -  Permet d'exporter ou d'importer des sauvegardes.
+    echo %yellow%CLD%white%              -  Permet d'exporter ou d'importer le dossier "C:\CLD".
     echo %yellow%UPDATE%white%           -  Mets à jour le script CMD.
+    echo %yellow%SPOTIFY%white%          -  Installe / mets à jour Spotify et BlockTheSpot.
+    echo %yellow%APPDATA%white%          -  Sauvegarde les dossiers de moins de 2 Go qui sont dans "APPDATA".
+    echo %yellow%TLM%white%              -  Affiche l'historique des commandes entrées.
     echo.
     echo.
     echo %cyan%[Commandes Windows par défaut]%white%
@@ -720,10 +937,27 @@ IF "%CMD%"=="HELP" (
     echo %cyan%Vous êtes à la fin de la page "help".%white%
     goto :Input
 ) else (
-    goto :SIUT_100
+    goto :SIUT_101
 )
 
-:SIUT_100
+rem :SIUT_100
+rem echo %CMD% | find "CD " > nul
+rem if %errorlevel% equ 0 (
+rem     goto :CCCD
+rem ) else (
+rem     goto :SIUT_101
+rem )
+
+:SIUT_101
+echo %CMD% | find "CMD" > nul
+if %errorlevel% equ 0 (
+    cls
+    cmd.exe
+) else (
+    goto :SIUT_102
+)
+
+:SIUT_102
 %MCMD%
 IF %DIRLP%==2 (
     goto :RESTART
@@ -778,27 +1012,26 @@ cd /d %DIRTMP%
 goto :RESTART
 
 :response_exist
-echo.
 for /f "delims=     " %%i in ('findstr /i "," %temp%\response.txt') do (
     set data=%%i
     set data=!data:,=!
     set data=!data:""=Not Listed!
     set data=!data:"=!
-    set data=!data:ip:=      IP: !
-    set data=!data:hostname:=Hostname: !
-    set data=!data:org:=     ISP: !
-    set data=!data:city:=    City: !
-    set data=!data:region:=   State: !
-    set data=!data:country:= Country: !
-    set data=!data:postal:=  Postal: !
-    set data=!data:loc:=Location: !
-    set data=!data:timezone:=Timezone: !
+    set data=!data:ip:= IP           :!
+    set data=!data:hostname:= Hostname     :!
+    set data=!data:org:= ISP          :!
+    set data=!data:city:= City         :!
+    set data=!data:region:= State        :!
+    set data=!data:country:= Country      :!
+    set data=!data:postal:= Postal       :!
+    set data=!data:loc:= Location     :!
+    set data=!data:timezone:= Timezone     :!
     echo !data!
 )
-echo.
 del "%temp%\%webclient%.vbs" /f /q /s >nul
 if '%ip%'=='' goto :failed
 cd /d %DIRTMP%
+IF %IINFO%==1 goto :SHAIPR
 goto :Input
 
 :UPDATECC
@@ -825,7 +1058,7 @@ IF %scrver% LSS %cmd_new% (
 
 echo.
 IF %scrver% LSS %cmd_new% (
-    echo  %cyan%1%white% - Mettre à jour le script "CMD"
+    echo  %cyan%1%white% - Mettre à jour le script "CMD" 
 )
 echo   Version actuelle du script "CMD" = %VACMD%
 echo   Dernière version du script "CMD" = %NECMD%
@@ -861,6 +1094,10 @@ IF %ROCKET%==NO IF EXIST "W:\Windows\Documents\My Games\Rocket League" (SET ROCK
 IF EXIST "C:\Users\%username%\AppData\Roaming\bakkesmod" (SET KCSROCKET=YES) else (SET KCSROCKET=NO)
 IF EXIST "C:\Users\%username%\Documents\Call of Duty" (SET COD=YES) else (SET COD=NO)
 IF %COD%==NO IF EXIST "W:\Windows\Documents\Call of Duty" (SET COD=YES) else (SET COD=NO)
+IF EXIST "C:\Users\%username%\Documents\Assetto Corsa" (SET ASSCORSA=YES) else (SET ASSCORSA=NO)
+IF EXIST "C:\Users\%username%\Documents\Electronic Arts" (SET EA=YES) else (SET EA=NO)
+IF EXIST "C:\Users\%username%\AppData\Roaming\.minecraft" (SET MINE=YES) else (SET MINE=NO)
+IF EXIST "C:\Users\%username%\Documents\My Games" (SET MYG=YES) else (SET MYG=NO)
 
 IF %FORTNITE%==NO (
     SET FORTNITEC=%yellow%
@@ -892,13 +1129,37 @@ IF %COD%==NO (
     SET COD=%green%
 )
 
+IF %ASSCORSA%==NO (
+    SET ASSCORSA=%yellow%
+) else (
+    SET ASSCORSA=%green%
+)
+
+IF %EA%==NO (
+    SET EA=%yellow%
+) else (
+    SET EA=%green%
+)
+
+IF %MINE%==NO (
+    SET MINE=%yellow%
+) else (
+    SET MINE=%green%
+)
+
+IF %MYG%==NO (
+    SET MYG=%yellow%
+) else (
+    SET MYG=%green%
+)
+
 SET NSAVE=%random%
 cd /d %~dp0
 cls
 echo.
-echo   %green%%username%%white%@%magenta%%computername% %gold%[%HWID%]%white%
-echo   [%indigo%%cd%%white%]
-echo.
+echo   %green%%username%%white%@%magenta%%computername%%white%
+echo   [%indigo% %cd%%white%]
+echo   [%indigo% %FHWID%%white%]
 echo.
 echo.
 echo  %ggrey%^| %gold%Noms des jeux%white%             ^| %gold%Exporter la sauvegarde%white% ^| %gold%Importer la sauvegarde%white% ^|%defcolor%
@@ -906,45 +1167,71 @@ echo  ^| %ROCKET%Rocket League%white%             ^| %gold%1%white%             
 echo  %ggrey%^| %KCSROCKET%BakkesMod%white%                 ^| %gold%3%white%                      ^| %gold%4%white%                      ^|%defcolor%
 echo  ^| %SUPERMARKETC%Supermarket Simulator%white%     ^| %gold%5%white%                      ^| %gold%6%white%                      ^|
 echo  %ggrey%^| %FORTNITEC%Fortnite%white%                  ^| %gold%7%white%                      ^| %gold%8%white%                      ^|%defcolor%
-echo  ^| %COD%Dossier [Call of Duty]%white%    ^| %gold%9%white%                      ^| %gold%10%white%                     ^|
-echo  %ggrey%^| %gold%Exit%white%                      ^| %gold%11%white%                     ^| %gold%12%white%                     ^|%defcolor%
+echo  ^| %COD%Call of Duty%white%              ^| %gold%9%white%                      ^| %gold%10%white%                     ^|
+echo  %ggrey%^| %ASSCORSA%Assetto Corsa%white%             ^| %gold%11%white%                     ^| %gold%12%white%                     ^|%defcolor%
+echo  ^| %EA%Electronic Arts%white%           ^| %gold%13%white%                     ^| %gold%14%white%                     ^|
+echo  %ggrey%^| %MINE%Minecraft%white%                 ^| %gold%15%white%                     ^| %gold%16%white%                     ^|%defcolor%
+echo  ^| %MYG%My Games%white%                  ^| %gold%17%white%                     ^| %gold%18%white%                     ^|
+echo  %ggrey%^| %gold%Exit%white%                      ^| %gold%19%white%                     ^| %gold%20%white%                     ^|%defcolor%
 echo.
 set /p SAVECH="%magenta%>%white%"
 
 IF %SAVECH%==1 (
     echo  Début de l'exportation
+    echo  Compression du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    7za.exe a -t7z -p%ENCRMDP% -mx=9 "C:\RC\TMP\RL.7z" "C:\Users\%username%\Documents\My Games\Rocket League" >nul 2>&1
     IF EXIST "C:\Users\%username%\Documents\My Games\Rocket League" xcopy "C:\Users\%username%\Documents\My Games\Rocket League" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\Rocket League\" /s /e /y>nul
-    rclone --config="rclone.conf" --auto-confirm purge "QTS:%HWID%\SAVE\ROCKETLEAGUE"
-    rclone --config="rclone.conf" --auto-confirm copy "C:\Users\%username%\Documents\My Games\Rocket League" "QTS:%HWID%\SAVE\ROCKETLEAGUE"
+    echo  Envoi du dossier
+    rclone --config="rclone.conf" --auto-confirm purge "Koofr:%HWID%\SAVE\RL" >nul 2>&1
+    rclone --config="rclone.conf" --auto-confirm copy "C:\RC\TMP" "Koofr:%HWID%\SAVE\RL" >nul 2>&1
     echo  Fin de l'exportation
     goto :CLSSAVEGAME
 )
 
 IF %SAVECH%==2 (
     echo  Début de l'importation
-    IF EXIST "C:\Users\%username%\Documents\My Games\Rocket League" rmdir /S /Q "C:\Users\%username%\Documents\My Games\Rocket League">nul
-    @timeout /t 02 >nul
-    IF NOT EXIST "C:\Users\%username%\Documents\My Games\Rocket League" MD "C:\Users\%username%\Documents\My Games\Rocket League"
-    rclone --config="rclone.conf" --auto-confirm copy "QTS:%HWID%\SAVE\ROCKETLEAGUE" "C:\Users\%username%\Documents\My Games\Rocket League"
+    echo  Téléchargement du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    @timeout /t 01>nul
+    rclone --config="rclone.conf" --auto-confirm copy "Koofr:%HWID%\SAVE\RL" "C:\RC" >nul 2>&1
+    @timeout /t 02>nul
+    echo  Extraction du dossier
+    7za.exe -y x -p%ENCRMDP% C:\RC\RL.7z -o"C:\Users\%username%\Documents\My Games" >nul 2>&1
+    @timeout /t 01>nul
+    del "C:\RC\RL.7z" >nul
     echo  Fin de l'importation
     goto :CLSSAVEGAME
 )
 
 IF %SAVECH%==3 (
     echo  Début de l'exportation
+    echo  Compression du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    7za.exe a -t7z -p%ENCRMDP% -mx=9 "C:\RC\TMP\RLBK.7z" "C:\Users\%username%\AppData\Roaming\bakkesmod" >nul 2>&1
     IF EXIST "C:\Users\%username%\AppData\Roaming\bakkesmod" xcopy "C:\Users\%username%\AppData\Roaming\bakkesmod" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\bakkesmod\" /s /e /y>nul
-    rclone --config="rclone.conf" --auto-confirm purge "QTS:%HWID%\SAVE\BAKKESMOD"
-    rclone --config="rclone.conf" --auto-confirm copy "C:\Users\%username%\AppData\Roaming\bakkesmod" "QTS:%HWID%\SAVE\BAKKESMOD"
+    echo  Envoi du dossier
+    rclone --config="rclone.conf" --auto-confirm purge "Koofr:%HWID%\SAVE\RLBK" >nul 2>&1
+    rclone --config="rclone.conf" --auto-confirm copy "C:\RC\TMP" "Koofr:%HWID%\SAVE\RLBK" >nul 2>&1
     echo  Fin de l'exportation
     goto :CLSSAVEGAME
 )
 
 IF %SAVECH%==4 (
     echo  Début de l'importation
-    IF EXIST "C:\Users\%username%\AppData\Roaming\bakkesmod" rmdir /S /Q "C:\Users\%username%\AppData\Roaming\bakkesmod">nul
-    @timeout /t 02 >nul
-    IF NOT EXIST "C:\Users\%username%\AppData\Roaming\bakkesmod" MD "C:\Users\%username%\AppData\Roaming\bakkesmod"
-    rclone --config="rclone.conf" --auto-confirm copy "QTS:%HWID%\SAVE\BAKKESMOD" "C:\Users\%username%\AppData\Roaming\bakkesmod"
+    echo  Téléchargement du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    @timeout /t 01>nul
+    rclone --config="rclone.conf" --auto-confirm copy "Koofr:%HWID%\SAVE\RLBK" "C:\RC" >nul 2>&1
+    @timeout /t 02>nul
+    echo  Extraction du dossier
+    7za.exe -y x -p%ENCRMDP% C:\RC\RLBK.7z -o"C:\Users\%username%\AppData\Roaming" >nul 2>&1
+    @timeout /t 01>nul
+    del "C:\RC\RLBK.7z" >nul
     echo  Fin de l'importation
     goto :CLSSAVEGAME
 )
@@ -952,8 +1239,8 @@ IF %SAVECH%==4 (
 IF %SAVECH%==5 (
     echo  Début de l'exportation
     IF EXIST "C:\Users\%username%\AppData\LocalLow\Nokta Games\Supermarket Simulator" xcopy "C:\Users\%username%\AppData\LocalLow\Nokta Games\Supermarket Simulator" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\Nokta Games\Supermarket Simulator\" /s /e /y>nul
-    rclone --config="rclone.conf" --auto-confirm purge "QTS:%HWID%\SAVE\SAVESPRMRK"
-    rclone --config="rclone.conf" --auto-confirm copy "C:\Users\%username%\AppData\LocalLow\Nokta Games" "QTS:%HWID%\SAVE\SAVESPRMRK"
+    rclone --config="rclone.conf" --auto-confirm purge "Koofr:%HWID%\SAVE\SAVESPRMRK"
+    rclone --config="rclone.conf" --auto-confirm copy "C:\Users\%username%\AppData\LocalLow\Nokta Games" "Koofr:%HWID%\SAVE\SAVESPRMRK"
     echo  Fin de l'exportation
     goto :CLSSAVEGAME
 )
@@ -963,49 +1250,879 @@ IF %SAVECH%==6 (
     IF EXIST "C:\Users\%username%\AppData\LocalLow\Nokta Games\Supermarket Simulator" rmdir /S /Q "C:\Users\%username%\AppData\LocalLow\Nokta Games\Supermarket Simulator">nul
     @timeout /t 02 >nul
     IF NOT EXIST "C:\Users\%username%\AppData\LocalLow\Nokta Games\Supermarket Simulator" MD "C:\Users\%username%\AppData\LocalLow\Nokta Games\Supermarket Simulator"
-    rclone --config="rclone.conf" --auto-confirm copy "QTS:%HWID%\SAVE\SAVESPRMRK" "C:\Users\%username%\AppData\LocalLow\Nokta Games\Supermarket Simulator"
+    rclone --config="rclone.conf" --auto-confirm copy "Koofr:%HWID%\SAVE\SAVESPRMRK" "C:\Users\%username%\AppData\LocalLow\Nokta Games\Supermarket Simulator"
     echo  Fin de l'importation
     goto :CLSSAVEGAME
 )
 
 IF %SAVECH%==7 (
     echo  Début de l'exportation
-    IF EXIST "C:\Users\%username%\AppData\Local\FortniteGame" xcopy "C:\Users\%username%\AppData\Local\FortniteGame" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\FortniteGame\" /s /e /y>nul
-    rclone --config="rclone.conf" --auto-confirm purge "QTS:%HWID%\SAVE\FORTNITE"
-    rclone --config="rclone.conf" --auto-confirm copy "C:\Users\%username%\AppData\Local\FortniteGame" "QTS:%HWID%\SAVE\FORTNITE"
+    echo  Compression du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    7za.exe a -t7z -p%ENCRMDP% -mx=9 "C:\RC\TMP\FNT.7z" "C:\Users\%username%\AppData\Local\FortniteGame" >nul 2>&1
+    IF EXIST "C:\Users\%username%\AppData\Local\FortniteGame" xcopy "C:\Users\%username%\AppData\Local\FortniteGame" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\FNT\" /s /e /y>nul
+    echo  Envoi du dossier
+    rclone --config="rclone.conf" --auto-confirm purge "Koofr:%HWID%\SAVE\FNT" >nul 2>&1
+    rclone --config="rclone.conf" --auto-confirm copy "C:\RC\TMP" "Koofr:%HWID%\SAVE\FNT" >nul 2>&1
     echo  Fin de l'exportation
     goto :CLSSAVEGAME
 )
 
 IF %SAVECH%==8 (
     echo  Début de l'importation
-    IF EXIST "C:\Users\%username%\AppData\Local\FortniteGame" rmdir /S /Q "C:\Users\%username%\AppData\Local\FortniteGame">nul
-    @timeout /t 02 >nul
-    IF NOT EXIST "C:\Users\%username%\AppData\Local\FortniteGame" MD "C:\Users\%username%\AppData\Local\FortniteGame"
-    rclone --config="rclone.conf" --auto-confirm copy "QTS:%HWID%\SAVE\FORTNITE" "C:\Users\%username%\AppData\Local\FortniteGame"
+    echo  Téléchargement du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    @timeout /t 01>nul
+    rclone --config="rclone.conf" --auto-confirm copy "Koofr:%HWID%\SAVE\FNT" "C:\RC" >nul 2>&1
+    @timeout /t 02>nul
+    echo  Extraction du dossier
+    7za.exe -y x -p%ENCRMDP% C:\RC\FNT.7z -o"C:\Users\%username%\AppData\Local" >nul 2>&1
+    @timeout /t 01>nul
+    del "C:\RC\FNT.7z" >nul
     echo  Fin de l'importation
     goto :CLSSAVEGAME
 )
 
 IF %SAVECH%==9 (
     echo  Début de l'exportation
-    IF EXIST "C:\Users\%username%\Documents\Call of Duty" xcopy "C:\Users\%username%\Documents\Call of Duty" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\Call of Duty\" /s /e /y>nul
-    rclone --config="rclone.conf" --auto-confirm purge "QTS:%HWID%\SAVE\COD"
-    rclone --config="rclone.conf" --auto-confirm copy "C:\Users\%username%\Documents\Call of Duty" "QTS:%HWID%\SAVE\COD"
+    echo  Compression du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    7za.exe a -t7z -p%ENCRMDP% -mx=9 "C:\RC\TMP\COD.7z" "C:\Users\%username%\Documents\Call of Duty" >nul 2>&1
+    IF EXIST "C:\Users\%username%\Documents\Call of Duty" xcopy "C:\Users\%username%\Documents\Call of Duty" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\COD\" /s /e /y>nul
+    echo  Envoi du dossier
+    rclone --config="rclone.conf" --auto-confirm purge "Koofr:%HWID%\SAVE\COD" >nul 2>&1
+    rclone --config="rclone.conf" --auto-confirm copy "C:\RC\TMP" "Koofr:%HWID%\SAVE\COD" >nul 2>&1
     echo  Fin de l'exportation
     goto :CLSSAVEGAME
 )
 
 IF %SAVECH%==10 (
     echo  Début de l'importation
-    IF EXIST "C:\Users\%username%\Documents\Call of Duty" rmdir /S /Q "C:\Users\%username%\Documents\Call of Duty">nul
-    @timeout /t 02 >nul
-    IF NOT EXIST "C:\Users\%username%\Documents\Call of Duty" MD "C:\Users\%username%\Documents\Call of Duty"
-    rclone --config="rclone.conf" --auto-confirm copy "QTS:%HWID%\SAVE\COD" "C:\Users\%username%\Documents\Call of Duty"
+    echo  Téléchargement du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    @timeout /t 01>nul
+    rclone --config="rclone.conf" --auto-confirm copy "Koofr:%HWID%\SAVE\COD" "C:\RC" >nul 2>&1
+    @timeout /t 02>nul
+    echo  Extraction du dossier
+    7za.exe -y x -p%ENCRMDP% C:\RC\COD.7z -o"C:\Users\%username%\Documents" >nul 2>&1
+    @timeout /t 01>nul
+    del "C:\RC\COD.7z" >nul
     echo  Fin de l'importation
     goto :CLSSAVEGAME
 )
 
-IF %SAVECH%==11 goto :Input
-IF %SAVECH%==12 goto :Input
+IF %SAVECH%==11 (
+    echo  Début de l'exportation
+    echo  Compression du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    7za.exe a -t7z -p%ENCRMDP% -mx=9 "C:\RC\TMP\ASSET.7z" "C:\Users\%username%\Documents\Assetto Corsa" >nul 2>&1
+    IF EXIST "C:\Users\%username%\Documents\Assetto Corsa" xcopy "C:\Users\%username%\Documents\Assetto Corsa" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\ASSET\" /s /e /y>nul
+    echo  Envoi du dossier
+    rclone --config="rclone.conf" --auto-confirm purge "Koofr:%HWID%\SAVE\ASSET" >nul 2>&1
+    rclone --config="rclone.conf" --auto-confirm copy "C:\RC\TMP" "Koofr:%HWID%\SAVE\ASSET" >nul 2>&1
+    echo  Fin de l'exportation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==12 (
+    echo  Début de l'importation
+    echo  Téléchargement du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    @timeout /t 01>nul
+    rclone --config="rclone.conf" --auto-confirm copy "Koofr:%HWID%\SAVE\ASSET" "C:\RC" >nul 2>&1
+    @timeout /t 02>nul
+    echo  Extraction du dossier
+    7za.exe -y x -p%ENCRMDP% C:\RC\ASSET.7z -o"C:\Users\%username%\Documents" >nul 2>&1
+    @timeout /t 01>nul
+    del "C:\RC\ASSET.7z" >nul
+    echo  Fin de l'importation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==13 (
+    echo  Début de l'exportation
+    echo  Compression du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    7za.exe a -t7z -p%ENCRMDP% -mx=9 "C:\RC\TMP\EA.7z" "C:\Users\%username%\Documents\Electronic Arts" >nul 2>&1
+    IF EXIST "C:\Users\%username%\Documents\Electronic Arts" xcopy "C:\Users\%username%\Documents\Electronic Arts" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\EA\" /s /e /y>nul
+    echo  Envoi du dossier
+    rclone --config="rclone.conf" --auto-confirm purge "Koofr:%HWID%\SAVE\EA" >nul 2>&1
+    rclone --config="rclone.conf" --auto-confirm copy "C:\RC\TMP" "Koofr:%HWID%\SAVE\EA" >nul 2>&1
+    echo  Fin de l'exportation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==14 (
+    echo  Début de l'importation
+    echo  Téléchargement du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    @timeout /t 01>nul
+    rclone --config="rclone.conf" --auto-confirm copy "Koofr:%HWID%\SAVE\EA" "C:\RC" >nul 2>&1
+    @timeout /t 02>nul
+    echo  Extraction du dossier
+    7za.exe -y x -p%ENCRMDP% C:\RC\EA.7z -o"C:\Users\%username%\Documents" >nul 2>&1
+    @timeout /t 01>nul
+    del "C:\RC\EA.7z" >nul
+    echo  Fin de l'importation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==15 (
+    echo  Début de l'exportation
+    echo  Compression du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    7za.exe a -t7z -p%ENCRMDP% -mx=9 "C:\RC\TMP\MINE.7z" "C:\Users\%username%\AppData\Roaming\.minecraft" >nul 2>&1
+    IF EXIST "C:\Users\%username%\AppData\Roaming\.minecraft" xcopy "C:\Users\%username%\AppData\Roaming\.minecraft" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\MINE\" /s /e /y>nul
+    echo  Envoi du dossier
+    rclone --config="rclone.conf" --auto-confirm purge "Koofr:%HWID%\SAVE\MINE" >nul 2>&1
+    rclone --config="rclone.conf" --auto-confirm copy "C:\RC\TMP" "Koofr:%HWID%\SAVE\MINE" >nul 2>&1
+    echo  Fin de l'exportation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==16 (
+    echo  Début de l'importation
+    echo  Téléchargement du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    @timeout /t 01>nul
+    rclone --config="rclone.conf" --auto-confirm copy "Koofr:%HWID%\SAVE\MINE" "C:\RC" >nul 2>&1
+    @timeout /t 02>nul
+    echo  Extraction du dossier
+    7za.exe -y x -p%ENCRMDP% C:\RC\MINE.7z -o"C:\Users\%username%\AppData\Roaming" >nul 2>&1
+    @timeout /t 01>nul
+    del "C:\RC\MINE.7z" >nul
+    echo  Fin de l'importation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==17 (
+    echo  Début de l'exportation
+    echo  Compression du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    7za.exe a -t7z -p%ENCRMDP% -mx=9 "C:\RC\TMP\MYG.7z" "C:\Users\%username%\Documents\My Games" >nul 2>&1
+    IF EXIST "C:\Users\%username%\Documents\My Games" xcopy "C:\Users\%username%\Documents\My Games" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\MYG\" /s /e /y>nul
+    echo  Envoi du dossier
+    rclone --config="rclone.conf" --auto-confirm purge "Koofr:%HWID%\SAVE\MYG" >nul 2>&1
+    rclone --config="rclone.conf" --auto-confirm copy "C:\RC\TMP" "Koofr:%HWID%\SAVE\MYG" >nul 2>&1
+    echo  Fin de l'exportation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==18 (
+    echo  Début de l'importation
+    echo  Téléchargement du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    @timeout /t 01>nul
+    rclone --config="rclone.conf" --auto-confirm copy "Koofr:%HWID%\SAVE\MYG" "C:\RC" >nul 2>&1
+    @timeout /t 02>nul
+    echo  Extraction du dossier
+    7za.exe -y x -p%ENCRMDP% C:\RC\MYG.7z -o"C:\Users\%username%\Documents" >nul 2>&1
+    @timeout /t 01>nul
+    del "C:\RC\MYG.7z" >nul
+    echo  Fin de l'importation
+    goto :CLSSAVEGAME
+)
+
+IF %SAVECH%==19 goto :Input
+IF %SAVECH%==20 goto :Input
 goto :CLSSAVEGAME
+
+:UPDAUTOCONF
+ping -n 1 -w 2000 www.google.com > nul
+if %errorlevel% equ 0 (
+    IF EXIST "C:\Ect\Outils\ccmd\exe_gamename.txt" DEL "C:\Ect\Outils\ccmd\exe_gamename.txt"
+    @timeout /t 01>nul
+    curl -g -k -L -# -o "C:\Ect\Outils\ccmd\exe_gamename.txt" "https://raw.githubusercontent.com/00FGV1/ver/main/exe_gamename.txt" >nul 2>&1
+    echo %green%Mise à jour réussie.%white%
+    goto :Input
+) else (
+    SET NETWORK=NO
+    echo %yellow%L'ordinateur n'est pas connecté à Internet.%white%
+    goto :Input
+)
+
+echo %red%ERREUR%white%
+goto :Input
+:CLDCOMM
+cd /d %~dp0
+SET NSAVE=%random%
+IF NOT EXIST "C:\RC\CLD" MD "C:\RC\CLD"
+echo  Dossier %gold%"C:\RC\CLD"%white%
+echo.
+echo  %indigo%1%white% ^> Importer
+echo  %indigo%2%white% ^> Exporter
+echo  %indigo%3%white% ^> Ouvrir le dossier
+echo  %indigo%4%white% ^> Exit
+:CLDCOMMVV
+set /p CLDALUE="%magenta%>%white%"
+
+IF %CLDALUE%==1 (
+    echo  Début de l'importation
+    echo  Téléchargement du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    @timeout /t 01>nul
+    rclone --config="rclone.conf" --auto-confirm copy "Koofr:%HWID%\SAVE\CLD" "C:\RC" >nul 2>&1
+    @timeout /t 02>nul
+    echo  Extraction du dossier
+    7za.exe -y x -p%ENCRMDP% C:\RC\CLD.7z -oC:\RC >nul 2>&1
+    @timeout /t 01>nul
+    del "C:\RC\CLD.7z" >nul
+    echo  Fin de l'importation
+    goto :CLDCOMMVV
+)
+
+IF %CLDALUE%==2 (
+    echo  Début de l'exportation
+    echo  Compression du dossier
+    IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
+    IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
+    7za.exe a -t7z -p%ENCRMDP% -mx=9 "C:\RC\TMP\CLD.7z" "C:\RC\CLD" >nul 2>&1
+    echo  Envoi du dossier
+    rclone --config="rclone.conf" --auto-confirm purge "Koofr:%HWID%\SAVE\CLD" >nul 2>&1
+    rclone --config="rclone.conf" --auto-confirm copy "C:\RC\TMP" "Koofr:%HWID%\SAVE\CLD" >nul 2>&1
+    echo  Fin de l'exportation
+    goto :CLDCOMMVV
+)
+
+IF %CLDALUE%==3 START C:\RC\CLD&goto :CLDCOMMVV
+
+IF %CLDALUE%==4 goto :Input
+goto :CLDCOMMVV
+
+:SPPOTIFY
+Taskkill /f /im Spotify.exe >nul 2>&1
+IF EXIST "C:\Users\%USERNAME%\AppData\Roaming\Spotify\config.ini" DEL "C:\Users\%USERNAME%\AppData\Roaming\Spotify\config.ini" >nul 2>&1
+IF EXIST "C:\Users\%USERNAME%\AppData\Roaming\Spotify\dpapi.dll" DEL "C:\Users\%USERNAME%\AppData\Roaming\Spotify\dpapi.dll" >nul 2>&1
+IF EXIST "%TEMP%\chrome_elf.zip" DEL "%TEMP%\chrome_elf.zip" >nul 2>&1
+IF EXIST "%TEMP%\SpotifySetup.exe" DEL "%TEMP%\SpotifySetup.exe" >nul 2>&1
+@timeout /t 01 >nul
+
+rem IF NOT EXIST "%TEMP%\7za.exe" curl -g -k -L -# -o "%TEMP%\7za.exe" "https://github.com/00FGV1/ver/raw/main/file/7za.exe" >nul 2>&1
+
+IF NOT EXIST "C:\Users\%USERNAME%\AppData\Roaming\Spotify\Spotify.exe" (
+    curl -g -k -L -# -o "%TEMP%\SpotifySetup.exe" "https://download.scdn.co/SpotifySetup.exe" >nul 2>&1
+    @timeout /t 02 >nul
+    START /wait "" "%TEMP%\SpotifySetup.exe" /silent
+    @timeout /t 05 >nul
+    DEL "%TEMP%\SpotifySetup.exe" >nul 2>&1
+    Taskkill /f /im Spotify.exe >nul 2>&1
+)
+rem SET SSSTEAP=1
+rem :LSSSTEAP
+
+rem call C:\Ect\Outils\ccmd\BlockTheSpot.bat
+
+rem IF NOT EXIST "%TEMP%\chrome_elf.zip" (
+rem     curl -g -k -L -# -o "%TEMP%\chrome_elf.zip" "https://github.com/mrpond/BlockTheSpot/releases/download/107/chrome_elf.zip
+rem     @timeout /t 02 >nul
+rem )
+
+set SCRIPT_PATH=%~dp0DownloadBlockTheSpot.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%SCRIPT_PATH%"
+
+rem if %errorlevel% neq 0 (
+rem     IF %SSSTEAP%==2 echo %red%ERREUR%white%&goto :Input
+rem     call C:\Ect\Outils\ccmd\BlockTheSpot.bat
+rem     SET SSSTEAP=2
+rem )
+rem @timeout /t 02 >nul
+rem %TEMP%\7za.exe -y x %TEMP%\chrome_elf.zip -oC:\Users\%USERNAME%\AppData\Roaming\Spotify >nul 2>&1
+rem @timeout /t 02 >nul
+START "" "C:\Users\%USERNAME%\AppData\Roaming\Spotify\Spotify.exe"
+IF EXIST C:\Users\%USERNAME%\Desktop\Spotify.lnk DEL C:\Users\%USERNAME%\Desktop\Spotify.lnk >nul 2>&1
+IF EXIST W:\Windows\Desktop\Spotify.lnk DEL W:\Windows\Desktop\Spotify.lnk >nul 2>&1
+DEL %TEMP%\7za.exe >nul 2>&1
+DEL %TEMP%\BlockTheSpot.zip >nul 2>&1
+DEL %TEMP%\chrome_elf.zip >nul 2>&1
+goto :Input
+
+:CCCD
+set errorlevel=
+%MCMD% >nul 2>&1
+if %errorlevel% neq 0 goto :patherrorr
+SET DIRSTART=2
+goto :Input
+
+:patherrorr
+set "errpath=%MCMD:cd =%"
+echo [%red%  %cd%\%indigo%%errpath%%white%] %red%Le répertoire %white%[%indigo%%errpath%%white%]%red% n'existe pas.%white%
+goto :Input
+
+
+:IINFO
+
+
+for /f "tokens=4-5 delims=. " %%i in ('ver') do (set major=%%i&set minor=%%j)
+for /f "tokens=2 delims==" %%i in ('wmic os get BuildNumber /value') do (set Wbuild=%%i)
+for /f "tokens=2 delims==" %%i in ('wmic os get Caption /value') do (set Wedition=%%i)
+
+if "%major%"=="10" (
+    if "%minor%"=="0" (
+        if %Wbuild% geq 22000 (
+            set Wversion= Windows 11
+        ) else (
+            set Wversion= Windows 10
+        )
+    )
+)
+
+setlocal enabledelayedexpansion
+for /f "skip=1 tokens=*" %%a in ('wmic csproduct get uuid') do (
+    set "INFHWID=%%a"
+    goto :67345
+)
+
+:67345
+set "INFHWID=!INFHWID: =!"
+echo !INFHWID!>ID.log
+for /f "skip=1 tokens=*" %%a in ('wmic baseboard get serialnumber') do (
+    set "UIPINFO=%%a"
+    goto :57846
+)
+
+:57846
+set "UIPINFO=!UIPINFO: =!"
+echo !UIPINFO!>IID.log
+endlocal
+
+set IUUID=
+for /f "usebackq tokens=*" %%a in ("ID.log") do (
+    set "IUUID=%%a"
+)
+
+set IHWID=
+for /f "usebackq tokens=*" %%a in ("IID.log") do (
+    set "IHWID=%%a"
+)
+
+for /F "delims=" %%A in ('powershell -command "Get-WmiObject -Class Win32_SystemEnclosure | Select-Object -ExpandProperty ChassisTypes"') do (set "chassisType=%%A")
+
+FOR /F "tokens=*" %%a IN ('wmic bios get bioscharacteristics^|find /c "33"') DO set USBlegacy=%%a
+IF %USBlegacy%==0 (SET VM=YES) else (SET VM=NO)
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Cryptography
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "MachineGuid"') DO set MGG=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "CurrentBuildNumber"') DO set RO1=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "DisplayVersion"') DO set RO2=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "EditionID"') DO set RO3=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "ProductName"') DO set RO6=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "RegisteredOrganisation"') DO set RO7=%%B
+
+SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "ReleaseId"') DO set RO9=%%B
+
+SET "PCTYP=Inconnu"
+IF %chassisType%==1 SET "PCTYP=Inconnu"
+IF %chassisType%==2 SET "PCTYP=Inconnu"
+IF %chassisType%==3 SET "PCTYP=Desktop"
+IF %chassisType%==8 SET "PCTYP=Portable"
+IF %chassisType%==9 SET "PCTYP=Laptop"
+IF %chassisType%==10 SET "PCTYP=Notebook"
+IF %chassisType%==14 SET "PCTYP=Sub-Notebook"
+IF %chassisType%==30 SET "PCTYP=Tablet"
+IF %chassisType%==31 SET "PCTYP=Convertible"
+IF %chassisType%==32 SET "PCTYP=Detachable"
+IF %VM%==YES SET "PCTYP=VM"
+
+for /f "tokens=2 delims==" %%i in ('wmic os get TotalVisibleMemorySize /value') do (
+    set ram_kb=%%i
+)
+
+set /a ram_mb=%ram_kb% / 1024
+set /a ram_gb=%ram_mb% / 1024
+
+wmic cpu get name>CPUNAME.log
+timeout /t 01 /nobreak>nul
+for /f "skip=1 tokens=* delims=" %%a in ('more %1 CPUNAME.log') do set "SecondLine=%%a" & goto :nextline
+:nextline
+
+echo.
+echo  %red%%white% Windows
+echo    Version      : %Wversion%
+echo    Edition      : %Wedition%
+echo    Build        : %Wbuild%
+echo    MachineGuid  : %MGG%
+echo    BuildNumber  : %RO1%
+echo    ReleaseId    : %RO9%
+echo    DisplayVers  : %RO2%
+echo    EditionID    : %RO3%
+echo.
+echo.
+echo.
+echo  %red%%white% IP
+SET IINFO=1
+goto :SHAIP
+:SHAIPR
+SET IINFO=0
+echo.
+echo.
+echo.
+echo  %red%%white% PC
+echo    Username     : %username%
+echo    PC Name      : %computername%
+echo    ProductName  : %RO6%
+echo    Organisation : %RO7%
+echo    Windows UUID : %IUUID%
+echo    Baseboard ID : %IHWID%
+echo.
+setlocal enabledelayedexpansion
+for /f "tokens=2 delims==" %%a in ('wmic path win32_videocontroller get caption /format:list ^| find "="') do (
+    set "gpuName=%%a"
+)
+for /f "tokens=2 delims==" %%b in ('wmic path Win32_VideoController get CurrentHorizontalResolution /format:list ^| find "="') do (
+    set "resolutionH=%%b"
+)
+for /f "tokens=2 delims==" %%b in ('wmic path Win32_VideoController get CurrentVerticalResolution /format:list ^| find "="') do (
+    set "resolutionV=%%b"
+)
+for /f "tokens=2 delims==" %%c in ('wmic path Win32_VideoController get CurrentRefreshRate /format:list ^| find "="') do (
+    set "refreshRate=%%c"
+)
+for /f "skip=1 tokens=*" %%a in ('wmic cpu get name') do set "CPUName=%%a"
+echo.
+echo.
+echo  %red%%white% Config
+echo    Chassis      : %PCTYP%
+echo    CPU          : %SecondLine%
+echo    GPU          : %gpuName%
+echo    RAM          : %ram_gb%Go
+echo    Resolution   : %resolutionH% x %resolutionV% - %refreshRate%Hz
+endlocal
+echo.
+echo.
+echo.
+echo  %red%%white% Informations carte mère
+call C:\Ect\Outils\ccmd\motherboard.exe
+echo.
+echo  %red%%white% Informations du BIOS
+call C:\Ect\Outils\ccmd\bios.exe
+echo.
+echo  %red%%white% Informations du CPU
+call C:\Ect\Outils\ccmd\cpu.exe
+echo.
+echo  %red%%white% Informations du GPU
+call C:\Ect\Outils\ccmd\gpu.exe
+echo.
+setlocal enabledelayedexpansion
+set "RAMC_1="
+set "RAMC_2="
+set "RAMC_3="
+set "RAMC_4="
+set "RAMC_5="
+set "RAMC_6="
+set "RAMC_7="
+set "RAMC_8="
+
+set "RAMM_1="
+set "RAMM_2="
+set "RAMM_3="
+set "RAMM_4="
+set "RAMM_5="
+set "RAMM_6="
+set "RAMM_7="
+set "RAMM_8="
+
+set "RAMS_1="
+set "RAMS_2="
+set "RAMS_3="
+set "RAMS_4="
+set "RAMS_5="
+set "RAMS_6="
+set "RAMS_7="
+set "RAMS_8="
+
+set "RAMP_1="
+set "RAMP_2="
+set "RAMP_3="
+set "RAMP_4="
+set "RAMP_5="
+set "RAMP_6="
+set "RAMP_7="
+set "RAMP_8="
+
+set "RACP_1="
+set "RACP_2="
+set "RACP_3="
+set "RACP_4="
+set "RACP_5="
+set "RACP_6="
+set "RACP_7="
+set "RACP_8="
+
+set "counter=0"
+for /f "skip=1 tokens=*" %%a in ('wmic memorychip get devicelocator') do (
+    set /a "counter+=1"
+    if !counter! equ 1 (
+        set "RAMC_1=%%a"
+    ) else if !counter! equ 2 (
+        set "RAMC_2=%%a"
+    ) else if !counter! equ 3 (
+        set "RAMC_3=%%a"
+    ) else if !counter! equ 4 (
+        set "RAMC_4=%%a"
+    ) else if !counter! equ 5 (
+        set "RAMC_5=%%a"
+    ) else if !counter! equ 6 (
+        set "RAMC_6=%%a"
+    ) else if !counter! equ 7 (
+        set "RAMC_7=%%a"
+    ) else if !counter! equ 8 (
+        set "RAMC_8=%%a"
+    )
+)
+
+set "counter=0"
+for /f "skip=1 tokens=*" %%a in ('wmic memorychip get manufacturer') do (
+    set /a "counter+=1"
+    if !counter! equ 1 (
+        set "RAMM_1=%%a"
+    ) else if !counter! equ 2 (
+        set "RAMM_2=%%a"
+    ) else if !counter! equ 3 (
+        set "RAMM_3=%%a"
+    ) else if !counter! equ 4 (
+        set "RAMM_4=%%a"
+    ) else if !counter! equ 5 (
+        set "RAMM_5=%%a"
+    ) else if !counter! equ 6 (
+        set "RAMM_6=%%a"
+    ) else if !counter! equ 7 (
+        set "RAMM_7=%%a"
+    ) else if !counter! equ 8 (
+        set "RAMM_8=%%a"
+    )
+)
+
+set "counter=0"
+for /f "skip=1 tokens=*" %%a in ('wmic memorychip get speed') do (
+    set /a "counter+=1"
+    if !counter! equ 1 (
+        set "RAMS_1=%%a"
+    ) else if !counter! equ 2 (
+        set "RAMS_2=%%a"
+    ) else if !counter! equ 3 (
+        set "RAMS_3=%%a"
+    ) else if !counter! equ 4 (
+        set "RAMS_4=%%a"
+    ) else if !counter! equ 5 (
+        set "RAMS_5=%%a"
+    ) else if !counter! equ 6 (
+        set "RAMS_6=%%a"
+    ) else if !counter! equ 7 (
+        set "RAMS_7=%%a"
+    ) else if !counter! equ 8 (
+        set "RAMS_8=%%a"
+    )
+)
+
+set "counter=0"
+for /f "skip=1 tokens=*" %%a in ('wmic memorychip get partnumber') do (
+    set /a "counter+=1"
+    if !counter! equ 1 (
+        set "RAMP_1=%%a"
+    ) else if !counter! equ 2 (
+        set "RAMP_2=%%a"
+    ) else if !counter! equ 3 (
+        set "RAMP_3=%%a"
+    ) else if !counter! equ 4 (
+        set "RAMP_4=%%a"
+    ) else if !counter! equ 5 (
+        set "RAMP_5=%%a"
+    ) else if !counter! equ 6 (
+        set "RAMP_6=%%a"
+    ) else if !counter! equ 7 (
+        set "RAMP_7=%%a"
+    ) else if !counter! equ 8 (
+        set "RAMP_8=%%a"
+    )
+)
+
+set "counter=0"
+for /f "skip=1 tokens=*" %%a in ('wmic memorychip get capacity') do (
+    set /a "counter+=1"
+    if !counter! equ 1 (
+        set "RACP_1=%%a"
+    ) else if !counter! equ 2 (
+        set "RACP_2=%%a"
+    ) else if !counter! equ 3 (
+        set "RACP_3=%%a"
+    ) else if !counter! equ 4 (
+        set "RACP_4=%%a"
+    ) else if !counter! equ 5 (
+        set "RACP_5=%%a"
+    ) else if !counter! equ 6 (
+        set "RACP_6=%%a"
+    ) else if !counter! equ 7 (
+        set "RACP_7=%%a"
+    ) else if !counter! equ 8 (
+        set "RACP_8=%%a"
+    )
+)
+
+set "counter=0"
+for /f "skip=1 tokens=*" %%a in ('wmic memorychip get SerialNumber') do (
+    set /a "counter+=1"
+    if !counter! equ 1 (
+        set "NUMB_1=%%a"
+    ) else if !counter! equ 2 (
+        set "NUMB_2=%%a"
+    ) else if !counter! equ 3 (
+        set "NUMB_3=%%a"
+    ) else if !counter! equ 4 (
+        set "NUMB_4=%%a"
+    ) else if !counter! equ 5 (
+        set "NUMB_5=%%a"
+    ) else if !counter! equ 6 (
+        set "NUMB_6=%%a"
+    ) else if !counter! equ 7 (
+        set "NUMB_7=%%a"
+    ) else if !counter! equ 8 (
+        set "NUMB_8=%%a"
+    )
+)
+
+echo.
+echo  %red%%white% Informations de la RAM
+echo    RAM - 1      : Speed = %RAMS_1% - Partnumber = %RAMP_1% - SerialNumber = %NUMB_1%
+echo    RAM - 2      : Speed = %RAMS_2% - Partnumber = %RAMP_2% - SerialNumber = %NUMB_2%
+echo    RAM - 3      : Speed = %RAMS_3% - Partnumber = %RAMP_3% - SerialNumber = %NUMB_3%
+echo    RAM - 4      : Speed = %RAMS_4% - Partnumber = %RAMP_4% - SerialNumber = %NUMB_4%
+echo    RAM - 5      : Speed = %RAMS_5% - Partnumber = %RAMP_5% - SerialNumber = %NUMB_5%
+echo    RAM - 6      : Speed = %RAMS_6% - Partnumber = %RAMP_6% - SerialNumber = %NUMB_6%
+echo    RAM - 7      : Speed = %RAMS_7% - Partnumber = %RAMP_7% - SerialNumber = %NUMB_7%
+echo    RAM - 8      : Speed = %RAMS_8% - Partnumber = %RAMP_8% - SerialNumber = %NUMB_8%
+echo.
+endlocal
+echo.
+echo.
+echo  %red%%white% Informations du SSD / HDD
+powershell -command "$Host.UI.RawUI.BufferSize = New-Object System.Management.Automation.Host.Size(480, $Host.UI.RawUI.BufferSize.Height)"
+powershell -command "Get-PhysicalDisk | Format-Table -AutoSize"
+DEL ID.log
+DEL IID.log
+DEL CPUNAME.log
+goto :Input
+
+:SAVEAPPDATA
+endlocal
+
+set APPDATAPATH=
+for /f "usebackq tokens=*" %%a in ("tmp.log") do (
+    set "APPDATAPATH=%%a"
+    del tmp.log>nul
+)
+
+echo.
+echo  %red%%white% Tout dossier supérieur à 2 Go sera ignoré.
+echo     Emplacement du dossier de sauvegarde : %red%%APPDATAPATH%\Backup-Appdata%white%
+echo.
+echo     Début de la sauvegarde des sous-dossiers d'APPDATA.
+
+IF EXIST %APPDATAPATH%\Backup-Appdata rmdir /s /q %APPDATAPATH%\Backup-Appdata >nul 2>&1
+IF NOT EXIST %APPDATAPATH%\Backup-Appdata md %APPDATAPATH%\Backup-Appdata >nul 2>&1
+
+IF NOT EXIST %APPDATAPATH%\Backup-Appdata\Local md %APPDATAPATH%\Backup-Appdata\Local >nul 2>&1
+IF NOT EXIST %APPDATAPATH%\Backup-Appdata\LocalLow md %APPDATAPATH%\Backup-Appdata\LocalLow >nul 2>&1
+IF NOT EXIST %APPDATAPATH%\Backup-Appdata\Roaming md %APPDATAPATH%\Backup-Appdata\Roaming >nul 2>&1
+IF NOT EXIST %APPDATAPATH%\Backup-Appdata\Saved-Games md %APPDATAPATH%\Backup-Appdata\Saved-Games >nul 2>&1
+
+set "source=C:\Users\%USERNAME%\AppData\LocalLow"
+set "destination=%APPDATAPATH%\Backup-Appdata\LocalLow"
+set "exclude=Microsoft,AMD,Spotify,INetHistory,Dofus,Sun,Temp"
+set "limit=2147483648"
+
+for /D %%G in ("%source%\*") do (
+    set "folderName=%%~nxG"
+    setlocal enabledelayedexpansion
+    set "excludeFolder="
+    for %%E in (%exclude%) do (
+        if /I "!folderName!"=="%%E" set "excludeFolder=1"
+    )
+    if not defined excludeFolder (
+        for /f "usebackq" %%A in (`powershell -command "(Get-ChildItem -Path '%%G' -Recurse | Measure-Object -Property Length -Sum).Sum"`) do set totalSize=%%A
+        if !totalSize! lss !limit! (
+            robocopy "%%G" "%destination%\%%~nxG" /E /NFL /NDL /NJH /NJS /nc /ns /np >nul 2>&1
+        ) else (
+            SET jb354689=1
+        )
+    )
+    endlocal
+)
+
+set "source=C:\Users\%USERNAME%\AppData\Local"
+set "destination=%APPDATAPATH%\Backup-Appdata\Local"
+set "exclude=Microsoft,Comms,ConnectedDevicesPlatform,Dofus,D3DSCache,Packages,PeerDistRepub,PlaceholderTileLogoFolder,Programs,Publishers,Temp,AMD,Spotify,INetHistory,AMD_Common,AMDIdentifyWindow,Bluestacks,cache,Temp.scratch,ToastNotificationManagerCompat,VMware,VBox,vback,VirtualStore,Tartube,Battle.net,bluestacks-services-updater,CEF,clink,com.modrinth.theseus,Discord,Epic Games,Blizzard Entertainment,EpicGamesLauncher,fontconfig,gtk-3.0,HD-Player,librewolf,Microsoft_Corporation,Package Cache,pip,Plutonium,Rare,speech,spicetify,StartAllBack,Steam,streamlink-twitch-gui,TwitchLink,Ubisoft Game Launcher,UnrealEngine,UnrealEngineLauncher,Waterfox,CrashReportClient,Activision"
+set "limit=2147483648"
+
+for /D %%G in ("%source%\*") do (
+    set "folderName=%%~nxG"
+    setlocal enabledelayedexpansion
+    set "excludeFolder="
+    for %%E in (%exclude%) do (
+        if /I "!folderName!"=="%%E" set "excludeFolder=1"
+    )
+    if not defined excludeFolder (
+        for /f "usebackq" %%A in (`powershell -command "(Get-ChildItem -Path '%%G' -Recurse | Measure-Object -Property Length -Sum).Sum"`) do set totalSize=%%A
+        if !totalSize! lss !limit! (
+            robocopy "%%G" "%destination%\%%~nxG" /E /NFL /NDL /NJH /NJS /nc /ns /np >nul 2>&1
+        ) else (
+            SET jb354689=1
+        )
+    )
+    endlocal
+)
+
+set "source=C:\Users\%USERNAME%\AppData\Roaming"
+set "destination=%APPDATAPATH%\Backup-Appdata\Roaming"
+set "exclude=Microsoft,Adobe,Spotify,Dofus,INetHistory,MAXON,AdbAppControl,Battle.net,bin,deluge,discord,EasyAntiCheat,librewolf,Mozilla,nomacs,Rare,spicetify,TwitchLink,Vencord,vibranceGUI,vlc,VMware,Wargaming.net,Waterfox"
+set "limit=2147483648"
+
+for /D %%G in ("%source%\*") do (
+    set "folderName=%%~nxG"
+    setlocal enabledelayedexpansion
+    set "excludeFolder="
+    for %%E in (%exclude%) do (
+        if /I "!folderName!"=="%%E" set "excludeFolder=1"
+    )
+    if not defined excludeFolder (
+        for /f "usebackq" %%A in (`powershell -command "(Get-ChildItem -Path '%%G' -Recurse | Measure-Object -Property Length -Sum).Sum"`) do set totalSize=%%A
+        if !totalSize! lss !limit! (
+            robocopy "%%G" "%destination%\%%~nxG" /E /NFL /NDL /NJH /NJS /nc /ns /np >nul 2>&1
+        ) else (
+            SET jb354689=1
+        )
+    )
+    endlocal
+)
+
+robocopy "C:\Users\%USERNAME%\Saved Games" "%APPDATAPATH%\Backup-Appdata\Saved-Games" /E /NFL /NDL /NJH /NJS /nc /ns /np >nul 2>&1
+echo     Fin de la sauvegarde.
+goto :Input
+
+
+
+
+
+:67476867
+setlocal EnableDelayedExpansion
+:8986567
+setlocal
+set "s=%~2"
+call :67858677 %1 s %3
+exit /b
+:67858677
+if not defined DEL call :767544289
+setlocal enableDelayedExpansion
+pushd .
+':
+cd \
+set "s=!%~2!"
+for %%n in (^"^
+
+^") do (
+    set "s=!s:\=%%~n\%%~n!"
+    set "s=!s:/=%%~n/%%~n!"
+    set "s=!s::=%%~n:%%~n!"
+)
+for /f delims^=^ eol^= %%s in ("!s!") do (
+    if "!" equ "" setlocal disableDelayedExpansion
+    if %%s==\ (
+        findstr /a:%~1 "." "\'" nul
+        <nul set /p "=%DEL%%DEL%%DEL%"
+    ) else if %%s==/ (
+        findstr /a:%~1 "." "/.\'" nul
+        <nul set /p "=%DEL%%DEL%%DEL%%DEL%%DEL%"
+    ) else (
+        >%temp%\290867.tmp (echo %%s\..\')
+        findstr /a:%~1 /f:%temp%\290867.tmp "."
+        <nul set /p "=%DEL%%DEL%%DEL%%DEL%%DEL%%DEL%%DEL%"
+))
+if /i "%~3"=="/n" echo(
+popd
+exit /b
+:767544289
+for /f %%A in ('"prompt $H&for %%B in (1) do rem"') do set "DEL=%%A %%A"
+<nul >"%temp%\'" set /p "=."
+subst ': "%temp%" >nul
+exit /b
+:787497689
+2>nul del "%temp%\'"
+2>nul del "%temp%\290867.tmp"
+>nul subst ': /d
+exit /b
+:342980567
+if "%~1"=="" goto :eof
+set "pb_nullspace=  "
+if "%~2"=="-scan_mode" set "pb_nullspace=  "
+if "%~3"=="-scan_mode" set "pb_nullspace=  "
+if not defined pb.barArea call :initProgressBar
+setlocal enableextensions enabledelayedexpansion
+set /a "pb.value=%~1 %% 101", "pb.filled=pb.value*pb.barArea/100", "pb.dotted=pb.barArea-pb.filled", "pb.pct=1000+pb.value"
+set "pb.pct=%pb.pct:~-3%"
+if "%~2"=="" ( set "pb.text=" ) else ( 
+    set "pb.text=%~2%pb.back%" 
+    set "pb.text=!pb.text:~0,%pb.textArea%!"
+)
+if "%~2"=="-scan_mode" set "pb.text="
+<nul set /p "pb.prompt=.!BS!!pb_nullspace![!pb.fill:~0,%pb.filled%!!pb.dots:~0,%pb.dotted%!] !BS! [ %pb.pct% %% ] %pb.text%!pb.cr!"
+endlocal
+goto :eof
+:initProgressBar
+if defined pb.cr call :209384567
+for /f %%a in ('copy "%~f0" nul /z') do set "pb.cr=%%a"
+if "%~1"=="" ( set "pb.fillChar=#" ) else ( set "pb.fillChar=%~1" )
+if "%~2"=="" ( set "pb.dotChar=." ) else ( set "pb.dotChar=%~2" )
+if "%~3"=="-scan_mode" (
+    set "pb.console.columns=122"
+    set /a "  pb.barArea=pb.console.columns/2-2", "pb.textArea=pb.barArea-1" 
+) else (
+    set "pb.console.columns=100"
+    set /a "  pb.barArea=pb.console.columns/3-3", "pb.textArea=pb.barArea-1"
+)
+if "%~3"=="-scan_mode_widedisp" (
+    set "pb.console.columns=202"
+    set /a "  pb.barArea=pb.console.columns/2-2", "pb.textArea=pb.barArea-1" 
+)
+set "pb.fill="
+setlocal enableextensions enabledelayedexpansion
+for /l %%p in (1 1 %pb.barArea%) do set "pb.fill=!pb.fill!%pb.fillChar%"
+set "pb.fill=!pb.fill:~0,%pb.barArea%!"
+set "pb.dots=!pb.fill:%pb.fillChar%=%pb.dotChar%!"
+set "pb.back=!pb.fill:~0,%pb.textArea%!
+set "pb.back=!pb.back:%pb.fillChar%= !"
+endlocal & (set "pb.fill=%pb.fill%" & set "pb.dots=%pb.dots%" & set "pb.back=%pb.back%")
+goto :eof
+:209384567
+if defined pb.cr (
+    if not "%~1"=="" (
+        setlocal enabledelayedexpansion
+        set "pb.back="
+        for /l %%p in (1 1 %pb.console.columns%) do set "pb.back=!pb.back! "
+        <nul set /p "pb.prompt=!pb.cr!!pb.back:~1!!pb.cr!"
+        endlocal
+))
+for /f "tokens=1 delims==" %%v in ('set pb.') do set "%%v="
+goto :eof
