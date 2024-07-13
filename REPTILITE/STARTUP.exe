@@ -1,14 +1,5 @@
 @echo off
-@Title START-UP
-:reloo
-SET veropt=ERR
-SET LASTVEROP=ERR
-:NREX
-@timeout /t 01 /nobreak>nul
-SET UPA=0
-SET RCCL=%black%
-:MAINW
-IF EXIST "%temp%\main.bat" DEL %temp%\main.bat
+@Title START-UP TOOLS
 set black=[30m
 set red=[91m
 set rred=[41m
@@ -28,116 +19,65 @@ set ggrey=[100m
 set orange=[38;5;208m
 set white=[37m
 set indigo=[38;5;105m
-IF EXIST C:\Ect\RWC\bin\ver.bat (
-	call C:\Ect\RWC\bin\ver.bat
-	SET RWECX=1
-) else (
-	SET veropt=0
-	SET RWECX=0
-)
 cd /d %~dp0
-md C:\Ect\RWC\DQS
+IF NOT EXIST %TEMP%\DQS md %TEMP%\DQS
 color 7
 
-SET "veropta=%veropt%"
-IF %veropt% LSS %LASTVEROP% SET RCCL=%gold% & SET UPA=1
-IF %veropt% == 0 SET RCCL=%black% & SET UPA=0 & SET "veropta=%veropt%  "
 rmdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
 mkdir %SystemDrive%\Windows\system32\adminrightstest >nul 2>&1
 if %errorlevel% neq 0 (
 	cls
-	echo Veuillez executer le CMD en tant qu'administrateur.
+	echo.
+	echo  %red%Veuillez executer le CMD en tant qu'administrateur.%white%
 	pause
 	exit
 )
 
-if /i "%~1"=="/ERR" goto :SKER
-
 if /i "%~1"=="/4" (
-	mode con:cols=80 lines=24
+	mode con:cols=80 lines=19
 ) else (
 	Start "" /b C:\Windows\System32\conhost.exe "STARTUP.bat" /4&exit
 )
 
-:SKER
-IF EXIST "C:\Ect\RWC\MAS_AIO.cmd" (SET VLD1R=%green%[V]%white%) else (SET VLD1R=%red%[X]%white%)
-IF EXIST "C:\Ect\RWC\main.bat" (SET VLD2R=%green%[V]%white%) else (SET VLD2R=%red%[X]%white%)
-IF EXIST "C:\Ect\RWC\DQS\DQS.bat" (SET VLD3R=%green%[V]%white%) else (SET VLD3R=%red%[X]%white%)
-IF EXIST "C:\Ect\RWC\Spotify.bat" (SET VLD4R=%green%[V]%white%) else (SET VLD4R=%red%[X]%white%)
+IF EXIST "%TEMP%\MAS_AIO.cmd" DEL "%TEMP%\MAS_AIO.cmd"
+IF EXIST "%TEMP%\DQS\DQS.bat" DEL "%TEMP%\DQS\DQS.bat"
+IF EXIST "%TEMP%\Spotify.bat" DEL "%TEMP%\Spotify.bat"
+:MAINW
 cls
 echo ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
 echo ³  Veuillez desactiver l'%yellow%UAC%white% et %yellow%Windows Defender%white% avant de continuer ce script  ³
 echo ³  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿  ³
-echo ³  ³ %indigo%INSTALL LOCATION%white% : %gold%[C:\Ect\RWC]%white%                                        ³  ³
-echo ³  ÃÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
-echo ³  ³ %indigo%[1]%white% ³ %VLD1R% ³ SCRIPT ACTIVE WINDOWS                                      ³  ³
-echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
-echo ³  ³ %indigo%[2]%white% ³ %VLD2R% ³ SCRIPT OPTIMISATION ^| %indigo%V = %veropta%%white%                              ³  ³
-echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
-echo ³  ³ %indigo%[3]%white% ³ %VLD3R% ³ SCRIPT CONFIG "Win32PrioritySeparation"                    ³  ³
-echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
-echo ³  ³ %indigo%[4]%white% ³ %VLD4R% ³ SCRIPT SPOTIFY                                             ³  ³
-echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
-echo ³  ³ %indigo%[5]%white% ³ SCRIPT OPTIMISATION AV                                           ³  ³
+echo ³  ³ %indigo%INSTALL LOCATION%white% : %gold%[AppData\Local\Temp]%white%                                ³  ³
+echo ³  ÃÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
+echo ³  ³ %indigo%[1]%white% ³ SCRIPT ACTIVE WINDOWS                                            ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
-echo ³  ³ %indigo%[6]%white% ³ DESINSTALLER [%yellow%Microsoft Edge%white%]                                    ³  ³
+echo ³  ³ %indigo%[2]%white% ³ SCRIPT CONFIG [%yellow%Win32PrioritySeparation%white%]                          ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
-echo ³  ³ %indigo%[7]%white% ³ INSTALL S-W [%yellow%start-userinit-script%white%]                              ³  ³
+echo ³  ³ %indigo%[3]%white% ³ SCRIPT SPOTIFY                                                   ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
-echo ³  ³ %indigo%[8]%white% ³ RECHARGER                                                        ³  ³
+echo ³  ³ %indigo%[4]%white% ³ DESINSTALLER  [%yellow%Microsoft Edge%white%]                                   ³  ³
+echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
+echo ³  ³ %indigo%[5]%white% ³ DESACTIVER DEFENDER [%yellow%dControl%white%]                                   ³  ³
+echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
+echo ³  ³ %indigo%[6]%white% ³ INSTALL S-W                                                      ³  ³
 echo ³  ÀÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ  ³
 echo ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-echo.
-choice /C:12345678 /N /M ">
+choice /C:123456 /N /M ">
 If "%ERRORLEVEL%"=="1" (
-	IF EXIST "C:\Ect\RWC\MAS_AIO.cmd" start cmd /c "C:\Ect\RWC\MAS_AIO.cmd" & goto :MAINW
-	IF NOT EXIST "C:\Ect\RWC\MAS_AIO.cmd" curl -g -k -L -# -o "C:\Ect\RWC\MAS_AIO.cmd" "https://raw.githubusercontent.com/00FGV1/ver/main/REPTILITE/MAS_AIO.cmd" & start cmd /c "C:\Ect\RWC\MAS_AIO.cmd" & goto :MAINW
+	IF EXIST "%TEMP%\MAS_AIO.cmd" start cmd /c "%TEMP%\MAS_AIO.cmd" & goto :MAINW
+	IF NOT EXIST "%TEMP%\MAS_AIO.cmd" curl -g -k -L -# -o "%TEMP%\MAS_AIO.cmd" "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/Separate-Files-Version/Activators/HWID_Activation.cmd" & start cmd /c "%TEMP%\MAS_AIO.cmd" & goto :MAINW
 )
 If "%ERRORLEVEL%"=="2" (
-	IF EXIST "C:\Ect\RWC\main.bat" start cmd /c "C:\Ect\RWC\main.bat" & goto :MAINW
-	echo %red%ERR%white%
-	@timeout /t 05>nul
-	goto :MAINW
+	IF EXIST "%TEMP%\DQS\DQS.bat" start cmd /c "%TEMP%\DQS\DQS.bat" & goto :MAINW
+	IF NOT EXIST "%TEMP%\DQS\DQS.bat" curl -g -k -L -# -o "%TEMP%\DQS\DQS.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/DQS.bat" & start cmd /c "%TEMP%\DQS\DQS.bat" & goto :MAINW
 )
 If "%ERRORLEVEL%"=="3" (
-	IF EXIST "C:\Ect\RWC\DQS\DQS.bat" start cmd /c "C:\Ect\RWC\DQS\DQS.bat" & goto :MAINW
-	IF NOT EXIST "C:\Ect\RWC\DQS\DQS.bat" curl -g -k -L -# -o "C:\Ect\RWC\DQS\DQS.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/DQS.bat" & start cmd /c "C:\Ect\RWC\DQS\DQS.bat" & goto :MAINW
+	IF EXIST "%TEMP%\Spotify.bat" start cmd /c "%TEMP%\Spotify.bat" & goto :MAINW
+	IF NOT EXIST "%TEMP%\Spotify.bat" curl -g -k -L -# -o "%TEMP%\Spotify.bat" "https://github.com/00FGV1/ver/raw/main/S/Spotify.bat" & start cmd /c "%TEMP%\Spotify.bat" & goto :MAINW
 )
-If "%ERRORLEVEL%"=="4" (
-	IF EXIST "C:\Ect\RWC\Spotify.bat" start cmd /c "C:\Ect\RWC\Spotify.bat" & goto :MAINW
-	IF NOT EXIST "C:\Ect\RWC\Spotify.bat" curl -g -k -L -# -o "C:\Ect\RWC\Spotify.bat" "https://github.com/00FGV1/ver/raw/main/S/Spotify.bat" & start cmd /c "C:\Ect\RWC\Spotify.bat" & goto :reloo
-)
-If "%ERRORLEVEL%"=="5" IF %RWECX%==1 (
-	IF NOT exist C:\Ect\RWC\bin\DNS.reg goto :reloo
-	cd /d %~dp0
-	IF NOT exist PowerRun_x64.exe curl -g -k -L -# -o "PowerRun_x64.exe" "https://github.com/00FGV1/ver/raw/main/PowerRun_x64.exe"
-	cls
-	echo %indigo%1/3%white%
-	@timeout /t 02>nul
-	PowerRun_x64.exe "C:\Ect\RWC\bin\RWC_AV\DISM-FT.exe"
-	PowerRun_x64.exe "C:\Ect\RWC\bin\RWC_AV\REG\reg_1.bat"
-	PowerRun_x64.exe "C:\Ect\RWC\bin\RWC_AV\REG\Debloat.exe"
-	PowerRun_x64.exe "C:\Ect\RWC\bin\HOST\mvps.exe"
-	cd /d %~dp0
-	set white=[37m
-	set indigo=[38;5;105m
-	cls
-	echo %indigo%2/3%white%
-	Start /wait "" "C:\Ect\RWC\bin\RWC_AV\REG\mgs.exe"
-	Start /wait "" "C:\Ect\RWC\bin\RWC_AV\REG\prt.exe"
-	Start /wait "" "C:\Ect\RWC\bin\RWC_AV\REG\Debloat.exe"
-	call C:\Ect\RWC\bin\RWC_AV\REG\reg_2.bat
-	cd /d %~dp0
-	cls
-	echo %indigo%3/3%white%
-	@timeout /t 20>nul
-	PowerRun_x64.exe "C:\Ect\RWC\bin\RWC_AV\TEMP\TEMP.bat"
-	cls
-	echo %indigo%END%white%
-	goto :reloo
-)
-If "%ERRORLEVEL%"=="6" curl -g -k -L -# -o "C:\Ect\RWC\REGUI.exe" "https://github.com/00FGV1/ver/raw/main/REPTILITE/REGUI.exe" & START C:\Ect\RWC\REGUI.exe & goto :reloo
-If "%ERRORLEVEL%"=="7" (
+If "%ERRORLEVEL%"=="4" curl -g -k -L -# -o "%TEMP%\REGUI.exe" "https://github.com/ShadowWhisperer/Remove-MS-Edge/raw/main/Remove-Edge_GUI.exe" & START %TEMP%\REGUI.exe & goto :MAINW
+If "%ERRORLEVEL%"=="5" curl -g -k -L -# -o "%TEMP%\dControl.exe" "https://github.com/00FGV1/ver/raw/main/REPTILITE/dControl.exe" & START %TEMP%\dControl.exe & goto :MAINW
+If "%ERRORLEVEL%"=="6" (
 	cd /d C:\Ect\
 	IF NOT EXIST C:\Ect md C:\Ect
 	IF EXIST C:\Ect\S-W START "" "C:\Ect\S-W\start-windows.bat" -U
@@ -154,6 +94,6 @@ If "%ERRORLEVEL%"=="7" (
 	@timeout /t 03 /nobreak>nul
 	IF EXIST "C:\Ect\S-W\conf-start-windows.cmd" (call C:\Ect\S-W\conf-start-windows.cmd) else (echo ERREUR & @timeout /t 03 /nobreak)
 	DEL C:\Ect\S-W.7z
-	goto :reloo
+	goto :MAINW
 )
-If "%ERRORLEVEL%"=="8" goto :reloo
+goto :MAINW
