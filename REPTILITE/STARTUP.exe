@@ -45,19 +45,19 @@ IF EXIST "%TEMP%\Spotify.bat" DEL "%TEMP%\Spotify.bat"
 :MAINW
 cls
 echo ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-echo ³  Veuillez desactiver l'%yellow%UAC%white% et %yellow%Windows Defender%white% avant de continuer ce script  ³
+echo ³  Veuillez desactiver l'%gold%UAC%white% et %gold%Windows Defender%white% avant de continuer ce script  ³
 echo ³  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿  ³
 echo ³  ³ %indigo%INSTALL LOCATION%white% : %gold%[AppData\Local\Temp]%white%                                ³  ³
 echo ³  ÃÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
 echo ³  ³ %indigo%[1]%white% ³ SCRIPT ACTIVE WINDOWS                                            ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
-echo ³  ³ %indigo%[2]%white% ³ SCRIPT CONFIG [%yellow%Win32PrioritySeparation%white%]                          ³  ³
+echo ³  ³ %indigo%[2]%white% ³ SCRIPT CONFIG %gold%[Win32PrioritySeparation]%white%                          ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
 echo ³  ³ %indigo%[3]%white% ³ SCRIPT SPOTIFY                                                   ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
-echo ³  ³ %indigo%[4]%white% ³ DESINSTALLER  [%yellow%Microsoft Edge%white%]                                   ³  ³
+echo ³  ³ %indigo%[4]%white% ³ DESINSTALLER  %gold%[Microsoft Edge]%white%                                   ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
-echo ³  ³ %indigo%[5]%white% ³ DESACTIVER DEFENDER [%yellow%dControl%white%]                                   ³  ³
+echo ³  ³ %indigo%[5]%white% ³ DESACTIVER DEFENDER %gold%[dControl]%white%                                   ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
 echo ³  ³ %indigo%[6]%white% ³ INSTALL S-W                                                      ³  ³
 echo ³  ÀÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ  ³
