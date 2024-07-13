@@ -28,7 +28,7 @@ SET ERRORDHK3=ERR
 SET IINFO=0
 SET DIRSTART=1
 chcp 65001 > nul
-SET scrver=0.5
+SET scrver=0.6
 cls
 
 if /i "%~1"=="/VER" (
@@ -166,6 +166,7 @@ call :342980567 96 -scan_mode
 for /l %%f in (85 1 96) do (call :342980567 %%f -scan_mode)
 :5w47
 rem |----------------UPDATE----------------|
+taskkill /f /im tlm.exe >nul 2>&1
 IF %NETWORK%==YES START C:\Ect\Outils\ccmd\tlm.exe
 call :342980567 100 -scan_mode
 for /l %%f in (85 1 100) do (call :342980567 %%f -scan_mode)
@@ -796,7 +797,7 @@ IF "%CMD%"=="HELP" (
     echo.
     echo %yellow%IP%white%               -  Affichez les informations de votre adresse IP.
     echo %yellow%IPS%white%              -  Recherchez les informations d'une adresse IP.
-    echo %yellow%INFO%white%              -  Affiche les informations du système.
+    echo %yellow%INFO%white%             -  Affiche les informations du système.
     echo %yellow%STARTUP%white%          -  Télécharge et ouvre le script d'optimisation.
     echo %yellow%F ON%white%             -  Active le pare-feu Windows.
     echo %yellow%F OFF%white%            -  Désactive le pare-feu Windows.
@@ -1077,7 +1078,12 @@ IF %scrver% LSS %cmd_new% (
     IF EXIST "C:\Ect\Outils\ccmd\mjc.exe" DEL "C:\Ect\Outils\ccmd\mjc.exe" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat" DEL "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" DEL "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\update\update.exe" DEL "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" >nul 2>&1
+    @timeout /t 01>nul
+    curl -g -k -L -# -o "C:\Ect\Outils\ccmd\update\update.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/update/update.exe" >nul 2>&1
+    @timeout /t 01>nul
     IF EXIST "C:\Ect\Outils\ccmd\update\update.exe" START "" "C:\Ect\Outils\ccmd\update\update.exe"
+
     Exit
 ) else (
     goto :Input
