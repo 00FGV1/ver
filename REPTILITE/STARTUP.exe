@@ -90,19 +90,20 @@ If "%ERRORLEVEL%"=="5" (
 	goto :MAINW
 )
 If "%ERRORLEVEL%"=="6" (
-	IF NOT EXIST C:\Ect md C:\Ect
-	cd /d C:\Ect\
-	IF EXIST C:\Ect\S-W START "" "C:\Ect\S-W\start-windows.bat" -U
+	IF NOT EXIST C:\Ect md C:\Ect >nul 2>&1
+	cd /d C:\Ect\ >nul 2>&1
+	IF EXIST C:\Ect\S-W\start-windows.bat START "" "C:\Ect\S-W\start-windows.bat" -U
+	IF EXIST C:\Ect\S-W\S-W.exe START /wait "" "C:\Ect\S-W\S-W.exe" /uninstall
 	@timeout /t 01 /nobreak>nul
-	IF EXIST "C:\Ect\S-W" rmdir /s /q "C:\Ect\S-W"
+	IF EXIST "C:\Ect\S-W" rmdir /s /q "C:\Ect\S-W" >nul 2>&1
 	curl -g -k -L -# -o "C:\Ect\S-W.7z" "https://tinyurl.com/SWSCRLINK" >nul 2>&1
 	@timeout /t 05 /nobreak>nul
 	IF NOT EXIST C:\Ect\7za.exe curl -g -k -L -# -o "C:\Ect\7za.exe" "https://tinyurl.com/dl-opt-7za" >nul 2>&1
 	@timeout /t 01 /nobreak>nul
 	START "" "C:\Ect\7za.exe" -y x -p9421 C:\Ect\S-W.7z
 	@timeout /t 03 /nobreak>nul
-	IF EXIST "C:\Ect\S-W\conf-start-windows.cmd" (call C:\Ect\S-W\conf-start-windows.cmd) else (echo ERREUR & @timeout /t 03 /nobreak)
-	DEL C:\Ect\S-W.7z
+	IF EXIST "C:\Ect\S-W\S-W.exe" (START /wait "" "C:\Ect\S-W\S-W.exe" -i) else (echo ERREUR & @timeout /t 03 /nobreak)
+	DEL C:\Ect\S-W.7z >nul 2>&1
 	goto :MAINW
 )
 goto :MAINW
