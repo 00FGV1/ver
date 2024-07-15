@@ -1191,7 +1191,7 @@ IF %scrver% LSS %cmd_new% (
     curl -g -k -L -# -o "C:\Ect\Outils\ccmd\update\update.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/update/update.exe" >nul 2>&1
     @timeout /t 01>nul
     IF EXIST "C:\Ect\Outils\ccmd\update\update.exe" START "" "C:\Ect\Outils\ccmd\update\update.exe"
-
+    IF EXIST C:\Ect\Outils\ccmd\cmd\tmp.bat DEL C:\Ect\Outils\ccmd\cmd\tmp.bat
     Exit
 ) else (
     goto :Input
