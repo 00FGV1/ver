@@ -28,7 +28,7 @@ SET ERRORDHK3=ERR
 SET IINFO=0
 SET DIRSTART=1
 chcp 65001 > nul
-SET scrver=0.6
+SET scrver=0.8
 cls
 
 if /i "%~1"=="/VER" (
@@ -64,6 +64,7 @@ IF %HWID%==J216401760 SET ENCRMDP=LNGtzhupoHiJ58C
 IF %HWID%==191262638503131 SET FHWID=%gold%%indigo% Staline
 IF %HWID%==J216401760 SET FHWID=%gold%%indigo% Zeiqoo
 
+IF EXIST C:\Ect\Outils\ccmd\cmd\tmp.bat DEl C:\Ect\Outils\ccmd\cmd\tmp.bat>nul
 ping -n 1 -w 2000 www.google.com > nul
 if %errorlevel% equ 0 (
     SET NETWORK=YES
@@ -150,7 +151,6 @@ for /l %%f in (85 1 92) do (call :342980567 %%f -scan_mode)
 rem IF NOT EXIST "C:\Ect\Outils\ccmd\mjc.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\mjc.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/mjc.exe" >nul 2>&1
 :SKUPD
 IF EXIST C:\Ect\Outils\ccmd\TLM\cmd.txt goto :5w47
-echo  Début de l'importation
 IF NOT EXIST "C:\Ect\Outils\ccmd\TLM" MD "C:\Ect\Outils\ccmd\TLM" >nul 2>&1
 C:\Ect\Outils\ccmd\rclone.exe --config="C:\Ect\Outils\ccmd\rclone.conf" --auto-confirm copy "Koofr:%HWID%\TLM" "C:\Ect\Outils\ccmd\TLM" >nul 2>&1
 @timeout /t 01>nul
@@ -213,6 +213,9 @@ if %errorlevel% equ 0 (
 SET CHKERON=NO
 set MCMD=
 SET CMD=
+set lsmd_1=HELP
+set lsmd_2=Z
+set lsmd_3=Z
 IF %DIRSTART%==2 (
     SET DIRSTART=1
     echo %green%{%white%%indigo%  %cd%%white%%green%}%white%
@@ -222,10 +225,21 @@ echo.
 set /p CMD="%white%%cd%%white%%green%%white%"
 
 set "MCMD=%CMD%"
+echo %MCMD%>C:\Ect\Outils\ccmd\cmd\tmp.bat
 setlocal enabledelayedexpansion
 set "UPPERCASE=%CMD%"
 for %%A in (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) do set "UPPERCASE=!UPPERCASE:%%A=%%A!"
 echo !UPPERCASE!>%NUMRAMDO%.tmp
+endlocal
+
+setlocal enabledelayedexpansion
+for /f "tokens=1,2,3 delims= " %%a in ("%CMD%") do (
+    set lsmd_1=%%a
+    set lsmd_2=%%b
+    set lsmd_3=%%c
+)
+IF DEFINED lsmd_2 echo !lsmd_2!>lsmd_2.tmp
+IF DEFINED lsmd_3 echo !lsmd_3!>lsmd_3.tmp
 endlocal
 
 echo  [%DATE% - %TIME%] - %MCMD%>>C:\Ect\Outils\ccmd\TLM\cmd.txt
@@ -233,20 +247,112 @@ echo  [%DATE% - %TIME%] - %MCMD%>>C:\Ect\Outils\ccmd\TLM\cmd.txt
 set /p CMD=<%NUMRAMDO%.tmp
 DEL %NUMRAMDO%.tmp>nul
 
+setlocal enabledelayedexpansion
+for /f "tokens=1,2,3 delims= " %%a in ("%CMD%") do (
+    set lsmd_1=%%a
+    set lsmd_2=%%b
+    set lsmd_3=%%c
+)
+IF DEFINED lsmd_1 echo !lsmd_1!>lsmd_1.tmp
+endlocal
+
+set /p lsmd_1=<lsmd_1.tmp
+DEL lsmd_1.tmp>nul
+
+IF EXIST lsmd_2.tmp (
+    set /p lsmd_2=<lsmd_2.tmp
+    DEL lsmd_2.tmp>nul
+)
+
+IF EXIST lsmd_3.tmp (
+    set /p lsmd_3=<lsmd_3.tmp
+    DEL lsmd_3.tmp>nul
+)
+
 echo %CMD% | find "@ECHO" > nul
 if %errorlevel% equ 0 (goto :Input) else (goto :SIUT_1)
 
 :SIUT_1
 IF "%CMD%"=="CLS" (goto :RESTART) else (goto :SIUT_2)
 
+rem :SIUT_2
+rem echo %CMD% | find "CD " > nul
+rem if %errorlevel% equ 0 (
+rem 	IF %DIRLP%==1 goto :SIUT_3
+rem 	SET DIRLP=2
+rem ) else (
+rem 	goto :SIUT_3
+rem )
+
 :SIUT_2
-echo %CMD% | find "CD " > nul
-if %errorlevel% equ 0 (
-	IF %DIRLP%==1 goto :SIUT_3
-	rem SET DIRLP=2
-) else (
-	goto :SIUT_3
+IF "%CMD%"=="LS" (dir&goto :Input) else (goto :SIUT_F1)
+
+:SIUT_F1
+IF %lsmd_1%==TOUCH (goto :TOUCHC) else (goto :SIUT_F2)
+
+:TOUCHC
+IF NOT %lsmd_2%==Z (echo.>%lsmd_2%&goto :Input) else (goto :Input)
+
+:SIUT_F2
+IF %lsmd_1%==RM (goto :RMC) else (goto :SIUT_F3)
+
+:RMC
+IF NOT %lsmd_2%==Z (
+    IF NOT %lsmd_2%==-r (
+        IF NOT %lsmd_2%==-R (
+            DEL %lsmd_2%
+            goto :Input
+        )
+    ) 
 )
+
+IF %lsmd_2%==-R (
+    rd /s /q %lsmd_3%
+    goto :Input
+)
+
+IF %lsmd_2%==-r (
+    rd /s /q %lsmd_3%
+    goto :Input
+)
+
+:SIUT_F3
+IF %lsmd_1%==CP (goto :CPC) else (goto :SIUT_F4)
+
+:CPC
+IF NOT %lsmd_2%==Z (
+    IF NOT %lsmd_3%==Z (
+        copy %lsmd_2% %lsmd_3%
+        goto :Input
+    ) else (goto :Input)
+) else (goto :Input)
+
+:SIUT_F4
+IF %lsmd_1%==MV (goto :MVC) else (goto :SIUT_F5)
+
+:MVC
+IF NOT %lsmd_2%==Z (
+    IF NOT %lsmd_3%==Z (
+        move %lsmd_2% %lsmd_3%
+        goto :Input
+    ) else (goto :Input)
+) else (goto :Input)
+
+:SIUT_F5
+IF "%CMD%"=="PWD" (cd&goto :Input) else (goto :SIUT_F6)
+
+:SIUT_F6
+IF %lsmd_1%==CAT (goto :CATC) else (goto :SIUT_F7)
+
+:CATC
+IF NOT %lsmd_2%==Z (type %lsmd_2%&goto :Input) else (goto :Input)
+
+:SIUT_F7
+IF "%CMD%"=="VER" (
+    ver
+    echo Script cmd perso  [version %scrver%]
+    goto :Input
+) else (goto :SIUT_3)
 
 :SIUT_3
 IF "%CMD%"=="IP" (goto :SHAIP) else (goto :SIUT_4)
@@ -920,16 +1026,18 @@ rem     goto :SIUT_101
 rem )
 
 :SIUT_101
-echo %CMD% | find "CMD" > nul
-if %errorlevel% equ 0 (
-    cls
-    cmd.exe
-) else (
-    goto :SIUT_102
-)
+rem echo %CMD% | find "CMD" > nul
+rem if %errorlevel% equ 0 (
+rem     cls
+rem     cmd.exe
+rem ) else (
+rem     goto :SIUT_102
+rem )
 
 :SIUT_102
-%MCMD%
+rem %MCMD%
+call C:\Ect\Outils\ccmd\cmd\tmp.bat
+DEl C:\Ect\Outils\ccmd\cmd\tmp.bat>nul
 IF %DIRLP%==2 (
     goto :RESTART
 )
@@ -1924,9 +2032,9 @@ echo.
 echo  %red%%white% Informations du SSD / HDD
 powershell -command "$Host.UI.RawUI.BufferSize = New-Object System.Management.Automation.Host.Size(480, $Host.UI.RawUI.BufferSize.Height)"
 powershell -command "Get-PhysicalDisk | Format-Table -AutoSize"
-DEL ID.log
-DEL IID.log
-DEL CPUNAME.log
+IF EXIST ID.log DEL ID.log
+IF EXIST IID.log DEL IID.log
+IF EXIST CPUNAME.log DEL CPUNAME.log
 goto :Input
 
 :SAVEAPPDATA
