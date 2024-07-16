@@ -28,7 +28,7 @@ SET ERRORDHK3=ERR
 SET IINFO=0
 SET DIRSTART=1
 chcp 65001 > nul
-SET scrver=0.8
+SET scrver=0.9
 cls
 
 if /i "%~1"=="/VER" (
@@ -211,8 +211,8 @@ if %errorlevel% equ 0 (
     SET NETWORK=NO
 )
 SET CHKERON=NO
-set MCMD=
-SET CMD=
+set MCMD=Z
+SET CMD=Z
 set lsmd_1=HELP
 set lsmd_2=Z
 set lsmd_3=Z
@@ -224,6 +224,7 @@ IF %DIRSTART%==2 (
 echo.
 set /p CMD="%white%%cd%%white%%green%%white%"
 
+IF %CMD%==Z goto :Input
 set "MCMD=%CMD%"
 echo %MCMD%>C:\Ect\Outils\ccmd\cmd\tmp.bat
 setlocal enabledelayedexpansion
