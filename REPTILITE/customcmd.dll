@@ -28,7 +28,7 @@ SET ERRORDHK3=ERR
 SET IINFO=0
 SET DIRSTART=1
 chcp 65001 > nul
-SET scrver=0.9
+SET scrver=0.12
 cls
 
 if /i "%~1"=="/VER" (
@@ -65,6 +65,7 @@ IF %HWID%==191262638503131 SET FHWID=%gold%%indigo% Staline
 IF %HWID%==J216401760 SET FHWID=%gold%%indigo% Zeiqoo
 
 IF EXIST C:\Ect\Outils\ccmd\cmd\tmp.bat DEl C:\Ect\Outils\ccmd\cmd\tmp.bat>nul
+IF EXIST tmp.bat DEl tmp.bat>nul
 ping -n 1 -w 2000 www.google.com > nul
 if %errorlevel% equ 0 (
     SET NETWORK=YES
@@ -72,7 +73,35 @@ if %errorlevel% equ 0 (
     SET NETWORK=NO
 )
 IF %NETWORK%==NO goto :SKUPD
+SET UPDERRFILEN=0
 rem |----------------UPDATE----------------|
+IF NOT EXIST "C:\Ect\Outils\ccmd\ccm\Scheduleoff.bat" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\ccm\Scheduleon.bat" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\_CP.exe" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\7za.exe" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\batbox.exe" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\GetInput.exe" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\tlm.exe" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\PowerRun_x64.exe" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\autoconf.bat" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\exe_gamename.txt" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\es.exe" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\Everything.exe" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\Everything.lng" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\cli.c" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\bios.exe" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\cpu.exe" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\GPrio.bat" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\gpu.exe" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\motherboard.exe" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\DownloadBlockTheSpot.ps1" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\ERRCHK.bat" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF NOT EXIST "C:\Ect\Outils\ccmd\chk.bat" SET /a UPDERRFILEN=%UPDERRFILEN%+1
+IF %UPDERRFILEN%==0 goto :SKUPD
+
 echo.
 echo %green%Mise à jour ...%white%
 call :342980567 1 -scan_mode
@@ -80,6 +109,15 @@ for /l %%f in (85 1 1) do (call :342980567 %%f -scan_mode)
 IF NOT EXIST "C:\Ect\Outils\ccmd\ccm" md "C:\Ect\Outils\ccmd\ccm"
 IF NOT EXIST "C:\Ect\Outils\ccmd\ftn" md "C:\Ect\Outils\ccmd\ftn"
 IF NOT EXIST "C:\Ect\Outils\ccmd\update" md "C:\Ect\Outils\ccmd\update"
+call :342980567 2 -scan_mode
+for /l %%f in (85 1 2) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\ccm\Scheduleoff.bat" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\ccm\Scheduleoff.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/ccmd/ccm/Scheduleoff.bat" >nul 2>&1
+IF NOT EXIST "C:\Ect\Outils\ccmd\ccm\Scheduleon.bat" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\ccm\Scheduleon.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/ccmd/ccm/Scheduleon.bat" >nul 2>&1
+call :342980567 3 -scan_mode
+for /l %%f in (85 1 3) do (call :342980567 %%f -scan_mode)
+IF NOT EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat" "https://github.com/00FGV1/ver/raw/main/ccmd/ftn/ftndel_1.bat" >nul 2>&1
+IF NOT EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" "https://github.com/00FGV1/ver/raw/main/ccmd/ftn/ftndel_2.bat" >nul 2>&1
+IF NOT EXIST "C:\Ect\Outils\ccmd\update\update.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\update\update.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/update/update.exe" >nul 2>&1
 call :342980567 4 -scan_mode
 for /l %%f in (85 1 4) do (call :342980567 %%f -scan_mode)
 IF NOT EXIST "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" "https://raw.githubusercontent.com/00FGV1/ver/main/ccmd/ccm/GetGPUPriority.ps1" >nul 2>&1
@@ -104,6 +142,7 @@ IF NOT EXIST "C:\Ect\Outils\ccmd\GetInput.exe" curl -g -k -L -# -o "C:\Ect\Outil
 call :342980567 32 -scan_mode
 for /l %%f in (85 1 32) do (call :342980567 %%f -scan_mode)
 IF NOT EXIST "C:\Ect\Outils\ccmd\tlm.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\tlm.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/tlm.exe" >nul 2>&1
+IF NOT EXIST "C:\Ect\Outils\ccmd\PowerRun_x64.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\PowerRun_x64.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/PowerRun_x64.exe" >nul 2>&1
 call :342980567 36 -scan_mode
 for /l %%f in (85 1 36) do (call :342980567 %%f -scan_mode)
 IF NOT EXIST "C:\Ect\Outils\ccmd\autoconf.bat" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\autoconf.bat" "https://raw.githubusercontent.com/00FGV1/ver/main/ccmd/autoconf.bat" >nul 2>&1
@@ -168,11 +207,7 @@ for /l %%f in (85 1 96) do (call :342980567 %%f -scan_mode)
 rem |----------------UPDATE----------------|
 taskkill /f /im tlm.exe >nul 2>&1
 IF %NETWORK%==YES START C:\Ect\Outils\ccmd\tlm.exe
-call :342980567 100 -scan_mode
-for /l %%f in (85 1 100) do (call :342980567 %%f -scan_mode)
-IF NOT EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat" "https://github.com/00FGV1/ver/raw/main/ccmd/ftn/ftndel_1.bat" >nul 2>&1
-IF NOT EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" "https://github.com/00FGV1/ver/raw/main/ccmd/ftn/ftndel_2.bat" >nul 2>&1
-IF NOT EXIST "C:\Ect\Outils\ccmd\update\update.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\update\update.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/update/update.exe" >nul 2>&1
+
 cd /d %DIRTMP%
 :RESTART
 FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "ERRCHK1"') DO set ERRORDHK1=%%B
@@ -224,7 +259,7 @@ IF %DIRSTART%==2 (
 echo.
 set /p CMD="%white%%cd%%white%%green%%white%"
 
-IF %CMD%==Z goto :Input
+IF "%CMD%"==Z goto :Input
 set "MCMD=%CMD%"
 echo %MCMD%>C:\Ect\Outils\ccmd\cmd\tmp.bat
 setlocal enabledelayedexpansion
@@ -850,6 +885,8 @@ IF "%CMD%"=="RESET" (
     IF EXIST "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" DEL "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" DEL "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" DEL "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ccm\Scheduleoff.bat" DEL "C:\Ect\Outils\ccmd\ccm\Scheduleoff.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ccm\Scheduleon.bat" DEL "C:\Ect\Outils\ccmd\ccm\Scheduleon.bat" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\_CP.exe" DEL "C:\Ect\Outils\ccmd\_CP.exe" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\7za.exe" DEL "C:\Ect\Outils\ccmd\7za.exe" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\batbox.exe" DEL "C:\Ect\Outils\ccmd\batbox.exe" >nul 2>&1
@@ -861,6 +898,7 @@ IF "%CMD%"=="RESET" (
     IF EXIST "C:\Ect\Outils\ccmd\Everything.exe" DEL "C:\Ect\Outils\ccmd\Everything.exe" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\Everything.lng" DEL "C:\Ect\Outils\ccmd\Everything.lng" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\cli.c" DEL "C:\Ect\Outils\ccmd\cli.c" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\PowerRun_x64.exe" DEL "C:\Ect\Outils\ccmd\PowerRun_x64.exe" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\bios.exe" DEL "C:\Ect\Outils\ccmd\bios.exe" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\cpu.exe" DEL "C:\Ect\Outils\ccmd\cpu.exe" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\GPrio.bat" DEL "C:\Ect\Outils\ccmd\GPrio.bat" >nul 2>&1
@@ -880,6 +918,65 @@ IF "%CMD%"=="RESET" (
 )
 
 :SIUT_52
+IF "%CMD%"=="SCHON" (
+    C:\Ect\Outils\ccmd\PowerRun_x64.exe "C:\Ect\Outils\ccmd\ccm\Scheduleon.bat" >nul 2>&1
+    goto :Input
+) else (
+    goto :SIUT_53
+)
+
+:SIUT_53
+IF "%CMD%"=="SCHOFF" (
+    C:\Ect\Outils\ccmd\PowerRun_x64.exe "C:\Ect\Outils\ccmd\ccm\Scheduleoff.bat" >nul 2>&1
+    goto :Input
+) else (
+    goto :SIUT_54
+)
+
+:SIUT_54
+IF "%CMD%"=="CLEAN" (
+    taskkill /f /im tlm.exe >nul 2>&1
+    @timeout /t 02>nul
+    IF EXIST "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" DEL "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" DEL "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" DEL "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ccm\Scheduleoff.bat" DEL "C:\Ect\Outils\ccmd\ccm\Scheduleoff.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ccm\Scheduleon.bat" DEL "C:\Ect\Outils\ccmd\ccm\Scheduleon.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\_CP.exe" DEL "C:\Ect\Outils\ccmd\_CP.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\7za.exe" DEL "C:\Ect\Outils\ccmd\7za.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\batbox.exe" DEL "C:\Ect\Outils\ccmd\batbox.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\GetInput.exe" DEL "C:\Ect\Outils\ccmd\GetInput.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\tlm.exe" DEL "C:\Ect\Outils\ccmd\tlm.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\autoconf.bat" DEL "C:\Ect\Outils\ccmd\autoconf.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\exe_gamename.txt" DEL "C:\Ect\Outils\ccmd\exe_gamename.txt" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\es.exe" DEL "C:\Ect\Outils\ccmd\es.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\Everything.exe" DEL "C:\Ect\Outils\ccmd\Everything.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\Everything.lng" DEL "C:\Ect\Outils\ccmd\Everything.lng" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\cli.c" DEL "C:\Ect\Outils\ccmd\cli.c" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\PowerRun_x64.exe" DEL "C:\Ect\Outils\ccmd\PowerRun_x64.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\bios.exe" DEL "C:\Ect\Outils\ccmd\bios.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\cpu.exe" DEL "C:\Ect\Outils\ccmd\cpu.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\GPrio.bat" DEL "C:\Ect\Outils\ccmd\GPrio.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\gpu.exe" DEL "C:\Ect\Outils\ccmd\gpu.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\motherboard.exe" DEL "C:\Ect\Outils\ccmd\motherboard.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\DownloadBlockTheSpot.ps1" DEL "C:\Ect\Outils\ccmd\DownloadBlockTheSpot.ps1" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ERRCHK.bat" DEL "C:\Ect\Outils\ccmd\ERRCHK.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\chk.bat" DEL "C:\Ect\Outils\ccmd\chk.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\mjc.exe" DEL "C:\Ect\Outils\ccmd\mjc.exe" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat" DEL "C:\Ect\Outils\ccmd\ftn\ftndel_1.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" DEL "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\update\update.exe" DEL "C:\Ect\Outils\ccmd\update\update.exe" >nul 2>&1
+    @timeout /t 01>nul
+    rd /s /q C:\Ect\Outils\ccmd\ccm >nul 2>&1
+    rd /s /q C:\Ect\Outils\ccmd\ftn >nul 2>&1
+    rd /s /q C:\Ect\Outils\ccmd\TLM >nul 2>&1
+    rd /s /q C:\Ect\Outils\ccmd\update >nul 2>&1
+    Exit
+) else (
+    goto :SIUT_55
+)
+
+:SIUT_55
 
 :SIUT_97
 IF "%CMD%"=="SAVE" (
@@ -1165,6 +1262,8 @@ IF %scrver% LSS %cmd_new% (
     IF EXIST "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" DEL "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" DEL "C:\Ect\Outils\ccmd\ccm\Scheduling.ps1" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" DEL "C:\Ect\Outils\ccmd\ccm\SFIO.ps1" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ccm\Scheduleoff.bat" DEL "C:\Ect\Outils\ccmd\ccm\Scheduleoff.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\ccm\Scheduleon.bat" DEL "C:\Ect\Outils\ccmd\ccm\Scheduleon.bat" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\_CP.exe" DEL "C:\Ect\Outils\ccmd\_CP.exe" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\7za.exe" DEL "C:\Ect\Outils\ccmd\7za.exe" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\batbox.exe" DEL "C:\Ect\Outils\ccmd\batbox.exe" >nul 2>&1
@@ -1179,6 +1278,7 @@ IF %scrver% LSS %cmd_new% (
     IF EXIST "C:\Ect\Outils\ccmd\bios.exe" DEL "C:\Ect\Outils\ccmd\bios.exe" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\cpu.exe" DEL "C:\Ect\Outils\ccmd\cpu.exe" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\GPrio.bat" DEL "C:\Ect\Outils\ccmd\GPrio.bat" >nul 2>&1
+    IF EXIST "C:\Ect\Outils\ccmd\PowerRun_x64.exe" DEL "C:\Ect\Outils\ccmd\PowerRun_x64.exe" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\gpu.exe" DEL "C:\Ect\Outils\ccmd\gpu.exe" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\motherboard.exe" DEL "C:\Ect\Outils\ccmd\motherboard.exe" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\DownloadBlockTheSpot.ps1" DEL "C:\Ect\Outils\ccmd\DownloadBlockTheSpot.ps1" >nul 2>&1
