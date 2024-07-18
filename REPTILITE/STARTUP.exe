@@ -2,6 +2,7 @@
 @Title START-UP TOOLS
 set black=[30m
 set red=[91m
+set bright_red=[1;91m
 set rred=[41m
 set green=[32m
 set ggreen=[42m
@@ -34,7 +35,7 @@ if %errorlevel% neq 0 (
 )
 
 if /i "%~1"=="/4" (
-	mode con:cols=80 lines=21
+	mode con:cols=80 lines=23
 ) else (
 	Start "" /b C:\Windows\System32\conhost.exe "STARTUP.bat" /4&exit
 )
@@ -45,6 +46,7 @@ IF EXIST "%TEMP%\Spotify.bat" DEL "%TEMP%\Spotify.bat"
 IF EXIST "%TEMP%\REGUI.exe" DEL "%TEMP%\REGUI.exe"
 IF EXIST "%TEMP%\dControl.exe" DEL "%TEMP%\dControl.exe"
 IF EXIST "%TEMP%\DefenderRemover.exe" DEL "%TEMP%\DefenderRemover.exe"
+IF EXIST "%TEMP%\PowerToysSetup-0.82.1-x64.exe" DEL "%TEMP%\PowerToysSetup-0.82.1-x64.exe"
 :MAINW
 cls
 echo ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
@@ -62,12 +64,14 @@ echo ³  ³ %indigo%[4]%white% ³ DESINSTALLER  %gold%[Microsoft Edge]%white%      
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
 echo ³  ³ %indigo%[5]%white% ³ DESACTIVER DEFENDER %gold%[dControl]%white%                                   ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
-echo ³  ³ %indigo%[6]%white% ³ SUPPRIMER DEFENDER  %gold%[Defender Remover]%white%                           ³  ³
+echo ³  ³ %indigo%[6]%white% ³ SUPPRIMER DEFENDER  %gold%[DefenderRemover]%white%                            ³  ³
 echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
-echo ³  ³ %indigo%[7]%white% ³ INSTALL S-W                                                      ³  ³
+echo ³  ³ %indigo%[7]%white% ³ POWER TOYS %gold%[PowerToys]%white%                                           ³  ³
+echo ³  ÃÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´  ³
+echo ³  ³ %indigo%[8]%white% ³ INSTALL S-W                                                      ³  ³
 echo ³  ÀÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ  ³
 echo ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-choice /C:1234567 /N /M ">
+choice /C:12345678 /N /M ">
 If "%ERRORLEVEL%"=="1" (
 	curl -g -k -L -# -o "%TEMP%\MAS_AIO.cmd" "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/Separate-Files-Version/Activators/HWID_Activation.cmd" >nul 2>&1
 	start cmd /c "%TEMP%\MAS_AIO.cmd"
@@ -100,6 +104,11 @@ If "%ERRORLEVEL%"=="6" (
 	goto :MAINW
 )
 If "%ERRORLEVEL%"=="7" (
+	curl -g -k -L -# -o "%TEMP%\PowerToysSetup-0.82.1-x64.exe" "https://github.com/microsoft/PowerToys/releases/download/v0.82.1/PowerToysSetup-0.82.1-x64.exe" >nul 2>&1
+	START %TEMP%\PowerToysSetup-0.82.1-x64.exe
+	goto :MAINW
+)
+If "%ERRORLEVEL%"=="8" (
 	IF NOT EXIST C:\Ect md C:\Ect >nul 2>&1
 	cd /d C:\Ect\ >nul 2>&1
 	IF EXIST C:\Ect\S-W\start-windows.bat START "" "C:\Ect\S-W\start-windows.bat" -U
