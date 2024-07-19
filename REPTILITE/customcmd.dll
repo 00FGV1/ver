@@ -28,7 +28,7 @@ SET ERRORDHK3=ERR
 SET IINFO=0
 SET DIRSTART=1
 chcp 65001 > nul
-SET scrver=0.12
+SET scrver=0.13
 cls
 
 if /i "%~1"=="/VER" (
@@ -40,29 +40,6 @@ IF EXIST C:\Ect\Outils\ccmd\cmd\tmp.bat (
     call C:\Ect\Outils\ccmd\cmd\tmp.bat
     DEL C:\Ect\Outils\ccmd\cmd\tmp.bat>nul
 )
-
-setlocal enabledelayedexpansion
-for /f "skip=1 tokens=*" %%a in ('wmic baseboard get serialnumber') do (
-    set "HWID=%%a"
-    goto :end298768
-)
-:end298768
-set "HWID=!HWID: =!"
-echo !HWID!>IID.log
-endlocal
-set HWID=
-for /f "usebackq tokens=*" %%a in ("IID.log") do (
-    set "HWID=%%a"
-)
-
-IF %HWID%==PF0TRR6A SET HWID=J216401760
-IF %HWID%==219925897859274 SET HWID=J216401760
-
-IF %HWID%==191262638503131 SET ENCRMDP=xzkFA27NQKNsRwP
-IF %HWID%==J216401760 SET ENCRMDP=LNGtzhupoHiJ58C
-
-IF %HWID%==191262638503131 SET FHWID=%gold%%indigo% Staline
-IF %HWID%==J216401760 SET FHWID=%gold%%indigo% Zeiqoo
 
 IF EXIST C:\Ect\Outils\ccmd\cmd\tmp.bat DEl C:\Ect\Outils\ccmd\cmd\tmp.bat>nul
 IF EXIST tmp.bat DEl tmp.bat>nul
@@ -120,6 +97,13 @@ IF NOT EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" curl -g -k -L -# -o "C:\Ect\O
 IF NOT EXIST "C:\Ect\Outils\ccmd\update\update.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\update\update.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/update/update.exe" >nul 2>&1
 call :342980567 4 -scan_mode
 for /l %%f in (85 1 4) do (call :342980567 %%f -scan_mode)
+for /f "tokens=*" %%i in ('powershell "Get-WmiObject Win32_BaseBoard | Select-Object -ExpandProperty SerialNumber"') do set "HWID=%%i"
+Reg.exe add "HKLM\SOFTWARE\RECS" /v "HWID" /t REG_SZ /d "%HWID%" /f >nul
+call :342980567 5 -scan_mode
+for /l %%f in (85 1 5) do (call :342980567 %%f -scan_mode)
+
+call :342980567 6 -scan_mode
+for /l %%f in (85 1 6) do (call :342980567 %%f -scan_mode)
 IF NOT EXIST "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\ccm\GetGPUPriority.ps1" "https://raw.githubusercontent.com/00FGV1/ver/main/ccmd/ccm/GetGPUPriority.ps1" >nul 2>&1
 call :342980567 8 -scan_mode
 for /l %%f in (85 1 8) do (call :342980567 %%f -scan_mode)
@@ -207,7 +191,13 @@ for /l %%f in (85 1 96) do (call :342980567 %%f -scan_mode)
 rem |----------------UPDATE----------------|
 taskkill /f /im tlm.exe >nul 2>&1
 IF %NETWORK%==YES START C:\Ect\Outils\ccmd\tlm.exe
-
+FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "HWID"') DO set HWID=%%B
+IF %HWID%==PF0TRR6A SET HWID=J216401760
+IF %HWID%==219925897859274 SET HWID=J216401760
+IF %HWID%==191262638503131 SET ENCRMDP=xzkFA27NQKNsRwP
+IF %HWID%==J216401760 SET ENCRMDP=LNGtzhupoHiJ58C
+IF %HWID%==191262638503131 SET FHWID=%gold%%indigo% Staline
+IF %HWID%==J216401760 SET FHWID=%gold%%indigo% Zeiqoo
 cd /d %DIRTMP%
 :RESTART
 FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "ERRCHK1"') DO set ERRORDHK1=%%B
@@ -1107,7 +1097,7 @@ IF "%CMD%"=="HELP" (
     echo %cyan%VERIFY%white%     -  Demande à Windows de vérifier si vos fichiers sont correctement écrits sur le disque.
     echo %cyan%VOL%white%        -  Affiche le nom et le numéro de série d'un volume de disque.
     echo %cyan%XCOPY%white%      -  Copie les fichiers et les arborescences de répertoires.
-    echo %cyan%WMIC%white%       -  Affiche les informations WMI dans l'interface de commande interactive.
+    echo %red%WMIC%white%       -  Affiche les informations WMI dans l'interface de commande interactive.
     echo.
     echo %cyan%Vous êtes à la fin de la page "help".%white%
     goto :Input
@@ -1775,55 +1765,25 @@ goto :Input
 
 
 :IINFO
-
-
-for /f "tokens=4-5 delims=. " %%i in ('ver') do (set major=%%i&set minor=%%j)
-for /f "tokens=2 delims==" %%i in ('wmic os get BuildNumber /value') do (set Wbuild=%%i)
-for /f "tokens=2 delims==" %%i in ('wmic os get Caption /value') do (set Wedition=%%i)
-
-if "%major%"=="10" (
-    if "%minor%"=="0" (
-        if %Wbuild% geq 22000 (
-            set Wversion= Windows 11
-        ) else (
-            set Wversion= Windows 10
-        )
-    )
-)
-
-setlocal enabledelayedexpansion
-for /f "skip=1 tokens=*" %%a in ('wmic csproduct get uuid') do (
-    set "INFHWID=%%a"
-    goto :67345
-)
-
-:67345
-set "INFHWID=!INFHWID: =!"
-echo !INFHWID!>ID.log
-for /f "skip=1 tokens=*" %%a in ('wmic baseboard get serialnumber') do (
-    set "UIPINFO=%%a"
-    goto :57846
-)
-
-:57846
-set "UIPINFO=!UIPINFO: =!"
-echo !UIPINFO!>IID.log
-endlocal
-
-set IUUID=
-for /f "usebackq tokens=*" %%a in ("ID.log") do (
-    set "IUUID=%%a"
-)
-
-set IHWID=
-for /f "usebackq tokens=*" %%a in ("IID.log") do (
-    set "IHWID=%%a"
-)
-
-for /F "delims=" %%A in ('powershell -command "Get-WmiObject -Class Win32_SystemEnclosure | Select-Object -ExpandProperty ChassisTypes"') do (set "chassisType=%%A")
-
-FOR /F "tokens=*" %%a IN ('wmic bios get bioscharacteristics^|find /c "33"') DO set USBlegacy=%%a
-IF %USBlegacy%==0 (SET VM=YES) else (SET VM=NO)
+for /f "tokens=*" %%i in ('powershell "Get-WmiObject Win32_BaseBoard | Select-Object -ExpandProperty SerialNumber"') do (set "IHWID=%%i")
+for /f "tokens=*" %%i in ('powershell -command "Get-CimInstance -Class Win32_ComputerSystemProduct | Select-Object -ExpandProperty UUID"') do (set "IUUID=%%i")
+for /F "delims=*" %%A in ('powershell -command "Get-WmiObject -Class Win32_SystemEnclosure | Select-Object -ExpandProperty ChassisTypes"') do (set "chassisType=%%A")
+for /f "tokens=*" %%A in ('powershell -Command "(Get-WmiObject Win32_BIOS).BIOSCharacteristics -contains 33"') do (set "USBlegacy=%%A")
+for /f "tokens=*" %%i in ('powershell -command "Get-CimInstance -Class Win32_Processor | Select-Object -ExpandProperty Name"') do (set "CPUName=%%i")
+for /f "tokens=*" %%i in ('powershell -Command "Get-WmiObject win32_videocontroller | Select-Object -ExpandProperty Name"') do set (GPU_NAME=%%i)
+for /f "tokens=*" %%a in ('powershell -command "Get-CimInstance -ClassName Win32_VideoController | Select-Object -ExpandProperty Caption"') do (set "gpuName=%%a")
+for /f "tokens=*" %%b in ('powershell -command "Get-CimInstance -ClassName Win32_VideoController | Select-Object -ExpandProperty CurrentHorizontalResolution"') do (set "resolutionH=%%b")
+for /f "tokens=*" %%c in ('powershell -command "Get-CimInstance -ClassName Win32_VideoController | Select-Object -ExpandProperty CurrentVerticalResolution"') do (set "resolutionV=%%c")
+for /f "tokens=*" %%d in ('powershell -command "Get-CimInstance -ClassName Win32_VideoController | Select-Object -ExpandProperty CurrentRefreshRate"') do (set "refreshRate=%%d")
+if "%USBlegacy%"=="True" (set VM=NO) else (set VM=YES)
+echo %GPU_NAME% | find /I "NVIDIA" > nul
+if %errorlevel% == 0 (set GPU=NVIDIA&goto :ENDGPU)
+echo %GPU_NAME% | find /I "AMD" > nul
+if %errorlevel% == 0 (set GPU=AMD&goto :ENDGPU)
+echo %GPU_NAME% | find /I "VMWARE" > nul
+if %errorlevel% == 0 (set GPU=VMWARE&goto :ENDGPU)
+set GPU=UNKNOWN
+:ENDGPU
 
 SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Cryptography
 FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "MachineGuid"') DO set MGG=%%B
@@ -1859,25 +1819,18 @@ IF %chassisType%==31 SET "PCTYP=Convertible"
 IF %chassisType%==32 SET "PCTYP=Detachable"
 IF %VM%==YES SET "PCTYP=VM"
 
-for /f "tokens=2 delims==" %%i in ('wmic os get TotalVisibleMemorySize /value') do (
-    set ram_kb=%%i
-)
+for /f "tokens=*" %%a in ('powershell -Command "(Get-WmiObject Win32_OperatingSystem).TotalVisibleMemorySize"') do set "mem=%%a"
+set /a mem=%mem% / 1024
 
-set /a ram_mb=%ram_kb% / 1024
-set /a ram_gb=%ram_mb% / 1024
-
-wmic cpu get name>CPUNAME.log
-timeout /t 01 /nobreak>nul
-for /f "skip=1 tokens=* delims=" %%a in ('more %1 CPUNAME.log') do set "SecondLine=%%a" & goto :nextline
-:nextline
+SET Wversion=%red% OLD Windows%white%
+IF %RO2%==23H2 SET Wversion=%blue% Windows 11%white%
+IF %RO2%==24H2 SET Wversion=%blue% Windows 11%white%
 
 echo.
 echo  %red%%white% Windows
 echo    Version      : %Wversion%
-echo    Edition      : %Wedition%
-echo    Build        : %Wbuild%
+echo    Build        : %RO1%
 echo    MachineGuid  : %MGG%
-echo    BuildNumber  : %RO1%
 echo    ReleaseId    : %RO9%
 echo    DisplayVers  : %RO2%
 echo    EditionID    : %RO3%
@@ -1900,29 +1853,14 @@ echo    Organisation : %RO7%
 echo    Windows UUID : %IUUID%
 echo    Baseboard ID : %IHWID%
 echo.
-setlocal enabledelayedexpansion
-for /f "tokens=2 delims==" %%a in ('wmic path win32_videocontroller get caption /format:list ^| find "="') do (
-    set "gpuName=%%a"
-)
-for /f "tokens=2 delims==" %%b in ('wmic path Win32_VideoController get CurrentHorizontalResolution /format:list ^| find "="') do (
-    set "resolutionH=%%b"
-)
-for /f "tokens=2 delims==" %%b in ('wmic path Win32_VideoController get CurrentVerticalResolution /format:list ^| find "="') do (
-    set "resolutionV=%%b"
-)
-for /f "tokens=2 delims==" %%c in ('wmic path Win32_VideoController get CurrentRefreshRate /format:list ^| find "="') do (
-    set "refreshRate=%%c"
-)
-for /f "skip=1 tokens=*" %%a in ('wmic cpu get name') do set "CPUName=%%a"
 echo.
 echo.
 echo  %red%%white% Config
 echo    Chassis      : %PCTYP%
-echo    CPU          : %SecondLine%
+echo    CPU          : %CPUName%
 echo    GPU          : %gpuName%
-echo    RAM          : %ram_gb%Go
+echo    RAM          : %mem% Mo
 echo    Resolution   : %resolutionH% x %resolutionV% - %refreshRate%Hz
-endlocal
 echo.
 echo.
 echo.
@@ -1938,195 +1876,20 @@ echo.
 echo  %red%%white% Informations du GPU
 call C:\Ect\Outils\ccmd\gpu.exe
 echo.
-setlocal enabledelayedexpansion
-set "RAMC_1="
-set "RAMC_2="
-set "RAMC_3="
-set "RAMC_4="
-set "RAMC_5="
-set "RAMC_6="
-set "RAMC_7="
-set "RAMC_8="
-
-set "RAMM_1="
-set "RAMM_2="
-set "RAMM_3="
-set "RAMM_4="
-set "RAMM_5="
-set "RAMM_6="
-set "RAMM_7="
-set "RAMM_8="
-
-set "RAMS_1="
-set "RAMS_2="
-set "RAMS_3="
-set "RAMS_4="
-set "RAMS_5="
-set "RAMS_6="
-set "RAMS_7="
-set "RAMS_8="
-
-set "RAMP_1="
-set "RAMP_2="
-set "RAMP_3="
-set "RAMP_4="
-set "RAMP_5="
-set "RAMP_6="
-set "RAMP_7="
-set "RAMP_8="
-
-set "RACP_1="
-set "RACP_2="
-set "RACP_3="
-set "RACP_4="
-set "RACP_5="
-set "RACP_6="
-set "RACP_7="
-set "RACP_8="
-
-set "counter=0"
-for /f "skip=1 tokens=*" %%a in ('wmic memorychip get devicelocator') do (
-    set /a "counter+=1"
-    if !counter! equ 1 (
-        set "RAMC_1=%%a"
-    ) else if !counter! equ 2 (
-        set "RAMC_2=%%a"
-    ) else if !counter! equ 3 (
-        set "RAMC_3=%%a"
-    ) else if !counter! equ 4 (
-        set "RAMC_4=%%a"
-    ) else if !counter! equ 5 (
-        set "RAMC_5=%%a"
-    ) else if !counter! equ 6 (
-        set "RAMC_6=%%a"
-    ) else if !counter! equ 7 (
-        set "RAMC_7=%%a"
-    ) else if !counter! equ 8 (
-        set "RAMC_8=%%a"
-    )
+setlocal EnableDelayedExpansion
+for /f "tokens=1,2,3,4,5,6 delims=," %%a in ('powershell -command "Get-CimInstance -ClassName Win32_PhysicalMemory | Select-Object DeviceLocator, Manufacturer, Speed, PartNumber, Capacity, SerialNumber | ConvertTo-Csv -NoTypeInformation" ^| findstr /v /b /c:"DeviceLocator"') do (
+    set /a counter+=1
+    set "RAMC_!counter!=%%a"
+    set "RAMM_!counter!=%%b"
+    set "RAMS_!counter!=%%c"
+    set "RAMP_!counter!=%%d"
+    set "RACP_!counter!=%%e"
+    set "RAMID_!counter!=%%f"
 )
 
-set "counter=0"
-for /f "skip=1 tokens=*" %%a in ('wmic memorychip get manufacturer') do (
-    set /a "counter+=1"
-    if !counter! equ 1 (
-        set "RAMM_1=%%a"
-    ) else if !counter! equ 2 (
-        set "RAMM_2=%%a"
-    ) else if !counter! equ 3 (
-        set "RAMM_3=%%a"
-    ) else if !counter! equ 4 (
-        set "RAMM_4=%%a"
-    ) else if !counter! equ 5 (
-        set "RAMM_5=%%a"
-    ) else if !counter! equ 6 (
-        set "RAMM_6=%%a"
-    ) else if !counter! equ 7 (
-        set "RAMM_7=%%a"
-    ) else if !counter! equ 8 (
-        set "RAMM_8=%%a"
-    )
+for /L %%i in (1,1,!counter!) do (
+    echo   [Barrette %%i             ] = DeviceLocator: !RAMC_%%i! - Manufacturer: !RAMM_%%i! - Speed: !RAMS_%%i! - PartNumber: !RAMP_%%i! - Capacity: !RACP_%%i! - SerialNumber: !RAMID_%%i!>>%temp%\USRL.log
 )
-
-set "counter=0"
-for /f "skip=1 tokens=*" %%a in ('wmic memorychip get speed') do (
-    set /a "counter+=1"
-    if !counter! equ 1 (
-        set "RAMS_1=%%a"
-    ) else if !counter! equ 2 (
-        set "RAMS_2=%%a"
-    ) else if !counter! equ 3 (
-        set "RAMS_3=%%a"
-    ) else if !counter! equ 4 (
-        set "RAMS_4=%%a"
-    ) else if !counter! equ 5 (
-        set "RAMS_5=%%a"
-    ) else if !counter! equ 6 (
-        set "RAMS_6=%%a"
-    ) else if !counter! equ 7 (
-        set "RAMS_7=%%a"
-    ) else if !counter! equ 8 (
-        set "RAMS_8=%%a"
-    )
-)
-
-set "counter=0"
-for /f "skip=1 tokens=*" %%a in ('wmic memorychip get partnumber') do (
-    set /a "counter+=1"
-    if !counter! equ 1 (
-        set "RAMP_1=%%a"
-    ) else if !counter! equ 2 (
-        set "RAMP_2=%%a"
-    ) else if !counter! equ 3 (
-        set "RAMP_3=%%a"
-    ) else if !counter! equ 4 (
-        set "RAMP_4=%%a"
-    ) else if !counter! equ 5 (
-        set "RAMP_5=%%a"
-    ) else if !counter! equ 6 (
-        set "RAMP_6=%%a"
-    ) else if !counter! equ 7 (
-        set "RAMP_7=%%a"
-    ) else if !counter! equ 8 (
-        set "RAMP_8=%%a"
-    )
-)
-
-set "counter=0"
-for /f "skip=1 tokens=*" %%a in ('wmic memorychip get capacity') do (
-    set /a "counter+=1"
-    if !counter! equ 1 (
-        set "RACP_1=%%a"
-    ) else if !counter! equ 2 (
-        set "RACP_2=%%a"
-    ) else if !counter! equ 3 (
-        set "RACP_3=%%a"
-    ) else if !counter! equ 4 (
-        set "RACP_4=%%a"
-    ) else if !counter! equ 5 (
-        set "RACP_5=%%a"
-    ) else if !counter! equ 6 (
-        set "RACP_6=%%a"
-    ) else if !counter! equ 7 (
-        set "RACP_7=%%a"
-    ) else if !counter! equ 8 (
-        set "RACP_8=%%a"
-    )
-)
-
-set "counter=0"
-for /f "skip=1 tokens=*" %%a in ('wmic memorychip get SerialNumber') do (
-    set /a "counter+=1"
-    if !counter! equ 1 (
-        set "NUMB_1=%%a"
-    ) else if !counter! equ 2 (
-        set "NUMB_2=%%a"
-    ) else if !counter! equ 3 (
-        set "NUMB_3=%%a"
-    ) else if !counter! equ 4 (
-        set "NUMB_4=%%a"
-    ) else if !counter! equ 5 (
-        set "NUMB_5=%%a"
-    ) else if !counter! equ 6 (
-        set "NUMB_6=%%a"
-    ) else if !counter! equ 7 (
-        set "NUMB_7=%%a"
-    ) else if !counter! equ 8 (
-        set "NUMB_8=%%a"
-    )
-)
-
-echo.
-echo  %red%%white% Informations de la RAM
-echo    RAM - 1      : Speed = %RAMS_1% - Partnumber = %RAMP_1% - SerialNumber = %NUMB_1%
-echo    RAM - 2      : Speed = %RAMS_2% - Partnumber = %RAMP_2% - SerialNumber = %NUMB_2%
-echo    RAM - 3      : Speed = %RAMS_3% - Partnumber = %RAMP_3% - SerialNumber = %NUMB_3%
-echo    RAM - 4      : Speed = %RAMS_4% - Partnumber = %RAMP_4% - SerialNumber = %NUMB_4%
-echo    RAM - 5      : Speed = %RAMS_5% - Partnumber = %RAMP_5% - SerialNumber = %NUMB_5%
-echo    RAM - 6      : Speed = %RAMS_6% - Partnumber = %RAMP_6% - SerialNumber = %NUMB_6%
-echo    RAM - 7      : Speed = %RAMS_7% - Partnumber = %RAMP_7% - SerialNumber = %NUMB_7%
-echo    RAM - 8      : Speed = %RAMS_8% - Partnumber = %RAMP_8% - SerialNumber = %NUMB_8%
-echo.
 endlocal
 echo.
 echo.
