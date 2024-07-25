@@ -28,7 +28,7 @@ SET ERRORDHK3=ERR
 SET IINFO=0
 SET DIRSTART=1
 chcp 65001 > nul
-SET scrver=0.13
+SET scrver=0.14
 cls
 
 if /i "%~1"=="/VER" (
@@ -493,13 +493,13 @@ IF "%CMD%"=="TMP" (
 )
 
 :SIUT_6
-IF "%CMD%"=="F ON" (netsh advfirewall set allprofiles state on&goto :Input) else (goto :SIUT_7)
+IF "%CMD%"=="FON" (netsh advfirewall set allprofiles state on&goto :Input) else (goto :SIUT_7)
 
 :SIUT_7
-IF "%CMD%"=="F OFF" (netsh advfirewall set allprofiles state off&goto :Input) else (goto :SIUT_8)
+IF "%CMD%"=="FOFF" (netsh advfirewall set allprofiles state off&goto :Input) else (goto :SIUT_8)
 
 :SIUT_8
-IF "%CMD%"=="F DEL" (netsh advfirewall firewall delete rule all&goto :Input) else (goto :SIUT_9)
+IF "%CMD%"=="FDEL" (netsh advfirewall firewall delete rule all&goto :Input) else (goto :SIUT_9)
 
 :SIUT_9
 IF "%CMD%"=="ADW" (
@@ -993,9 +993,9 @@ IF "%CMD%"=="HELP" (
     echo %yellow%IPS%white%              -  Recherchez les informations d'une adresse IP.
     echo %yellow%INFO%white%             -  Affiche les informations du système.
     echo %yellow%STARTUP%white%          -  Télécharge et ouvre le script d'optimisation.
-    echo %yellow%F ON%white%             -  Active le pare-feu Windows.
-    echo %yellow%F OFF%white%            -  Désactive le pare-feu Windows.
-    echo %yellow%F DEL%white%            -  Supprime les règles du pare-feu.
+    echo %yellow%FON%white%             -  Active le pare-feu Windows.
+    echo %yellow%FOFF%white%            -  Désactive le pare-feu Windows.
+    echo %yellow%FDEL%white%            -  Supprime les règles du pare-feu.
     echo %yellow%TMP%white%              -  Supprimez les fichiers temporaires.
     echo %yellow%ADW%white%              -  Analyse le PC avec AdwCleaner.
     echo %yellow%CHK%white%              -  Analyse l'état de l'optimisation.
