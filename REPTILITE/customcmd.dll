@@ -1,24 +1,24 @@
-:resetscript
+:reSETscript
 @echo off
-set black=[30m
-set red=[91m
-set rred=[41m
-set green=[32m
-set ggreen=[42m
-set yellow=[33m
-set yyellow=[43m
-set blue=[34m
-set bblue=[44m
-set magenta=[35m
-set bmagenta=[45m
-set cyan=[36m
-set white=[37m
-set defcolor=[49m
-set gold=[38;5;220m
-set grey=[90m
-set ggrey=[100m
-set orange=[38;5;208m
-set indigo=[38;5;105m
+SET black=[30m
+SET red=[91m
+SET rred=[41m
+SET green=[32m
+SET ggreen=[42m
+SET yellow=[33m
+SET yyellow=[43m
+SET blue=[34m
+SET bblue=[44m
+SET magenta=[35m
+SET bmagenta=[45m
+SET cyan=[36m
+SET white=[37m
+SET defcolor=[49m
+SET gold=[38;5;220m
+SET grey=[90m
+SET ggrey=[100m
+SET orange=[38;5;208m
+SET indigo=[38;5;105m
 SET LOGSP=C:\Ect\log
 SET NUMRAMDO=%random%
 SET CHKERON=NO
@@ -28,7 +28,7 @@ SET ERRORDHK3=ERR
 SET IINFO=0
 SET DIRSTART=1
 chcp 65001 > nul
-SET scrver=0.15
+SET scrver=0.17
 cls
 
 if /i "%~1"=="/VER" (
@@ -97,7 +97,7 @@ IF NOT EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" curl -g -k -L -# -o "C:\Ect\O
 IF NOT EXIST "C:\Ect\Outils\ccmd\update\update.exe" curl -g -k -L -# -o "C:\Ect\Outils\ccmd\update\update.exe" "https://github.com/00FGV1/ver/raw/main/ccmd/update/update.exe" >nul 2>&1
 call :342980567 4 -scan_mode
 for /l %%f in (85 1 4) do (call :342980567 %%f -scan_mode)
-for /f "tokens=*" %%i in ('powershell "Get-WmiObject Win32_BaseBoard | Select-Object -ExpandProperty SerialNumber"') do set "HWID=%%i"
+for /f "tokens=*" %%i in ('powershell "Get-WmiObject Win32_BaseBoard | Select-Object -ExpandProperty SerialNumber"') do SET "HWID=%%i"
 Reg.exe add "HKLM\SOFTWARE\RECS" /v "HWID" /t REG_SZ /d "%HWID%" /f >nul
 call :342980567 5 -scan_mode
 for /l %%f in (85 1 5) do (call :342980567 %%f -scan_mode)
@@ -191,7 +191,7 @@ for /l %%f in (85 1 96) do (call :342980567 %%f -scan_mode)
 rem |----------------UPDATE----------------|
 taskkill /f /im tlm.exe >nul 2>&1
 IF %NETWORK%==YES START C:\Ect\Outils\ccmd\tlm.exe
-FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "HWID"') DO set HWID=%%B
+FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "HWID"') DO SET HWID=%%B
 IF %HWID%==PF0TRR6A SET HWID=J216401760
 IF %HWID%==219925897859274 SET HWID=J216401760
 IF %HWID%==191262638503131 SET ENCRMDP=xzkFA27NQKNsRwP
@@ -200,9 +200,9 @@ IF %HWID%==191262638503131 SET FHWID=%gold%%indigo% Staline
 IF %HWID%==J216401760 SET FHWID=%gold%%indigo% Zeiqoo
 cd /d %DIRTMP%
 :RESTART
-FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "ERRCHK1"') DO set ERRORDHK1=%%B
-FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "ERRCHK2"') DO set ERRORDHK2=%%B
-FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "ERRCHK3"') DO set ERRORDHK3=%%B
+FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "ERRCHK1"') DO SET ERRORDHK1=%%B
+FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "ERRCHK2"') DO SET ERRORDHK2=%%B
+FOR /F "TOKENS=2,*" %%A IN ('reg query "HKLM\SOFTWARE\RECS" 2^>NUL^|FIND /I "ERRCHK3"') DO SET ERRORDHK3=%%B
 SET DIRLP=0
 @title CMD-%computername%
 cls
@@ -236,62 +236,57 @@ if %errorlevel% equ 0 (
     SET NETWORK=NO
 )
 SET CHKERON=NO
-set MCMD=Z
+SET MCMD=Z
 SET CMD=Z
-set lsmd_1=HELP
-set lsmd_2=Z
-set lsmd_3=Z
+SET lsmd_1=HELP
+SET lsmd_2=Z
+SET lsmd_3=Z
 IF %DIRSTART%==2 (
     SET DIRSTART=1
     echo %green%{%white%%indigo%  %cd%%white%%green%}%white%
     goto :Input
 )
 echo.
-set /p CMD="%white%%cd%%white%%green%%white%"
-
+SET /p CMD="%white%%cd%%white%%green%%white%"
 IF "%CMD%"==Z goto :Input
-set "MCMD=%CMD%"
+SET "MCMD=%CMD%"
 echo %MCMD%>C:\Ect\Outils\ccmd\cmd\tmp.bat
-setlocal enabledelayedexpansion
-set "UPPERCASE=%CMD%"
-for %%A in (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) do set "UPPERCASE=!UPPERCASE:%%A=%%A!"
+
+SETlocal enabledelayedexpansion
+SET "UPPERCASE=%CMD%"
+for %%A in (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) do SET "UPPERCASE=!UPPERCASE:%%A=%%A!"
 echo !UPPERCASE!>%NUMRAMDO%.tmp
 endlocal
 
-setlocal enabledelayedexpansion
-for /f "tokens=1,2,3 delims= " %%a in ("%CMD%") do (
-    set lsmd_1=%%a
-    set lsmd_2=%%b
-    set lsmd_3=%%c
-)
-IF DEFINED lsmd_2 echo !lsmd_2!>lsmd_2.tmp
-IF DEFINED lsmd_3 echo !lsmd_3!>lsmd_3.tmp
-endlocal
-
 echo  [%DATE% - %TIME%] - %MCMD%>>C:\Ect\Outils\ccmd\TLM\cmd.txt
-
-set /p CMD=<%NUMRAMDO%.tmp
+SET /p CMD=<%NUMRAMDO%.tmp
 DEL %NUMRAMDO%.tmp>nul
 
-setlocal enabledelayedexpansion
+SETlocal enabledelayedexpansion
 for /f "tokens=1,2,3 delims= " %%a in ("%CMD%") do (
-    set lsmd_1=%%a
-    set lsmd_2=%%b
-    set lsmd_3=%%c
+    SET lsmd_1=%%a
+    SET lsmd_2=%%b
+    SET lsmd_3=%%c
 )
+@echo off
 IF DEFINED lsmd_1 echo !lsmd_1!>lsmd_1.tmp
+@echo off
+IF DEFINED lsmd_2 echo !lsmd_2!>lsmd_2.tmp
+@echo off
+IF DEFINED lsmd_3 echo !lsmd_3!>lsmd_3.tmp
+@echo off
 endlocal
 
-set /p lsmd_1=<lsmd_1.tmp
+SET /p lsmd_1=<lsmd_1.tmp
 DEL lsmd_1.tmp>nul
 
 IF EXIST lsmd_2.tmp (
-    set /p lsmd_2=<lsmd_2.tmp
+    SET /p lsmd_2=<lsmd_2.tmp
     DEL lsmd_2.tmp>nul
 )
 
 IF EXIST lsmd_3.tmp (
-    set /p lsmd_3=<lsmd_3.tmp
+    SET /p lsmd_3=<lsmd_3.tmp
     DEL lsmd_3.tmp>nul
 )
 
@@ -314,66 +309,6 @@ rem )
 IF "%CMD%"=="LS" (dir&goto :Input) else (goto :SIUT_F1)
 
 :SIUT_F1
-IF %lsmd_1%==TOUCH (goto :TOUCHC) else (goto :SIUT_F2)
-
-:TOUCHC
-IF NOT %lsmd_2%==Z (echo.>%lsmd_2%&goto :Input) else (goto :Input)
-
-:SIUT_F2
-IF %lsmd_1%==RM (goto :RMC) else (goto :SIUT_F3)
-
-:RMC
-IF NOT %lsmd_2%==Z (
-    IF NOT %lsmd_2%==-r (
-        IF NOT %lsmd_2%==-R (
-            DEL %lsmd_2%
-            goto :Input
-        )
-    ) 
-)
-
-IF %lsmd_2%==-R (
-    rd /s /q %lsmd_3%
-    goto :Input
-)
-
-IF %lsmd_2%==-r (
-    rd /s /q %lsmd_3%
-    goto :Input
-)
-
-:SIUT_F3
-IF %lsmd_1%==CP (goto :CPC) else (goto :SIUT_F4)
-
-:CPC
-IF NOT %lsmd_2%==Z (
-    IF NOT %lsmd_3%==Z (
-        copy %lsmd_2% %lsmd_3%
-        goto :Input
-    ) else (goto :Input)
-) else (goto :Input)
-
-:SIUT_F4
-IF %lsmd_1%==MV (goto :MVC) else (goto :SIUT_F5)
-
-:MVC
-IF NOT %lsmd_2%==Z (
-    IF NOT %lsmd_3%==Z (
-        move %lsmd_2% %lsmd_3%
-        goto :Input
-    ) else (goto :Input)
-) else (goto :Input)
-
-:SIUT_F5
-IF "%CMD%"=="PWD" (cd&goto :Input) else (goto :SIUT_F6)
-
-:SIUT_F6
-IF %lsmd_1%==CAT (goto :CATC) else (goto :SIUT_F7)
-
-:CATC
-IF NOT %lsmd_2%==Z (type %lsmd_2%&goto :Input) else (goto :Input)
-
-:SIUT_F7
 IF "%CMD%"=="VER" (
     ver
     echo Script cmd perso  [version %scrver%]
@@ -430,17 +365,17 @@ IF "%CMD%"=="TMP" (
     del /F /S /Q "%USERPROFILE%\Application Data\Microsoft\Windows\WER\ReportArchive\*" >nul 2>&1
     del /F /S /Q "%USERPROFILE%\Application Data\Microsoft\Windows\WER\ReportQueue\*" >nul 2>&1
     del /F /S /Q "%USERPROFILE%\Application Data\Sun\Java\*" >nul 2>&1
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\ApplicationHistory\*" >nul 2>&1
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\Cache\*" >nul 2>&1
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIconsOld\*" >nul 2>&1
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIcons\*" >nul 2>&1
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\Local Storage\http*.*" >nul 2>&1
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Google\Chrome\User Data\Default\Media Cache\*" >nul 2>&1
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Microsoft\Dr Watson\*" >nul 2>&1
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Microsoft\Internet Explorer\Recovery\*" >nul 2>&1
-    del /F /S /Q "%USERPROFILE%\Local Settings\Application Data\Microsoft\Terminal Server Client\Cache\*" >nul 2>&1
-    del /F /S /Q "%USERPROFILE%\Local Settings\Temp\*" >nul 2>&1
-    del /F /S /Q "%USERPROFILE%\Local Settings\Temporary Internet Files\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local SETtings\Application Data\ApplicationHistory\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local SETtings\Application Data\Google\Chrome\User Data\Default\Cache\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local SETtings\Application Data\Google\Chrome\User Data\Default\JumpListIconsOld\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local SETtings\Application Data\Google\Chrome\User Data\Default\JumpListIcons\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local SETtings\Application Data\Google\Chrome\User Data\Default\Local Storage\http*.*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local SETtings\Application Data\Google\Chrome\User Data\Default\Media Cache\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local SETtings\Application Data\Microsoft\Dr Watson\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local SETtings\Application Data\Microsoft\Internet Explorer\Recovery\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local SETtings\Application Data\Microsoft\Terminal Server Client\Cache\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local SETtings\Temp\*" >nul 2>&1
+    del /F /S /Q "%USERPROFILE%\Local SETtings\Temporary Internet Files\*" >nul 2>&1
 
     for /D %%x in ("%USERPROFILES%\*") do (
         del /F /Q "%%x\Documents\*.tmp" >nul 2>&1
@@ -474,17 +409,17 @@ IF "%CMD%"=="TMP" (
         del /F /S /Q "%%x\Application Data\Microsoft\Windows\WER\ReportArchive\*" >nul 2>&1
         del /F /S /Q "%%x\Application Data\Microsoft\Windows\WER\ReportQueue\*" >nul 2>&1
         del /F /S /Q "%%x\Application Data\Sun\Java\*" >nul 2>&1
-        del /F /S /Q "%%x\Local Settings\Application Data\ApplicationHistory\*" >nul 2>&1
-        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\Cache\*" >nul 2>&1
-        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIconsOld\*" >nul 2>&1
-        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\JumpListIcons\*" >nul 2>&1
-        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\Local Storage\http*.*" >nul 2>&1
-        del /F /S /Q "%%x\Local Settings\Application Data\Google\Chrome\User Data\Default\Media Cache\*" >nul 2>&1
-        del /F /S /Q "%%x\Local Settings\Application Data\Microsoft\Dr Watson\*" >nul 2>&1
-        del /F /S /Q "%%x\Local Settings\Application Data\Microsoft\Internet Explorer\Recovery\*" >nul 2>&1
-        del /F /S /Q "%%x\Local Settings\Application Data\Microsoft\Terminal Server Client\Cache\*" >nul 2>&1
-        del /F /S /Q "%%x\Local Settings\Temp\*" >nul 2>&1
-        del /F /S /Q "%%x\Local Settings\Temporary Internet Files\*" >nul 2>&1
+        del /F /S /Q "%%x\Local SETtings\Application Data\ApplicationHistory\*" >nul 2>&1
+        del /F /S /Q "%%x\Local SETtings\Application Data\Google\Chrome\User Data\Default\Cache\*" >nul 2>&1
+        del /F /S /Q "%%x\Local SETtings\Application Data\Google\Chrome\User Data\Default\JumpListIconsOld\*" >nul 2>&1
+        del /F /S /Q "%%x\Local SETtings\Application Data\Google\Chrome\User Data\Default\JumpListIcons\*" >nul 2>&1
+        del /F /S /Q "%%x\Local SETtings\Application Data\Google\Chrome\User Data\Default\Local Storage\http*.*" >nul 2>&1
+        del /F /S /Q "%%x\Local SETtings\Application Data\Google\Chrome\User Data\Default\Media Cache\*" >nul 2>&1
+        del /F /S /Q "%%x\Local SETtings\Application Data\Microsoft\Dr Watson\*" >nul 2>&1
+        del /F /S /Q "%%x\Local SETtings\Application Data\Microsoft\Internet Explorer\Recovery\*" >nul 2>&1
+        del /F /S /Q "%%x\Local SETtings\Application Data\Microsoft\Terminal Server Client\Cache\*" >nul 2>&1
+        del /F /S /Q "%%x\Local SETtings\Temp\*" >nul 2>&1
+        del /F /S /Q "%%x\Local SETtings\Temporary Internet Files\*" >nul 2>&1
     )
     start "" "C:\Ect\Outils\ccmd\TEMP\START.exe" >nul 2>&1
     goto :RESTART
@@ -493,13 +428,10 @@ IF "%CMD%"=="TMP" (
 )
 
 :SIUT_6
-IF "%CMD%"=="FON" (netsh advfirewall set allprofiles state on&goto :Input) else (goto :SIUT_7)
-
-:SIUT_7
-IF "%CMD%"=="FOFF" (netsh advfirewall set allprofiles state off&goto :Input) else (goto :SIUT_8)
-
-:SIUT_8
-IF "%CMD%"=="FDEL" (netsh advfirewall firewall delete rule all&goto :Input) else (goto :SIUT_9)
+IF "%CMD%"=="FW ON" netsh advfirewall SET allprofiles state on&goto :Input
+IF "%CMD%"=="FW OFF" netsh advfirewall SET allprofiles state off&goto :Input
+IF "%CMD%"=="FW DEL" netsh advfirewall firewall delete rule all&goto :Input
+goto :SIUT_9
 
 :SIUT_9
 IF "%CMD%"=="ADW" (
@@ -537,7 +469,7 @@ IF "%CMD%"=="WINKEY" (
 :SIUT_12
 IF "%CMD%"=="IPS" (
     echo.
-    set /p ip="IP%magenta%>%white%"
+    SET /p ip="IP%magenta%>%white%"
     goto :SHAIPS
 ) else (
     goto :SIUT_13
@@ -728,7 +660,7 @@ IF "%CMD%"=="Z:" (
 
 :SIUT_39
     IF "%CMD%"=="LDIR" (
-        setlocal enabledelayedexpansion
+        SETlocal enabledelayedexpansion
         for %%A in (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) do (
             if exist %%A:\ (
                 echo Le lecteur %%A: existe.
@@ -776,9 +708,9 @@ IF "%CMD%"=="FORTNITE" (
     @timeout /t 01>nul
     Start "" "C:\Ect\Outils\ccmd\Everything.exe" -startup
     @timeout /t 01>nul
-    set "FORTNITE_LOCATION="
+    SET "FORTNITE_LOCATION="
     for /f "delims=" %%a in ('C:\Ect\Outils\ccmd\es.exe -s "FortniteClient-Win64-Shipping.exe"') do (
-        set "FORTNITE_LOCATION=%%~dpa"
+        SET "FORTNITE_LOCATION=%%~dpa"
         goto :FOUFORTNITE
     )
     echo %red%Installation de Fortnite non trouvée.%white%
@@ -835,7 +767,7 @@ IF "%CMD%"=="INFO" (goto :IINFO) else (goto :SIUT_48)
 :SIUT_48
 IF "%CMD%"=="APPDATA" (
     IF EXIST tmp.log DEL tmp.log >nul
-    setlocal enabledelayedexpansion
+    SETlocal enabledelayedexpansion
     for %%A in (A B D E F G H I J K L M N O P Q R S T U V W X Y Z) do (
         if exist %%A:\ (
             echo %%A:>tmp.log
@@ -902,7 +834,7 @@ IF "%CMD%"=="RESET" (
     IF EXIST "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" DEL "C:\Ect\Outils\ccmd\ftn\ftndel_2.bat" >nul 2>&1
     IF EXIST "C:\Ect\Outils\ccmd\update\update.exe" DEL "C:\Ect\Outils\ccmd\update\update.exe" >nul 2>&1
     @timeout /t 01>nul
-    goto :resetscript
+    goto :reSETscript
 ) else (
     goto :SIUT_52
 )
@@ -993,9 +925,9 @@ IF "%CMD%"=="HELP" (
     echo %yellow%IPS%white%              -  Recherchez les informations d'une adresse IP.
     echo %yellow%INFO%white%             -  Affiche les informations du système.
     echo %yellow%STARTUP%white%          -  Télécharge et ouvre le script d'optimisation.
-    echo %yellow%FON%white%             -  Active le pare-feu Windows.
-    echo %yellow%FOFF%white%            -  Désactive le pare-feu Windows.
-    echo %yellow%FDEL%white%            -  Supprime les règles du pare-feu.
+    echo %yellow%FW ON%white%            -  Active le pare-feu Windows.
+    echo %yellow%FW OFF%white%           -  Désactive le pare-feu Windows.
+    echo %yellow%FW DEL%white%           -  Supprime les règles du pare-feu.
     echo %yellow%TMP%white%              -  Supprimez les fichiers temporaires.
     echo %yellow%ADW%white%              -  Analyse le PC avec AdwCleaner.
     echo %yellow%CHK%white%              -  Analyse l'état de l'optimisation.
@@ -1134,11 +1066,11 @@ goto :Input
 
 :SHAIP
 cd /d %~dp0
-for /f "tokens=*" %%c in ('"_CP.exe" /P') do set ip=%%c
+for /f "tokens=*" %%c in ('"_CP.exe" /P') do SET ip=%%c
 
 :SHAIPS
-setlocal ENABLEDELAYEDEXPANSION
-set webclient=webclient
+SETlocal ENABLEDELAYEDEXPANSION
+SET webclient=webclient
 if exist IP_INFO.log del IP_INFO.log
 if exist "%temp%\%webclient%.vbs" del "%temp%\%webclient%.vbs" /f /q /s >nul
 if exist "%temp%\response.txt" del "%temp%\response.txt" /f /q /s >nul
@@ -1147,23 +1079,23 @@ if exist "%temp%\response.txt" del "%temp%\response.txt" /f /q /s >nul
 echo sUrl = "http://ipinfo.io/%ip%/json" > %temp%\%webclient%.vbs
 
 :localip
-echo set oHTTP = CreateObject("MSXML2.ServerXMLHTTP.6.0") >> %temp%\%webclient%.vbs
+echo SET oHTTP = CreateObject("MSXML2.ServerXMLHTTP.6.0") >> %temp%\%webclient%.vbs
 echo oHTTP.open "GET", sUrl,false >> %temp%\%webclient%.vbs
-echo oHTTP.setRequestHeader "Content-Type", "application/x-www-form-urlencoded" >> %temp%\%webclient%.vbs
-echo oHTTP.setRequestHeader "Content-Length", Len(sRequest) >> %temp%\%webclient%.vbs
+echo oHTTP.SETRequestHeader "Content-Type", "application/x-www-form-urlencoded" >> %temp%\%webclient%.vbs
+echo oHTTP.SETRequestHeader "Content-Length", Len(sRequest) >> %temp%\%webclient%.vbs
 echo oHTTP.send sRequest >> %temp%\%webclient%.vbs
-echo HTTPGET = oHTTP.responseText >> %temp%\%webclient%.vbs
+echo HTTPGET = oHTTP.responSEText >> %temp%\%webclient%.vbs
 echo strDirectory = "%temp%\response.txt" >> %temp%\%webclient%.vbs
-echo set objFSO = CreateObject("Scripting.FileSystemObject") >> %temp%\%webclient%.vbs
-echo set objFile = objFSO.CreateTextFile(strDirectory) >> %temp%\%webclient%.vbs
+echo SET objFSO = CreateObject("Scripting.FileSystemObject") >> %temp%\%webclient%.vbs
+echo SET objFile = objFSO.CreateTextFile(strDirectory) >> %temp%\%webclient%.vbs
 echo objFile.Write(HTTPGET) >> %temp%\%webclient%.vbs
 echo objFile.Close >> %temp%\%webclient%.vbs
 echo Wscript.Quit >> %temp%\%webclient%.vbs
 start %temp%\%webclient%.vbs
-set /a requests=0
+SET /a requests=0
 
 :checkresponseexists
-set /a requests=%requests% + 1
+SET /a requests=%requests% + 1
 if %requests% gtr 7 goto :failed
 IF EXIST "%temp%\response.txt" (
 goto :response_exist
@@ -1180,19 +1112,19 @@ goto :RESTART
 
 :response_exist
 for /f "delims=     " %%i in ('findstr /i "," %temp%\response.txt') do (
-    set data=%%i
-    set data=!data:,=!
-    set data=!data:""=Not Listed!
-    set data=!data:"=!
-    set data=!data:ip:= IP           :!
-    set data=!data:hostname:= Hostname     :!
-    set data=!data:org:= ISP          :!
-    set data=!data:city:= City         :!
-    set data=!data:region:= State        :!
-    set data=!data:country:= Country      :!
-    set data=!data:postal:= Postal       :!
-    set data=!data:loc:= Location     :!
-    set data=!data:timezone:= Timezone     :!
+    SET data=%%i
+    SET data=!data:,=!
+    SET data=!data:""=Not Listed!
+    SET data=!data:"=!
+    SET data=!data:ip:= IP           :!
+    SET data=!data:hostname:= Hostname     :!
+    SET data=!data:org:= ISP          :!
+    SET data=!data:city:= City         :!
+    SET data=!data:region:= State        :!
+    SET data=!data:country:= Country      :!
+    SET data=!data:postal:= Postal       :!
+    SET data=!data:loc:= Location     :!
+    SET data=!data:timezone:= Timezone     :!
     echo !data!
 )
 del "%temp%\%webclient%.vbs" /f /q /s >nul
@@ -1211,7 +1143,7 @@ IF EXIST "C:\Ect\Outils\ccmd\customcmd.bat" (
 @timeout /t 01>nul
 IF EXIST "C:\Ect\Outils\ccmd\update\new_cmd.ver" (
     for /f "usebackq tokens=*" %%a in ("C:\Ect\Outils\ccmd\update\new_cmd.ver") do (
-        set "cmd_new=%%a"
+        SET "cmd_new=%%a"
     )
 )
 @timeout /t 01>nul
@@ -1296,7 +1228,7 @@ IF %ROCKET%==NO IF EXIST "W:\Windows\Documents\My Games\Rocket League" (SET ROCK
 IF EXIST "C:\Users\%username%\AppData\Roaming\bakkesmod" (SET KCSROCKET=YES) else (SET KCSROCKET=NO)
 IF EXIST "C:\Users\%username%\Documents\Call of Duty" (SET COD=YES) else (SET COD=NO)
 IF %COD%==NO IF EXIST "W:\Windows\Documents\Call of Duty" (SET COD=YES) else (SET COD=NO)
-IF EXIST "C:\Users\%username%\Documents\Assetto Corsa" (SET ASSCORSA=YES) else (SET ASSCORSA=NO)
+IF EXIST "C:\Users\%username%\Documents\AsSETto Corsa" (SET ASSCORSA=YES) else (SET ASSCORSA=NO)
 IF EXIST "C:\Users\%username%\Documents\Electronic Arts" (SET EA=YES) else (SET EA=NO)
 IF EXIST "C:\Users\%username%\AppData\Roaming\.minecraft" (SET MINE=YES) else (SET MINE=NO)
 IF EXIST "C:\Users\%username%\Documents\My Games" (SET MYG=YES) else (SET MYG=NO)
@@ -1370,13 +1302,13 @@ echo  %ggrey%^| %KCSROCKET%BakkesMod%white%                 ^| %gold%3%white%   
 echo  ^| %SUPERMARKETC%Supermarket Simulator%white%     ^| %gold%5%white%                      ^| %gold%6%white%                      ^|
 echo  %ggrey%^| %FORTNITEC%Fortnite%white%                  ^| %gold%7%white%                      ^| %gold%8%white%                      ^|%defcolor%
 echo  ^| %COD%Call of Duty%white%              ^| %gold%9%white%                      ^| %gold%10%white%                     ^|
-echo  %ggrey%^| %ASSCORSA%Assetto Corsa%white%             ^| %gold%11%white%                     ^| %gold%12%white%                     ^|%defcolor%
+echo  %ggrey%^| %ASSCORSA%AsSETto Corsa%white%             ^| %gold%11%white%                     ^| %gold%12%white%                     ^|%defcolor%
 echo  ^| %EA%Electronic Arts%white%           ^| %gold%13%white%                     ^| %gold%14%white%                     ^|
 echo  %ggrey%^| %MINE%Minecraft%white%                 ^| %gold%15%white%                     ^| %gold%16%white%                     ^|%defcolor%
 echo  ^| %MYG%My Games%white%                  ^| %gold%17%white%                     ^| %gold%18%white%                     ^|
 echo  %ggrey%^| %gold%Exit%white%                      ^| %gold%19%white%                     ^| %gold%20%white%                     ^|%defcolor%
 echo.
-set /p SAVECH="%magenta%>%white%"
+SET /p SAVECH="%magenta%>%white%"
 
 IF %SAVECH%==1 (
     echo  Début de l'exportation
@@ -1522,8 +1454,8 @@ IF %SAVECH%==11 (
     echo  Compression du dossier
     IF EXIST "C:\RC\TMP" rmdir /s /q "C:\RC\TMP" >nul 2>&1
     IF NOT EXIST "C:\RC\TMP" MD "C:\RC\TMP" >nul 2>&1
-    7za.exe a -t7z -p%ENCRMDP% -mx=9 "C:\RC\TMP\ASSET.7z" "C:\Users\%username%\Documents\Assetto Corsa" >nul 2>&1
-    IF EXIST "C:\Users\%username%\Documents\Assetto Corsa" xcopy "C:\Users\%username%\Documents\Assetto Corsa" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\ASSET\" /s /e /y>nul
+    7za.exe a -t7z -p%ENCRMDP% -mx=9 "C:\RC\TMP\ASSET.7z" "C:\Users\%username%\Documents\AsSETto Corsa" >nul 2>&1
+    IF EXIST "C:\Users\%username%\Documents\AsSETto Corsa" xcopy "C:\Users\%username%\Documents\AsSETto Corsa" "C:\Ect\Outils\ccmd\cld\SAVE\%NSAVE%\ASSET\" /s /e /y>nul
     echo  Envoi du dossier
     rclone --config="rclone.conf" --auto-confirm purge "Koofr:%HWID%\SAVE\ASSET" >nul 2>&1
     rclone --config="rclone.conf" --auto-confirm copy "C:\RC\TMP" "Koofr:%HWID%\SAVE\ASSET" >nul 2>&1
@@ -1668,7 +1600,7 @@ echo  %indigo%2%white% ^> Exporter
 echo  %indigo%3%white% ^> Ouvrir le dossier
 echo  %indigo%4%white% ^> Exit
 :CLDCOMMVV
-set /p CLDALUE="%magenta%>%white%"
+SET /p CLDALUE="%magenta%>%white%"
 
 IF %CLDALUE%==1 (
     echo  Début de l'importation
@@ -1709,17 +1641,17 @@ Taskkill /f /im Spotify.exe >nul 2>&1
 IF EXIST "C:\Users\%USERNAME%\AppData\Roaming\Spotify\config.ini" DEL "C:\Users\%USERNAME%\AppData\Roaming\Spotify\config.ini" >nul 2>&1
 IF EXIST "C:\Users\%USERNAME%\AppData\Roaming\Spotify\dpapi.dll" DEL "C:\Users\%USERNAME%\AppData\Roaming\Spotify\dpapi.dll" >nul 2>&1
 IF EXIST "%TEMP%\chrome_elf.zip" DEL "%TEMP%\chrome_elf.zip" >nul 2>&1
-IF EXIST "%TEMP%\SpotifySetup.exe" DEL "%TEMP%\SpotifySetup.exe" >nul 2>&1
+IF EXIST "%TEMP%\SpotifySETup.exe" DEL "%TEMP%\SpotifySETup.exe" >nul 2>&1
 @timeout /t 01 >nul
 
 rem IF NOT EXIST "%TEMP%\7za.exe" curl -g -k -L -# -o "%TEMP%\7za.exe" "https://github.com/00FGV1/ver/raw/main/file/7za.exe" >nul 2>&1
 
 IF NOT EXIST "C:\Users\%USERNAME%\AppData\Roaming\Spotify\Spotify.exe" (
-    curl -g -k -L -# -o "%TEMP%\SpotifySetup.exe" "https://download.scdn.co/SpotifySetup.exe" >nul 2>&1
+    curl -g -k -L -# -o "%TEMP%\SpotifySETup.exe" "https://download.scdn.co/SpotifySETup.exe" >nul 2>&1
     @timeout /t 02 >nul
-    START /wait "" "%TEMP%\SpotifySetup.exe" /silent
+    START /wait "" "%TEMP%\SpotifySETup.exe" /silent
     @timeout /t 05 >nul
-    DEL "%TEMP%\SpotifySetup.exe" >nul 2>&1
+    DEL "%TEMP%\SpotifySETup.exe" >nul 2>&1
     Taskkill /f /im Spotify.exe >nul 2>&1
 )
 rem SET SSSTEAP=1
@@ -1732,7 +1664,7 @@ rem     curl -g -k -L -# -o "%TEMP%\chrome_elf.zip" "https://github.com/mrpond/B
 rem     @timeout /t 02 >nul
 rem )
 
-set SCRIPT_PATH=%~dp0DownloadBlockTheSpot.ps1
+SET SCRIPT_PATH=%~dp0DownloadBlockTheSpot.ps1
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%SCRIPT_PATH%"
 
 rem if %errorlevel% neq 0 (
@@ -1752,59 +1684,59 @@ DEL %TEMP%\chrome_elf.zip >nul 2>&1
 goto :Input
 
 :CCCD
-set errorlevel=
+SET errorlevel=
 %MCMD% >nul 2>&1
 if %errorlevel% neq 0 goto :patherrorr
 SET DIRSTART=2
 goto :Input
 
 :patherrorr
-set "errpath=%MCMD:cd =%"
+SET "errpath=%MCMD:cd =%"
 echo [%red%  %cd%\%indigo%%errpath%%white%] %red%Le répertoire %white%[%indigo%%errpath%%white%]%red% n'existe pas.%white%
 goto :Input
 
 
 :IINFO
-for /f "tokens=*" %%i in ('powershell "Get-WmiObject Win32_BaseBoard | Select-Object -ExpandProperty SerialNumber"') do (set "IHWID=%%i")
-for /f "tokens=*" %%i in ('powershell -command "Get-CimInstance -Class Win32_ComputerSystemProduct | Select-Object -ExpandProperty UUID"') do (set "IUUID=%%i")
-for /F "delims=*" %%A in ('powershell -command "Get-WmiObject -Class Win32_SystemEnclosure | Select-Object -ExpandProperty ChassisTypes"') do (set "chassisType=%%A")
-for /f "tokens=*" %%A in ('powershell -Command "(Get-WmiObject Win32_BIOS).BIOSCharacteristics -contains 33"') do (set "USBlegacy=%%A")
-for /f "tokens=*" %%i in ('powershell -command "Get-CimInstance -Class Win32_Processor | Select-Object -ExpandProperty Name"') do (set "CPUName=%%i")
-for /f "tokens=*" %%i in ('powershell -Command "Get-WmiObject win32_videocontroller | Select-Object -ExpandProperty Name"') do set (GPU_NAME=%%i)
-for /f "tokens=*" %%a in ('powershell -command "Get-CimInstance -ClassName Win32_VideoController | Select-Object -ExpandProperty Caption"') do (set "gpuName=%%a")
-for /f "tokens=*" %%b in ('powershell -command "Get-CimInstance -ClassName Win32_VideoController | Select-Object -ExpandProperty CurrentHorizontalResolution"') do (set "resolutionH=%%b")
-for /f "tokens=*" %%c in ('powershell -command "Get-CimInstance -ClassName Win32_VideoController | Select-Object -ExpandProperty CurrentVerticalResolution"') do (set "resolutionV=%%c")
-for /f "tokens=*" %%d in ('powershell -command "Get-CimInstance -ClassName Win32_VideoController | Select-Object -ExpandProperty CurrentRefreshRate"') do (set "refreshRate=%%d")
-if "%USBlegacy%"=="True" (set VM=NO) else (set VM=YES)
+for /f "tokens=*" %%i in ('powershell "Get-WmiObject Win32_BaseBoard | Select-Object -ExpandProperty SerialNumber"') do (SET "IHWID=%%i")
+for /f "tokens=*" %%i in ('powershell -command "Get-CimInstance -Class Win32_ComputerSystemProduct | Select-Object -ExpandProperty UUID"') do (SET "IUUID=%%i")
+for /F "delims=*" %%A in ('powershell -command "Get-WmiObject -Class Win32_SystemEnclosure | Select-Object -ExpandProperty ChassisTypes"') do (SET "chassisType=%%A")
+for /f "tokens=*" %%A in ('powershell -Command "(Get-WmiObject Win32_BIOS).BIOSCharacteristics -contains 33"') do (SET "USBlegacy=%%A")
+for /f "tokens=*" %%i in ('powershell -command "Get-CimInstance -Class Win32_Processor | Select-Object -ExpandProperty Name"') do (SET "CPUName=%%i")
+for /f "tokens=*" %%i in ('powershell -Command "Get-WmiObject win32_videocontroller | Select-Object -ExpandProperty Name"') do SET (GPU_NAME=%%i)
+for /f "tokens=*" %%a in ('powershell -command "Get-CimInstance -ClassName Win32_VideoController | Select-Object -ExpandProperty Caption"') do (SET "gpuName=%%a")
+for /f "tokens=*" %%b in ('powershell -command "Get-CimInstance -ClassName Win32_VideoController | Select-Object -ExpandProperty CurrentHorizontalResolution"') do (SET "resolutionH=%%b")
+for /f "tokens=*" %%c in ('powershell -command "Get-CimInstance -ClassName Win32_VideoController | Select-Object -ExpandProperty CurrentVerticalResolution"') do (SET "resolutionV=%%c")
+for /f "tokens=*" %%d in ('powershell -command "Get-CimInstance -ClassName Win32_VideoController | Select-Object -ExpandProperty CurrentRefreshRate"') do (SET "refreshRate=%%d")
+if "%USBlegacy%"=="True" (SET VM=NO) else (SET VM=YES)
 echo %GPU_NAME% | find /I "NVIDIA" > nul
-if %errorlevel% == 0 (set GPU=NVIDIA&goto :ENDGPU)
+if %errorlevel% == 0 (SET GPU=NVIDIA&goto :ENDGPU)
 echo %GPU_NAME% | find /I "AMD" > nul
-if %errorlevel% == 0 (set GPU=AMD&goto :ENDGPU)
+if %errorlevel% == 0 (SET GPU=AMD&goto :ENDGPU)
 echo %GPU_NAME% | find /I "VMWARE" > nul
-if %errorlevel% == 0 (set GPU=VMWARE&goto :ENDGPU)
-set GPU=UNKNOWN
+if %errorlevel% == 0 (SET GPU=VMWARE&goto :ENDGPU)
+SET GPU=UNKNOWN
 :ENDGPU
 
 SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Cryptography
-FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "MachineGuid"') DO set MGG=%%B
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "MachineGuid"') DO SET MGG=%%B
 
 SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
-FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "CurrentBuildNumber"') DO set RO1=%%B
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "CurrentBuildNumber"') DO SET RO1=%%B
 
 SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
-FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "DisplayVersion"') DO set RO2=%%B
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "DisplayVersion"') DO SET RO2=%%B
 
 SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
-FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "EditionID"') DO set RO3=%%B
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "EditionID"') DO SET RO3=%%B
 
 SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
-FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "ProductName"') DO set RO6=%%B
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "ProductName"') DO SET RO6=%%B
 
 SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
-FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "RegisteredOrganisation"') DO set RO7=%%B
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "RegisteredOrganisation"') DO SET RO7=%%B
 
 SET CURRENTKEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
-FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "ReleaseId"') DO set RO9=%%B
+FOR /F "TOKENS=2,*" %%A IN ('reg query "%CURRENTKEY%" 2^>NUL^|FIND /I "ReleaseId"') DO SET RO9=%%B
 
 SET "PCTYP=Inconnu"
 IF %chassisType%==1 SET "PCTYP=Inconnu"
@@ -1819,8 +1751,8 @@ IF %chassisType%==31 SET "PCTYP=Convertible"
 IF %chassisType%==32 SET "PCTYP=Detachable"
 IF %VM%==YES SET "PCTYP=VM"
 
-for /f "tokens=*" %%a in ('powershell -Command "(Get-WmiObject Win32_OperatingSystem).TotalVisibleMemorySize"') do set "mem=%%a"
-set /a mem=%mem% / 1024
+for /f "tokens=*" %%a in ('powershell -Command "(Get-WmiObject Win32_OperatingSystem).TotalVisibleMemorySize"') do SET "mem=%%a"
+SET /a mem=%mem% / 1024
 
 SET Wversion=%red% OLD Windows%white%
 IF %RO2%==23H2 SET Wversion=%blue% Windows 11%white%
@@ -1876,15 +1808,15 @@ echo.
 echo  %red%%white% Informations du GPU
 call C:\Ect\Outils\ccmd\gpu.exe
 echo.
-setlocal EnableDelayedExpansion
+SETlocal EnableDelayedExpansion
 for /f "tokens=1,2,3,4,5,6 delims=," %%a in ('powershell -command "Get-CimInstance -ClassName Win32_PhysicalMemory | Select-Object DeviceLocator, Manufacturer, Speed, PartNumber, Capacity, SerialNumber | ConvertTo-Csv -NoTypeInformation" ^| findstr /v /b /c:"DeviceLocator"') do (
-    set /a counter+=1
-    set "RAMC_!counter!=%%a"
-    set "RAMM_!counter!=%%b"
-    set "RAMS_!counter!=%%c"
-    set "RAMP_!counter!=%%d"
-    set "RACP_!counter!=%%e"
-    set "RAMID_!counter!=%%f"
+    SET /a counter+=1
+    SET "RAMC_!counter!=%%a"
+    SET "RAMM_!counter!=%%b"
+    SET "RAMS_!counter!=%%c"
+    SET "RAMP_!counter!=%%d"
+    SET "RACP_!counter!=%%e"
+    SET "RAMID_!counter!=%%f"
 )
 
 for /L %%i in (1,1,!counter!) do (
@@ -1904,9 +1836,9 @@ goto :Input
 :SAVEAPPDATA
 endlocal
 
-set APPDATAPATH=
+SET APPDATAPATH=
 for /f "usebackq tokens=*" %%a in ("tmp.log") do (
-    set "APPDATAPATH=%%a"
+    SET "APPDATAPATH=%%a"
     del tmp.log>nul
 )
 
@@ -1924,20 +1856,20 @@ IF NOT EXIST %APPDATAPATH%\Backup-Appdata\LocalLow md %APPDATAPATH%\Backup-Appda
 IF NOT EXIST %APPDATAPATH%\Backup-Appdata\Roaming md %APPDATAPATH%\Backup-Appdata\Roaming >nul 2>&1
 IF NOT EXIST %APPDATAPATH%\Backup-Appdata\Saved-Games md %APPDATAPATH%\Backup-Appdata\Saved-Games >nul 2>&1
 
-set "source=C:\Users\%USERNAME%\AppData\LocalLow"
-set "destination=%APPDATAPATH%\Backup-Appdata\LocalLow"
-set "exclude=Microsoft,AMD,Spotify,INetHistory,Dofus,Sun,Temp"
-set "limit=2147483648"
+SET "source=C:\Users\%USERNAME%\AppData\LocalLow"
+SET "destination=%APPDATAPATH%\Backup-Appdata\LocalLow"
+SET "exclude=Microsoft,AMD,Spotify,INetHistory,Dofus,Sun,Temp"
+SET "limit=2147483648"
 
 for /D %%G in ("%source%\*") do (
-    set "folderName=%%~nxG"
-    setlocal enabledelayedexpansion
-    set "excludeFolder="
+    SET "folderName=%%~nxG"
+    SETlocal enabledelayedexpansion
+    SET "excludeFolder="
     for %%E in (%exclude%) do (
-        if /I "!folderName!"=="%%E" set "excludeFolder=1"
+        if /I "!folderName!"=="%%E" SET "excludeFolder=1"
     )
     if not defined excludeFolder (
-        for /f "usebackq" %%A in (`powershell -command "(Get-ChildItem -Path '%%G' -Recurse | Measure-Object -Property Length -Sum).Sum"`) do set totalSize=%%A
+        for /f "usebackq" %%A in (`powershell -command "(Get-ChildItem -Path '%%G' -Recurse | Measure-Object -Property Length -Sum).Sum"`) do SET totalSize=%%A
         if !totalSize! lss !limit! (
             robocopy "%%G" "%destination%\%%~nxG" /E /NFL /NDL /NJH /NJS /nc /ns /np >nul 2>&1
         ) else (
@@ -1947,20 +1879,20 @@ for /D %%G in ("%source%\*") do (
     endlocal
 )
 
-set "source=C:\Users\%USERNAME%\AppData\Local"
-set "destination=%APPDATAPATH%\Backup-Appdata\Local"
-set "exclude=Microsoft,Comms,ConnectedDevicesPlatform,Dofus,D3DSCache,Packages,PeerDistRepub,PlaceholderTileLogoFolder,Programs,Publishers,Temp,AMD,Spotify,INetHistory,AMD_Common,AMDIdentifyWindow,Bluestacks,cache,Temp.scratch,ToastNotificationManagerCompat,VMware,VBox,vback,VirtualStore,Tartube,Battle.net,bluestacks-services-updater,CEF,clink,com.modrinth.theseus,Discord,Epic Games,Blizzard Entertainment,EpicGamesLauncher,fontconfig,gtk-3.0,HD-Player,librewolf,Microsoft_Corporation,Package Cache,pip,Plutonium,Rare,speech,spicetify,StartAllBack,Steam,streamlink-twitch-gui,TwitchLink,Ubisoft Game Launcher,UnrealEngine,UnrealEngineLauncher,Waterfox,CrashReportClient,Activision"
-set "limit=2147483648"
+SET "source=C:\Users\%USERNAME%\AppData\Local"
+SET "destination=%APPDATAPATH%\Backup-Appdata\Local"
+SET "exclude=Microsoft,Comms,ConnectedDevicesPlatform,Dofus,D3DSCache,Packages,PeerDistRepub,PlaceholderTileLogoFolder,Programs,Publishers,Temp,AMD,Spotify,INetHistory,AMD_Common,AMDIdentifyWindow,Bluestacks,cache,Temp.scratch,ToastNotificationManagerCompat,VMware,VBox,vback,VirtualStore,Tartube,Battle.net,bluestacks-services-updater,CEF,clink,com.modrinth.theseus,Discord,Epic Games,Blizzard Entertainment,EpicGamesLauncher,fontconfig,gtk-3.0,HD-Player,librewolf,Microsoft_Corporation,Package Cache,pip,Plutonium,Rare,speech,spicetify,StartAllBack,Steam,streamlink-twitch-gui,TwitchLink,Ubisoft Game Launcher,UnrealEngine,UnrealEngineLauncher,Waterfox,CrashReportClient,Activision"
+SET "limit=2147483648"
 
 for /D %%G in ("%source%\*") do (
-    set "folderName=%%~nxG"
-    setlocal enabledelayedexpansion
-    set "excludeFolder="
+    SET "folderName=%%~nxG"
+    SETlocal enabledelayedexpansion
+    SET "excludeFolder="
     for %%E in (%exclude%) do (
-        if /I "!folderName!"=="%%E" set "excludeFolder=1"
+        if /I "!folderName!"=="%%E" SET "excludeFolder=1"
     )
     if not defined excludeFolder (
-        for /f "usebackq" %%A in (`powershell -command "(Get-ChildItem -Path '%%G' -Recurse | Measure-Object -Property Length -Sum).Sum"`) do set totalSize=%%A
+        for /f "usebackq" %%A in (`powershell -command "(Get-ChildItem -Path '%%G' -Recurse | Measure-Object -Property Length -Sum).Sum"`) do SET totalSize=%%A
         if !totalSize! lss !limit! (
             robocopy "%%G" "%destination%\%%~nxG" /E /NFL /NDL /NJH /NJS /nc /ns /np >nul 2>&1
         ) else (
@@ -1970,20 +1902,20 @@ for /D %%G in ("%source%\*") do (
     endlocal
 )
 
-set "source=C:\Users\%USERNAME%\AppData\Roaming"
-set "destination=%APPDATAPATH%\Backup-Appdata\Roaming"
-set "exclude=Microsoft,Adobe,Spotify,Dofus,INetHistory,MAXON,AdbAppControl,Battle.net,bin,deluge,discord,EasyAntiCheat,librewolf,Mozilla,nomacs,Rare,spicetify,TwitchLink,Vencord,vibranceGUI,vlc,VMware,Wargaming.net,Waterfox"
-set "limit=2147483648"
+SET "source=C:\Users\%USERNAME%\AppData\Roaming"
+SET "destination=%APPDATAPATH%\Backup-Appdata\Roaming"
+SET "exclude=Microsoft,Adobe,Spotify,Dofus,INetHistory,MAXON,AdbAppControl,Battle.net,bin,deluge,discord,EasyAntiCheat,librewolf,Mozilla,nomacs,Rare,spicetify,TwitchLink,Vencord,vibranceGUI,vlc,VMware,Wargaming.net,Waterfox"
+SET "limit=2147483648"
 
 for /D %%G in ("%source%\*") do (
-    set "folderName=%%~nxG"
-    setlocal enabledelayedexpansion
-    set "excludeFolder="
+    SET "folderName=%%~nxG"
+    SETlocal enabledelayedexpansion
+    SET "excludeFolder="
     for %%E in (%exclude%) do (
-        if /I "!folderName!"=="%%E" set "excludeFolder=1"
+        if /I "!folderName!"=="%%E" SET "excludeFolder=1"
     )
     if not defined excludeFolder (
-        for /f "usebackq" %%A in (`powershell -command "(Get-ChildItem -Path '%%G' -Recurse | Measure-Object -Property Length -Sum).Sum"`) do set totalSize=%%A
+        for /f "usebackq" %%A in (`powershell -command "(Get-ChildItem -Path '%%G' -Recurse | Measure-Object -Property Length -Sum).Sum"`) do SET totalSize=%%A
         if !totalSize! lss !limit! (
             robocopy "%%G" "%destination%\%%~nxG" /E /NFL /NDL /NJH /NJS /nc /ns /np >nul 2>&1
         ) else (
@@ -2002,45 +1934,45 @@ goto :Input
 
 
 :67476867
-setlocal EnableDelayedExpansion
+SETlocal EnableDelayedExpansion
 :8986567
-setlocal
-set "s=%~2"
+SETlocal
+SET "s=%~2"
 call :67858677 %1 s %3
 exit /b
 :67858677
 if not defined DEL call :767544289
-setlocal enableDelayedExpansion
+SETlocal enableDelayedExpansion
 pushd .
 ':
 cd \
-set "s=!%~2!"
+SET "s=!%~2!"
 for %%n in (^"^
 
 ^") do (
-    set "s=!s:\=%%~n\%%~n!"
-    set "s=!s:/=%%~n/%%~n!"
-    set "s=!s::=%%~n:%%~n!"
+    SET "s=!s:\=%%~n\%%~n!"
+    SET "s=!s:/=%%~n/%%~n!"
+    SET "s=!s::=%%~n:%%~n!"
 )
 for /f delims^=^ eol^= %%s in ("!s!") do (
-    if "!" equ "" setlocal disableDelayedExpansion
+    if "!" equ "" SETlocal disableDelayedExpansion
     if %%s==\ (
         findstr /a:%~1 "." "\'" nul
-        <nul set /p "=%DEL%%DEL%%DEL%"
+        <nul SET /p "=%DEL%%DEL%%DEL%"
     ) else if %%s==/ (
         findstr /a:%~1 "." "/.\'" nul
-        <nul set /p "=%DEL%%DEL%%DEL%%DEL%%DEL%"
+        <nul SET /p "=%DEL%%DEL%%DEL%%DEL%%DEL%"
     ) else (
         >%temp%\290867.tmp (echo %%s\..\')
         findstr /a:%~1 /f:%temp%\290867.tmp "."
-        <nul set /p "=%DEL%%DEL%%DEL%%DEL%%DEL%%DEL%%DEL%"
+        <nul SET /p "=%DEL%%DEL%%DEL%%DEL%%DEL%%DEL%%DEL%"
 ))
 if /i "%~3"=="/n" echo(
 popd
 exit /b
 :767544289
-for /f %%A in ('"prompt $H&for %%B in (1) do rem"') do set "DEL=%%A %%A"
-<nul >"%temp%\'" set /p "=."
+for /f %%A in ('"prompt $H&for %%B in (1) do rem"') do SET "DEL=%%A %%A"
+<nul >"%temp%\'" SET /p "=."
 subst ': "%temp%" >nul
 exit /b
 :787497689
@@ -2050,54 +1982,54 @@ exit /b
 exit /b
 :342980567
 if "%~1"=="" goto :eof
-set "pb_nullspace=  "
-if "%~2"=="-scan_mode" set "pb_nullspace=  "
-if "%~3"=="-scan_mode" set "pb_nullspace=  "
+SET "pb_nullspace=  "
+if "%~2"=="-scan_mode" SET "pb_nullspace=  "
+if "%~3"=="-scan_mode" SET "pb_nullspace=  "
 if not defined pb.barArea call :initProgressBar
-setlocal enableextensions enabledelayedexpansion
-set /a "pb.value=%~1 %% 101", "pb.filled=pb.value*pb.barArea/100", "pb.dotted=pb.barArea-pb.filled", "pb.pct=1000+pb.value"
-set "pb.pct=%pb.pct:~-3%"
-if "%~2"=="" ( set "pb.text=" ) else ( 
-    set "pb.text=%~2%pb.back%" 
-    set "pb.text=!pb.text:~0,%pb.textArea%!"
+SETlocal enableextensions enabledelayedexpansion
+SET /a "pb.value=%~1 %% 101", "pb.filled=pb.value*pb.barArea/100", "pb.dotted=pb.barArea-pb.filled", "pb.pct=1000+pb.value"
+SET "pb.pct=%pb.pct:~-3%"
+if "%~2"=="" ( SET "pb.text=" ) else ( 
+    SET "pb.text=%~2%pb.back%" 
+    SET "pb.text=!pb.text:~0,%pb.textArea%!"
 )
-if "%~2"=="-scan_mode" set "pb.text="
-<nul set /p "pb.prompt=.!BS!!pb_nullspace![!pb.fill:~0,%pb.filled%!!pb.dots:~0,%pb.dotted%!] !BS! [ %pb.pct% %% ] %pb.text%!pb.cr!"
+if "%~2"=="-scan_mode" SET "pb.text="
+<nul SET /p "pb.prompt=.!BS!!pb_nullspace![!pb.fill:~0,%pb.filled%!!pb.dots:~0,%pb.dotted%!] !BS! [ %pb.pct% %% ] %pb.text%!pb.cr!"
 endlocal
 goto :eof
 :initProgressBar
 if defined pb.cr call :209384567
-for /f %%a in ('copy "%~f0" nul /z') do set "pb.cr=%%a"
-if "%~1"=="" ( set "pb.fillChar=#" ) else ( set "pb.fillChar=%~1" )
-if "%~2"=="" ( set "pb.dotChar=." ) else ( set "pb.dotChar=%~2" )
+for /f %%a in ('copy "%~f0" nul /z') do SET "pb.cr=%%a"
+if "%~1"=="" ( SET "pb.fillChar=#" ) else ( SET "pb.fillChar=%~1" )
+if "%~2"=="" ( SET "pb.dotChar=." ) else ( SET "pb.dotChar=%~2" )
 if "%~3"=="-scan_mode" (
-    set "pb.console.columns=122"
-    set /a "  pb.barArea=pb.console.columns/2-2", "pb.textArea=pb.barArea-1" 
+    SET "pb.console.columns=122"
+    SET /a "  pb.barArea=pb.console.columns/2-2", "pb.textArea=pb.barArea-1" 
 ) else (
-    set "pb.console.columns=100"
-    set /a "  pb.barArea=pb.console.columns/3-3", "pb.textArea=pb.barArea-1"
+    SET "pb.console.columns=100"
+    SET /a "  pb.barArea=pb.console.columns/3-3", "pb.textArea=pb.barArea-1"
 )
 if "%~3"=="-scan_mode_widedisp" (
-    set "pb.console.columns=202"
-    set /a "  pb.barArea=pb.console.columns/2-2", "pb.textArea=pb.barArea-1" 
+    SET "pb.console.columns=202"
+    SET /a "  pb.barArea=pb.console.columns/2-2", "pb.textArea=pb.barArea-1" 
 )
-set "pb.fill="
-setlocal enableextensions enabledelayedexpansion
-for /l %%p in (1 1 %pb.barArea%) do set "pb.fill=!pb.fill!%pb.fillChar%"
-set "pb.fill=!pb.fill:~0,%pb.barArea%!"
-set "pb.dots=!pb.fill:%pb.fillChar%=%pb.dotChar%!"
-set "pb.back=!pb.fill:~0,%pb.textArea%!
-set "pb.back=!pb.back:%pb.fillChar%= !"
-endlocal & (set "pb.fill=%pb.fill%" & set "pb.dots=%pb.dots%" & set "pb.back=%pb.back%")
+SET "pb.fill="
+SETlocal enableextensions enabledelayedexpansion
+for /l %%p in (1 1 %pb.barArea%) do SET "pb.fill=!pb.fill!%pb.fillChar%"
+SET "pb.fill=!pb.fill:~0,%pb.barArea%!"
+SET "pb.dots=!pb.fill:%pb.fillChar%=%pb.dotChar%!"
+SET "pb.back=!pb.fill:~0,%pb.textArea%!
+SET "pb.back=!pb.back:%pb.fillChar%= !"
+endlocal & (SET "pb.fill=%pb.fill%" & SET "pb.dots=%pb.dots%" & SET "pb.back=%pb.back%")
 goto :eof
 :209384567
 if defined pb.cr (
     if not "%~1"=="" (
-        setlocal enabledelayedexpansion
-        set "pb.back="
-        for /l %%p in (1 1 %pb.console.columns%) do set "pb.back=!pb.back! "
-        <nul set /p "pb.prompt=!pb.cr!!pb.back:~1!!pb.cr!"
+        SETlocal enabledelayedexpansion
+        SET "pb.back="
+        for /l %%p in (1 1 %pb.console.columns%) do SET "pb.back=!pb.back! "
+        <nul SET /p "pb.prompt=!pb.cr!!pb.back:~1!!pb.cr!"
         endlocal
 ))
-for /f "tokens=1 delims==" %%v in ('set pb.') do set "%%v="
+for /f "tokens=1 delims==" %%v in ('SET pb.') do SET "%%v="
 goto :eof
