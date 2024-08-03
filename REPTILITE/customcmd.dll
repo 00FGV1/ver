@@ -28,7 +28,7 @@ SET ERRORDHK3=ERR
 SET IINFO=0
 SET DIRSTART=1
 chcp 65001 > nul
-SET scrver=0.14
+SET scrver=0.15
 cls
 
 if /i "%~1"=="/VER" (
@@ -505,7 +505,7 @@ IF "%CMD%"=="FDEL" (netsh advfirewall firewall delete rule all&goto :Input) else
 IF "%CMD%"=="ADW" (
     IF NOT EXIST "C:\Ect\adwcleaner.exe" curl -g -k -L -# -o "C:\Ect\adwcleaner.exe" "https://downloads.malwarebytes.com/file/adwcleaner"
     @timeout /t 1 >nul
-    start /wait C:\Ect\adwcleaner.exe /eula /clean /noreboot /path "%LOGSP%"
+    start /wait C:\Ect\adwcleaner.exe /eula /clean /noreboot
     @timeout /t 1 >nul
     start /wait C:\Ect\adwcleaner.exe /uninstall
     goto :Input
