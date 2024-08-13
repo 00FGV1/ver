@@ -22,6 +22,7 @@ Albion-Online_BE.exe
 Albion-Online.exe
 HorizonForbiddenWest.exe
 TS4_x64.exe
+UAGame.exe
 GTAIV.exe
 Pandora.exe
 DOOMx64vk.exe
