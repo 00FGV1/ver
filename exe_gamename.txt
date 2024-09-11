@@ -337,3 +337,7 @@ NieR Replicant ver.1.22474487139.exe
 Mining-Win64-Shipping.exe
 EscapeFromTarkov.exe
 ManorLords-Win64-Shipping.exe
+FactoryGameEGS-Win64-Shipping.exe
+FactoryGameEGS.exe
+FactoryGame-Win64-Shipping.exe
+FactoryGame.exe
