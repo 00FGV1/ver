@@ -152,6 +152,7 @@ MKKE.exe
 MetroLL.exe
 KSP.exe
 Kingdom.exe
+KingdomCome.exe
 HotlineMiami.exe
 HotlineGL.exe
 Hexcells.exe
