@@ -342,3 +342,4 @@ FactoryGameEGS-Win64-Shipping.exe
 FactoryGameEGS.exe
 FactoryGame-Win64-Shipping.exe
 FactoryGame.exe
+METAPHOR.exe
