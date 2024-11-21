@@ -344,3 +344,4 @@ FactoryGame-Win64-Shipping.exe
 FactoryGame.exe
 METAPHOR.exe
 ProjectZomboid64.exe
+Stalker2-Win64-Shipping.exe
