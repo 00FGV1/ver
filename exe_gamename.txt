@@ -346,3 +346,4 @@ METAPHOR.exe
 ProjectZomboid64.exe
 Stalker2-Win64-Shipping.exe
 Raft.exe
+VotV-Win64-Shipping.exe
