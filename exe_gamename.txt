@@ -70,6 +70,7 @@ SkyrimSE.exe
 RDR2.exe
 THUG.exe
 Minecraft.exe
+MinecraftLauncher.exe
 EDLaunch.exe
 TmUnitedForever.exe
 Ziggurat.exe
