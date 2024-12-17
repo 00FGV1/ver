@@ -341,6 +341,7 @@ war2.exe
 war3.exe
 witcher.exe
 witcher3.exe
+wgc_api.exe
 xrEngine.exe
 yso_win.exe
 yuzu.exe
