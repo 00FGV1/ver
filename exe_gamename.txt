@@ -345,3 +345,4 @@ wgc_api.exe
 xrEngine.exe
 yso_win.exe
 yuzu.exe
+mysummercar.exe
