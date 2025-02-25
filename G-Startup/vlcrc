@@ -4823,10 +4823,10 @@ one-instance-when-started-from-file=0
 #key-toggle-fullscreen=
 
 # Exit fullscreen (Chaîne)
-global-key-leave-fullscreen=f
+global-key-leave-fullscreen=
 
 # Exit fullscreen (Chaîne)
-key-leave-fullscreen=g
+key-leave-fullscreen=
 
 # Play/Pause (Chaîne)
 #global-key-play-pause=
