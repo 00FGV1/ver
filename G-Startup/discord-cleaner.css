@@ -1,0 +1,136 @@
+/* ----------------------------- */
+/* Hides super reaction elements */
+/* ----------------------------- */
+
+[class*=reaction_]:has([aria-label*="super reaction"]),
+[class*=burstToggle_] {
+    display: none;
+}
+
+/* ------------------------- */
+/* Hides general UI elements */
+/* ------------------------- */
+
+/* Bug reporting button */
+[aria-label="Help"] {
+    display: none;
+}
+
+/* Gift button in chat box */
+[aria-label="Send a gift"] {
+    display: none;
+}
+
+/* Add server button in side bar */
+[aria-label="Servers"]+[class*=tutorialContainer_] {
+    display: none;
+}
+
+/* Explore servers button in side bar */
+[class*=listItem_]:has([aria-label="Explore Discoverable Servers"]) {
+    display: none;
+}
+
+/* Trailing guild separator in side bar */
+[class*=tutorialContainer_]+[class*=listItem_]+[class*=listItem_] {
+    display: none;
+}
+
+/* Download apps button in side bar */
+[class*=listItem_]:has([aria-label="Download Apps"]) {
+    display: none;
+}
+
+/* Hide nitro advertisement in emote info */
+[class*=shinyButton_] {
+    display: none;
+}
+
+/* Hide nitro advertisement in reaction pop-up */
+[class*=nitroTopDividerContainer_],
+[class*=categorySectionNitroLocked_],
+[class*=upsellContainer_] {
+    display: none;
+}
+
+/* -------------------------------------- */
+/* Hide elements when connected to a call */
+/* -------------------------------------- */
+
+/* Soundboard and reactions in bottom controls */
+[class*=voiceEffectsActionBar_] {
+    display: none;
+}
+
+/* Soundboard in action buttons */
+[type="button"]+div:has([aria-label="Open Soundboard"]) {
+    display: none;
+}
+
+/* Soundboard in action buttons when deafened */
+[type="button"]+div:has([aria-label="Soundboard disabled when deafened"]) {
+    display: none;
+}
+
+/* ------------------------------- */
+/* Hides advertisements in DMs tab */
+/* ------------------------------- */
+
+/* Nitro button */
+[role="listitem"]:has([href="/store"]) {
+    display: none;
+}
+
+/* Shop button */
+[role="listitem"]:has([href="/shop"]) {
+    display: none;
+}
+
+/* ---------------------------------------------------- */
+/* Hides advertisements within profiles tab in settings */
+/* ---------------------------------------------------- */
+
+[class*=container_]:has(+div+[class*=premiumFeatureBorder_]),
+[class*=premiumFeatureBorder_],
+[class*=upsellOverlayContainer_] {
+    display: none;
+}
+
+/* --------------------------------------------------------- */
+/* Hides buttons within billing settings section of settings */
+/* --------------------------------------------------------- */
+
+/* Billing settings header */
+[class*="header_"]:has(+[data-tab-id="Discord Nitro"]) {
+    display: none;
+}
+
+/* Nitro button */
+[data-tab-id="Discord Nitro"] {
+    display: none;
+}
+
+/* Server boost button */
+[data-tab-id="Nitro Server Boost"] {
+    display: none;
+}
+
+/* Subscriptions button */
+[data-tab-id="Subscriptions"] {
+    display: none;
+}
+
+/* Gift inventory button */
+[data-tab-id="Library Inventory"] {
+    display: none;
+}
+
+/* Billing button */
+[data-tab-id="Billing"] {
+    display: none;
+}
+
+/* Trailing separator */
+[data-tab-id="Billing"]+[class*=separator_] {
+    display: none;
+}
