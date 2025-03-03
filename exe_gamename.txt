@@ -346,3 +346,5 @@ xrEngine.exe
 yso_win.exe
 yuzu.exe
 mysummercar.exe
+Octopath_Traveler-Win64-Shipping.exe
+DeltaForceClient-Win64-Shipping.exe
