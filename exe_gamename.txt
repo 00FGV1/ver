@@ -39,6 +39,7 @@ CosmicShake.exe
 Crysis.exe
 Cuphead.exe
 Cyberpunk2077.exe
+DriveBeyondHorizons-Win64-Shipping.exe
 DARKSOULS.exe
 DMC-DevilMayCry.exe
 DOOM.exe
