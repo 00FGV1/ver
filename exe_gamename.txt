@@ -179,6 +179,7 @@ RocketLeague.exe
 Rome2.exe
 RomeTW.exe
 Ryujinx.exe
+Schedule I.exe
 SGWContracts2.exe
 SanctumGame-Win32-Shipping.exe
 Satisfactory.exe
