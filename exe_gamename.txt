@@ -352,3 +352,5 @@ Octopath_Traveler-Win64-Shipping.exe
 DeltaForceClient-Win64-Shipping.exe
 gmod.exe
 cs2.exe
+OblivionRemastered-Win64-Shipping.exe
+SandFall-Win64-Shipping.exe
