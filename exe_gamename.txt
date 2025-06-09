@@ -211,6 +211,7 @@ SublevelZero.exe
 Subnautica.exe
 SunlessSea.exe
 SuperMeatBoy.exe
+Soulframe.x64.exe
 THUG.exe
 TOXIKK.exe
 TS4.exe
