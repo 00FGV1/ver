@@ -359,3 +359,4 @@ Going Medieval.exe
 FSD-Win64-Shipping.exe
 DRIVERally.exe
 Balatro.exe
+BloodStrike.exe
