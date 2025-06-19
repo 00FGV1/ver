@@ -357,3 +357,5 @@ OblivionRemastered-Win64-Shipping.exe
 SandFall-Win64-Shipping.exe
 Going Medieval.exe
 FSD-Win64-Shipping.exe
+DRIVERally.exe
+Balatro.exe
